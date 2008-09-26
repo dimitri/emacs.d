@@ -1,13 +1,12 @@
 ;;; cssh.el --- clusterssh implementation for emacs
 
-;; Copyright (C) 2007 Phil Hagelberg
+;; Copyright (C) 2008 Dimitri Fontaine
 
-;; Author: Phil Hagelberg <technomancy@gmail.com>
-;; URL: http://www.emacswiki.org/cgi-bin/wiki/pcmpl-ssh.el
-;; Version: 0.2
-;; Created: 2007-12-02
-;; Keywords: shell completion ssh
-;; EmacsWiki: PcompleteSSH
+;; Author: Dimitri Fontaine <dim@tapoueh.org>
+;; URL: http://pgsql.tapoueh.org/elisp
+;; Version: 0.1
+;; Created: 2008-09-26
+;; Keywords: ClusterSSH ssh cssh
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -83,6 +82,14 @@ depending on split-preference value"
 			 t1l
 			 t2l
 			 (nsplit-window (/ n 3) (not backward?)))))))
+
+	  ;; n is not divisible by either 2 or 3, produce some more windows
+	  ;; than necessary
+	  ((= 0 (% (+ 1 n) 2))
+	   (nsplit-window (+ 1 n)))
+
+	  ((= 0 (% (+ 1 n)) 3)
+	   (nsplit-window (+ 1 n)))
 
 	  (t (message "error: number of windows not a multiple of 2 or 3."))
     )
