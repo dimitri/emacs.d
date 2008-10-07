@@ -11,6 +11,7 @@
 ;; This file is NOT part of GNU Emacs.
 
 (require 'pcmpl-ssh)
+(require 'ibuf-ext)
 
 (defcustom split-horizontally-first t
   "Do we first split horizontally or vertically")
