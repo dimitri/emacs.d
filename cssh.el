@@ -38,7 +38,7 @@ marked ibuffers buffers"
 
   (let* ((cssh-controler (split-window-vertically -4)))
 
-    (nsplit-window (length marked-buffers))
+    (cssh-nsplit-window (length marked-buffers))
     (select-window cssh-controler)
   )
 )
@@ -70,7 +70,7 @@ depending on split-preference value"
 
     (/ (+ 1 (if go-horizontal (- right left) (- bottom top))) 3)))
 
-(defun nsplit-window (n &optional backward?)
+(defun cssh-nsplit-window (n &optional backward?)
   "split current window into n windows"
   (let* ((w (selected-window)))
 
@@ -87,40 +87,42 @@ depending on split-preference value"
 
 	  ((= 0 (% n 2)) 
 	   ;; cut in half then split other parts by n/2
-	   (let* ((halves (nsplit-window 2 backward?)))
+	   (let* ((halves (cssh-nsplit-window 2 backward?)))
 
 	     (select-window (nth 1 halves))
 
-	     (let* ((h1l (nsplit-window (/ n 2) (not backward?))))
+	     (let* ((h1l (cssh-nsplit-window (/ n 2) (not backward?))))
 
 	       (select-window w)
-	       (append halves h1l (nsplit-window (/ n 2) (not backward?))))))
+	       (append halves 
+		       h1l
+		       (cssh-nsplit-window (/ n 2) (not backward?))))))
 
 	  ((= 0 (% n 3))
 	   ;; cut in three parts then re split
-	   (let* ((thirds (nsplit-window 3 backward?)))
+	   (let* ((thirds (cssh-nsplit-window 3 backward?)))
 	     
 	     (select-window (nth 1 thirds))
 
-	     (let* ((t1l (nsplit-window (/ n 3) (not backward?))))
+	     (let* ((t1l (cssh-nsplit-window (/ n 3) (not backward?))))
 
 	       (select-window (nth 2 thirds))
 
-	       (let* ((t2l (nsplit-window (/ n 3) (not backward?))))
+	       (let* ((t2l (cssh-nsplit-window (/ n 3) (not backward?))))
 
 		 (select-window w)
 		 (append thirds 
 			 t1l
 			 t2l
-			 (nsplit-window (/ n 3) (not backward?)))))))
+			 (cssh-nsplit-window (/ n 3) (not backward?)))))))
 
 	  ;; n is not divisible by either 2 or 3, produce some more windows
 	  ;; than necessary
 	  ((= 0 (% (+ 1 n) 2))
-	   (nsplit-window (+ 1 n)))
+	   (cssh-nsplit-window (+ 1 n)))
 
 	  ((= 0 (% (+ 1 n)) 3)
-	   (nsplit-window (+ 1 n)))
+	   (cssh-nsplit-window (+ 1 n)))
 
 	  (t (message "error: number of windows not a multiple of 2 or 3."))
     )
