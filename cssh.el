@@ -34,12 +34,13 @@ marked ibuffers buffers"
 (defun cssh-open (cssh-buffer-name marked-buffers)
   "open the cssh global input frame then the ssh buffer windows"
   (set-window-buffer (selected-window) (get-buffer-create cssh-buffer-name))
-  (insert "cssh> ")
+  (insert "\ncssh> ")
 
-  (let* ((cssh-controler (split-window-vertically -4)))
+  (let* ((cssh-controler (split-window-vertically -4))
+	 (cssh-windows (cssh-nsplit-window marked-buffers)))
 
-    (cssh-nsplit-window (length marked-buffers))
     (select-window cssh-controler)
+    '(cssh-windows)
   )
 )
 
@@ -70,33 +71,45 @@ depending on split-preference value"
 
     (/ (+ 1 (if go-horizontal (- right left) (- bottom top))) 3)))
 
-(defun cssh-nsplit-window (n &optional backward?)
+(defun cssh-nsplit-window (buffer-list &optional backward?)
   "split current window into n windows"
-  (let* ((w (selected-window)))
+  (let* ((w (selected-window))
+	 (n (length buffer-list)))
 
     (cond ((= n 2)
-	   (list w (cssh-split-window backward?)))
+	   (let* ((w1 (cssh-split-window backward?)))
+	     (set-window-buffer w (car buffer-list))
+	     (set-window-buffer w1 (cadr buffer-list))
+	     (list w w1)))
 
 	  ((= n 3)
 	   (let* ((edges (window-edges))
 		  (size  (apply #'cssh-get-third-size (cons backward? edges)))
-		  (w1    (cssh-split-window backward? size)))
+		  (w1    (cssh-split-window backward? size))
+		  (w2    (cssh-split-window backward? size)))
 
+	     (set-window-buffer w (car buffer-list))
+	     (set-window-buffer w1 (cadr buffer-list))
+	     (set-window-buffer w2 (cadr (cdr buffer-list)))
 	     (select-window w1)
-	     (list w w1 (cssh-split-window backward? size))))
+	     (list w w1 w2)))
 
 	  ((= 0 (% n 2)) 
 	   ;; cut in half then split other parts by n/2
-	   (let* ((halves (cssh-nsplit-window 2 backward?)))
+	   ;; gives cssh-nsplit-window any 2 elements list
+	   (let* ((halves (cssh-nsplit-window ('1 2) backward?)))
 
 	     (select-window (nth 1 halves))
 
-	     (let* ((h1l (cssh-nsplit-window (/ n 2) (not backward?))))
+	     (let* ((h1l 
+		     (cssh-nsplit-window
+		      (butlast buffer-list (/ n 2)) (not backward?))))
 
 	       (select-window w)
 	       (append halves 
 		       h1l
-		       (cssh-nsplit-window (/ n 2) (not backward?))))))
+		       (cssh-nsplit-window 
+			(last buffer-list (/ n 2)) (not backward?))))))
 
 	  ((= 0 (% n 3))
 	   ;; cut in three parts then re split
