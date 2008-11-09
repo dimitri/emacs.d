@@ -11,11 +11,41 @@
 ;; This file is NOT part of GNU Emacs.
 
 (require 'pcmpl-ssh)
-(require 'ibuf-ext)
+(require 'ibuffer)
 
 (defcustom split-horizontally-first t
   "Do we first split horizontally or vertically")
 
+;;;
+;;; ibuffer interaction: open cssh mode for marked buffers
+;;;
+(defun cssh-init-from-ibuffer-marked-buffers (&optional cssh-buffer-name)
+  "open cssh global input frame and the buffers windows from
+marked ibuffers buffers" 
+  (cssh-open 
+   (if cssh-buffer-name (cssh-buffer-name)
+     "*cssh*")
+   (ibuffer-get-marked-buffers))
+)
+
+;;;
+;;; Entry point
+;;;
+(defun cssh-open (cssh-buffer-name marked-buffers)
+  "open the cssh global input frame then the ssh buffer windows"
+  (set-window-buffer (selected-window) (get-buffer-create cssh-buffer-name))
+  (insert "cssh> ")
+
+  (let* ((cssh-controler (split-window-vertically -4)))
+
+    (nsplit-window (length marked-buffers))
+    (select-window cssh-controler)
+  )
+)
+
+;;;
+;;; Window splitting code
+;;;
 (defun cssh-split-window (&optional backward? &optional size)
   "split current window either vertically or horizontally
 depending on split-preference value"
@@ -94,18 +124,6 @@ depending on split-preference value"
 
 	  (t (message "error: number of windows not a multiple of 2 or 3."))
     )
-  )
-)
-
-(defun cssh-open (n)
-  "open the cssh global input frame then the ssh buffer windows"
-  (set-window-buffer (selected-window) (get-buffer-create "*cssh*"))
-  (insert "cssh> ")
-
-  (let* ((cssh-controler (split-window-vertically -4)))
-
-    (nsplit-window n)
-    (select-window cssh-controler)
   )
 )
 
