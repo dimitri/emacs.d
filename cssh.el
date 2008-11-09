@@ -19,6 +19,11 @@
 ;;;
 ;;; ibuffer interaction: open cssh mode for marked buffers
 ;;;
+(defun cssh-interactive-start ()
+  (interactive)
+  (cssh-init-from-ibuffer-marked-buffers)
+)
+
 (defun cssh-init-from-ibuffer-marked-buffers (&optional cssh-buffer-name)
   "open cssh global input frame and the buffers windows from
 marked ibuffers buffers" 
