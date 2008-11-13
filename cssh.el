@@ -1,14 +1,22 @@
 ;;; cssh.el --- clusterssh implementation for emacs
-
+;;
 ;; Copyright (C) 2008 Dimitri Fontaine
-
+;;
 ;; Author: Dimitri Fontaine <dim@tapoueh.org>
 ;; URL: http://pgsql.tapoueh.org/elisp
 ;; Version: 0.1
 ;; Created: 2008-09-26
 ;; Keywords: ClusterSSH ssh cssh
-
+;;
 ;; This file is NOT part of GNU Emacs.
+;;
+;; Integration:
+;;
+;; (require 'cssh)
+;; (defun turn-on-cssh-binding ()
+;;   (local-set-key (kbd "C-=") 'cssh-interactive-start))
+;;
+;; (add-hook 'ibuffer-mode-hook 'turn-on-cssh-binding)
 
 (require 'pcmpl-ssh)
 (require 'ibuffer)
@@ -39,12 +47,12 @@ marked ibuffers buffers"
 (defun cssh-open (cssh-buffer-name marked-buffers)
   "open the cssh global input frame then the ssh buffer windows"
   (set-window-buffer (selected-window) (get-buffer-create cssh-buffer-name))
-  (insert "\ncssh> ")
 
   (let* ((cssh-controler (split-window-vertically -4))
 	 (cssh-windows (cssh-nsplit-window marked-buffers)))
 
     (select-window cssh-controler)
+    (insert "\ncssh> ")
     '(cssh-windows)
   )
 )
