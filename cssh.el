@@ -17,27 +17,40 @@
 ;;   (local-set-key (kbd "C-=") 'cssh-interactive-start))
 ;;
 ;; (add-hook 'ibuffer-mode-hook 'turn-on-cssh-binding)
+;;
+;; TODO
+;;  add a check against current major-mode of each marked buffer
+;;
+;; BUGS
+;;  init of interface for 9 buffers is buggy (creates too much windows)
+;;
 
 (require 'pcmpl-ssh)
 (require 'ibuffer)
+(require 'term)
 
 (defcustom split-horizontally-first t
   "Do we first split horizontally or vertically")
 
+(defcustom cssh-prompt "cssh> "
+  "cssh buffer prompt")
+
+(defcustom cssh-default-buffer-name "*cssh*"
+  "cssh default buffer name, the one in cssh major mode")
+
 ;;;
 ;;; ibuffer interaction: open cssh mode for marked buffers
 ;;;
-(defun cssh-interactive-start ()
+(defun cssh-interactive-start (&optional cssh-buffer-name)
   (interactive)
-  (cssh-init-from-ibuffer-marked-buffers)
+  (cssh-init-from-ibuffer-marked-buffers cssh-buffer-name)
 )
 
 (defun cssh-init-from-ibuffer-marked-buffers (&optional cssh-buffer-name)
   "open cssh global input frame and the buffers windows from
 marked ibuffers buffers" 
   (cssh-open 
-   (if cssh-buffer-name (cssh-buffer-name)
-     "*cssh*")
+   (if cssh-buffer-name (cssh-buffer-name) cssh-default-buffer-name)
    (ibuffer-get-marked-buffers))
 )
 
@@ -46,16 +59,84 @@ marked ibuffers buffers"
 ;;;
 (defun cssh-open (cssh-buffer-name marked-buffers)
   "open the cssh global input frame then the ssh buffer windows"
-  (set-window-buffer (selected-window) (get-buffer-create cssh-buffer-name))
+  (cond ((eq 1 (length marked-buffers))
+	 (set-window-buffer (selected-window) (car marked-buffers)))
+	 
+	(t
+	 (set-window-buffer (selected-window) (get-buffer-create cssh-buffer-name))
 
-  (let* ((cssh-controler (split-window-vertically -4))
-	 (cssh-windows (cssh-nsplit-window marked-buffers)))
+	 (let* ((cssh-controler (split-window-vertically -4))
+		(cssh-windows (cssh-nsplit-window marked-buffers)))
 
-    (select-window cssh-controler)
-    (insert "\ncssh> ")
-    '(cssh-windows)
-  )
-)
+	   (select-window cssh-controler)
+	   (insert (concat "\n" cssh-prompt))
+	   (set (make-local-variable 'cssh-buffer-list) marked-buffers)
+	   (set (make-local-variable 'cssh-window-list) cssh-windows)
+	   (cssh-mode)
+	   ;; return the windows list
+	   '(cssh-windows)))))
+
+;;;
+;;; cssh editing mode
+;;;
+(defvar cssh-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map [up]       'cssh-send-up)
+    (define-key map [down]     'cssh-send-down)
+    (define-key map (kbd "RET") 'cssh-send-input)
+    (define-key map (kbd "C-j") 'cssh-send-input)
+    map)
+  "Keymap for `cssh-mode'.")
+
+;;;###autoload
+(define-derived-mode cssh-mode fundamental-mode "ClusterSSH"
+  "A major mode for controlling multiple terms at once."
+  (set (make-local-variable 'cssh-buffer-list) marked-buffers)
+  (set (make-local-variable 'cssh-window-list) cssh-windows))
+
+;;
+;; Input functions
+;;
+(defun cssh-send-string (string)
+  "generic function to send input to the terms"
+  (let* ((w (selected-window)))
+
+    (dolist (elt cssh-buffer-list)
+      ;; FIXME: get rid of artefacts elements in cssh-buffer-list
+      (when (bufferp elt)
+	(progn (select-window (get-buffer-window elt))
+	       (insert string)
+	       (term-send-input))))
+
+    (select-window w)))
+
+(defun cssh-send-defun (term-fun)
+  "generic function to apply term function to the terms"
+  (let* ((w (selected-window)))
+
+    (dolist (elt cssh-buffer-list)
+      ;; FIXME: get rid of artefacts elements in cssh-buffer-list
+      (when (bufferp elt)
+	(progn (select-window (get-buffer-window elt))
+	       (funcall term-fun))))
+
+    (select-window w)))
+
+(defun cssh-send-up ()
+  (interactive)
+  (cssh-send-defun 'term-send-up))
+
+(defun cssh-send-down ()
+  (interactive)
+  (cssh-send-defun 'term-send-down))
+
+(defun cssh-send-input ()
+  "send current line content to all cssh-mode buffers"
+  (interactive)
+  (cssh-send-string
+   (buffer-substring (+ (length cssh-prompt) (line-beginning-position))
+		     (line-end-position)))
+  (insert (concat "\n" cssh-prompt)))
 
 ;;;
 ;;; Window splitting code
