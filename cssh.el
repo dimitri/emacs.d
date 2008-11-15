@@ -19,7 +19,8 @@
 ;; (add-hook 'ibuffer-mode-hook 'turn-on-cssh-binding)
 ;;
 ;; TODO
-;;  add a check against current major-mode of each marked buffer
+;;  * add a check against current major-mode of each marked buffer
+;;  * have C-= redraw the splitted screen when in cssh-mode 
 ;;
 ;; BUGS
 ;;  init of interface for 9 buffers is buggy (creates too much windows)
@@ -81,10 +82,14 @@ marked ibuffers buffers"
 ;;;
 (defvar cssh-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map [up]       'cssh-send-up)
-    (define-key map [down]     'cssh-send-down)
+    (define-key map [up]        'cssh-send-up)
+    (define-key map [down]      'cssh-send-down)
+    (define-key map [tab]       'cssh-send-tab)
     (define-key map (kbd "RET") 'cssh-send-input)
     (define-key map (kbd "C-j") 'cssh-send-input)
+    (define-key map (kbd "C-m") 'cssh-send-input)
+    (define-key map (kbd "C-c") 'cssh-cancel-input)
+    (define-key map (kbd "C-l") 'cssh-clear)
     map)
   "Keymap for `cssh-mode'.")
 
@@ -97,6 +102,10 @@ marked ibuffers buffers"
 ;;
 ;; Input functions
 ;;
+(defun cssh-cancel-input ()
+  (interactive)
+  (insert (concat "\n" cssh-prompt)))
+
 (defun cssh-send-string (string)
   "generic function to send input to the terms"
   (let* ((w (selected-window)))
@@ -130,6 +139,13 @@ marked ibuffers buffers"
   (interactive)
   (cssh-send-defun 'term-send-down))
 
+(defun cssh-send-tab ()
+  (interactive)
+  (cssh-send-string
+   (buffer-substring (+ (length cssh-prompt) (line-beginning-position))
+		     (line-end-position)))
+  (cssh-send-string "\C-i"))
+
 (defun cssh-send-input ()
   "send current line content to all cssh-mode buffers"
   (interactive)
@@ -137,6 +153,10 @@ marked ibuffers buffers"
    (buffer-substring (+ (length cssh-prompt) (line-beginning-position))
 		     (line-end-position)))
   (insert (concat "\n" cssh-prompt)))
+
+(defun cssh-clear ()
+  (interactive)
+  (cssh-send-string "clear"))
 
 ;;;
 ;;; Window splitting code
