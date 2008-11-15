@@ -19,7 +19,7 @@
 ;; (add-hook 'ibuffer-mode-hook 'turn-on-cssh-binding)
 ;;
 ;; TODO
-;;  * add a check against current major-mode of each marked buffer
+;;  * add documentation
 ;;
 ;; BUGS
 ;;  init of interface for 9 buffers is buggy (creates too much windows)
@@ -49,10 +49,23 @@
 (defun cssh-init-from-ibuffer-marked-buffers (&optional cssh-buffer-name)
   "open cssh global input frame and the buffers windows from
 marked ibuffers buffers" 
-  (cssh-open 
-   (if cssh-buffer-name (cssh-buffer-name) cssh-default-buffer-name)
-   (ibuffer-get-marked-buffers))
-)
+  (let* ((buffers-all-in-term-mode t)
+	 (marked-buffers (ibuffer-get-marked-buffers)))
+    
+    (dolist (elt marked-buffers)
+      (progn
+	(message (buffer-name elt))
+	;;(select-window (get-buffer-window elt))
+	(with-current-buffer elt
+	  (when (not (eq major-mode 'term-mode))
+	    (progn
+	      (setq buffers-all-in-term-mode nil)
+	      (message "ClusterSSH only supports Term mode buffers"))))))
+
+    (when buffers-all-in-term-mode
+      (cssh-open 
+       (if cssh-buffer-name (cssh-buffer-name) cssh-default-buffer-name)
+       marked-buffers))))
 
 ;;;
 ;;; Entry point
