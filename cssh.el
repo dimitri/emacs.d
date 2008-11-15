@@ -20,7 +20,6 @@
 ;;
 ;; TODO
 ;;  * add a check against current major-mode of each marked buffer
-;;  * have C-= redraw the splitted screen when in cssh-mode 
 ;;
 ;; BUGS
 ;;  init of interface for 9 buffers is buggy (creates too much windows)
@@ -89,7 +88,8 @@ marked ibuffers buffers"
     (define-key map (kbd "C-j") 'cssh-send-input)
     (define-key map (kbd "C-m") 'cssh-send-input)
     (define-key map (kbd "C-c") 'cssh-cancel-input)
-    (define-key map (kbd "C-l") 'cssh-clear)
+    (define-key map (kbd "C-l") 'cssh-clear)    
+    (define-key map (kbd "C-=") 'cssh-reopen)
     map)
   "Keymap for `cssh-mode'.")
 
@@ -157,6 +157,10 @@ marked ibuffers buffers"
 (defun cssh-clear ()
   (interactive)
   (cssh-send-string "clear"))
+
+(defun cssh-reopen ()
+  (interactive)
+  (cssh-open (buffer-name) cssh-buffer-list))
 
 ;;;
 ;;; Window splitting code
