@@ -20,9 +20,8 @@
 ;;
 ;; TODO
 ;;  * add documentation
-;;
-;; BUGS
-;;  init of interface for 9 buffers is buggy (creates too much windows)
+;;  * implement a char mode where each key typed is directly sent
+;;  * implement a toggle to switch from and to char and line mode
 ;;
 
 (require 'pcmpl-ssh)
@@ -259,19 +258,23 @@ depending on split-preference value"
 	     (select-window (nth 1 thirds))
 
 	     (let* ((t1l (cssh-nsplit-window
-			  (butlast buffer-list (/ n 3)) (not backward?))))
+			  ;; take the first third of the list
+			  (butlast (butlast buffer-list (/ n 3)) (/ n 3))
+			  (not backward?))))
 
 	       (select-window (nth 2 thirds))
 
 	       (let* ((t2l (cssh-nsplit-window
-			    (last buffer-list (/ n 3)) (not backward?))))
+			    ;; take the second third of the list
+			    (last (butlast buffer-list (/ n 3)) (/ n 3))
+			    (not backward?))))
 
 		 (select-window w)
 		 (append t1l
 			 t2l
 			 (cssh-nsplit-window
-			  (last (butlast buffer-list (/ n 3)) (/ n 3))
-			  (not backward?)))))))
+			  ;; take the last third of the list
+			  (last buffer-list (/ n 3)) (not backward?)))))))
 
 	  ;; n is not divisible by either 2 or 3, produce some more windows
 	  ;; than necessary
