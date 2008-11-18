@@ -19,7 +19,7 @@
 ;; (add-hook 'ibuffer-mode-hook 'turn-on-cssh-binding)
 ;;
 ;; TODO
-;;  * add documentation
+;;  * add some more documentation
 ;;  * implement a char mode where each key typed is directly sent
 ;;  * implement a toggle to switch from and to char and line mode
 ;;
@@ -37,10 +37,43 @@
 (defcustom cssh-default-buffer-name "*cssh*"
   "cssh default buffer name, the one in cssh major mode")
 
+(global-set-key (kbd "C-M-=") 'cssh-regexp-host-start)
+
+;;;
+;;; open cssh windows and create buffers from a regexp
+;;; the regexp matches host names as in pcmpl-ssh-hosts
+;;;
+(defun cssh-regexp-host-start (&optional cssh-buffer-name)
+  "start ClusterSSH for all mathing hosts in  known_hosts"
+  (interactive)
+  (let* ((re (read-from-minibuffer "Host regexp: "))
+	 (cssh-buffer-list '()))
+
+    (dolist (elt (pcmpl-ssh-hosts) cssh-buffer-list)
+      (when (string-match re elt)
+	(let* ((buffer-ssh-command (concat "ssh " elt))
+	       (buffer-name (concat "*" buffer-ssh-command "*")))
+
+	  (unless (get-buffer buffer-name)
+	    (ansi-term "/bin/bash" buffer-ssh-command)
+	    (with-current-buffer buffer-name
+	      (insert (concat "TERM=screen " buffer-ssh-command))))
+	  
+	  (add-to-list 'cssh-buffer-list (get-buffer buffer-name)))))
+
+    (message "%S" cssh-buffer-list)
+
+    (cssh-open 
+     (if cssh-buffer-name (cssh-buffer-name) cssh-default-buffer-name)
+     cssh-buffer-list)
+
+    (cssh-send-string "")))
+
 ;;;
 ;;; ibuffer interaction: open cssh mode for marked buffers
 ;;;
 (defun cssh-interactive-start (&optional cssh-buffer-name)
+  "start ClusterSSH from current iBuffer marked buffers list"
   (interactive)
   (cssh-init-from-ibuffer-marked-buffers cssh-buffer-name)
 )
@@ -71,22 +104,27 @@ marked ibuffers buffers"
 ;;;
 (defun cssh-open (cssh-buffer-name marked-buffers)
   "open the cssh global input frame then the ssh buffer windows"
-  (cond ((eq 1 (length marked-buffers))
+
+  (cond ((endp marked-buffers)
+	 (message "ClusterSSH cssh-open: marked-buffers list is empty"))
+
+	((eq 1 (length marked-buffers))
 	 (set-window-buffer (selected-window) (car marked-buffers)))
-	 
+	  
 	(t
-	 (set-window-buffer (selected-window) (get-buffer-create cssh-buffer-name))
+	 (set-window-buffer 
+	  (selected-window) (get-buffer-create cssh-buffer-name))
 
 	 (let* ((cssh-controler (split-window-vertically -4))
 		(cssh-windows (cssh-nsplit-window marked-buffers)))
-
+	   
 	   (select-window cssh-controler)
 	   (insert (concat "\n" cssh-prompt))
 	   (set (make-local-variable 'cssh-buffer-list) marked-buffers)
 	   (set (make-local-variable 'cssh-window-list) cssh-windows)
 	   (cssh-mode)
 	   ;; return the windows list
-	   '(cssh-windows)))))
+	   '(cssh-windows))))))
 
 ;;;
 ;;; cssh editing mode
