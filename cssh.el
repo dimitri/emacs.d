@@ -190,10 +190,6 @@ marked ibuffers buffers"
 ;;
 ;; Input functions
 ;;
-(defun cssh-cancel-input ()
-  (interactive)
-  (insert (concat "\n" cssh-prompt)))
-
 (defun cssh-send-string (string)
   "generic function to send input to the terms"
   (let* ((w (selected-window)))
@@ -234,6 +230,11 @@ marked ibuffers buffers"
 		     (line-end-position)))
   (cssh-send-string "\C-i"))
 
+(defun cssh-cancel-input ()
+  (interactive)
+  (cssh-send-string "\C-c")
+  (insert (concat "\n" cssh-prompt)))
+
 (defun cssh-send-input ()
   "send current line content to all cssh-mode buffers"
   (interactive)
@@ -244,7 +245,7 @@ marked ibuffers buffers"
 
 (defun cssh-clear ()
   (interactive)
-  (cssh-send-string "clear"))
+  (cssh-send-string "\C-l"))
 
 (defun cssh-reopen ()
   (interactive)
