@@ -10,13 +10,18 @@
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
-;; Integration:
-;;
+;; Emacs Integration:
 ;; (require 'cssh)
-;; (defun turn-on-cssh-binding ()
-;;   (local-set-key (kbd "C-=") 'cssh-interactive-start))
 ;;
-;; (add-hook 'ibuffer-mode-hook 'turn-on-cssh-binding)
+;; cssh bindings to open ClusterSSH controler in cssh-mode on some buffers:
+;;
+;;  C-=       asks remote hostname then opens a term and ssh to it
+;;  C-=       from IBuffer mode opens ClusterSSH controler on marked buffers
+;;  C-u C-=   asks for the name of the ClusterSSH controler buffer
+;;  C-M-=     matches given regexp against ssh known_hosts and open
+;;            buffers in which ssh <remote> is typed
+;;  C-u C-M-= asks for a name before 
+;;
 ;;
 ;; TODO
 ;;  * add some more documentation
@@ -37,7 +42,32 @@
 (defcustom cssh-default-buffer-name "*cssh*"
   "cssh default buffer name, the one in cssh major mode")
 
+(defun turn-on-cssh-binding ()
+  (local-set-key (kbd "C-=") 'cssh-interactive-start))
+
+(add-hook 'ibuffer-mode-hook 'turn-on-cssh-binding)
+
 (global-set-key (kbd "C-M-=") 'cssh-regexp-host-start)
+
+(defun ssh-term-remote-open ()
+  "Opens a M-x term and type in ssh remotehost with given hostname"
+  (interactive) 
+  (let*
+      ((ssh-term-remote-host
+	(completing-read "Remote host: " (pcmpl-ssh-hosts)))
+       (ssh-command (concat "ssh " ssh-term-remote-host))
+       (ssh-buffer-name (concat "*" ssh-command "*")))
+
+    (if (get-buffer ssh-buffer-name)
+        (switch-to-buffer ssh-buffer-name)
+      
+      (ansi-term "/bin/bash" ssh-command)
+      (set-buffer (get-buffer ssh-buffer-name))
+      (insert (concat "TERM=screen " ssh-command))
+      (term-send-input))))
+
+(global-set-key (kbd "C-=") 'ssh-term-remote-open)
+
 
 ;;;
 ;;; open cssh windows and create buffers from a regexp
@@ -45,7 +75,14 @@
 ;;;
 (defun cssh-regexp-host-start (&optional cssh-buffer-name)
   "start ClusterSSH for all mathing hosts in  known_hosts"
-  (interactive)
+  (interactive
+   (list
+    (and current-prefix-arg
+	 (read-buffer "ClusterSSH buffer name: "
+		      (generate-new-buffer-name cssh-default-buffer-name)))))
+  (setq cssh-buffer-name
+	(or cssh-buffer-name cssh-default-buffer-name))
+  
   (let* ((re (read-from-minibuffer "Host regexp: "))
 	 (cssh-buffer-list '()))
 
@@ -63,10 +100,7 @@
 
     (message "%S" cssh-buffer-list)
 
-    (cssh-open 
-     (if cssh-buffer-name (cssh-buffer-name) cssh-default-buffer-name)
-     cssh-buffer-list)
-
+    (cssh-open cssh-buffer-name cssh-buffer-list)
     (cssh-send-string "")))
 
 ;;;
@@ -74,11 +108,17 @@
 ;;;
 (defun cssh-interactive-start (&optional cssh-buffer-name)
   "start ClusterSSH from current iBuffer marked buffers list"
-  (interactive)
-  (cssh-init-from-ibuffer-marked-buffers cssh-buffer-name)
-)
+  (interactive
+   (list
+    (and current-prefix-arg
+	 (read-buffer "ClusterSSH buffer name: "
+		      (generate-new-buffer-name cssh-default-buffer-name)))))
+  (setq cssh-buffer-name
+	(or cssh-buffer-name cssh-default-buffer-name))
 
-(defun cssh-init-from-ibuffer-marked-buffers (&optional cssh-buffer-name)
+  (cssh-init-from-ibuffer-marked-buffers cssh-buffer-name))
+
+(defun cssh-init-from-ibuffer-marked-buffers (cssh-buffer-name)
   "open cssh global input frame and the buffers windows from
 marked ibuffers buffers" 
   (let* ((buffers-all-in-term-mode t)
@@ -95,32 +135,30 @@ marked ibuffers buffers"
 	      (message "ClusterSSH only supports Term mode buffers"))))))
 
     (when buffers-all-in-term-mode
-      (cssh-open 
-       (if cssh-buffer-name (cssh-buffer-name) cssh-default-buffer-name)
-       marked-buffers))))
+      (cssh-open cssh-buffer-name marked-buffers))))
 
 ;;;
 ;;; Entry point
 ;;;
-(defun cssh-open (cssh-buffer-name marked-buffers)
+(defun cssh-open (cssh-buffer-name buffer-list)
   "open the cssh global input frame then the ssh buffer windows"
 
-  (cond ((endp marked-buffers)
-	 (message "ClusterSSH cssh-open: marked-buffers list is empty"))
+  (cond ((endp buffer-list)
+	 (message "ClusterSSH cssh-open: buffer-list is empty"))
 
-	((eq 1 (length marked-buffers))
-	 (set-window-buffer (selected-window) (car marked-buffers)))
+	((eq 1 (length buffer-list))
+	 (set-window-buffer (selected-window) (car buffer-list)))
 	  
 	(t
 	 (set-window-buffer 
 	  (selected-window) (get-buffer-create cssh-buffer-name))
 
 	 (let* ((cssh-controler (split-window-vertically -4))
-		(cssh-windows (cssh-nsplit-window marked-buffers)))
+		(cssh-windows (cssh-nsplit-window buffer-list)))
 	   
 	   (select-window cssh-controler)
 	   (insert (concat "\n" cssh-prompt))
-	   (set (make-local-variable 'cssh-buffer-list) marked-buffers)
+	   (set (make-local-variable 'cssh-buffer-list) buffer-list)
 	   (set (make-local-variable 'cssh-window-list) cssh-windows)
 	   (cssh-mode)
 	   ;; return the windows list
@@ -146,7 +184,7 @@ marked ibuffers buffers"
 ;;;###autoload
 (define-derived-mode cssh-mode fundamental-mode "ClusterSSH"
   "A major mode for controlling multiple terms at once."
-  (set (make-local-variable 'cssh-buffer-list) marked-buffers)
+  (set (make-local-variable 'cssh-buffer-list) buffer-list)
   (set (make-local-variable 'cssh-window-list) cssh-windows))
 
 ;;
