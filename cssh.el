@@ -124,7 +124,7 @@ marked ibuffers buffers"
 	   (set (make-local-variable 'cssh-window-list) cssh-windows)
 	   (cssh-mode)
 	   ;; return the windows list
-	   '(cssh-windows))))))
+	   '(cssh-windows)))))
 
 ;;;
 ;;; cssh editing mode
