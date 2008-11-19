@@ -140,7 +140,7 @@ marked ibuffers buffers"
 ;;;
 ;;; Entry point
 ;;;
-(defun cssh-open (cssh-buffer-name buffer-list)
+(defun cssh-open (cssh-buffer-name cssh-buffer-list)
   "open the cssh global input frame then the ssh buffer windows"
 
   (cond ((endp buffer-list)
@@ -154,13 +154,16 @@ marked ibuffers buffers"
 	  (selected-window) (get-buffer-create cssh-buffer-name))
 
 	 (let* ((cssh-controler (split-window-vertically -4))
-		(cssh-windows (cssh-nsplit-window buffer-list)))
+		(cssh-window-list (cssh-nsplit-window buffer-list)))
 	   
 	   (select-window cssh-controler)
 	   (insert (concat "\n" cssh-prompt))
-	   (set (make-local-variable 'cssh-buffer-list) buffer-list)
-	   (set (make-local-variable 'cssh-window-list) cssh-windows)
+
+	   ;; make local variables, then call cssh-mode
+	   (make-local-variable 'cssh-buffer-list)
+	   (make-local-variable 'cssh-window-list)
 	   (cssh-mode)
+
 	   ;; return the windows list
 	   '(cssh-windows)))))
 
@@ -183,9 +186,9 @@ marked ibuffers buffers"
 
 ;;;###autoload
 (define-derived-mode cssh-mode fundamental-mode "ClusterSSH"
-  "A major mode for controlling multiple terms at once."
-  (set (make-local-variable 'cssh-buffer-list) buffer-list)
-  (set (make-local-variable 'cssh-window-list) cssh-windows))
+  "A major mode for controlling multiple terms at once.")
+  (set (make-local-variable 'cssh-buffer-list) cssh-buffer-list)
+  (set (make-local-variable 'cssh-window-list) cssh-windows-list))
 
 ;;
 ;; Input functions
