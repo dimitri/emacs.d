@@ -183,7 +183,9 @@ marked ibuffers buffers"
     (define-key map (kbd "C-m") 'cssh-send-input)
     (define-key map (kbd "C-c") 'cssh-cancel-input)
     (define-key map (kbd "C-l") 'cssh-clear)    
+    (define-key map (kbd "C-d") 'cssh-eof)    
     (define-key map (kbd "C-=") 'cssh-reopen)
+    (define-key map (kbd "C-!") 'cssh-reconnect-ssh)
     map)
   "Keymap for `cssh-mode'.")
 
@@ -198,28 +200,22 @@ marked ibuffers buffers"
 ;;
 (defun cssh-send-string (string)
   "generic function to send input to the terms"
-  (let* ((w (selected-window)))
 
-    (dolist (elt cssh-buffer-list)
-      ;; FIXME: get rid of artefacts elements in cssh-buffer-list
-      (when (bufferp elt)
-	(progn (select-window (get-buffer-window elt))
-	       (insert string)
-	       (term-send-input))))
-
-    (select-window w)))
+  (dolist (elt cssh-buffer-list)
+    ;; FIXME: get rid of artefacts elements in cssh-buffer-list
+    (when (bufferp elt)
+      (with-current-buffer elt
+	(insert string)
+	(term-send-input)))))
 
 (defun cssh-send-defun (term-fun)
   "generic function to apply term function to the terms"
-  (let* ((w (selected-window)))
 
-    (dolist (elt cssh-buffer-list)
-      ;; FIXME: get rid of artefacts elements in cssh-buffer-list
-      (when (bufferp elt)
-	(progn (select-window (get-buffer-window elt))
-	       (funcall term-fun))))
-
-    (select-window w)))
+  (dolist (elt cssh-buffer-list)
+    ;; FIXME: get rid of artefacts elements in cssh-buffer-list
+    (when (bufferp elt)
+      (with-current-buffer elt
+	(funcall term-fun)))))
 
 (defun cssh-send-up ()
   (interactive)
@@ -253,9 +249,26 @@ marked ibuffers buffers"
   (interactive)
   (cssh-send-string "\C-l"))
 
+(defun cssh-eof ()
+  (interactive)
+  (cssh-send-string "\C-d"))
+
 (defun cssh-reopen ()
   (interactive)
   (cssh-open (buffer-name) cssh-buffer-list))
+
+(defun cssh-reconnect-ssh (&optional clear)
+  (interactive "P")
+  (when (consp clear) (cssh-clear))
+
+  (dolist (elt cssh-buffer-list)
+    ;; FIXME: get rid of artefacts elements in cssh-buffer-list
+    (when (bufferp elt)
+      (let* ((elt-name (buffer-name elt))
+	     (buffer-ssh-command (substring elt-name 1 -1)))
+	(with-current-buffer elt
+	  (insert (concat "TERM=screen " buffer-ssh-command))
+	  (term-send-input))))))
 
 ;;;
 ;;; Window splitting code
