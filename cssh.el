@@ -337,7 +337,7 @@ depending on split-preference value"
 
 	     (list w w1 w2)))
 
-	  ((= 0 (% n 2)) 
+	  ((= 0 (% n 2))
 	   ;; cut in half then split other parts by n/2
 	   ;; gives cssh-nsplit-window any 2 elements list
 	   (let* ((halves (cssh-nsplit-window '(1 2) backward?)))
@@ -383,7 +383,7 @@ depending on split-preference value"
 	  ((= 0 (% (+ 1 n) 2))
 	   (cssh-nsplit-window (cons 1 buffer-list)))
 
-	  ((= 0 (% (+ 1 n)) 3)
+	  ((= 0 (% (+ 1 n) 3))
 	   (cssh-nsplit-window (cons 1 buffer-list)))
 
 	  (t (message "error: number of windows not a multiple of 2 or 3."))
