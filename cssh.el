@@ -303,7 +303,13 @@ depending on split-preference value"
 	 (n (length buffer-list)))
 
     (cond ((= n 2)
-	   (let* ((w1 (cssh-split-window backward?)))
+	   ;; if at least one of the list elements is a buffer,
+	   ;; it's final recursion and we always prefer to maximize
+	   ;; line length
+	   (let* ((w1 (cssh-split-window (if (or (bufferp (car buffer-list))
+						 (bufferp (cadr buffer-list)))
+					     t
+					   backward?))))
 
 	     (when (bufferp (car buffer-list))
 	       (set-window-buffer w (car buffer-list)))
