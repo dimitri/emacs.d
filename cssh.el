@@ -303,12 +303,12 @@ depending on split-preference value"
 	 (n (length buffer-list)))
 
     (cond ((= n 2)
-	   ;; if at least one of the list elements is a buffer,
-	   ;; it's final recursion and we always prefer to maximize
-	   ;; line length
+	   ;; if at least one of the list elements is a buffer, it's final
+	   ;; recursion and we always prefer to maximize line length
 	   (let* ((w1 (cssh-split-window (if (or (bufferp (car buffer-list))
 						 (bufferp (cadr buffer-list)))
-					     t
+					     ;; force to split horizontally first
+					     split-horizontally-first
 					   backward?))))
 
 	     (when (bufferp (car buffer-list))
@@ -320,11 +320,20 @@ depending on split-preference value"
 	     (list w w1)))
 
 	  ((= n 3)
+	   ;; if at least one of the list elements is a buffer, it's final
+	   ;; recursion and we always prefer to maximize line length
 	   (let* ((edges (window-edges))
-		  (size  (apply #'cssh-get-third-size (cons backward? edges)))
-		  (w1    (cssh-split-window backward? size))
-		  (w2    (progn (select-window w1) 
-				(cssh-split-window backward? size))))
+		  (direction (if (or (bufferp (car buffer-list))
+				     (bufferp (cadr buffer-list))
+				     (bufferp (cadr (cdr buffer-list))))
+				 ;; force to split horizontally first
+				 split-horizontally-first
+			       backward?))
+		  (size      (apply #'cssh-get-third-size
+				    (cons direction edges)))
+		  (w1        (cssh-split-window direction size))
+		  (w2        (progn (select-window w1) 
+				    (cssh-split-window direction size))))
 
 	     (when (bufferp (car buffer-list))
 	       (set-window-buffer w (car buffer-list)))
@@ -336,6 +345,23 @@ depending on split-preference value"
 	       (set-window-buffer w2 (cadr (cdr buffer-list))))
 
 	     (list w w1 w2)))
+
+	  ((= n 5)
+	   ;; cut in half then split one half in 2 and the other in 3
+	   ;; cut in half then split other parts by n/2
+	   ;; gives cssh-nsplit-window any 2 elements list
+	   (let* ((halves (cssh-nsplit-window '(1 2) backward?)))
+
+	     (select-window (nth 1 halves))
+
+	     (let* ((h1l 
+		     (cssh-nsplit-window
+		      (butlast buffer-list 3) (not backward?))))
+
+	       (select-window w)
+	       (append h1l
+		       (cssh-nsplit-window 
+			(last buffer-list 3) (not backward?))))))
 
 	  ((= 0 (% n 2))
 	   ;; cut in half then split other parts by n/2
