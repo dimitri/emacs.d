@@ -161,21 +161,22 @@ marked ibuffers buffers"
 	  (selected-window) (get-buffer-create cssh-buffer-name))
 
 	 ;; make the controler buffer then split the window
-	 (let* ((cssh-controler (split-window-vertically -4)))	   
+	 (let* ((cssh-controler (split-window-vertically -4)))
 	   ;; switch to css-mode, which make-local-variable cssh-buffer-list
-	   ;; and cssh-window-list, which we overwrite
+	   ;; which we overwrite
 	   (set-buffer cssh-buffer-name)
 	   (cssh-mode)
-
 	   (setq cssh-buffer-list buffer-list)
-	   (setq cssh-window-list (cssh-nsplit-window buffer-list))
+
+	   ;; create the windows needed to host our buffer-list
+	   (cssh-nsplit-window buffer-list)
 
 	   ;; now place the user into the cssh-controler and prompt him
 	   (select-window cssh-controler)
 	   (insert (concat "\n" cssh-prompt))
 
-	   ;; return the windows list
-	   '(cssh-windows)))))
+	   ;; return the buffer list
+	   cssh-buffer-list))))
 
 ;;;
 ;;; cssh editing mode
@@ -200,8 +201,7 @@ marked ibuffers buffers"
 (define-derived-mode cssh-mode fundamental-mode "ClusterSSH"
   "A major mode for controlling multiple terms at once."
   :group 'cssh
-  (make-local-variable 'cssh-buffer-list)
-  (make-local-variable 'cssh-window-list))
+  (make-local-variable 'cssh-buffer-list))
 
 ;;
 ;; Input functions
@@ -325,7 +325,7 @@ depending on split-preference value"
 	     (when (bufferp (cadr buffer-list))
 	       (set-window-buffer w1 (cadr buffer-list)))
 
-	     (list w w1)))
+  	     (list w w1)))
 
 	  ((= n 3)
 	   ;; if at least one of the list elements is a buffer, it's final
