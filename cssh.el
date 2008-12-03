@@ -151,7 +151,7 @@ marked ibuffers buffers"
   "open the cssh global input frame then the ssh buffer windows"
 
   (cond ((endp buffer-list)
-	 (message "ClusterSSH cssh-open: buffer-list is empty"))
+	 (ssh-term-remote-open))
 
 	((eq 1 (length buffer-list))
 	 (set-window-buffer (selected-window) (car buffer-list)))
