@@ -33,14 +33,21 @@
 (require 'ibuffer)
 (require 'term)
 
+(defgroup cssh nil "ClusterSSH mode customization group"
+  :group 'convenience)
+
 (defcustom split-horizontally-first t
-  "Do we first split horizontally or vertically")
+  "Do we first split horizontally or vertically"
+  :group 'cssh
+  :options '(t nil))
 
 (defcustom cssh-prompt "cssh> "
-  "cssh buffer prompt")
+  "cssh buffer prompt"
+  :group 'cssh)
 
 (defcustom cssh-default-buffer-name "*cssh*"
-  "cssh default buffer name, the one in cssh major mode")
+  "cssh default buffer name, the one in cssh major mode"
+  :group 'cssh)
 
 (defun turn-on-cssh-binding ()
   (local-set-key (kbd "C-=") 'cssh-interactive-start))
@@ -192,6 +199,7 @@ marked ibuffers buffers"
 ;;;###autoload
 (define-derived-mode cssh-mode fundamental-mode "ClusterSSH"
   "A major mode for controlling multiple terms at once."
+  :group 'cssh
   (make-local-variable 'cssh-buffer-list)
   (make-local-variable 'cssh-window-list))
 
