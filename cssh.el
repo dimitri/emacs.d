@@ -13,6 +13,9 @@
 ;; Emacs Integration:
 ;; (require 'cssh)
 ;;
+;; When using emacs 22, you need to install pcmpl-ssh by yourself:
+;;  http://www.emacswiki.org/emacs/pcmpl-ssh.el
+;;
 ;; cssh bindings to open ClusterSSH controler in cssh-mode on some buffers:
 ;;
 ;;  C-=       asks remote hostname then opens a term and ssh to it
@@ -22,14 +25,29 @@
 ;;            buffers in which ssh <remote> is typed
 ;;  C-u C-M-= asks for a name before 
 ;;
+;; Special keys while in the *cssh* controller you might want to know about:
+;;
+;;  C-=   redraw buffer selection in windows
+;;  C-!   reconnect the ssh, for when your ssh buffers outlive the ssh inside
+;;
 ;;
 ;; TODO
+;;
 ;;  * add some more documentation
-;;  * implement a char mode where each key typed is directly sent
-;;  * implement a toggle to switch from and to char and line mode
+;;
+;; WON'T FIX
+;;
+;; * the line and char modes as in term.el are not a good idea here, as it
+;;   seems much better for the *cssh* controller buffer to behave as much as
+;;   possible like a plain emacs buffer.
 ;;
 
-(require 'pcmpl-ssh)
+
+;; we need pcmpl-ssh which is integrated into emacs CVS as of emacs 23, but
+;; under a new name
+(if (> emacs-major-version 22)
+    (require 'pcmpl-unix) 
+  (require 'pcmpl-ssh))
 (require 'ibuffer)
 (require 'term)
 
@@ -49,14 +67,18 @@
   "cssh default buffer name, the one in cssh major mode"
   :group 'cssh)
 
-(defun turn-on-cssh-binding ()
-  (local-set-key (kbd "C-=") 'cssh-interactive-start))
+(defun cssh-turn-on-ibuffer-binding ()
+  (local-set-key (kbd "C-=") 'cssh-ibuffer-start))
 
 (add-hook 'ibuffer-mode-hook 'turn-on-cssh-binding)
 
 (global-set-key (kbd "C-M-=") 'cssh-regexp-host-start)
 
-(defun ssh-term-remote-open ()
+;;
+;; This could be seen as recursion init step, opening a single remote host
+;; shell
+;;
+(defun cssh-term-remote-open ()
   "Opens a M-x term and type in ssh remotehost with given hostname"
   (interactive) 
   (let*
@@ -73,7 +95,7 @@
       (insert (concat "TERM=screen " ssh-command))
       (term-send-input))))
 
-(global-set-key (kbd "C-=") 'ssh-term-remote-open)
+(global-set-key (kbd "C-=") 'cssh-term-remote-open)
 
 
 ;;;
@@ -113,7 +135,7 @@
 ;;;
 ;;; ibuffer interaction: open cssh mode for marked buffers
 ;;;
-(defun cssh-interactive-start (&optional cssh-buffer-name)
+(defun cssh-ibuffer-start (&optional cssh-buffer-name)
   "start ClusterSSH from current iBuffer marked buffers list"
   (interactive
    (list
@@ -315,7 +337,7 @@ depending on split-preference value"
 	   ;; recursion and we always prefer to maximize line length
 	   (let* ((w1 (cssh-split-window (if (or (bufferp (car buffer-list))
 						 (bufferp (cadr buffer-list)))
-					     ;; force to split horizontally first
+					     ;; force to split horizontally
 					     split-horizontally-first
 					   backward?))))
 
@@ -420,9 +442,6 @@ depending on split-preference value"
 	  ((= 0 (% (+ 1 n) 3))
 	   (cssh-nsplit-window (cons 1 buffer-list)))
 
-	  (t (message "error: number of windows not a multiple of 2 or 3."))
-    )
-  )
-)
+	  (t (message "error: number of windows not a multiple of 2 or 3.")))))
 
 (provide 'cssh)
