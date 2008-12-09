@@ -194,3 +194,11 @@
 
 ;; C-c r pour revert-buffer
 (global-set-key (kbd "C-c r") '(lambda () (interactive) (revert-buffer)))
+
+;; C-c d pour écrire la date
+(defun insert-date()
+  "Insert a time-stamp according to locale's date and time format."
+  (interactive)
+  (insert (format-time-string "%a, %e %b %Y, %k:%M" (current-time))))
+
+(global-set-key "\C-cd" 'insert-date)
