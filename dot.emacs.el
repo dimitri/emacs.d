@@ -29,7 +29,7 @@
 
 	      ;; taille et positionnement
 	      (set-frame-position (selected-frame) 150 150)
-	      (set-frame-size (selected-frame) 164 50)
+	      (set-frame-size (selected-frame) 175 54)
 	      
 	      ;; set the font -- now see .Xresource
               ;(set-face-font 'default' "-misc-vgathin-medium-r-normal--16-16-75-75-c-90-iso8859-15" nil)
@@ -140,7 +140,8 @@
 		    '(lambda () (interactive) (elscreen-previous)))
     (global-set-key (kbd "<header-line> <mouse-5>")
 		    '(lambda () (interactive) (elscreen-next)))
-    (global-set-key (kbd "C-z SPC") '(lambda () (interactive) (elscreen-next)))))
+    (global-set-key (kbd "C-(") '(lambda () (interactive) (elscreen-previous)))
+    (global-set-key (kbd "C-)") '(lambda () (interactive) (elscreen-next)))))
 
 ;;;
 ;;; Language modes
