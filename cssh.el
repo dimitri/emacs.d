@@ -174,7 +174,7 @@ marked ibuffers buffers"
   "open the cssh global input frame then the ssh buffer windows"
 
   (cond ((endp buffer-list)
-	 (ssh-term-remote-open))
+	 (cssh-term-remote-open))
 
 	((eq 1 (length buffer-list))
 	 (set-window-buffer (selected-window) (car buffer-list)))
