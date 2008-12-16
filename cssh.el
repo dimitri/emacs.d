@@ -70,7 +70,7 @@
 (defun cssh-turn-on-ibuffer-binding ()
   (local-set-key (kbd "C-=") 'cssh-ibuffer-start))
 
-(add-hook 'ibuffer-mode-hook 'turn-on-cssh-binding)
+(add-hook 'ibuffer-mode-hook 'cssh-turn-on-ibuffer-binding)
 
 (global-set-key (kbd "C-M-=") 'cssh-regexp-host-start)
 
