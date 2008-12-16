@@ -4,7 +4,7 @@
 ;;
 ;; Author: Dimitri Fontaine <dim@tapoueh.org>
 ;; URL: http://pgsql.tapoueh.org/elisp
-;; Version: 0.1
+;; Version: 0.2
 ;; Created: 2008-09-26
 ;; Keywords: ClusterSSH ssh cssh
 ;;
@@ -130,7 +130,8 @@
     (message "%S" cssh-buffer-list)
 
     (cssh-open cssh-buffer-name cssh-buffer-list)
-    (cssh-send-string "")))
+    (with-current-buffer cssh-buffer-name
+      (cssh-send-string ""))))
 
 ;;;
 ;;; ibuffer interaction: open cssh mode for marked buffers
@@ -205,15 +206,15 @@ marked ibuffers buffers"
 ;;;
 (defvar cssh-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map [up]        'cssh-send-up)
-    (define-key map [down]      'cssh-send-down)
-    (define-key map [tab]       'cssh-send-tab)
-    (define-key map (kbd "RET") 'cssh-send-input)
-    (define-key map (kbd "C-j") 'cssh-send-input)
-    (define-key map (kbd "C-m") 'cssh-send-input)
-    (define-key map (kbd "C-c") 'cssh-cancel-input)
-    (define-key map (kbd "C-l") 'cssh-clear)    
-    (define-key map (kbd "C-d") 'cssh-eof)    
+    (define-key map [tab]              'cssh-send-tab)
+    (define-key map (kbd "RET")        'cssh-send-input)
+    (define-key map (kbd "C-j")        'cssh-send-input)
+    (define-key map (kbd "C-m")        'cssh-send-input)
+    (define-key map (kbd "C-c C-c")    'cssh-cancel-input)
+    (define-key map (kbd "C-c C-l")    'cssh-clear)    
+    (define-key map (kbd "C-c C-d")    'cssh-eof)
+    (define-key map (kbd "C-c [up]")   'cssh-send-up)
+    (define-key map (kbd "C-c [down]") 'cssh-send-down)
     (define-key map (kbd "C-=") 'cssh-reopen)
     (define-key map (kbd "C-!") 'cssh-reconnect-ssh)
     map)
