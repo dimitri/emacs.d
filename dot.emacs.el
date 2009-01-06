@@ -159,12 +159,13 @@ vi style of % jumping to matching brace."
 ;;;
 
 ;; PHP mode
-(autoload 'php-mode "php-mode" "PHP editing mode" t)
-(setq auto-mode-alist (append '(("\\.php3" . php-mode))
-			      '(("\\.php" . php-mode))
-			      '(("\\.pinc" . php-mode))
-			      '(("\\.p3" . php-mode))
-			      auto-mode-alist))
+;; (autoload 'php-mode "php-mode" "PHP editing mode" t)
+;; (setq auto-mode-alist (append '(("\\.php3" . php-mode))
+;;			      '(("\\.php" . php-mode))
+;;			      '(("\\.pinc" . php-mode))
+;;			      '(("\\.p3" . php-mode))
+;;			      auto-mode-alist))
+
 (require 'php-mode)
 
 ;; CSS mode
