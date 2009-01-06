@@ -63,6 +63,10 @@
   "cssh buffer prompt"
   :group 'cssh)
 
+(defcustom cssh-term-type "screen"
+  "cssh TERM environment variable to export at connection time"
+  :group 'cssh)
+
 (defcustom cssh-default-buffer-name "*cssh*"
   "cssh default buffer name, the one in cssh major mode"
   :group 'cssh)
@@ -92,7 +96,7 @@
       
       (ansi-term "/bin/bash" ssh-command)
       (set-buffer (get-buffer ssh-buffer-name))
-      (insert (concat "TERM=screen " ssh-command))
+      (insert (concat "TERM=" cssh-term-type " " ssh-command))
       (term-send-input))))
 
 (global-set-key (kbd "C-=") 'cssh-term-remote-open)
@@ -123,7 +127,7 @@
 	  (unless (get-buffer buffer-name)
 	    (ansi-term "/bin/bash" buffer-ssh-command)
 	    (with-current-buffer buffer-name
-	      (insert (concat "TERM=screen " buffer-ssh-command))))
+	      (insert (concat "TERM=" cssh-term-type " " buffer-ssh-command))))
 	  
 	  (add-to-list 'cssh-buffer-list (get-buffer buffer-name)))))
 
@@ -298,7 +302,7 @@ marked ibuffers buffers"
       (let* ((elt-name (buffer-name elt))
 	     (buffer-ssh-command (substring elt-name 1 -1)))
 	(with-current-buffer elt
-	  (insert (concat "TERM=screen " buffer-ssh-command))
+	  (insert (concat "TERM=" cssh-term-type " " buffer-ssh-command))
 	  (term-send-input))))))
 
 ;;;
