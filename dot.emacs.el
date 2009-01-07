@@ -215,3 +215,16 @@ vi style of % jumping to matching brace."
   (insert (format-time-string "%a, %e %b %Y, %k:%M" (current-time))))
 
 (global-set-key "\C-cd" 'insert-date)
+
+;; Muse documentation
+(require 'info)
+(setq Info-additional-directory-list
+      (cons (expand-file-name "~/dev/muse")
+            Info-additional-directory-list))
+
+;; full screen
+(defun fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen
+		       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
+(global-set-key [f11] 'fullscreen)
