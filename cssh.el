@@ -117,9 +117,9 @@
 	(or cssh-buffer-name cssh-default-buffer-name))
   
   (let* ((re (read-from-minibuffer "Host regexp: "))
-	 (cssh-buffer-list '()))
+	 (buffer-list '()))
 
-    (dolist (elt (pcmpl-ssh-hosts) cssh-buffer-list)
+    (dolist (elt (pcmpl-ssh-hosts) buffer-list)
       (when (string-match re elt)
 	(let* ((buffer-ssh-command (concat "ssh " elt))
 	       (buffer-name (concat "*" buffer-ssh-command "*")))
@@ -129,11 +129,11 @@
 	    (with-current-buffer buffer-name
 	      (insert (concat "TERM=" cssh-term-type " " buffer-ssh-command))))
 	  
-	  (add-to-list 'cssh-buffer-list (get-buffer buffer-name)))))
+	  (add-to-list 'buffer-list (get-buffer buffer-name)))))
 
-    (message "%S" cssh-buffer-list)
+    (message "%S" buffer-list)
 
-    (cssh-open cssh-buffer-name cssh-buffer-list)
+    (cssh-open cssh-buffer-name buffer-list)
     (with-current-buffer cssh-buffer-name
       (cssh-send-string ""))))
 
@@ -208,6 +208,9 @@ marked ibuffers buffers"
 ;;;
 ;;; cssh editing mode
 ;;;
+(defvar cssh-buffer-list '()
+  "cssh controller buffer (*cssh*) local buffer list")
+
 (defvar cssh-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map [tab]              'cssh-send-tab)

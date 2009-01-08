@@ -237,7 +237,7 @@ vi style of % jumping to matching brace."
 (defun split-window-vertically-min-bottom ()
   "split current window vertically and select new window, 4 lines height"
   (interactive)
-  (select-window (split-window-vertically -4))))
+  (select-window (split-window-vertically -4)))
 
 (defun split-window-vertically-quarter-bottom ()
   "split current window vertically and select new window, 1/4 of current window height"
@@ -262,4 +262,3 @@ vi style of % jumping to matching brace."
 (define-key term-raw-map (kbd "C-c c 1") 'split-window-vertically-min-bottom)
 (define-key term-raw-map (kbd "C-c c 2") 'split-window-vertically-quarter-bottom)
 (define-key term-raw-map (kbd "C-c c 3") 'split-window-in-three)
-	  
