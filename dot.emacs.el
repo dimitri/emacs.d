@@ -228,3 +228,32 @@ vi style of % jumping to matching brace."
   (set-frame-parameter nil 'fullscreen
 		       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
 (global-set-key [f11] 'fullscreen)
+
+;; Custom window splitting shortcuts
+;;  C-c 1  horizontal split, very little window on the bottom
+;;  C-c 2  horizontal split, 3/4 of the space atop, 1/4 at the bottom
+;;  C-c 3  vertical splitting of main window, right part horizontally split
+(global-set-key 
+ (kbd "C-c 1")
+ (lambda () 
+   (interactive)
+   (select-window (split-window-vertically -4))))
+
+(global-set-key 
+ (kbd "C-c 2")
+ (lambda () 
+   (interactive)
+   (let* ((edges  (window-edges))
+	  (top    (second edges))
+	  (bottom (fourth edges))
+	  (heigth (- bottom top)))
+     (select-window (split-window-vertically (- (/ heigth 4)))))))
+
+(global-set-key 
+ (kbd "C-c 3")
+ (lambda () 
+   (interactive)
+   (select-window (split-window-horizontally))
+   (split-window-vertically)))
+
+
