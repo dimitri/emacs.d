@@ -40,7 +40,7 @@
 	      ;; emacs23 supports any X font
 	      (if (< emacs-major-version 23)
 		  (set-face-font 'default' "-xos4-terminus-medium-r-normal--20-200-72-72-c-100-iso8859-15")
-		(set-face-font 'default' "Monospace-10"))
+		(set-face-font 'default' "Monospace-9"))
 
 	      ;; we don't want menu, we don't want scrollbar ... so
 	      ;; why xwindow ?  note: the menu-bar-mode just want the
