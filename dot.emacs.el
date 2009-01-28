@@ -251,7 +251,7 @@ vi style of % jumping to matching brace."
 (defun split-window-in-three ()
   "split current window horizontally then split new window vertically"
   (interactive)
-  (select-window (split-window-horizontally))
+  (select-window (split-window-horizontally 90))
   (split-window-vertically))
 
 (global-set-key (kbd "C-c 1") 'split-window-vertically-min-bottom)
