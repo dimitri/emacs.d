@@ -47,6 +47,10 @@
 		  (set-face-font 'default' "-xos4-terminus-medium-r-normal--20-200-72-72-c-100-iso8859-15")
 		(set-face-font 'default' "Monospace-9"))
 
+	      ;; Zoom in/out like feature, with mouse wheel
+	      (global-set-key '[C-mouse-4] 'text-scale-increase)
+	      (global-set-key '[C-mouse-5] 'text-scale-decrease)
+
 	      ;; we don't want menu, we don't want scrollbar ... so
 	      ;; why xwindow ?  note: the menu-bar-mode just want the
 	      ;; 0 (zero) argument ...
