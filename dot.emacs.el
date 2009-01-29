@@ -27,15 +27,20 @@
 	      (set-cursor-color "Black")
 	      (set-border-color "DarkSlateBlue")
 
+	      ;; thème Tango, much better
+	      (require 'color-theme-tango)
+	      (color-theme-tango)
+
 	      ;; taille et positionnement
 	      (set-frame-position (selected-frame) 150 150)
-	      (set-frame-size (selected-frame) 175 54)
+	      (set-frame-size (selected-frame) 230 60)
 	      
 	      ;; set the font -- now see .Xresource
               ;(set-face-font 'default' "-misc-vgathin-medium-r-normal--16-16-75-75-c-90-iso8859-15" nil)
               ;(set-face-font 'default' "terminus-iso8859-15-14" nil)
               ;(set-face-font 'default' "terminus-20" nil)
               ;(set-face-font 'default' "terminus-iso8859-15-20" nil)
+	      ;(set-face-font 'default' "-artwiz-smoothansi-*-*-*-*-*-*-*-*-*-*-*-*")
 
 	      ;; emacs23 supports any X font
 	      (if (< emacs-major-version 23)
@@ -65,7 +70,7 @@
 
 	;;pour que la région sélectionnée soit mise en surbrillance
 	;(setq font-lock-maximum-size nil)
-	(transient-mark-mode t) 
+	(transient-mark-mode 1)
 
 	;; some useful key bindings
 	(global-set-key [home] (lambda () 
@@ -204,6 +209,9 @@ vi style of % jumping to matching brace."
 ;; attention aux lignes trop longues dans les term
 (add-hook 'term-mode-hook 
 	  (lambda () (setq truncate-lines t)))
+
+(add-hook 'term-mode-hook 
+	  (lambda () (transient-mark-mode nil)))
 
 ;; C-c r pour revert-buffer
 (global-set-key (kbd "C-c r") '(lambda () (interactive) (revert-buffer)))
