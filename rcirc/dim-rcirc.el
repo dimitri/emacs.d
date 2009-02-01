@@ -2,6 +2,7 @@
 ;; http://www.emacswiki.org/emacs/rcirc
 
 (require 'rcirc)
+(require 'growl)
 
 ;; each nick its own color, notifications, extra goodies
 (eval-after-load 'rcirc '(require 'rcirc-color))
