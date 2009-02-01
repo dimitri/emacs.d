@@ -68,13 +68,10 @@
 		       ("lost-oasis" nickserv "dim" "PHOQUE")))
 
 (setq rcirc-server-alist
-      '(("irc.eu.freenode.net" 
+      '(("irc.freenode.net" 
 	 :channels ("#emacs" "#postgresql" "#postgresqlfr" "#gli" "#cvf"))
 	("irc.lost-oasis.net" 
 	 :nick "dim"
 	 :channels ("#vieuxcons"))))
-
-;; Connect to servers.
-(rcirc nil)
 
 (provide 'dim-rcirc)
