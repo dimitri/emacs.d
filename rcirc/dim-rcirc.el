@@ -75,6 +75,7 @@
 	 :channels ("#emacs" "#postgresql" "#postgresqlfr" "#gli" "#cvf"))
 	("irc.lost-oasis.net" 
 	 :nick "dim"
-	 :channels ("#vieuxcons"))))
+	 :channels ("#vieuxcons"))
+	("localhost" ("#bitlbee"))))
 
 (provide 'dim-rcirc)
