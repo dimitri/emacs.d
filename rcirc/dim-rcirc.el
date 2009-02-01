@@ -48,6 +48,9 @@
 		      (symbol-name rcirc-encode-coding-system))
        (setq rcirc-encode-coding-system (intern-soft arg)))))
 
+;; timestamps formating
+(setq rcirc-time-format "%Y-%m-%d %H:%M ")
+
 ;; log to file please, sanely defaults to "~/.emacs.d/rcirc-log"
 (setq rcirc-log-directory "~/.emacs.d/rcirc/logs")
 (setq rcirc-log-flag t)
