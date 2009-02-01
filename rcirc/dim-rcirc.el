@@ -4,6 +4,21 @@
 (require 'rcirc)
 (require 'growl)
 
+;; bitlbee: jabber & MSN from emacs.
+(setq bitlbee-executable "/sw/sbin/bitlbee")
+(require 'bitlbee)
+
+;; Central place to handle connecting
+(defun dim-rcirc-start ()
+  "Start biltbee and rcirc, and connects to default places"
+  (interactive)
+  (bitlbee-start)
+  (rcirc nil)
+
+  ;; seems rcirc setting for bitlbee is ineffective
+  (with-current-buffer "&bitlbee@localhost"
+    (insert "identify secret")))
+
 ;; each nick its own color, notifications, extra goodies
 (eval-after-load 'rcirc '(require 'rcirc-color))
 (eval-after-load 'rcirc '(require 'rcirc-late-fix))
@@ -76,6 +91,6 @@
 	("irc.lost-oasis.net" 
 	 :nick "dim"
 	 :channels ("#vieuxcons"))
-	("localhost" ("#bitlbee"))))
+	("localhost" ("&bitlbee"))))
 
 (provide 'dim-rcirc)

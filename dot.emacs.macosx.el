@@ -18,6 +18,10 @@
 ;; extension du load-path proprement dite.
 (dim:add-my-extra-load-paths)
 
+;; entrer dans le debugger à la moindre erreur peut être pratique, ou
+;; énervant.
+(setq debug-on-error nil)
+
 ;; par défaut on fait tout en UTF-8
 (prefer-coding-system 'utf-8)
 
@@ -61,11 +65,7 @@
 
 ;; configuration rcirc, and global shortcut to connect to servers
 (require 'dim-rcirc)
-(global-set-key (kbd "C-c i") (lambda () (interactive) (rcirc nil)))
-
-;; avec bitlbee on a jabber & MSN dans emacs.
-(setq bitlbee-executable "/sw/sbin/bitlbee")
-(require 'bitlbee)
+(global-set-key (kbd "C-c i") 'dim-rcirc-start)
 
 ;; on utilise ibuffer
 (require 'ibuffer)
