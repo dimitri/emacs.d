@@ -2,7 +2,12 @@
 ;; http://www.emacswiki.org/emacs/rcirc
 
 (require 'rcirc)
-(require 'growl)
+
+;; growl is for MacOSX style notification, rcirc-notify for linux libnotify
+;; ones, and those are the only two systems I use...
+(if (string-match "apple-darwin" system-configuration)
+    (require 'growl)
+  (eval-after-load 'rcirc '(require 'rcirc-notify)))
 
 ;; bitlbee: jabber & MSN from emacs.
 (setq bitlbee-executable "/sw/sbin/bitlbee")
@@ -12,17 +17,15 @@
 (defun dim-rcirc-start ()
   "Start biltbee and rcirc, and connects to default places"
   (interactive)
-  (bitlbee-start)
-  (rcirc nil)
-
-  ;; seems rcirc setting for bitlbee is ineffective
-  (with-current-buffer "&bitlbee@localhost"
-    (insert "identify secret")))
+  ;; under MacOSX, bitlbee has to be started here, under debian it's an
+  ;; init.d daemon
+  (when (string-match "apple-darwin" system-configuration)
+    (bitlbee-start))
+  (rcirc nil))
 
 ;; each nick its own color, notifications, extra goodies
 (eval-after-load 'rcirc '(require 'rcirc-color))
 (eval-after-load 'rcirc '(require 'rcirc-late-fix))
-;(eval-after-load 'rcirc '(require 'rcirc-notify))
 
 ;; /reconnect
 (eval-after-load 'rcirc

@@ -27,6 +27,7 @@
 (defvar growl-program "/usr/local/bin/growlnotify")
 
 (defun growl (title message)
+  (message message)
   (start-process "growl" " growl"
                  growl-program
                  title
