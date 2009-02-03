@@ -3,20 +3,15 @@
 
 (require 'rcirc)
 
-;; growl is for MacOSX style notification, rcirc-notify for linux libnotify
-;; ones, and those are the only two systems I use...
-(if (string-match "apple-darwin" system-configuration)
-    (require 'growl)
-  (eval-after-load 'rcirc '(require 'rcirc-notify)))
-
 ;; bitlbee: jabber & MSN from emacs.
-(setq bitlbee-executable "/sw/sbin/bitlbee")
-(require 'bitlbee)
+;;(setq bitlbee-executable "/sw/sbin/bitlbee")
+;;(require 'bitlbee)
 
 ;; Central place to handle connecting
 (defun dim-rcirc-start ()
   "Start biltbee and rcirc, and connects to default places"
   (interactive)
+
   ;; under MacOSX, bitlbee has to be started here, under debian it's an
   ;; init.d daemon
   (when (string-match "apple-darwin" system-configuration)
@@ -26,6 +21,12 @@
 ;; each nick its own color, notifications, extra goodies
 (eval-after-load 'rcirc '(require 'rcirc-color))
 (eval-after-load 'rcirc '(require 'rcirc-late-fix))
+
+;; growl is for MacOSX style notification, rcirc-notify for linux libnotify
+;; ones, and those are the only two systems I use...
+(if (string-match "apple-darwin" system-configuration)
+    (require 'growl)
+  (eval-after-load 'rcirc '(require 'rcirc-notify)))
 
 ;; /reconnect
 (eval-after-load 'rcirc
@@ -54,7 +55,7 @@
 
 ;; encodings
 (setq rcirc-decode-coding-system 'undecided)
-(setq rcirc-coding-system-alist '(("#postgresqlfr" iso-8859-15)))
+(setq rcirc-coding-system-alist '(("#postgresqlfr" . "iso-8859-15")))
 
 (eval-after-load 'rcirc
   '(defun-rcirc-command encoding (arg)
@@ -70,7 +71,7 @@
 (setq rcirc-time-format "%Y-%m-%d %H:%M ")
 
 ;; log to file please, sanely defaults to "~/.emacs.d/rcirc-log"
-(setq rcirc-log-directory "~/.emacs.d/rcirc/logs")
+(setq rcirc-log-directory "~/.elisp/rcirc/logs")
 (setq rcirc-log-flag t)
 
 ;; Keep input line at bottom.
@@ -94,6 +95,8 @@
 	("irc.lost-oasis.net" 
 	 :nick "dim"
 	 :channels ("#vieuxcons"))
-	("localhost" ("&bitlbee"))))
+	("localhost" ("&bitlbee"))
+	("irc.hi-media-techno.com"
+	 :channels ("#hm" "#pg" "#eurovox" "#allopass" "#comtrack" "#admin"))))
 
 (provide 'dim-rcirc)

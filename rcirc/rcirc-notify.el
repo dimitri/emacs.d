@@ -66,20 +66,22 @@ same person.")
   (when window-system
     ;; Set default dir to appease the notification gods
     (let ((default-directory "~/"))
+      (message "%s" (format my-rcirc-notify-message sender))
       ;; 8640000 ms = 1 day
       (start-process "page-me" nil
                      "notify-send" "-u" "normal" "-i" "gtk-dialog-info"
-                     "-t" "8640000" "rcirc"
+                     "-t" "2500" "rcirc"
                      (format my-rcirc-notify-message sender)))))
 
 (defun my-rcirc-notify-private (sender)
   (when window-system
     ;; Set default dir to appease the notification gods
     (let ((default-directory "~/"))
+      (message "%s" (format my-rcirc-notify-message-private sender))
       ;; 8640000 ms = 1 day
       (start-process "page-me" nil
                      "notify-send" "-u" "normal" "-i" "gtk-dialog-info"
-                     "-t" "8640000" "rcirc"
+                     "-t" "2500" "rcirc"
                      (format my-rcirc-notify-message-private sender)))))
 
 (defun my-rcirc-notify-allowed (nick &optional delay)
