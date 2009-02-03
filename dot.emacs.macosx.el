@@ -6,7 +6,7 @@
   "define a list of paths to add to load-path and add each of them"
   (let ((dim:paths '("~/.emacs.d"
 		     ;"~/dev/magit/mainline"
-		     "~/.emacs.d/egg/egg"
+		     ;"~/.emacs.d/egg/egg"
 		     "~/.emacs.d/color-theme-6.6.0"
 		     "~/.emacs.d/muse/muse/lisp"
 		     "~/.emacs.d/rcirc"
@@ -39,7 +39,8 @@
 ;(global-set-key (kbd "C-x g") 'magit-status)
 
 ;; egg: Emacs Got Git! (magit fork)
-(setq egg-git-command/"sw/bin/git")
+;;(require 'egg)
+;;(setq egg-git-command/"sw/bin/git")
 
 ;; taille et position
 (set-frame-position (selected-frame) 60 35)
@@ -56,6 +57,7 @@
 (require 'color-theme-tango)
 (color-theme-tango)
 ;(color-theme-tango-2)
+;(color-theme-zenburn)
 
 ;; bindings
 (global-set-key (kbd "C-c r") 'revert-buffer)
