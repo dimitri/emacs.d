@@ -2,6 +2,25 @@
 ;;
 ;; ce fichier permet de configurer emacs et xemacs
 
+;; le load path, on a des choses en plus dans ~/.elisp
+(setq load-path (cons "~/.elisp" load-path))
+
+;; les modules additionnels dans .emacs.d
+;; on veut charger quelques modules supplémentaires
+(defun dim:add-my-extra-load-paths ()
+  "define a list of paths to add to load-path and add each of them"
+  (let ((dim:paths '("~/.elisp"
+		     "~/dev/elisp"
+		     "~/dev/muse"
+		     "~/dev/elisp/rcirc"
+		     )))
+    (dolist (path dim:paths)
+      (setq load-path (cons path load-path)))))
+
+;; extension du load-path proprement dite.
+(dim:add-my-extra-load-paths)
+
+
 ;; useful wrappers
 (setq chk:this-is-gnuemacs   (string-match "GNU Emacs" (emacs-version)))
 (setq chk:this-is-xemacs     (string-match "XEmacs" (emacs-version)))
@@ -22,18 +41,19 @@
 	(if (eq window-system 'x)
 	    (progn
 	      ;; couleurs
-	      (set-foreground-color "Black")
-	      (set-background-color "lightgray")
-	      (set-cursor-color "Black")
-	      (set-border-color "DarkSlateBlue")
+	      ;(set-foreground-color "Black")
+	      ;(set-background-color "lightgray")
+	      ;(set-cursor-color "Black")
+	      ;(set-border-color "DarkSlateBlue")
 
 	      ;; thème Tango, much better
+	      (require 'color-theme)
 	      (require 'color-theme-tango)
 	      (color-theme-tango)
 
 	      ;; taille et positionnement
 	      (set-frame-position (selected-frame) 150 150)
-	      (set-frame-size (selected-frame) 230 60)
+	      (set-frame-size (selected-frame) 160 50)
 	      
 	      ;; set the font -- now see .Xresource
               ;(set-face-font 'default' "-misc-vgathin-medium-r-normal--16-16-75-75-c-90-iso8859-15" nil)
@@ -43,9 +63,9 @@
 	      ;(set-face-font 'default' "-artwiz-smoothansi-*-*-*-*-*-*-*-*-*-*-*-*")
 
 	      ;; emacs23 supports any X font
-	      (if (< emacs-major-version 23)
-		  (set-face-font 'default' "-xos4-terminus-medium-r-normal--20-200-72-72-c-100-iso8859-15")
-		(set-face-font 'default' "Monospace-9"))
+	      ;;(if (< emacs-major-version 23)
+	      ;;  (set-face-font 'default' "-xos4-terminus-medium-r-normal--20-200-72-72-c-100-iso8859-15")
+              ;; (set-face-font 'default' "Monospace-9"))
 
 	      ;; Zoom in/out like feature, with mouse wheel
 	      (global-set-key '[C-mouse-4] 'text-scale-increase)
@@ -112,12 +132,17 @@ vi style of % jumping to matching brace."
         (t (self-insert-command (or arg 1)))))
 (global-set-key (kbd "C-%") 'goto-match-paren)
 
-;; le load path, on a des choses en plus dans ~/.elisp
-(setq load-path (cons "~/.elisp" load-path))
-
 ;; mes projects locaux
 (require 'hm-projects)
 (require 'dim-muse)
+
+;; configuration rcirc, and global shortcut to connect to servers
+(require 'dim-rcirc)
+(global-set-key (kbd "C-c i") 'dim-rcirc-start)
+
+;; fonctions pratiques pour spliter la fenêtre courante et faire les choses
+;; habituelles, comme démarrer un term à droite.
+(require 'dim-splits)
 
 ; on utilise ibuffer
 (require 'ibuffer) 
@@ -240,37 +265,3 @@ vi style of % jumping to matching brace."
   (set-frame-parameter nil 'fullscreen
 		       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
 (global-set-key [f11] 'fullscreen)
-
-;; Custom window splitting shortcuts
-;;  C-c 1  horizontal split, very little window on the bottom
-;;  C-c 2  horizontal split, 3/4 of the space atop, 1/4 at the bottom
-;;  C-c 3  vertical splitting of main window, right part horizontally split
-
-(defun split-window-vertically-min-bottom ()
-  "split current window vertically and select new window, 4 lines height"
-  (interactive)
-  (select-window (split-window-vertically -4)))
-
-(defun split-window-vertically-quarter-bottom ()
-  "split current window vertically and select new window, 1/4 of current window height"
-  (interactive)
-  (let* ((edges  (window-edges))
-	 (top    (second edges))
-	 (bottom (fourth edges))
-	 (heigth (- bottom top)))
-    (select-window (split-window-vertically (- (/ heigth 4))))))
-
-(defun split-window-in-three ()
-  "split current window horizontally then split new window vertically"
-  (interactive)
-  (select-window (split-window-horizontally 90))
-  (split-window-vertically))
-
-(global-set-key (kbd "C-c 1") 'split-window-vertically-min-bottom)
-(global-set-key (kbd "C-c 2") 'split-window-vertically-quarter-bottom)
-(global-set-key (kbd "C-c 3") 'split-window-in-three)
-
-;; Add specific key mapping to term mode, as C-c 1 is already in use
-(define-key term-raw-map (kbd "C-c c 1") 'split-window-vertically-min-bottom)
-(define-key term-raw-map (kbd "C-c c 2") 'split-window-vertically-quarter-bottom)
-(define-key term-raw-map (kbd "C-c c 3") 'split-window-in-three)

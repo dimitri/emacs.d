@@ -28,6 +28,7 @@
 (global-set-key (kbd "C-c 3") 'split-window-in-three)
 
 ;; Add specific key mapping to term mode, as C-c 1 is already in use
+(require 'term)
 (define-key term-raw-map (kbd "C-c c 1") 'split-window-vertically-min-bottom)
 (define-key term-raw-map (kbd "C-c c 2") 'split-window-vertically-quarter-bottom)
 (define-key term-raw-map (kbd "C-c c 3") 'split-window-in-three)
