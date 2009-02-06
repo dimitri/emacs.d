@@ -3,10 +3,6 @@
 
 (require 'rcirc)
 
-;; bitlbee: jabber & MSN from emacs.
-;;(setq bitlbee-executable "/sw/sbin/bitlbee")
-;;(require 'bitlbee)
-
 ;; Central place to handle connecting
 (defun dim-rcirc-start ()
   "Start biltbee and rcirc, and connects to default places"
@@ -15,6 +11,8 @@
   ;; under MacOSX, bitlbee has to be started here, under debian it's an
   ;; init.d daemon
   (when (string-match "apple-darwin" system-configuration)
+    (require 'bitlbee)
+    (setq bitlbee-executable "/sw/sbin/bitlbee")
     (bitlbee-start))
   (rcirc nil))
 
@@ -68,6 +66,8 @@
        (setq rcirc-encode-coding-system (intern-soft arg)))))
 
 ;; timestamps formating
+(require 'rcirc-custom-log)
+(setq rcirc-time-format "%H:%M ")
 (setq rcirc-time-format "%Y-%m-%d %H:%M ")
 
 ;; log to file please, sanely defaults to "~/.emacs.d/rcirc-log"

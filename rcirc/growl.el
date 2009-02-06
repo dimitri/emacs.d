@@ -27,7 +27,7 @@
 (defvar growl-program "/usr/local/bin/growlnotify")
 
 (defun growl (title message)
-  (message message)
+  (message "%s %s" (format-time-string "%Y%m%d" (current-time)) message)
   (start-process "growl" " growl"
                  growl-program
                  title
