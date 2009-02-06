@@ -34,14 +34,6 @@
 ;;      (setq load-path (cons my-lisp-dir load-path))
 ;;      (normal-top-level-add-subdirs-to-load-path)))
 
-;; Magit!
-;(require 'magit)
-;(global-set-key (kbd "C-x g") 'magit-status)
-
-;; egg: Emacs Got Git! (magit fork)
-;;(require 'egg)
-;;(setq egg-git-command/"sw/bin/git")
-
 ;; taille et position
 (set-frame-position (selected-frame) 60 35)
 (set-frame-size (selected-frame) 166 42)
@@ -97,10 +89,13 @@
 ;; gestion de session
 (desktop-save-mode 1)
 
+; winner-mode pour revenir sur le layout précédent
+(winner-mode 1)
+
 ;; elscreen
-;; (require 'elscreen)
-;; (global-set-key (kbd "C-(") '(lambda () (interactive) (elscreen-previous)))
-;; (global-set-key (kbd "C-)") '(lambda () (interactive) (elscreen-next)))))
+;(require 'elscreen)
+;(global-set-key (kbd "C-(") '(lambda () (interactive) (elscreen-previous)))
+;(global-set-key (kbd "C-)") '(lambda () (interactive) (elscreen-next)))))
 
 ;; Backuper les fichiers dans ~/.elisp/backups
 (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
@@ -161,3 +156,11 @@ vi style of % jumping to matching brace."
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t (self-insert-command (or arg 1)))))
 (global-set-key (kbd "C-%") 'goto-match-paren)
+
+;; Magit!
+;(require 'magit)
+;(global-set-key (kbd "C-x g") 'magit-status)
+
+;; egg: Emacs Got Git! (magit fork)
+;;(require 'egg)
+;;(setq egg-git-command/"sw/bin/git")
