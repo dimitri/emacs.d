@@ -67,7 +67,7 @@ same person.")
     ;; Set default dir to appease the notification gods
     (let ((default-directory "~/"))
       (message "%s %s"  
-	       (format-time-string "%Y%m%d" (current-time)) 
+	       (format-time-string "%H:%M" (current-time)) 
 	       (format my-rcirc-notify-message sender))
       ;; 8640000 ms = 1 day
       (start-process "page-me" nil
@@ -80,7 +80,7 @@ same person.")
     ;; Set default dir to appease the notification gods
     (let ((default-directory "~/"))
       (message "%s %s"  
-	       (format-time-string "%Y%m%d" (current-time)) 
+	       (format-time-string "%H:%M" (current-time)) 
 	       (format my-rcirc-notify-message-private sender))
       ;; 8640000 ms = 1 day
       (start-process "page-me" nil

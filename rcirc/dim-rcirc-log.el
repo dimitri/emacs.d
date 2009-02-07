@@ -25,4 +25,4 @@ Used as the first arg to `format-time-string'."
 	  (setq rcirc-log-alist
 		(cons (cons filename line) rcirc-log-alist)))))))
 
-(provide 'rcirc-custom-log)
+(provide 'dim-rcirc-log)

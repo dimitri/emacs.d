@@ -66,9 +66,9 @@
        (setq rcirc-encode-coding-system (intern-soft arg)))))
 
 ;; timestamps formating
-(require 'rcirc-custom-log)
+(require 'dim-rcirc-log)
 (setq rcirc-time-format "%H:%M ")
-(setq rcirc-time-format "%Y-%m-%d %H:%M ")
+(setq rcirc-log-time-format "%Y-%m-%d %H:%M ")
 
 ;; log to file please, sanely defaults to "~/.emacs.d/rcirc-log"
 (setq rcirc-log-directory "~/.elisp/rcirc/logs")
