@@ -23,15 +23,26 @@
   (select-window (split-window-horizontally 90))
   (split-window-vertically))
 
+(defun split-window-for-rcirc ()
+  "split current window horizontally then split left part in three, vertically"
+  (interactive)
+  (split-window-horizontally)
+
+  (split-window-vertically)
+  (split-window-vertically)
+  (balance-windows))
+
 (global-set-key (kbd "C-c 1") 'split-window-vertically-min-bottom)
 (global-set-key (kbd "C-c 2") 'split-window-vertically-quarter-bottom)
 (global-set-key (kbd "C-c 3") 'split-window-in-three)
+(global-set-key (kbd "C-c 4") 'split-window-for-rcirc)
 
 ;; Add specific key mapping to term mode, as C-c 1 is already in use
 (require 'term)
 (define-key term-raw-map (kbd "C-c c 1") 'split-window-vertically-min-bottom)
 (define-key term-raw-map (kbd "C-c c 2") 'split-window-vertically-quarter-bottom)
 (define-key term-raw-map (kbd "C-c c 3") 'split-window-in-three)
+(define-key term-raw-map (kbd "C-c c 4") 'split-window-for-rcirc)
 
 ;;
 ;; C-c t splits current window and open a new term
