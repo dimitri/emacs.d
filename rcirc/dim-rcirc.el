@@ -53,7 +53,7 @@
 
 ;; encodings
 (setq rcirc-decode-coding-system 'undecided)
-(setq rcirc-coding-system-alist '(("#postgresqlfr" . "iso-8859-15")))
+;(setq rcirc-coding-system-alist '(("#postgresqlfr" . iso-8859-15)))
 
 (eval-after-load 'rcirc
   '(defun-rcirc-command encoding (arg)
