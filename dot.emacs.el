@@ -13,6 +13,8 @@
 		     "~/dev/elisp"
 		     "~/dev/muse"
 		     "~/dev/elisp/rcirc"
+		     "~/.elisp/egg/egg"
+		     "~/.elisp/nxhtml/nxhtml"
 		     )))
     (dolist (path dim:paths)
       (setq load-path (cons path load-path)))))
@@ -175,6 +177,9 @@ vi style of % jumping to matching brace."
     (desktop-save-mode 1)
     (savehist-mode 1)))
 
+; winner-mode pour revenir sur le layout précédent
+(winner-mode 1)
+
 ;; on utilise aussi elscreen, avec support de la molette dans la barre de
 ;; titre s'il vous plaît
 ;; mais seulement dans emacs23
@@ -227,6 +232,19 @@ vi style of % jumping to matching brace."
 (require 'doc-mode)
 (autoload 'doc-mode "doc-mode")
 
+;; Egg mode, pour status git
+(require 'egg)
+
+;; nxhtml pour PHP/HTML
+(load "~/.elisp/nxhtml/nxhtml/autostart.el")
+(custom-set-faces 
+ '(mumamo-background-chunk-submode ((((class color)
+				      (min-colors 88)
+				      (background dark)) nil)))
+ '(mumamo-background-chunk-major ((((class color)
+				    (min-colors 88) 
+				    (background dark)) nil))))
+
 ;; On précise à M-x woman de ne pas ouvrir sa propre frame
 (setq woman-use-own-frame nil)
 
@@ -239,8 +257,8 @@ vi style of % jumping to matching brace."
 (add-hook 'term-mode-hook 
 	  (lambda () (setq truncate-lines t)))
 
-(add-hook 'term-mode-hook 
-	  (lambda () (transient-mark-mode nil)))
+;;(add-hook 'term-mode-hook 
+;;	  (lambda () (transient-mark-mode nil)))
 
 ;; C-c r pour revert-buffer
 (global-set-key (kbd "C-c r") '(lambda () (interactive) (revert-buffer)))
