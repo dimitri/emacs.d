@@ -86,6 +86,15 @@
 ;; rendu des fontes
 ;;(setq mac-allow-anti-aliasing nil)
 
+; find-file-at-point quand ça a du sens
+(setq ffap-machine-p-known 'accept) ; no pinging
+(setq ffap-url-regexp nil)          ; disable URL features in ffap
+(setq ffap-ftp-regexp nil)          ; disable FTP features in ffap
+(define-key global-map (kbd "C-x C-f") 'find-file-at-point)
+
+;; C-c g pour demander à google de chercher la sélection en cours
+(require 'dim-google)
+
 ;; gestion de session
 (desktop-save-mode 1)
 
