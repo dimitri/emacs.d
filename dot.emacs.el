@@ -22,7 +22,6 @@
 ;; extension du load-path proprement dite.
 (dim:add-my-extra-load-paths)
 
-
 ;; useful wrappers
 (setq chk:this-is-gnuemacs   (string-match "GNU Emacs" (emacs-version)))
 (setq chk:this-is-xemacs     (string-match "XEmacs" (emacs-version)))
@@ -150,6 +149,12 @@ vi style of % jumping to matching brace."
 (require 'ibuffer) 
 (global-set-key "\C-x\C-b" 'ibuffer) 
 (iswitchb-mode)
+
+; find-file-at-point quand ça a du sens
+(setq ffap-machine-p-known 'accept) ; no pinging
+(setq ffap-url-regexp nil)          ; disable URL features in ffap
+(setq ffap-ftp-regexp nil)          ; disable FTP features in ffap
+(define-key global-map (kbd "C-x C-f") 'find-file-at-point)
 
 ; windmove permet de bouger dans les windows d'une frame avec Shift+flèches
 (windmove-default-keybindings)
