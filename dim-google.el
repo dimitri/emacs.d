@@ -13,7 +13,7 @@
    (list
     (if (use-region-p)
 	(buffer-substring (region-beginning) (region-end))
-      (read-string "Search google for: "))))
+      (read-string "Search google for: " (thing-at-point 'word)))))
 
   (browse-url 
    (read-string "Browse google URL: " 
