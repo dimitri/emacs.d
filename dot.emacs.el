@@ -252,6 +252,7 @@ vi style of % jumping to matching brace."
 
 ;; On précise à M-x woman de ne pas ouvrir sa propre frame
 (setq woman-use-own-frame nil)
+(global-set-key (kbd "C-c w") 'woman)
 
 ;; Mon adresse email
 (setq user-mail-address "dim@tapoueh.org")
