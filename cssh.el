@@ -133,9 +133,12 @@
 
     (message "%S" buffer-list)
 
-    (cssh-open cssh-buffer-name buffer-list)
-    (with-current-buffer cssh-buffer-name
-      (cssh-send-string ""))))
+    (if (endp buffer-list)
+	(message "No match to %S" re)
+      
+      (cssh-open cssh-buffer-name buffer-list)
+      (with-current-buffer cssh-buffer-name
+	(cssh-send-string "")))))
 
 ;;;
 ;;; ibuffer interaction: open cssh mode for marked buffers
