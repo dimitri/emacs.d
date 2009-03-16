@@ -18,9 +18,9 @@
 ;; extension du load-path proprement dite.
 (dim:add-my-extra-load-paths)
 
-;; entrer dans le debugger à la moindre erreur peut être pratique, ou
-;; énervant.
-(setq debug-on-error nil)
+;; Sous mac plein de softs intéressants sont dans /sw/bin
+(setenv "PATH" (concat (getenv "PATH") ":" "/sw/bin"))
+(add-to-list 'exec-path "/sw/bin")
 
 ;; par défaut on fait tout en UTF-8
 (prefer-coding-system 'utf-8)
@@ -35,8 +35,8 @@
 ;;      (normal-top-level-add-subdirs-to-load-path)))
 
 ;; taille et position
-(set-frame-position (selected-frame) 60 35)
-(set-frame-size (selected-frame) 166 42)
+(set-frame-position (selected-frame) 90 45)
+(set-frame-size (selected-frame) 170 45)
 
 ;; couleurs
 ;;(set-foreground-color "Black")
@@ -146,6 +146,10 @@
   (set-frame-parameter nil 'fullscreen
 		       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
 (global-set-key [f11] 'fullscreen)
+
+;; xlhtml modes (php / html), which turns on toggle-debug-on-error
+(load "~/.emacs.d/nxhtml/autostart.el")
+(setq debug-on-error nil)
 
 ;; asciidoc mode support
 (require 'asciidoc)
