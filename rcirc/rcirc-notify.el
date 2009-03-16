@@ -46,11 +46,11 @@
 ;;    in between notifications from the same nick.
 
 
-(defvar my-rcirc-notify-message "%s is calling your name."
+(defvar my-rcirc-notify-message "%s is calling your name in %s."
   "Format if message to display in libnotify popup.
 '%s' will expand to the nick that notified you.")
 
-(defvar my-rcirc-notify-message-private "%s sent a private message."
+(defvar my-rcirc-notify-message-private "%s sent a private message (%s)."
   "Format if message to display in libnotify popup.
 '%s' will expand to the nick that sent the message.")
 
@@ -62,31 +62,31 @@ notification.")
   "Number of seconds that will elapse between notifications from the
 same person.")
 
-(defun my-rcirc-notify (sender)
+(defun my-rcirc-notify (sender target)
   (when window-system
     ;; Set default dir to appease the notification gods
     (let ((default-directory "~/"))
       (message "%s %s"  
 	       (format-time-string "%H:%M" (current-time)) 
-	       (format my-rcirc-notify-message sender))
+	       (format my-rcirc-notify-message sender target))
       ;; 8640000 ms = 1 day
       (start-process "page-me" nil
                      "notify-send" "-u" "normal" "-i" "gtk-dialog-info"
                      "-t" "2500" "rcirc"
-                     (format my-rcirc-notify-message sender)))))
+                     (format my-rcirc-notify-message sender target)))))
 
-(defun my-rcirc-notify-private (sender)
+(defun my-rcirc-notify-private (sender target)
   (when window-system
     ;; Set default dir to appease the notification gods
     (let ((default-directory "~/"))
       (message "%s %s"  
 	       (format-time-string "%H:%M" (current-time)) 
-	       (format my-rcirc-notify-message-private sender))
+	       (format my-rcirc-notify-message-private sender target))
       ;; 8640000 ms = 1 day
       (start-process "page-me" nil
                      "notify-send" "-u" "normal" "-i" "gtk-dialog-info"
                      "-t" "2500" "rcirc"
-                     (format my-rcirc-notify-message-private sender)))))
+                     (format my-rcirc-notify-message-private sender target)))))
 
 (defun my-rcirc-notify-allowed (nick &optional delay)
   "Return non-nil if a notification should be made for NICK.
@@ -113,7 +113,7 @@ matches a regexp in `rcirc-keywords'."
              (not (string= (rcirc-nick proc) sender))
              (not (string= (rcirc-server-name proc) sender))
              (my-rcirc-notify-allowed sender))
-    (my-rcirc-notify sender)))
+    (my-rcirc-notify sender target)))
 
 (defun my-rcirc-notify-privmsg (proc sender response target text)
   "Notify the current user when someone sends a private message
@@ -124,7 +124,7 @@ to them."
              (not (rcirc-channel-p target))
              (my-rcirc-notify-allowed sender))
 
-    (my-rcirc-notify-private sender)))
+    (my-rcirc-notify-private sender target)))
 
 (add-hook 'rcirc-print-hooks 'my-rcirc-notify-privmsg)
 (add-hook 'rcirc-print-hooks 'my-rcirc-notify-me)
