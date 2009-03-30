@@ -91,7 +91,8 @@
 
 (setq rcirc-server-alist
       '(("irc.freenode.net" 
-	 :channels ("#emacs" "#postgresql" "#postgresqlfr" "#gli" "#cvf"))
+	 :channels ("#postgresql" "#skytools" "#postgresqlfr"
+		    "#emacs" "#gli" "#cvf"))
 	("irc.lost-oasis.net" 
 	 :nick "dim"
 	 :channels ("#vieuxcons"))
