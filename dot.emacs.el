@@ -266,17 +266,6 @@ vi style of % jumping to matching brace."
 ;;(add-hook 'term-mode-hook 
 ;;	  (lambda () (transient-mark-mode nil)))
 
-;; C-c r pour revert-buffer
-(global-set-key (kbd "C-c r") '(lambda () (interactive) (revert-buffer)))
-
-;; C-c d pour écrire la date
-(defun insert-date()
-  "Insert a time-stamp according to locale's date and time format."
-  (interactive)
-  (insert (format-time-string "%Y%m%d" (current-time))))
-
-(global-set-key "\C-cd" 'insert-date)
-
 ;; Muse documentation
 (require 'info)
 (setq Info-additional-directory-list
@@ -289,3 +278,6 @@ vi style of % jumping to matching brace."
   (set-frame-parameter nil 'fullscreen
 		       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
 (global-set-key [f11] 'fullscreen)
+
+;; my keys
+(require 'dim-keys)
