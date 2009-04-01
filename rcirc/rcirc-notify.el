@@ -50,7 +50,7 @@
   "Format if message to display in libnotify popup.
 '%s' will expand to the nick that notified you.")
 
-(defvar my-rcirc-notify-message-private "%s sent a private message (%s)."
+(defvar my-rcirc-notify-message-private "%s sent a private message."
   "Format if message to display in libnotify popup.
 '%s' will expand to the nick that sent the message.")
 
@@ -81,12 +81,12 @@ same person.")
     (let ((default-directory "~/"))
       (message "%s %s"  
 	       (format-time-string "%H:%M" (current-time)) 
-	       (format my-rcirc-notify-message-private sender target))
+	       (format my-rcirc-notify-message-private sender))
       ;; 8640000 ms = 1 day
       (start-process "page-me" nil
                      "notify-send" "-u" "normal" "-i" "gtk-dialog-info"
                      "-t" "2500" "rcirc"
-                     (format my-rcirc-notify-message-private sender target)))))
+                     (format my-rcirc-notify-message-private sender)))))
 
 (defun my-rcirc-notify-allowed (nick &optional delay)
   "Return non-nil if a notification should be made for NICK.
