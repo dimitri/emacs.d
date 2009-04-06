@@ -11,6 +11,7 @@
 		     "~/.emacs.d/muse/muse/lisp"
 		     "~/.emacs.d/rcirc"
 		     ;;"~/.emacs.d/emacs-jabber-0.7.1"
+		     "~/.emacs.d/dictionary-1.8.7"
 		     )))
     (dolist (path dim:paths)
       (setq load-path (cons path load-path)))))
@@ -175,5 +176,10 @@ vi style of % jumping to matching brace."
 ;(global-set-key (kbd "C-x g") 'magit-status)
 
 ;; egg: Emacs Got Git! (magit fork)
-;;(require 'egg)
-;;(setq egg-git-command/"sw/bin/git")
+;(require 'egg)
+;(setq egg-git-command/"sw/bin/git")
+
+;; dict mode
+(load "~/.emacs.d/dictionary-1.8.7/dictionary-init.el")
+(global-set-key (kbd "C-c ?") (lambda () (interactive) 
+				(dictionary-lookup-definition)))
