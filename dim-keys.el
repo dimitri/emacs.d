@@ -73,4 +73,7 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c ! s") 'dim:sebl-numtel-pro)
 (global-set-key (kbd "C-c ! c") 'dim:cbouthors-numtel-pro)
 
+;; M-x svn-status
+(global-set-key (kbd "C-c s") 'svn-status)
+
 (provide 'dim-keys)
