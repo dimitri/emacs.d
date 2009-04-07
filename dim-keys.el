@@ -76,4 +76,8 @@ vi style of % jumping to matching brace."
 ;; M-x svn-status
 (global-set-key (kbd "C-c s") 'svn-status)
 
+;; dict mode
+(global-set-key (kbd "C-c ?") (lambda () (interactive) 
+				(dictionary-lookup-definition)))
+
 (provide 'dim-keys)

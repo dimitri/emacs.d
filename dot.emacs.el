@@ -278,5 +278,9 @@ vi style of % jumping to matching brace."
 		       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
 (global-set-key [f11] 'fullscreen)
 
+;; dict
+(setq dictionary-coding-systems-for-dictionaries '(("robert" . iso-8859-15)))
+(setq dictionary-server "localhost")
+
 ;; my keys
 (require 'dim-keys)
