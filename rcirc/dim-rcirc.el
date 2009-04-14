@@ -51,6 +51,26 @@
 		      rcirc-default-user-full-name
 		      channels))))
 
+;; dynamically set fill-column at redisplay time
+(defun dim:dynamic-fill-column-window (window &optional margin)
+  "Dynamically get window's width and adjust fill-column accordingly"
+  (with-current-buffer (window-buffer window)
+    (when (eq major-mode 'rcirc-mode)
+      (setq fill-column (- (window-width window) (or margin 5))))))
+
+(defun dim:dynamic-fill-column (frame)
+  "Dynamically tune fill-column for a frame's windows at redisplay time"
+  
+  (let* ((init-w (frame-selected-window frame))
+	 (cur-w  init-w))
+    (while (progn
+	     (dim:dynamic-fill-column-window cur-w)
+	     (setq cur-w (next-window cur-w 'no-minibuf frame))
+	     (not (eq cur-w init-w))))))
+
+;(eval-after-load 'rcirc
+;  '(add-to-list 'window-size-change-functions 'dim:dynamic-fill-column))
+
 ;; encodings
 (setq rcirc-decode-coding-system 'undecided)
 ;(setq rcirc-coding-system-alist '(("#postgresqlfr" . iso-8859-15)))
