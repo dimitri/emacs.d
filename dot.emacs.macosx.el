@@ -26,30 +26,31 @@
 ;; par défaut on fait tout en UTF-8
 (prefer-coding-system 'utf-8)
 
-;;
-;; On charge reccursivement depuis le load-path
-;(normal-top-level-add-subdirs-to-load-path)
-;;(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-;;    (let* ((my-lisp-dir "~/.emacs.d/")
-;;	   (default-directory my-lisp-dir))
-;;      (setq load-path (cons my-lisp-dir load-path))
-;;      (normal-top-level-add-subdirs-to-load-path)))
+;; MacOSX specific setting
+(setq mac-allow-anti-aliasing t)
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'none)
 
-;; taille et position
-(set-frame-position (selected-frame) 90 45)
-(set-frame-size (selected-frame) 170 45)
+;; font, taille et position
+(if (eq 0 (string-match "^23.0.92" emacs-version))
+    (progn
+      (set-face-font 'default "Monaco-11")
+      (set-frame-position (selected-frame) 60 30)
+      ;(set-frame-size (selected-frame) 165 45))
+      ;(set-frame-size (selected-frame) 180 55))
+      (set-frame-size (selected-frame) 192 58))
 
-;; couleurs
-;;(set-foreground-color "Black")
-;;(set-background-color "lightgray")
-;;(set-cursor-color "Black")
-;;(set-border-color "DarkSlateBlue")
+  ;; older emacs (23.0.90) didn't share same fonts rendering
+  (set-frame-position (selected-frame) 90 45)
+  (set-frame-size (selected-frame) 170 45))
 
 ;; thème Tango, much better
 (require 'color-theme)
 (require 'color-theme-tango)
 (color-theme-tango)
 ;(color-theme-tango-2)
+
+;(require 'color-theme-zenburn)
 ;(color-theme-zenburn)
 
 ;; configuration rcirc
