@@ -52,26 +52,19 @@
 ;(color-theme-tango-2)
 ;(color-theme-zenburn)
 
-;; bindings
-(global-set-key (kbd "C-c r") 'revert-buffer)
+;; configuration rcirc
+(require 'dim-rcirc)
+
+;; bindings --- depends on rcirc being loaded
+(require 'dim-keys)
 
 ;; chargement des projets locaux
 (require 'my-projects)
-
-;; configuration rcirc, and global shortcut to connect to servers
-(require 'dim-rcirc)
-(global-set-key (kbd "C-c i") 'dim-rcirc-start)
 
 ;; on utilise ibuffer
 (require 'ibuffer)
 (global-set-key "\C-x\C-b" 'ibuffer)
 (iswitchb-mode)
-
-;; déplacements avec Shift-<flèche>
-(windmove-default-keybindings)
-
-;; dired-x pour C-x C-j
-(require 'dired-x)
 
 ;; on veut voir la sélection en cours
 (transient-mark-mode 1) 
@@ -83,18 +76,6 @@
 ;; pas de tool bar, pas de scroll bar merci
 (tool-bar-mode -1)
 (set-scroll-bar-mode nil)
-
-;; rendu des fontes
-;;(setq mac-allow-anti-aliasing nil)
-
-; find-file-at-point quand ça a du sens
-(setq ffap-machine-p-known 'accept) ; no pinging
-(setq ffap-url-regexp nil)          ; disable URL features in ffap
-(setq ffap-ftp-regexp nil)          ; disable FTP features in ffap
-(define-key global-map (kbd "C-x C-f") 'find-file-at-point)
-
-;; C-c g pour demander à google de chercher la sélection en cours
-(require 'dim-google)
 
 ;; gestion de session
 (desktop-save-mode 1)
@@ -108,7 +89,7 @@
 ;(global-set-key (kbd "C-)") '(lambda () (interactive) (elscreen-next)))))
 
 ;; Backuper les fichiers dans ~/.elisp/backups
-(setq backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
+(setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
 
 ;; attention aux lignes plus longues que la window dans term.el
 (add-hook 'term-mode-hook (lambda () (setq truncate-lines t)))
@@ -126,27 +107,12 @@
 ;; muse projects
 (require 'dim-muse)
 
-;; insert current time
-(defun insert-date()
-  "Insert a time-stamp according to locale's date and time format."
-  (interactive)
-  (insert (format-time-string "%Y%m%d" (current-time))))
-
-(global-set-key "\C-cd" 'insert-date)
-
 ;; TRAMP
 (setq tramp-default-method "scpc")
 ;;(setq shell-prompt-pattern "^[^#$%>\n]*[#$%>~] *")
 
 ;; On précise à M-x woman de ne pas ouvrir sa propre frame
 (setq woman-use-own-frame nil)
-
-;; full screen
-(defun fullscreen ()
-  (interactive)
-  (set-frame-parameter nil 'fullscreen
-		       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
-(global-set-key [f11] 'fullscreen)
 
 ;; xlhtml modes (php / html), which turns on toggle-debug-on-error
 (load "~/.emacs.d/nxhtml/autostart.el")
@@ -159,17 +125,6 @@
 (add-hook 'doc-mode-hook '(lambda ()
 			    (turn-on-auto-fill)
 			    (require 'asciidoc)))
-
-;; navigation dans les parenthèses
-;; http://www.emacswiki.org/emacs/ParenthesisMatching
-(defun goto-match-paren (arg)
-  "Go to the matching parenthesis if on parenthesis, otherwise insert %.
-vi style of % jumping to matching brace."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-        (t (self-insert-command (or arg 1)))))
-(global-set-key (kbd "C-%") 'goto-match-paren)
 
 ;; Magit!
 ;(require 'magit)

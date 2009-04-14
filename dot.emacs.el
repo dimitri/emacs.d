@@ -139,7 +139,6 @@ vi style of % jumping to matching brace."
 
 ;; configuration rcirc, and global shortcut to connect to servers
 (require 'dim-rcirc)
-(global-set-key (kbd "C-c i") 'dim-rcirc-start)
 
 ;; fonctions pratiques pour spliter la fenêtre courante et faire les choses
 ;; habituelles, comme démarrer un term à droite.

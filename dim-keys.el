@@ -3,13 +3,49 @@
 ;; C-c r pour revert-buffer
 (global-set-key (kbd "C-c r") '(lambda () (interactive) (revert-buffer)))
 
+;; rcirc global shortcut to connect to servers
+(global-set-key (kbd "C-c i") 'dim-rcirc-start)
+
+;; déplacements avec Shift-<flèche>
+(windmove-default-keybindings)
+
+;; dired-x pour C-x C-j
+(require 'dired-x)
+
 ;; C-c d pour écrire la date
 (defun insert-date()
   "Insert a time-stamp according to locale's date and time format."
   (interactive)
   (insert (format-time-string "%Y%m%d" (current-time))))
 
-(global-set-key "\C-cd" 'insert-date)
+(global-set-key (kbd "C-c d") 'insert-date)
+
+; find-file-at-point quand ça a du sens
+(setq ffap-machine-p-known 'accept) ; no pinging
+(setq ffap-url-regexp nil)          ; disable URL features in ffap
+(setq ffap-ftp-regexp nil)          ; disable FTP features in ffap
+(define-key global-map (kbd "C-x C-f") 'find-file-at-point)
+
+;; full screen
+(defun fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen
+		       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
+(global-set-key [f11] 'fullscreen)
+
+;; navigation dans les parenthèses
+;; http://www.emacswiki.org/emacs/ParenthesisMatching
+(defun goto-match-paren (arg)
+  "Go to the matching parenthesis if on parenthesis, otherwise insert %.
+vi style of % jumping to matching brace."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (self-insert-command (or arg 1)))))
+(global-set-key (kbd "C-%") 'goto-match-paren)
+
+;; C-c g pour demander à google de chercher la sélection en cours
+(require 'dim-google)
 
 ;; C-c C-t prefix numéros de tel
 (defun dim:dim-numtel-pro()
