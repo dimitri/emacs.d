@@ -26,6 +26,9 @@
 ;; par défaut on fait tout en UTF-8
 (prefer-coding-system 'utf-8)
 
+;; chuuut
+(setq ring-bell-function 'ignore)
+
 ;; MacOSX specific setting
 (setq mac-allow-anti-aliasing t)
 (setq mac-command-modifier 'meta)
