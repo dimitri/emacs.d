@@ -54,7 +54,7 @@
 
 	      ;; taille et positionnement
 	      (set-frame-position (selected-frame) 150 150)
-	      (set-frame-size (selected-frame) 160 50)
+	      (set-frame-size (selected-frame) 160 52)
 	      
 	      ;; set the font -- now see .Xresource
               ;(set-face-font 'default' "-misc-vgathin-medium-r-normal--16-16-75-75-c-90-iso8859-15" nil)
@@ -197,6 +197,27 @@ vi style of % jumping to matching brace."
     (global-set-key (kbd "C-(") '(lambda () (interactive) (elscreen-previous)))
     (global-set-key (kbd "C-)") '(lambda () (interactive) (elscreen-next)))))
 
+;;
+;; taken from http://www.emacswiki.org/emacs/?action=browse;oldid=ElScreen;id=EmacsLispScreen
+;; 
+(defun elscreen-frame-title-update ()
+  (when (elscreen-screen-modified-p 'elscreen-frame-title-update)
+    (let* ((screen-list (sort (elscreen-get-screen-list) '<))
+ 	   (screen-to-name-alist (elscreen-get-screen-to-name-alist))
+ 	   (title (mapconcat
+ 		   (lambda (screen)
+ 		     (format "%d%s %s"
+ 			     screen (elscreen-status-label screen)
+ 			     (get-alist screen screen-to-name-alist)))
+ 		   screen-list " ")))
+      (if (fboundp 'set-frame-name)
+ 	  (set-frame-name title)
+ 	(setq frame-title-format title)))))
+
+(eval-after-load "elscreen"
+  '(add-hook 'elscreen-screen-update-hook 'elscreen-frame-title-update))
+ 
+
 ;;;
 ;;; Language modes
 ;;;
@@ -241,6 +262,7 @@ vi style of % jumping to matching brace."
 
 ;; nxhtml pour PHP/HTML
 (load "~/.elisp/nxhtml/nxhtml/autostart.el")
+(toggle-debug-on-error)
 (custom-set-faces 
  '(mumamo-background-chunk-submode ((((class color)
 				      (min-colors 88)
