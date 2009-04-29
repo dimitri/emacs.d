@@ -8,10 +8,12 @@
 		     ;"~/dev/magit/mainline"
 		     ;"~/.emacs.d/egg/egg"
 		     "~/.emacs.d/color-theme-6.6.0"
+		     "~/.emacs.d/color-theme-6.6.0/themes"
 		     "~/.emacs.d/muse/muse/lisp"
 		     "~/.emacs.d/rcirc"
 		     ;;"~/.emacs.d/emacs-jabber-0.7.1"
 		     "~/.emacs.d/dictionary-1.8.7"
+		     "~/.emacs.d/w3m/emacs-w3m/"
 		     )))
     (dolist (path dim:paths)
       (setq load-path (cons path load-path)))))
@@ -29,32 +31,36 @@
 ;; chuuut
 (setq ring-bell-function 'ignore)
 
+;; thème Tango, much better
+;(require 'color-theme)
+;(require 'color-theme-tango)
+;(load-library "color-theme-library")
+;(color-theme-tango)
+;(color-theme-tango-2)
+;(color-theme-scintilla)
+;(color-theme-aliceblue)
+
+(require 'color-theme-zenburn)
+(color-theme-zenburn)
+
 ;; MacOSX specific setting
 (setq mac-allow-anti-aliasing t)
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'none)
+(ns-set-background-alpha 0.9)
 
 ;; font, taille et position
 (if (eq 0 (string-match "^23.0.92" emacs-version))
     (progn
-      (set-face-font 'default "Monaco-11")
+      (set-face-font 'default "Monaco-12")
       (set-frame-position (selected-frame) 60 30)
       ;(set-frame-size (selected-frame) 165 45))
       ;(set-frame-size (selected-frame) 180 55))
-      (set-frame-size (selected-frame) 192 58))
+      (set-frame-size (selected-frame) 192 54))
 
   ;; older emacs (23.0.90) didn't share same fonts rendering
   (set-frame-position (selected-frame) 90 45)
   (set-frame-size (selected-frame) 170 45))
-
-;; thème Tango, much better
-(require 'color-theme)
-(require 'color-theme-tango)
-(color-theme-tango)
-;(color-theme-tango-2)
-
-;(require 'color-theme-zenburn)
-;(color-theme-zenburn)
 
 ;; configuration rcirc
 (require 'dim-rcirc)
@@ -142,3 +148,6 @@
 (load "~/.emacs.d/dictionary-1.8.7/dictionary-init.el")
 (global-set-key (kbd "C-c ?") (lambda () (interactive) 
 				(dictionary-lookup-definition)))
+
+;; w3m
+(require 'w3m-load)
