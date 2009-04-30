@@ -32,16 +32,16 @@
 (setq ring-bell-function 'ignore)
 
 ;; thème Tango, much better
-;(require 'color-theme)
+(require 'color-theme)
 ;(require 'color-theme-tango)
-;(load-library "color-theme-library")
+(load-library "color-theme-library")
 ;(color-theme-tango)
 ;(color-theme-tango-2)
-;(color-theme-scintilla)
+(color-theme-scintilla)
 ;(color-theme-aliceblue)
 
-(require 'color-theme-zenburn)
-(color-theme-zenburn)
+;(require 'color-theme-zenburn)
+;(color-theme-zenburn)
 
 ;; MacOSX specific setting
 (setq mac-allow-anti-aliasing t)
