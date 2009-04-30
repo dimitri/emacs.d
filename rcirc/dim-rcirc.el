@@ -51,25 +51,24 @@
 		      rcirc-default-user-full-name
 		      channels))))
 
+(defvar dim:dynamic-fill-column-margin 3
+  "Safety margin used to calculate fill-column depending on window-width")
+
 ;; dynamically set fill-column at redisplay time
 (defun dim:dynamic-fill-column-window (window &optional margin)
   "Dynamically get window's width and adjust fill-column accordingly"
   (with-current-buffer (window-buffer window)
     (when (eq major-mode 'rcirc-mode)
-      (setq fill-column (- (window-width window) (or margin 5))))))
+      (setq fill-column
+	    (- (window-width window) 
+	       (or margin dim:dynamic-fill-column-margin))))))
 
 (defun dim:dynamic-fill-column (frame)
   "Dynamically tune fill-column for a frame's windows at redisplay time"
+  (walk-windows 'dim:dynamic-fill-column-window 'no-minibuf frame))
   
-  (let* ((init-w (frame-selected-window frame))
-	 (cur-w  init-w))
-    (while (progn
-	     (dim:dynamic-fill-column-window cur-w)
-	     (setq cur-w (next-window cur-w 'no-minibuf frame))
-	     (not (eq cur-w init-w))))))
-
-;(eval-after-load 'rcirc
-;  '(add-to-list 'window-size-change-functions 'dim:dynamic-fill-column))
+(eval-after-load 'rcirc
+  '(add-to-list 'window-size-change-functions 'dim:dynamic-fill-column))
 
 ;; encodings
 (setq rcirc-decode-coding-system 'undecided)
