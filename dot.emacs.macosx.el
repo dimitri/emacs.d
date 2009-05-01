@@ -151,3 +151,17 @@
 
 ;; w3m
 (require 'w3m-load)
+
+;; PostgreSQL source code
+(add-hook 'c-mode-hook
+	  (function
+	   (lambda nil 
+	     (if (string-match "pgsql" buffer-file-name)
+		 (progn
+		   (c-set-style "bsd")
+		   (setq c-basic-offset 4) 
+		   (setq tab-width 4)
+		   (c-set-offset 'case-label '+)
+		   (setq indent-tabs-mode t)
+		   )
+	       ))))
