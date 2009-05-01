@@ -1,0 +1,6 @@
+
+* TODO setup special buffers whose windows won't get reused
+  
+  See [[elisp:(describe-variable%20'special-display-regexps)][special-display-regexps]] and [[elisp:(describe-function%20'set-window-dedicated-p)][set-window-dedicated-p]]
+
+  
