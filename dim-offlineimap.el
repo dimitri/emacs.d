@@ -4,6 +4,9 @@
 (defvar dim:offlineimap-bin "/usr/bin/offlineimap"
   "Absolute pathname where to find the offlineimap command")
 
+(defvar dim:offlineimap-pause "120"
+  "Delay in seconds to sleep between offlineimap invocations ")
+
 (defun dim:offlineimap-start ()
   "Opens a M-x term and type in offlineimap"
   (interactive) 
@@ -20,7 +23,11 @@
       
       (ansi-term "/bin/bash" run-command)
       (set-buffer (get-buffer buffer-name))
-      (insert dim:offlineimap-bin)
+      (insert (concat "while :; " 
+		      "do " dim:offlineimap-bin "; "
+		      "echo sleeping " dim:offlineimap-pause " seconds; "
+		      "sleep " dim:offlineimap-pause "; "
+		      "done"))
       (term-send-input))))
 
 (global-set-key (kbd "C-c o") 'dim:offlineimap-start)
