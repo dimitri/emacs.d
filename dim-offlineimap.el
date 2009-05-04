@@ -25,8 +25,12 @@
       (set-buffer (get-buffer buffer-name))
       (insert (concat "while :; " 
 		      "do " dim:offlineimap-bin "; "
+		      "if [ $? -eq 0 ]; then "
+		      "echo; "
+		      "date; "
 		      "echo sleeping " dim:offlineimap-pause " seconds; "
 		      "sleep " dim:offlineimap-pause "; "
+		      "fi; "
 		      "done"))
       (term-send-input))))
 
