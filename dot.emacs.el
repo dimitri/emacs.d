@@ -230,8 +230,8 @@ vi style of % jumping to matching brace."
 ;;			      '(("\\.pinc" . php-mode))
 ;;			      '(("\\.p3" . php-mode))
 ;;			      auto-mode-alist))
-
-(require 'php-mode)
+;; On a nxhtml
+;; (require 'php-mode)
 
 ;; CSS mode
 (autoload 'css-mode "css-mode")
