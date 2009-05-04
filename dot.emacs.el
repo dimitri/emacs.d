@@ -10,6 +10,7 @@
 (defun dim:add-my-extra-load-paths ()
   "define a list of paths to add to load-path and add each of them"
   (let ((dim:paths '("~/.elisp"
+		     "~/.emacs.d"
 		     "~/dev/elisp"
 		     "~/dev/muse"
 		     "~/dev/elisp/rcirc"
