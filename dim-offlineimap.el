@@ -36,4 +36,4 @@
 
 (global-set-key (kbd "C-c o") 'dim:offlineimap-start)
 
-(provide 'dim:offlineimap)
+(provide 'dim-offlineimap)

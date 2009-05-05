@@ -16,6 +16,7 @@
 		     "~/dev/elisp/rcirc"
 		     "~/.elisp/egg/egg"
 		     "~/.elisp/nxhtml/nxhtml"
+		     "~/.elisp/skype/skype"
 		     )))
     (dolist (path dim:paths)
       (setq load-path (cons path load-path)))))
@@ -307,3 +308,11 @@ vi style of % jumping to matching brace."
 
 ;; my keys
 (require 'dim-keys)
+
+;; Skype
+(require 'skype)
+(setq skype--my-user-handle "dimitri-fontaine-himedia")
+
+;; OfflineIMAP
+(require 'dim-offlineimap)
+
