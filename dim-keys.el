@@ -47,6 +47,10 @@ vi style of % jumping to matching brace."
 ;; C-c g pour demander à google de chercher la sélection en cours
 (require 'dim-google)
 
+;; déplacements sans changer la position du point dans le buffer
+(global-set-key (kbd "M-<up>")   (lambda () (interactive) (scroll-up   1)) )
+(global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-down 1)) )
+
 ;; C-c C-t prefix numéros de tel
 (defun dim:dim-numtel-pro()
   "Insert my numtel"
