@@ -14,7 +14,7 @@
 		(nnimap-address "localhost"))))
 
 (setq gnus-posting-styles
-      '(("nnimap+localhm"
+      '(("hm.local"
 	 (address "dfontaine@hi-media.com")
 	 (organization "Hi-Media")
 	 (signature-file "~/.signature"))
@@ -28,7 +28,7 @@
 	 (signature "dim"))
 	
 	;; Tapoueh
-	("nnimap+localtp"
+	("tapoueh.local"
 	 (address "dim@tapoueh.org")
 	 (signature "dim"))))
 
@@ -50,3 +50,12 @@
 			 (summary 1.0 point) 
 			 (if gnus-carpal
 			     '(summary-carpal 4))))))
+
+(add-hook 'gnus-select-group-hook
+	  (lambda ()
+	    (cond
+	     ((string-match 
+	       "PostgreSQL" (gnus-group-real-name gnus-newsgroup-name))
+	      (ispell-change-dictionary "english"))
+	     (t
+	      (ispell-change-dictionary "francais")))))
