@@ -124,17 +124,6 @@
 	(global-set-key '[mouse-4] '(lambda () (interactive) (scroll-down 5)))
 	(global-set-key '[mouse-5] '(lambda () (interactive) (scroll-up 5))))))
 
-;; navigation dans les parenthèses
-;; http://www.emacswiki.org/emacs/ParenthesisMatching
-(defun goto-match-paren (arg)
-  "Go to the matching parenthesis if on parenthesis, otherwise insert %.
-vi style of % jumping to matching brace."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-        (t (self-insert-command (or arg 1)))))
-(global-set-key (kbd "C-%") 'goto-match-paren)
-
 ;; mes projects locaux
 (require 'hm-projects)
 (require 'dim-muse)
