@@ -33,13 +33,15 @@
     :group 'rcirc-notify-mode)
 
 (defcustom rcirc-notify-mode:nick-alist nil
-  "An alist of nicks and the last time they tried to trigger a
-notification."
+  "An alist of nicks and the last time they tried to trigger a notification."
   :group 'rcirc-notify-mode)
 
-(defcustom rcirc-notify-mode:timeout 2
-  "Number of seconds that will elapse between notifications from the
-same person."
+(defcustom rcirc-notify-mode:timeout 30
+  "Number of seconds that will elapse between notifications from the same person."
+  :group 'rcirc-notify-mode)
+
+(defcustom rcirc-notify-mode:time-format "%H:%M "
+  "Time format to use in the *rcirc-notify* buffer as line-prefix"
   :group 'rcirc-notify-mode)
 
 (defvar rcirc-notify-mode-map
@@ -64,54 +66,55 @@ same person."
 
 (defun rcirc-notify-mode:mark-as-read ()
   (interactive)
-  (set-text-properties (line-beginning-position) (line-end-position) '(face default)))
+  (let ((inhibit-read-only t))
+    (remove-text-properties (line-beginning-position) (line-end-position) '(face default))))
 
 (defun rcirc-notify-mode:mark-all-previous-as-read ()
   (interactive)
-  (message "mark previous as read"))
+  (let ((inhibit-read-only t))
+    (remove-text-properties (beginning-of-buffer) (line-end-position) '(face default))))
 
 (defun rcirc-notify-mode:mark-all-as-read ()
   (interactive)
-  (message "mark all as read"))
+  (let ((inhibit-read-only t))
+    (remove-text-properties (beginning-of-buffer) (end-of-buffer) '(face default))))
+
+(defun rcirc-notify-mode:create-notify-buffer ()
+  "Create the rcirc-notify-mode:buffer-name buffer in read-only"
+  (let ((notify-buffer (get-buffer-create rcirc-notify-mode:buffer-name)))
+    (with-current-buffer notify-buffer
+      (setq buffer-read-only t)
+      ;; ensure we're in the rcirc-notify-mode major mode -- we could just
+      ;; be creating the buffer.
+      (unless (eq major-mode 'rcirc-notify-mode)
+	(rcirc-notify-mode)))
+    notify-buffer))
+
+(defun rcirc-notify-mode:append (message face target-buffer-name)
+  "append a message in the buffer rcirc-notify-mode:buffer-name"
+  (let ((notify-buffer (rcirc-notify-mode:create-notify-buffer)))
+    (with-current-buffer notify-buffer
+      (save-excursion
+	(end-of-buffer)
+	(insert (propertize message
+			    'line-prefix (format-time-string
+					  rcirc-notify-mode:time-format (current-time))
+			    'read-only t
+			    'face face
+			    'rcirc-buffer target-buffer-name))
+	(insert "\n")))))
 
 (defun rcirc-notify-mode:notify (sender target target-buffer-name)
   "fill in the *rcirc-motify* buffer"
-
-  (let ((notify-buffer (get-buffer-create rcirc-notify-mode:buffer-name)))
-    (with-current-buffer notify-buffer
-      ;; ensure we're in the rcirc-notify-mode major mode -- we could just
-      ;; be creating the buffer.
-      (unless (eq major-mode 'rcirc-notify-mode)
-	(rcirc-notify-mode))
-
-      ;; now insert text at the end of the mode
-      (save-excursion
-	(end-of-buffer)
-	(insert (propertize (concat (format rcirc-notify-mode:message sender target) "\n")
-			    'line-prefix (format-time-string "%H:%M " (current-time))
-			    'read-only t
-			    'face 'rcirc-nick-in-message
-			    'rcirc-buffer target-buffer-name))))))
+   (rcirc-notify-mode:append (format rcirc-notify-mode:message sender target)
+			     'rcirc-nick-in-message 
+			     target-buffer-name))
 
 (defun rcirc-notify-mode:notify-private (sender target target-buffer-name)
   "fill in the *rcirc-motify* buffer"
-
-  (let ((notify-buffer (get-buffer-create rcirc-notify-mode:buffer-name)))
-    (with-current-buffer notify-buffer
-      ;; ensure we're in the rcirc-notify-mode major mode -- we could just
-      ;; be creating the buffer.
-      (unless (eq major-mode 'rcirc-notify-mode)
-	(rcirc-notify-mode))
-
-      ;; now insert text at the end of the mode
-      (save-excursion
-	(end-of-buffer)
-	(insert (propertize (concat 
-			     (format rcirc-notify-mode:message-private sender target) "\n")
-			    'line-prefix (format-time-string "%H:%M " (current-time))
-			    'read-only t
-			    'face 'rcirc-nick-in-message-full-line
-			    'rcirc-buffer target-buffer-name))))))
+  (rcirc-notify-mode:append (format rcirc-notify-mode:message-private sender target) 
+			    'rcirc-nick-in-message-full-line
+			    target-buffer-name))
 
 (defun rcirc-notify-mode:nick-allowed (nick &optional delay)
   "Return non-nil if a notification should be made for NICK.
@@ -136,7 +139,7 @@ matches a regexp in `rcirc-keywords'."
   (interactive)
 
   (when (and (string-match (concat (rcirc-nick proc) "[:, $]") text)
-	     (not (string= (concat (rcirc-nick proc) "[:, $]") sender))
+	     ;(not (string= (concat (rcirc-nick proc) "[:, $]") sender))
              (not (string= (rcirc-server-name proc) sender))
              (rcirc-notify-mode:nick-allowed sender))
     (rcirc-notify-mode:notify sender target (current-buffer))))
@@ -145,13 +148,22 @@ matches a regexp in `rcirc-keywords'."
   "Notify the current user when someone sends a private message to them."
   (interactive)
   (when (and (string= response "PRIVMSG")
-             (not (string= sender (rcirc-nick proc)))
+             ;(not (string= sender (rcirc-nick proc)))
              (not (rcirc-channel-p target))
              (rcirc-notify-mode:nick-allowed sender))
 
     (rcirc-notify-mode:notify-private sender target (current-buffer))))
 
+(defun rcirc-notify-mode:switch-to-notify-buffer ()
+  "A way to quickly switch to notifications buffer"
+  (interactive)
+  (let ((notify-buffer (get-buffer-create rcirc-notify-mode:buffer-name)))
+    (set-window-buffer (selected-window) notify-buffer)))
+
 (add-hook 'rcirc-print-hooks 'rcirc-notify-mode:privmsg)
 (add-hook 'rcirc-print-hooks 'rcirc-notify-mode:notify-me)
+(add-hook 'rcirc-mode-hook   (lambda ()
+			       (local-set-key (kbd "C-c n") 
+					      'rcirc-notify-mode:switch-to-notify-buffer)))
 
 (provide 'rcirc-notify-mode)

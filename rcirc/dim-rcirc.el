@@ -2,6 +2,7 @@
 ;; http://www.emacswiki.org/emacs/rcirc
 
 (require 'rcirc)
+(require 'rcirc-notify-mode)
 
 ;; Central place to handle connecting
 (defun dim-rcirc-start ()
@@ -23,7 +24,10 @@
 ;; growl is for MacOSX style notification, rcirc-notify for linux libnotify
 ;; ones, and those are the only two systems I use...
 (if (string-match "apple-darwin" system-configuration)
-    (require 'growl)
+  (require 'growl)
+
+  ;; rcirc-notify for having system tray style pop-ups, -mode for having emacs
+  ;; like support for notifications in *rcirc-notify* buffer (special mode)
   (eval-after-load 'rcirc '(require 'rcirc-notify)))
 
 ;; /reconnect
