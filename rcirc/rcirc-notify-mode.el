@@ -67,17 +67,24 @@
 (defun rcirc-notify-mode:mark-as-read ()
   (interactive)
   (let ((inhibit-read-only t))
-    (remove-text-properties (line-beginning-position) (line-end-position) '(face default))))
+    (save-excursion
+      (remove-text-properties (line-beginning-position) (line-end-position) '(face default)))))
 
 (defun rcirc-notify-mode:mark-all-previous-as-read ()
   (interactive)
   (let ((inhibit-read-only t))
-    (remove-text-properties (beginning-of-buffer) (line-end-position) '(face default))))
+    (save-excursion
+      (rcirc-notify-mode:mark-as-read)
+      (while (not (eq -1 (forward-line -1)))
+	(remove-text-properties 
+	 (line-beginning-position) (line-end-position) '(face default))))))
 
 (defun rcirc-notify-mode:mark-all-as-read ()
   (interactive)
   (let ((inhibit-read-only t))
-    (remove-text-properties (beginning-of-buffer) (end-of-buffer) '(face default))))
+    (save-excursion
+      (goto-char (point-max))
+      (rcirc-notify-mode:mark-all-previous-as-read))))
 
 (defun rcirc-notify-mode:create-notify-buffer ()
   "Create the rcirc-notify-mode:buffer-name buffer in read-only"
@@ -95,7 +102,7 @@
   (let ((notify-buffer (rcirc-notify-mode:create-notify-buffer)))
     (with-current-buffer notify-buffer
       (save-excursion
-	(end-of-buffer)
+	(goto-char (point-max))
 	(insert (propertize message
 			    'line-prefix (format-time-string
 					  rcirc-notify-mode:time-format (current-time))
@@ -158,6 +165,14 @@ matches a regexp in `rcirc-keywords'."
   "A way to quickly switch to notifications buffer"
   (interactive)
   (let ((notify-buffer (get-buffer-create rcirc-notify-mode:buffer-name)))
+    (with-current-buffer notify-buffer
+      ;; move point to first unread line, from current position
+      ;; that will be the first line (maybe current one) where 'face isn't nil
+      ;; loop forward to find unread notification (non nil 'face property)
+      (while (and (< (point) (point-max))
+		  (not (get-text-property (point) 'face)))
+	(forward-line 1)))
+	  
     (set-window-buffer (selected-window) notify-buffer)))
 
 (add-hook 'rcirc-print-hooks 'rcirc-notify-mode:privmsg)
