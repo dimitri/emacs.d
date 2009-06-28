@@ -4,7 +4,7 @@
 ;;
 ;; Author: Dimitri Fontaine <dim@tapoueh.org>
 ;; URL: http://pgsql.tapoueh.org/elisp/rcirc
-;; Version: 0.3
+;; Version: 0.4
 ;; Created: 2009-06-27
 ;; Keywords: IRC rcirc notify
 ;;
@@ -116,7 +116,11 @@
 (defun rcirc-groups:catchup-all-conversations ()
   "catchup all conversation reinits all conversation-alist entries"
   (interactive)
-  (message "Not yet implemented"))
+  (save-excursion
+    (goto-char (point-min))
+    (while (< (point) (point-max))
+      (rcirc-groups:catchup-conversation)
+      (forward-line 1))))
 
 (defun rcirc-groups:list-conversations ()
   "list all conversations where some notification has not yet been acknowledged"
