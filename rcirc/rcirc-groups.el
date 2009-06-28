@@ -44,23 +44,23 @@
 	 (notification-time (time-to-seconds (current-time)))
 	 (new-notif))
 
-    ;; work out if we want to increment how many notifs we're lagging behind
-    (setq new-notif
-	  (if reset 0
-	    (if (and (not buffer-visible) 
-		     (< (time-to-seconds buffer-display-time) notification-time))
-		(+ 1 notifs)
-	      notifs)))
-
     ;; add a new entry in our alist when necessary
     (if conversation-entry
 	(progn
+	  ;; work out if we want to increment how many notifs we're lagging behind
+	  (setq new-notif
+		(if reset 0
+		  (if (and (not buffer-visible) 
+			   (< (time-to-seconds buffer-display-time) notification-time))
+		      (+ 1 notifs)
+		    notifs)))
+
 	  ;; list maintenance: delete current entry, to prepare for pushing new one
 	  (setq rcirc-groups:conversation-alist
 		(assq-delete-all (car conversation-entry) rcirc-groups:conversation-alist))
+
 	  (push (cons (car conversation-entry)
-		      (cons new-notif notification-time))
-		rcirc-groups:conversation-alist))
+		      (cons new-notif notification-time)) rcirc-groups:conversation-alist))
 
       ;; new buffer we didn't track yet
       (setq conversation-entry (cons (get-buffer buffer-or-name)
