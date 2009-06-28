@@ -63,6 +63,7 @@
     (define-key map (kbd "C")        'rcirc-groups:catchup-all-conversations)
     (define-key map (kbd "l")        'rcirc-groups:list-mentionned-conversations)
     (define-key map (kbd "L")        'rcirc-groups:list-all-conversations)
+    (define-key map (kbd "q")        'quit-window)
     
     map)
   "Keymap for `rcirc-groups-mode'.")
