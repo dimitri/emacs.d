@@ -35,8 +35,23 @@
 
 (defun rcirc-groups:update-conversation-alist (buffer-or-name &optional reset)
   "Replace current values for given conversation buffer"
-  (let ((conversation-entry 
-	 (assoc (get-buffer buffer-or-name) rcirc-groups:conversation-alist)))
+  (let* ((conversation-entry 
+	  (assoc (get-buffer buffer-or-name) rcirc-groups:conversation-alist))
+	 (notifs (cadr conversation-entry))
+	 (buffer (get-buffer buffer-or-name))
+	 (buffer-visible (memq buffer (rcirc-visible-buffers)))
+	 (buffer-display-time (buffer-local-value 'buffer-display-time buffer))
+	 (notification-time (time-to-seconds (current-time)))
+	 (new-notif))
+
+    ;; work out if we want to increment how many notifs we're lagging behind
+    (setq new-notif
+	  (if reset 0
+	    (if (and (not buffer-visible) 
+		     (< buffer-display-time notification-time))
+		(+ 1 notifs)
+	      notifs)))
+
     ;; add a new entry in our alist when necessary
     (if conversation-entry
 	(progn
@@ -44,14 +59,12 @@
 	  (setq rcirc-groups:conversation-alist
 		(assq-delete-all (car conversation-entry) rcirc-groups:conversation-alist))
 	  (push (cons (car conversation-entry)
-		      (cons (if reset 0
-			      (+ 1 (cadr conversation-entry)))
-			    (time-to-seconds (current-time))))
+		      (cons new-notif notification-time))
 		rcirc-groups:conversation-alist))
 
       ;; new buffer we didn't track yet
       (setq conversation-entry (cons (get-buffer buffer-or-name)
-				     (cons 0 (time-to-seconds (current-time)))))
+				     (cons 0 notification-time)))
       (push conversation-entry rcirc-groups:conversation-alist))))
 
 (defvar rcirc-groups-mode-map
@@ -158,7 +171,7 @@
   "update the rcirc-groups:conversation-alist counters"
   (interactive)
   (when (and (string= response "PRIVMSG")
-             ;(not (string= sender (rcirc-nick proc)))
+             (not (string= sender (rcirc-nick proc)))
              (not (rcirc-channel-p target))
              (rcirc-notify-mode:nick-allowed sender))
 
@@ -168,7 +181,7 @@
   "update the rcirc-groups:conversation-alist counters"
   (interactive)
   (when (and (string-match (concat (rcirc-nick proc) "[:, $]") text)
-	     ;(not (string= (rcirc-nick proc) sender))
+	     (not (string= (rcirc-nick proc) sender))
              (not (string= (rcirc-server-name proc) sender))
              (rcirc-notify-mode:nick-allowed sender))
 
