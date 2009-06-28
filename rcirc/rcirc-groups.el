@@ -4,7 +4,7 @@
 ;;
 ;; Author: Dimitri Fontaine <dim@tapoueh.org>
 ;; URL: http://pgsql.tapoueh.org/elisp/rcirc
-;; Version: 0.1
+;; Version: 0.2
 ;; Created: 2009-06-27
 ;; Keywords: IRC rcirc notify
 ;;
@@ -31,6 +31,15 @@
 
 (defvar rcirc-groups:conversation-alist nil
   "An alist of conversation buffers and the number of times they mentionned your nick.")
+
+(defun rcirc-groups:update-conversation-alist (conversation-entry &optional reset)
+  "Replace current values for given conversation buffer"
+  ;; list maintenance: delete current entry, push new one
+  (assq-delete-all (car conversation-entry) rcirc-groups:conversation-alist)
+  (push (cons (car conversation-entry)
+	      (cons (if reset 0
+		      (+ 1 (cadr conversation-entry)))
+		    (time-to-seconds (current-time))))))
 
 (defvar rcirc-groups-mode-map
   (let ((map (make-sparse-keymap)))
@@ -62,52 +71,59 @@
 
 (defun rcirc-groups:refresh-conversation-alist ()
   "fill in rcirc-groups:conversation-alist all active conversations"
+  (interactive)
   (dolist (elt (buffer-list))
     (with-current-buffer elt
       (when (and (eq major-mode 'rcirc-mode))
-	(if (assoc elt rcirc-groups:conversation-alist)
-	    (push elt rcirc-groups:conversation-alist)
-	  (push (cons elt (cons 0 (time-to-seconds (current-time))))
-		rcirc-groups:conversation-alist)))))
+	(let ((entry (assoc elt rcirc-groups:conversation-alist)))
+	  (when (not entry)
+	    (push (cons elt (cons 0 (time-to-seconds (current-time))))
+		  rcirc-groups:conversation-alist))))))
   rcirc-groups:conversation-alist)
 
 (defun rcirc-groups:catchup-conversation ()
   "catchup conversation reinits the conversation-alist entry for current buffer"
-
+  (interactive)
   (let* ((conversation-buffer (buffer-substring
 				(line-beginning-position) (line-end-position)))
 	 (conversation-entry (assoc conversation-buffer rcirc-groups:conversation-alist)))
     
-    (push (cons conversation-buffer (cons 0 (time-to-seconds (current-time))))
-	  rcirc-groups:conversation-alist)))
+    (rcirc-groups:update-conversation-alist conversation-entry t)))
 
 (defun rcirc-groups:catchup-all-conversations ()
   "catchup all conversation reinits all conversation-alist entries"
+  (interactive)
   (message "Not yet implemented"))
 
 (defun rcirc-groups:list-mentionned-conversations ()
   "list all conversations where some notification has not yet been acknowledged"
-  (erase-buffer)
-  (dolist (elt rcirc-groups:conversation-alist)
-    (when (> (cadr elt) 0)
-      (insert (propertize (car elt) 
-			  'line-prefix 
-			  (format "%s %s "
-				  (format-time-string rcirc-groups:time-format (cddr elt))
-				  (cadr elt))
-			  'face 'rcirc-nick-in-message))
-      (insert "\n"))))
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (dolist (elt rcirc-groups:conversation-alist)
+      (when (> (cadr elt) 0)
+	(insert (propertize (buffer-name (car elt))
+			    'line-prefix 
+			    (format "%s %s "
+				    (format-time-string 
+				     rcirc-groups:time-format (seconds-to-time (cddr elt)))
+				    (cadr elt))
+			    'face 'rcirc-nick-in-message))
+	(insert "\n")))))
 
 (defun rcirc-groups:list-all-conversations ()
   "list all conversations where some notification has not yet been acknowledged"
-  (erase-buffer)
-  (dolist (elt rcirc-groups:conversation-alist)
-    (insert (propertize (car elt) 
-			'line-prefix 
-			(format "%s %s "
-				(format-time-string rcirc-groups:time-format (cddr elt))
-				(cadr elt))))
-    (insert "\n")))
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (dolist (elt rcirc-groups:conversation-alist)
+      (insert (propertize (buffer-name (car elt))
+			  'line-prefix 
+			  (format "%s %s "
+				  (format-time-string 
+				   rcirc-groups:time-format (seconds-to-time (cddr elt)))
+				  (cadr elt))))
+      (insert "\n"))))
 
 (defun rcirc-groups:privmsg (proc sender response target text)
   "update the rcirc-groups:conversation-alist counters"
@@ -117,9 +133,7 @@
              (rcirc-notify-mode:nick-allowed sender))
 
     (let ((conversation (assoc (current-buffer) rcirc-groups:conversation-alist)))
-      (push (cons (car conversation) (cons (+ 1 (cadr conversation)) 
-					   (time-to-seconds (current-time))))
-	    rcirc-groups:conversation-alist))))
+      (rcirc-groups:update-conversation-alist conversation-entry))))
 
 (defun rcirc-groups:notify-me (proc sender response target text)
   "update the rcirc-groups:conversation-alist counters"
@@ -131,9 +145,7 @@
              (rcirc-notify-mode:nick-allowed sender))
 
     (let ((conversation (assoc (current-buffer) rcirc-groups:conversation-alist)))
-      (push (cons (car conversation) (cons (+ 1 (cadr conversation)) 
-					   (time-to-seconds (current-time))))
-	    rcirc-groups:conversation-alist))))
+      (rcirc-groups:update-conversation-alist conversation-entry))))
 
 (defun rcirc-groups:create-notify-buffer ()
   "Create the rcirc-groups:buffer-name buffer in read-only"
