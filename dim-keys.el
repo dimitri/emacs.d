@@ -16,7 +16,7 @@
 (defun insert-date()
   "Insert a time-stamp according to locale's date and time format."
   (interactive)
-  (insert (format-time-string "%Y%m%d" (current-time))))
+  (insert (format-time-string "%Y%m%d-%k:%M" (current-time))))
 
 (global-set-key (kbd "C-c d") 'insert-date)
 
@@ -48,8 +48,8 @@ vi style of % jumping to matching brace."
 (require 'dim-google)
 
 ;; déplacements sans changer la position du point dans le buffer
-(global-set-key (kbd "M-<up>")   (lambda () (interactive) (scroll-up   1)) )
-(global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-down 1)) )
+(global-set-key (kbd "M-<up>")   (lambda () (interactive) (scroll-down 1)) )
+(global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-up   1)) )
 
 ;; C-c C-t prefix numéros de tel
 (defun dim:dim-numtel-pro()
