@@ -172,8 +172,7 @@
   (interactive)
   (when (and (string= response "PRIVMSG")
              (not (string= sender (rcirc-nick proc)))
-             (not (rcirc-channel-p target))
-             (rcirc-notify-mode:nick-allowed sender))
+             (not (rcirc-channel-p target)))
 
     (rcirc-groups:update-conversation-alist (current-buffer))))
 
@@ -182,8 +181,7 @@
   (interactive)
   (when (and (string-match (concat (rcirc-nick proc) "[:, $]") text)
 	     (not (string= (rcirc-nick proc) sender))
-             (not (string= (rcirc-server-name proc) sender))
-             (rcirc-notify-mode:nick-allowed sender))
+             (not (string= (rcirc-server-name proc) sender)))
 
     (rcirc-groups:update-conversation-alist (current-buffer))))
 

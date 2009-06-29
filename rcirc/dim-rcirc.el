@@ -2,7 +2,7 @@
 ;; http://www.emacswiki.org/emacs/rcirc
 
 (require 'rcirc)
-(require 'rcirc-notify-mode)
+(require 'rcirc-groups)
 
 ;; Central place to handle connecting
 (defun dim-rcirc-start ()
