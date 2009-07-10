@@ -169,3 +169,16 @@
 		   (setq indent-tabs-mode t)
 		   )
 	       ))))
+
+;;; To work on the documentation, the following (or a variant, as above)
+;;; can be helpful.
+
+(defun pgsql-sgml-mode ()
+  "SGML mode adjusted for PostgreSQL project"
+  (interactive)
+  (sgml-mode)
+  (setq sgml-basic-offset 1))
+
+(setq auto-mode-alist
+  (cons '("\\(postgres\\|pgsql\\).*\\.sgml\\'" . pgsql-sgml-mode)
+        auto-mode-alist))
