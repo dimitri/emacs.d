@@ -50,7 +50,8 @@
 (ns-set-background-alpha 0.9)
 
 ;; font, taille et position
-(if (eq 0 (string-match "^23.0.92" emacs-version))
+(if (or (eq 0 (string-match "^23.1.50" emacs-version))
+	(eq 0 (string-match "^23.0.9[24]" emacs-version)))
     (progn
       (set-face-font 'default "Monaco-12")
       (set-frame-position (selected-frame) 60 30)
