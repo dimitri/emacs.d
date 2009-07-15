@@ -15,6 +15,7 @@
 		     "~/dev/muse"
 		     "~/dev/elisp/rcirc"
 		     "~/.elisp/egg/egg"
+		     "~/.elisp/magit/mainline/"
 		     "~/.elisp/nxhtml/nxhtml"
 		     "~/.elisp/skype/skype"
 		     )))
@@ -250,6 +251,9 @@
 
 ;; Egg mode, pour status git
 (require 'egg)
+
+;; Magit mode
+(require 'magit)
 
 ;; nxhtml pour PHP/HTML
 (load "~/.elisp/nxhtml/nxhtml/autostart.el")
