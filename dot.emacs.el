@@ -315,3 +315,17 @@
 ;; Lua
 (setq auto-mode-alist (cons '("\\.lua$" . lua-mode) auto-mode-alist))
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+
+;; PostgreSQL
+(add-hook 'c-mode-hook
+	  (function
+	   (lambda nil 
+	     (if (string-match "postgresql/src" buffer-file-name)
+		 (progn
+		   (c-set-style "bsd")
+		   (setq c-basic-offset 4) 
+		   (setq tab-width 4)
+		   (c-set-offset 'case-label '+)
+		   (setq indent-tabs-mode t)
+		   )
+	       ))))
