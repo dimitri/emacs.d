@@ -279,6 +279,9 @@
 (add-hook 'term-mode-hook 
 	  (lambda () (setq truncate-lines t)))
 
+(add-hook 'term-mode-hook 
+	  (lambda () (global-hl-line-mode -1)))
+
 ;;(add-hook 'term-mode-hook 
 ;;	  (lambda () (transient-mark-mode nil)))
 
