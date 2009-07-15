@@ -51,21 +51,26 @@
 	  (setq new-notif
 		(if reset 0
 		  (if (and (not buffer-visible) 
-			   (< (time-to-seconds buffer-display-time) notification-time))
+			   (< (time-to-seconds buffer-display-time) 
+			      notification-time))
 		      (+ 1 notifs)
 		    notifs)))
 
-	  ;; list maintenance: delete current entry, to prepare for pushing new one
+	  ;; list maintenance: delete current entry, to prepare for pushing
+	  ;; new one
 	  (setq rcirc-groups:conversation-alist
-		(assq-delete-all (car conversation-entry) rcirc-groups:conversation-alist))
+		(assq-delete-all
+		 (car conversation-entry) rcirc-groups:conversation-alist))
 
 	  (push (cons (car conversation-entry)
-		      (cons new-notif notification-time)) rcirc-groups:conversation-alist))
+		      (cons new-notif notification-time)) 
+		rcirc-groups:conversation-alist))
 
       ;; new buffer we didn't track yet
-      (setq conversation-entry (cons (get-buffer buffer-or-name)
-				     (cons 0 notification-time)))
-      (push conversation-entry rcirc-groups:conversation-alist))))
+      (when buffer
+	(setq conversation-entry (cons buffer
+				       (cons 0 notification-time)))
+	(push conversation-entry rcirc-groups:conversation-alist)))))
 
 (defvar rcirc-groups-mode-map
   (let ((map (make-sparse-keymap)))
@@ -76,6 +81,8 @@
     (define-key map (kbd "C")        'rcirc-groups:catchup-all-conversations)
     (define-key map (kbd "l")        'rcirc-groups:list-mentionned-conversations)
     (define-key map (kbd "L")        'rcirc-groups:list-all-conversations)
+    (define-key map (kbd "n")        'next-line)
+    (define-key map (kbd "p")        'previous-line)
     (define-key map (kbd "q")        'quit-window)
     
     map)
@@ -141,12 +148,13 @@
   (let ((inhibit-read-only t))
     (erase-buffer)
     (dolist (elt rcirc-groups:conversation-alist)
-      (let ((entry-face 'default))
+      (let ((entry-face 'default)
+	    (buffer (if (car elt) (buffer-name (car elt)) "nil")))
 	(when (or rcirc-groups:display-all (> (cadr elt) 0))
 	  (when (> (cadr elt) 0)
 	    (setq entry-face 'rcirc-nick-in-message))
 
-	  (insert (propertize (buffer-name (car elt))
+	  (insert (propertize buffer
 			      'line-prefix 
 			      (format "%s %s "
 				      (format-time-string 
