@@ -280,7 +280,7 @@
 	  (lambda () (setq truncate-lines t)))
 
 (add-hook 'term-mode-hook 
-	  (lambda () (global-hl-line-mode -1)))
+	  (lambda () (hl-line-mode -1)))
 
 ;;(add-hook 'term-mode-hook 
 ;;	  (lambda () (transient-mark-mode nil)))
@@ -320,7 +320,8 @@
 (add-hook 'c-mode-hook
 	  (function
 	   (lambda nil 
-	     (if (string-match "postgresql/src" buffer-file-name)
+	     (if (and buffer-file-name
+		      (string-match "postgresql/src" buffer-file-name))
 		 (progn
 		   (c-set-style "bsd")
 		   (setq c-basic-offset 4) 
@@ -329,3 +330,6 @@
 		   (setq indent-tabs-mode t)
 		   )
 	       ))))
+
+;; optimisation surtout bénéfique à Tramp
+(setq vc-handled-backends nil)
