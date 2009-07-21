@@ -107,6 +107,14 @@
 ;(global-set-key (kbd "C-(") '(lambda () (interactive) (elscreen-previous)))
 ;(global-set-key (kbd "C-)") '(lambda () (interactive) (elscreen-next)))))
 
+;; escreen from http://www.splode.com/~friedman/software/emacs-lisp/
+(load "escreen")
+(setq escreen-prefix-char (kbd "C-ù"))
+(global-set-key (kbd "C-(") 'escreen-goto-prev-screen)
+(global-set-key (kbd "C-)") 'escreen-goto-next-screen)
+(escreen-install)
+
+
 ;; Backuper les fichiers dans ~/.elisp/backups
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
 
