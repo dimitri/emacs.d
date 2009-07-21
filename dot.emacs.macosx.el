@@ -5,12 +5,16 @@
 (defun dim:add-my-extra-load-paths ()
   "define a list of paths to add to load-path and add each of them"
   (let ((dim:paths '("~/.emacs.d"
-		     ;"~/dev/magit/mainline"
-		     ;"~/.emacs.d/egg/egg"
+		     "~/dev/elisp"
+		     "~/dev/muse"
+		     "~/dev/magit/mainline"
+		     "~/.emacs.d/egg/egg"
 		     "~/.emacs.d/color-theme-6.6.0"
 		     "~/.emacs.d/color-theme-6.6.0/themes"
 		     "~/.emacs.d/muse/muse/lisp"
 		     "~/.emacs.d/rcirc"
+		     "~/.emacs.d/mew/mew-6.2"
+		     "~/.emacs.d/nxhtml"
 		     ;;"~/.emacs.d/emacs-jabber-0.7.1"
 		     "~/.emacs.d/dictionary-1.8.7"
 		     "~/.emacs.d/w3m/emacs-w3m/"
@@ -122,8 +126,8 @@
 (require 'dim-muse)
 
 ;; TRAMP
-(setq tramp-default-method "scpc")
-;;(setq shell-prompt-pattern "^[^#$%>\n]*[#$%>~] *")
+;;(setq tramp-default-method "scpc")
+;;(setq shell-prompt-pattern "^[^#$%>\n]*[#$%>] *")
 
 ;; On précise à M-x woman de ne pas ouvrir sa propre frame
 (setq woman-use-own-frame nil)
@@ -141,12 +145,13 @@
 			    (require 'asciidoc)))
 
 ;; Magit!
-;(require 'magit)
-;(global-set-key (kbd "C-x g") 'magit-status)
+(require 'magit)
+(setq magit-git-executable "/sw/bin/git")
+(global-set-key (kbd "C-x g") 'magit-status)
 
 ;; egg: Emacs Got Git! (magit fork)
-;(require 'egg)
-;(setq egg-git-command/"sw/bin/git")
+(require 'egg)
+(setq egg-git-command/"sw/bin/git")
 
 ;; dict mode
 (load "~/.emacs.d/dictionary-1.8.7/dictionary-init.el")
