@@ -84,8 +84,9 @@
 (global-set-key "\C-x\C-b" 'ibuffer)
 (iswitchb-mode)
 
-;; on veut voir la sélection en cours
+;; on veut voir la sélection en cours, et aussi la ligne en cours d'édition
 (transient-mark-mode 1) 
+(global-hl-line-mode 1)
 
 ;; réglages de colonnes
 (column-number-mode 1)
