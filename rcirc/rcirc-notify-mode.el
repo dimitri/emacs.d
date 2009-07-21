@@ -4,7 +4,7 @@
 ;;
 ;; Author: Dimitri Fontaine <dim@tapoueh.org>
 ;; URL: http://pgsql.tapoueh.org/elisp/rcirc
-;; Version: 0.1
+;; Version: 0.2
 ;; Created: 2009-06-27
 ;; Keywords: IRC rcirc notify
 ;;
@@ -32,9 +32,8 @@
 '%s' will expand to the nick that sent the message."
     :group 'rcirc-notify-mode)
 
-(defcustom rcirc-notify-mode:nick-alist nil
-  "An alist of nicks and the last time they tried to trigger a notification."
-  :group 'rcirc-notify-mode)
+(defvar rcirc-notify-mode:nick-alist nil
+  "An alist of nicks and the last time they tried to trigger a notification.")
 
 (defcustom rcirc-notify-mode:timeout 30
   "Number of seconds that will elapse between notifications from the same person."
@@ -146,7 +145,7 @@ matches a regexp in `rcirc-keywords'."
   (interactive)
 
   (when (and (string-match (concat (rcirc-nick proc) "[:, $]") text)
-	     ;(not (string= (concat (rcirc-nick proc) "[:, $]") sender))
+	     (not (string= (rcirc-nick proc) sender))
              (not (string= (rcirc-server-name proc) sender))
              (rcirc-notify-mode:nick-allowed sender))
     (rcirc-notify-mode:notify sender target (current-buffer))))
@@ -155,7 +154,7 @@ matches a regexp in `rcirc-keywords'."
   "Notify the current user when someone sends a private message to them."
   (interactive)
   (when (and (string= response "PRIVMSG")
-             ;(not (string= sender (rcirc-nick proc)))
+             (not (string= sender (rcirc-nick proc)))
              (not (rcirc-channel-p target))
              (rcirc-notify-mode:nick-allowed sender))
 
@@ -164,7 +163,7 @@ matches a regexp in `rcirc-keywords'."
 (defun rcirc-notify-mode:switch-to-notify-buffer ()
   "A way to quickly switch to notifications buffer"
   (interactive)
-  (let ((notify-buffer (get-buffer-create rcirc-notify-mode:buffer-name)))
+  (let ((notify-buffer ( rcirc-notify-mode:create-notify-buffer)))
     (with-current-buffer notify-buffer
       ;; move point to first unread line, from current position
       ;; that will be the first line (maybe current one) where 'face isn't nil

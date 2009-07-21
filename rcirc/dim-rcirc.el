@@ -3,6 +3,7 @@
 
 (require 'rcirc)
 (require 'rcirc-groups)
+;(require 'rcirc-notify-mode)
 
 ;; Central place to handle connecting
 (defun dim-rcirc-start ()
