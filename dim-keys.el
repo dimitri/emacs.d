@@ -84,4 +84,28 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c ?") (lambda () (interactive) 
 				(dictionary-lookup-definition)))
 
+(require 'buffer-move)
+(global-set-key (kbd "<C-S-up>")     'buf-move-up)
+(global-set-key (kbd "<C-S-down>")   'buf-move-down)
+(global-set-key (kbd "<C-S-left>")   'buf-move-left)
+(global-set-key (kbd "<C-S-right>")  'buf-move-right)
+
+;; print last message
+;; current-message is already lost by the time this gets called
+
+(defun dim:previous-message ()
+  "get last line of *Message* buffer"
+  (with-current-buffer (get-buffer "*Messages*")
+    (save-excursion
+      (goto-char (point-max))
+      (previous-line)
+      (buffer-substring (line-beginning-position) (line-end-position)))))
+
+(defun dim:insert-previous-message ()
+  "insert last message of *Message* to current position"
+  (interactive)
+  (insert (format "%s" (dim:previous-message))))
+
+(global-set-key (kbd "C-c m") 'dim:insert-previous-message)
+
 (provide 'dim-keys)
