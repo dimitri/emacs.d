@@ -174,7 +174,8 @@
 (add-hook 'c-mode-hook
 	  (function
 	   (lambda nil 
-	     (if (string-match "pgsql" buffer-file-name)
+	     (if (or (string-match "pgsql" buffer-file-name)
+		     (string-match "postgresql" buffer-file-name))
 		 (progn
 		   (c-set-style "bsd")
 		   (setq c-basic-offset 4) 
