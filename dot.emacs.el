@@ -159,9 +159,9 @@
 
 ; highlight de la colonne 80, toujours, et C-c m pour changer le 80 /
 ; activer le mode
-(require 'column-marker)
-(column-marker-1 80)
-(global-set-key [?\C-c ?m] 'column-marker-1)
+;(require 'column-marker)
+;(column-marker-1 80)
+;(global-set-key [?\C-c ?m] 'column-marker-1)
 
 ;; Backuper les fichiers dans ~/.elisp/backups
 (setq backup-directory-alist (quote ((".*" . "~/.elisp/backups/"))))
@@ -176,39 +176,13 @@
 ; winner-mode pour revenir sur le layout précédent
 (winner-mode 1)
 
-;; on utilise aussi elscreen, avec support de la molette dans la barre de
-;; titre s'il vous plaît
-;; mais seulement dans emacs23
-(when (= emacs-major-version 23)
-  (progn
-    (require 'elscreen)
-    (global-set-key (kbd "<header-line> <mouse-4>")
-		    '(lambda () (interactive) (elscreen-previous)))
-    (global-set-key (kbd "<header-line> <mouse-5>")
-		    '(lambda () (interactive) (elscreen-next)))
-    (global-set-key (kbd "C-(") '(lambda () (interactive) (elscreen-previous)))
-    (global-set-key (kbd "C-)") '(lambda () (interactive) (elscreen-next)))))
+;; escreen from http://www.splode.com/~friedman/software/emacs-lisp/
+(load "escreen")
+(setq escreen-prefix-char (kbd "C-ù"))
+(global-set-key (kbd "C-(") 'escreen-goto-prev-screen)
+(global-set-key (kbd "C-)") 'escreen-goto-next-screen)
+(escreen-install)
 
-;;
-;; taken from http://www.emacswiki.org/emacs/?action=browse;oldid=ElScreen;id=EmacsLispScreen
-;; 
-(defun elscreen-frame-title-update ()
-  (when (elscreen-screen-modified-p 'elscreen-frame-title-update)
-    (let* ((screen-list (sort (elscreen-get-screen-list) '<))
- 	   (screen-to-name-alist (elscreen-get-screen-to-name-alist))
- 	   (title (mapconcat
- 		   (lambda (screen)
- 		     (format "%d%s %s"
- 			     screen (elscreen-status-label screen)
- 			     (get-alist screen screen-to-name-alist)))
- 		   screen-list " ")))
-      (if (fboundp 'set-frame-name)
- 	  (set-frame-name title)
- 	(setq frame-title-format title)))))
-
-(eval-after-load "elscreen"
-  '(add-hook 'elscreen-screen-update-hook 'elscreen-frame-title-update))
- 
 
 ;;;
 ;;; Language modes
