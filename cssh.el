@@ -63,6 +63,11 @@
   "cssh buffer prompt"
   :group 'cssh)
 
+(defcustom cssh-input-ring-size 1024
+  "*Size of input history ring."
+  :type 'integer
+  :group 'cssh)
+
 (defcustom cssh-term-type "screen"
   "cssh TERM environment variable to export at connection time"
   :group 'cssh)
@@ -76,6 +81,7 @@
 
 (add-hook 'ibuffer-mode-hook 'cssh-turn-on-ibuffer-binding)
 
+;;;###autoload
 (global-set-key (kbd "C-M-=") 'cssh-regexp-host-start)
 
 ;;
@@ -99,8 +105,8 @@
       (insert (concat "TERM=" cssh-term-type " " ssh-command))
       (term-send-input))))
 
+;;;###autoload
 (global-set-key (kbd "C-=") 'cssh-term-remote-open)
-
 
 ;;;
 ;;; open cssh windows and create buffers from a regexp
@@ -211,6 +217,55 @@ marked ibuffers buffers"
 ;;;
 ;;; cssh editing mode
 ;;;
+
+;; first, the input ring
+(defvar cssh-input-ring nil)
+(defvar cssh-input-ring-index 0)
+
+(defun cssh-prev-input-string (arg)
+  (ring-ref cssh-input-ring (+ cssh-input-ring-index arg)))
+
+(defun cssh-insert-prev-input (arg)
+  (interactive "p")
+  (save-excursion 
+    ;; only consider when on last line
+    (when (= 1 (forward-line 1))
+      (let ((current-point (point))
+	    (input-beginning-position (+ (length cssh-prompt) 
+					 (search-backward cssh-prompt))))
+
+	(when (<= input-beginning-position current-point)
+	  (delete-region input-beginning-position (point-max))
+	  (goto-char current-point)
+	  (insert (cssh-prev-input-string 0))
+	  (setq cssh-input-ring-index (1+ cssh-input-ring-index)))))))
+
+(defun cssh-insert-next-input (arg)
+  (interactive "p")
+  (save-excursion 
+    ;; only consider when on last line
+    (when (= 1 (forward-line 1))
+      (let ((current-point (point))
+	    (input-beginning-position (+ (length cssh-prompt) 
+					 (search-backward cssh-prompt))))
+	(when (<= input-beginning-position current-point)
+	  (delete-region input-beginning-position (point-max))
+	  (setq cssh-input-ring-index (1- cssh-input-ring-index))
+	  (goto-char current-point)
+	  (insert (cssh-prev-input-string -1)))))))
+
+(defun cssh-newline-and-prompt ()
+  "prompt user"
+  (insert (concat "\n"
+		  (propertize cssh-prompt
+			      'read-only t 'field t
+			      'front-sticky t 'rear-nonsticky t))))
+
+(defun cssh-bol ()
+  "plain C-a is annoying, better target end of prompt"
+  (interactive)
+  (beginning-of-line) (search-forward cssh-prompt))
+
 (defvar cssh-buffer-list '()
   "cssh controller buffer (*cssh*) local buffer list")
 
@@ -220,13 +275,16 @@ marked ibuffers buffers"
     (define-key map (kbd "RET")        'cssh-send-input)
     (define-key map (kbd "C-j")        'cssh-send-input)
     (define-key map (kbd "C-m")        'cssh-send-input)
+    (define-key map (kbd "M-p")        'cssh-insert-prev-input)
+    (define-key map (kbd "M-n")        'cssh-insert-next-input)
     (define-key map (kbd "C-c C-c")    'cssh-cancel-input)
     (define-key map (kbd "C-c C-l")    'cssh-clear)    
     (define-key map (kbd "C-c C-d")    'cssh-eof)
     (define-key map (kbd "C-c [up]")   'cssh-send-up)
     (define-key map (kbd "C-c [down]") 'cssh-send-down)
-    (define-key map (kbd "C-=") 'cssh-reopen)
-    (define-key map (kbd "C-!") 'cssh-reconnect-ssh)
+    (define-key map (kbd "C-=")        'cssh-reopen)
+    (define-key map (kbd "C-!")        'cssh-reconnect-ssh)
+    (define-key map (kbd "C-a")        'cssh-bol)
     map)
   "Keymap for `cssh-mode'.")
 
@@ -234,7 +292,11 @@ marked ibuffers buffers"
 (define-derived-mode cssh-mode fundamental-mode "ClusterSSH"
   "A major mode for controlling multiple terms at once."
   :group 'cssh
-  (make-local-variable 'cssh-buffer-list))
+  (make-local-variable 'cssh-buffer-list)
+  (make-local-variable 'cssh-input-ring)
+  (make-local-variable 'cssh-input-ring-index)
+
+  (setq cssh-input-ring (make-ring cssh-input-ring-size)))
 
 ;;
 ;; Input functions
@@ -276,15 +338,24 @@ marked ibuffers buffers"
 (defun cssh-cancel-input ()
   (interactive)
   (cssh-send-string "\C-c")
-  (insert (concat "\n" cssh-prompt)))
+  (cssh-newline-and-prompt))
 
 (defun cssh-send-input ()
   "send current line content to all cssh-mode buffers"
   (interactive)
-  (cssh-send-string
-   (buffer-substring (+ (length cssh-prompt) (line-beginning-position))
-		     (line-end-position)))
-  (insert (concat "\n" cssh-prompt)))
+  ;; only consider when on last line
+  (when (= 1 (forward-line 1))
+    (save-excursion
+      (let* ((input-beginning-position (+ (length cssh-prompt) 
+					  (search-backward cssh-prompt)))
+	     (input (buffer-substring 
+		     input-beginning-position (point-max))))
+
+	(cssh-send-string input)
+	(save-excursion
+	  (ring-insert cssh-input-ring input)
+	  (setq cssh-input-ring-index 0))))
+    (cssh-newline-and-prompt)))
 
 (defun cssh-clear ()
   (interactive)
