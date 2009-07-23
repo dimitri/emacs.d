@@ -228,31 +228,32 @@ marked ibuffers buffers"
 (defun cssh-insert-prev-input (arg)
   (interactive "p")
   (save-excursion 
-    ;; only consider when on last line
-    (when (= 1 (forward-line 1))
+    ;; only consider when on last line (even if not already at point-max)
+    (when (or (= 1 (forward-line 1)) (eq (point) (point-max)))
       (let ((current-point (point))
 	    (input-beginning-position (+ (length cssh-prompt) 
 					 (search-backward cssh-prompt))))
 
 	(when (<= input-beginning-position current-point)
 	  (delete-region input-beginning-position (point-max))
-	  (goto-char current-point)
+	  (goto-char input-beginning-position)
 	  (insert (cssh-prev-input-string 0))
 	  (setq cssh-input-ring-index (1+ cssh-input-ring-index)))))))
 
 (defun cssh-insert-next-input (arg)
   (interactive "p")
   (save-excursion 
-    ;; only consider when on last line
-    (when (= 1 (forward-line 1))
+    ;; only consider when on last line (even if not already at point-max)
+    (when (or (= 1 (forward-line 1)) (eq (point) (point-max)))
       (let ((current-point (point))
 	    (input-beginning-position (+ (length cssh-prompt) 
 					 (search-backward cssh-prompt))))
+
 	(when (<= input-beginning-position current-point)
 	  (delete-region input-beginning-position (point-max))
 	  (setq cssh-input-ring-index (1- cssh-input-ring-index))
-	  (goto-char current-point)
-	  (insert (cssh-prev-input-string -1)))))))
+	  (goto-char input-beginning-position))
+	  (insert (cssh-prev-input-string -1))))))
 
 (defun cssh-newline-and-prompt ()
   "prompt user"
