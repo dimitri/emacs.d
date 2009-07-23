@@ -4,9 +4,10 @@
 ;;
 ;; Author: Dimitri Fontaine <dim@tapoueh.org>
 ;; URL: http://pgsql.tapoueh.org/elisp
-;; Version: 0.2
+;; Version: 0.3
 ;; Created: 2008-09-26
 ;; Keywords: ClusterSSH ssh cssh
+;; Licence: WTFPL, grab your copy here: http://sam.zoy.org/wtfpl/
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
