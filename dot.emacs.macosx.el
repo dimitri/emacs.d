@@ -126,6 +126,10 @@
 ;; term
 ;; module local
 (require 'cssh)
+(setq cssh-remote-user "dfontaine")
+(setq cssh-override-nameserver "ns1.hi-media-techno.com")
+(setq cssh-override-domain ".hi-media-techno.com")
+(setq cssh-hostname-resolve 'cssh-override-resolver)
 
 ;; fonctions pratiques pour spliter la fenêtre courante et faire les choses
 ;; habituelles, comme démarrer un term à droite.

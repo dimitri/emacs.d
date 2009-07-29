@@ -77,6 +77,23 @@
   "cssh default buffer name, the one in cssh major mode"
   :group 'cssh)
 
+(defcustom cssh-hostname-resolve 'cssh-default-resolver
+  "cssh remote hostname resolving, defauts to using input (hence system resolv.conf)
+You can also use 'cssh-override-resolve"
+  :group 'cssh)
+
+(defcustom cssh-override-nameserver nil
+  "nameserver to use when using the 'cssh-override-resolver function for 'cssh-resolver"
+  :group 'cssh)
+
+(defcustom cssh-override-domain nil
+  "domain to append to given name when using 'cssh-override-resolver"
+  :group 'cssh)
+
+(defcustom cssh-remote-user nil
+  "remote username to use to log in, as in ssh user@remote"
+  :group 'cssh)
+
 (defun cssh-turn-on-ibuffer-binding ()
   (local-set-key (kbd "C-=") 'cssh-ibuffer-start))
 
@@ -86,6 +103,21 @@
 (global-set-key (kbd "C-M-=") 'cssh-regexp-host-start)
 
 ;;
+;; cssh remote hostname resolving
+;;
+(defun cssh-default-resolver (name)
+  "default to identity: let ssh use systemwide resolv.conf"
+  name)
+
+(defun cssh-override-resolver (name)
+  "cssh override resolver will use `host $name cssh-override-nameserver`"
+  (let ((host-output (shell-command-to-string (format "host %s %s" 
+						      (concat name cssh-override-domain)
+						      cssh-override-nameserver))))
+    (string-match " has address " host-output)
+    (substring host-output (match-end 0) -1)))
+
+;;
 ;; This could be seen as recursion init step, opening a single remote host
 ;; shell
 ;;
@@ -93,9 +125,11 @@
   "Opens a M-x term and type in ssh remotehost with given hostname"
   (interactive) 
   (let*
-      ((ssh-term-remote-host
+      ((ssh-term-remote-host-input
 	(completing-read "Remote host: " (pcmpl-ssh-hosts)))
-       (ssh-command (concat "ssh " ssh-term-remote-host))
+       (ssh-term-remote-host (apply cssh-hostname-resolve (list ssh-term-remote-host-input)))
+       (ssh-remote-user-part (if cssh-remote-user (concat cssh-remote-user "@") nil))
+       (ssh-command (concat "ssh " ssh-remote-user-part ssh-term-remote-host))
        (ssh-buffer-name (concat "*" ssh-command "*")))
 
     (if (get-buffer ssh-buffer-name)
@@ -103,6 +137,8 @@
       
       (ansi-term "/bin/bash" ssh-command)
       (set-buffer (get-buffer ssh-buffer-name))
+      (when (not (eq ssh-term-remote-host-input ssh-term-remote-host))
+	(rename-buffer (concat "*ssh " ssh-remote-user-part ssh-term-remote-host-input "*")))
       (insert (concat "TERM=" cssh-term-type " " ssh-command))
       (term-send-input))))
 
