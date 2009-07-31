@@ -1,4 +1,5 @@
 ;;; dim-keys.el --- some additional shortcuts
+(require 'cl)
 
 ;; C-c r pour revert-buffer
 (global-set-key (kbd "C-c r") '(lambda () (interactive) (revert-buffer)))
@@ -131,7 +132,7 @@ vi style of % jumping to matching brace."
       ;; now insert as many time as requested
       (while (> n 0)
 	(insert current-line)
-	(setq n (- n 1))))))
+	(decf n)))))
 
 (global-set-key (kbd "C-S-d") 'duplicate-current-line)  
 
