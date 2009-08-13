@@ -178,11 +178,30 @@
 
 ;; escreen from http://www.splode.com/~friedman/software/emacs-lisp/
 (load "escreen")
-(setq escreen-prefix-char (kbd "C-ù"))
+;(setq escreen-prefix-char (kbd "C-\\"))
 (global-set-key (kbd "C-(") 'escreen-goto-prev-screen)
 (global-set-key (kbd "C-)") 'escreen-goto-next-screen)
+(global-set-key (kbd "C-{") 'escreen-goto-prev-screen)
+(global-set-key (kbd "C-}") 'escreen-goto-next-screen)
+(global-set-key (kbd "s-[") 'escreen-goto-prev-screen)
+(global-set-key (kbd "s-]") 'escreen-goto-next-screen)
+(global-set-key (kbd "M-[") 'escreen-goto-prev-screen)
+(global-set-key (kbd "M-]") 'escreen-goto-next-screen)
+
+(global-set-key '[s-mouse-4] 'escreen-goto-prev-screen)
+(global-set-key '[s-mouse-5] 'escreen-goto-next-screen)
+
 (escreen-install)
 
+(global-set-key (kbd "C-\\ DEL") 'escreen-goto-prev-screen)
+(global-set-key (kbd "C-\\ SPC") 'escreen-goto-next-screen)
+
+;; add support for C-\ from terms
+(define-key term-raw-map escreen-prefix-char escreen-map)
+(define-key term-raw-map (kbd "M-[") 'escreen-goto-prev-screen)
+(define-key term-raw-map (kbd "M-]") 'escreen-goto-next-screen)
+(define-key term-raw-map (kbd "C-\\ DEL") 'escreen-goto-prev-screen)
+(define-key term-raw-map (kbd "C-\\ SPC") 'escreen-goto-next-screen)
 
 ;;;
 ;;; Language modes
