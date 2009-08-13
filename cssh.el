@@ -4,7 +4,7 @@
 ;;
 ;; Author: Dimitri Fontaine <dim@tapoueh.org>
 ;; URL: http://pgsql.tapoueh.org/elisp
-;; Version: 0.3
+;; Version: 0.5
 ;; Created: 2008-09-26
 ;; Keywords: ClusterSSH ssh cssh
 ;; Licence: WTFPL, grab your copy here: http://sam.zoy.org/wtfpl/
@@ -78,12 +78,13 @@
   :group 'cssh)
 
 (defcustom cssh-hostname-resolve 'cssh-default-resolver
-  "cssh remote hostname resolving, defauts to using input (hence system resolv.conf)
-You can also use 'cssh-override-resolve"
+  "cssh remote hostname resolving, defauts to using input (hence
+system resolv.conf) You can also use 'cssh-override-resolve"
   :group 'cssh)
 
 (defcustom cssh-override-nameserver nil
-  "nameserver to use when using the 'cssh-override-resolver function for 'cssh-resolver"
+  "nameserver to use when using the 'cssh-override-resolver
+function for 'cssh-resolver"
   :group 'cssh)
 
 (defcustom cssh-override-domain nil
@@ -111,9 +112,10 @@ You can also use 'cssh-override-resolve"
 
 (defun cssh-override-resolver (name)
   "cssh override resolver will use `host $name cssh-override-nameserver`"
-  (let ((host-output (shell-command-to-string (format "host %s %s" 
-						      (concat name cssh-override-domain)
-						      cssh-override-nameserver))))
+  (let ((host-output (shell-command-to-string 
+		      (format "host %s %s" 
+			      (concat name cssh-override-domain)
+			      cssh-override-nameserver))))
     (string-match " has address " host-output)
     (substring host-output (match-end 0) -1)))
 
@@ -121,14 +123,18 @@ You can also use 'cssh-override-resolve"
 ;; This could be seen as recursion init step, opening a single remote host
 ;; shell
 ;;
+;;;###autoload
 (defun cssh-term-remote-open ()
   "Opens a M-x term and type in ssh remotehost with given hostname"
   (interactive) 
   (let*
       ((ssh-term-remote-host-input
 	(completing-read "Remote host: " (pcmpl-ssh-hosts)))
-       (ssh-term-remote-host (apply cssh-hostname-resolve (list ssh-term-remote-host-input)))
-       (ssh-remote-user-part (if cssh-remote-user (concat cssh-remote-user "@") nil))
+       (ssh-term-remote-host (apply cssh-hostname-resolve 
+				    (list ssh-term-remote-host-input)))
+       (ssh-remote-user-part (if cssh-remote-user 
+				 (concat cssh-remote-user "@") 
+			       nil))
        (ssh-command (concat "ssh " ssh-remote-user-part ssh-term-remote-host))
        (ssh-buffer-name (concat "*" ssh-command "*")))
 
@@ -138,7 +144,8 @@ You can also use 'cssh-override-resolve"
       (ansi-term "/bin/bash" ssh-command)
       (set-buffer (get-buffer ssh-buffer-name))
       (when (not (eq ssh-term-remote-host-input ssh-term-remote-host))
-	(rename-buffer (concat "*ssh " ssh-remote-user-part ssh-term-remote-host-input "*")))
+	(rename-buffer 
+	 (concat "*ssh " ssh-remote-user-part ssh-term-remote-host-input "*")))
       (insert (concat "TERM=" cssh-term-type " " ssh-command))
       (term-send-input))))
 
@@ -149,6 +156,7 @@ You can also use 'cssh-override-resolve"
 ;;; open cssh windows and create buffers from a regexp
 ;;; the regexp matches host names as in pcmpl-ssh-hosts
 ;;;
+;;;###autoload
 (defun cssh-regexp-host-start (&optional cssh-buffer-name)
   "start ClusterSSH for all mathing hosts in  known_hosts"
   (interactive
@@ -565,3 +573,4 @@ depending on split-preference value"
 	  (t (message "error: number of windows not a multiple of 2 or 3.")))))
 
 (provide 'cssh)
+;;; cssh.el ends here
