@@ -20,6 +20,7 @@
     "nnimap+tapoueh.local:INBOX.Sent Messages"))
   
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
+(setq gnus-gcc-mark-as-read t)
 
 (setq gnus-posting-styles
       '(("hm.local"
@@ -67,3 +68,5 @@
 	      (ispell-change-dictionary "english"))
 	     (t
 	      (ispell-change-dictionary "francais")))))
+
+	      
