@@ -13,6 +13,14 @@
 	(nnimap "tapoueh.local"
 		(nnimap-address "localhost"))))
 
+(defun dim:gnus-choose-sent-folder (current-group)
+  "see gnus-message-archive-group documentation"
+  (if (string-match "hm.local" current-group)
+      "nnimap+hm.local:Sent Messages"
+    "nnimap+tapoueh.local:INBOX.Sent Messages"))
+  
+(setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
+
 (setq gnus-posting-styles
       '(("hm.local"
 	 (address "dfontaine@hi-media.com")
