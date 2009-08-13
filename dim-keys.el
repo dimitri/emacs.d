@@ -151,4 +151,8 @@ vi style of % jumping to matching brace."
     (when c
       (insert c))))
 
+;; as we use C-\ for escreen we find another key for toggle-input-method,
+;; which is less frequently used
+(global-set-key (kbd "s-i") 'toggle-input-method)
+
 (provide 'dim-keys)
