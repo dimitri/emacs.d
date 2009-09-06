@@ -153,6 +153,56 @@ vi style of % jumping to matching brace."
 
 ;; as we use C-\ for escreen we find another key for toggle-input-method,
 ;; which is less frequently used
-(global-set-key (kbd "s-i") 'toggle-input-method)
+(if (string-match "apple-darwin" system-configuration)
+    (global-set-key (kbd "M-§") 'toggle-input-method)
+  (global-set-key (kbd "s-i") 'toggle-input-method))
+
+;; mails
+(global-set-key (kbd "C-c @") 'mail-abbrev-insert-alias)
+
+;; automate adding mail at point to ~/.mailrc
+(require 'mail-parse)
+
+(defun thing-at-point-bounds-of-email-address ()
+  "return a cons of begin and end position of email address at point, including full name"
+  (save-excursion
+    (let* ((search-point (point))
+	   (start (re-search-backward "[:,]" (line-beginning-position) 'move))
+	   (dummy (goto-char search-point))
+	   (end   (re-search-forward  "[:,]" (line-end-position) t)))
+      (setq start (if start (+ 1 start)
+		    (line-beginning-position)))
+      (unless end (setq end (line-end-position)))
+      (cons start end))))
+
+(defun thing-at-point-email-address ()
+  "return full email address at point"
+  (let* ((bounds (thing-at-point-bounds-of-email-address))
+	 (email-address-text
+	  (when bounds (buffer-substring-no-properties (car bounds) (cdr bounds)))))
+    (mail-header-parse-address email-address-text)))
+
+(put 'email-address 'bounds-of-thing-at-point 'thing-at-point-bounds-of-email-address)
+(put 'email-address 'thing-at-point 'thing-at-point-email-address)
+
+(defun dim:mailrc-add-entry (alias)
+  "read email at point"
+  (interactive "Malias: ")
+  (let ((address (thing-at-point 'email-address))
+	(buffer (find-file-noselect mail-personal-alias-file t)))
+    (when address
+      (with-current-buffer buffer
+	;; we don't support updating existing alias in the file
+	(save-excursion
+	  (goto-char (point-min))
+	  (if (search-forward (concat "alias " alias) nil t)
+	      (error "Alias %s is already present in .mailrc" alias)))
+
+	(save-current-buffer
+	  (save-excursion
+	    (goto-char (point-max))
+	    (insert (format "\nalias %s \"%s <%s>\"" alias (cdr address) (car address)))))))))
+
+(global-set-key (kbd "C-c C-@") 'dim:mailrc-add-entry)
 
 (provide 'dim-keys)
