@@ -110,8 +110,9 @@
 (setq rcirc-default-user-full-name "Dimitri Fontaine")
 
 ;; p4ssw0rd
-(setq rcirc-authinfo '(("freenode" nickserv "dim" "PHOQUE")
-		       ("lost-oasis" nickserv "dim" "PHOQUE")))
+(setq rcirc-authinfo '(("freenode" nickserv "dim" "ernieball")
+		       ("lost-oasis" nickserv "dim" "ernieball")
+		       ("localhost" bitlbee "dim" "secret")))
 
 (setq rcirc-server-alist
       '(("irc.freenode.net" 
@@ -122,6 +123,12 @@
 	 :channels ("#vieuxcons"))
 	("localhost" ("&bitlbee"))
 	("irc.hi-media-techno.com"
-	 :channels ("#hm" "#pg" "#eurovox" "#allopass" "#comtrack" "#admin"))))
+	 :channels ("#hm" "#pg" "#eurovox" "#allopass" "#comtrack" "#admin"))
+
+	;; I want to define it but I'd rather not connect to it by default
+	("irc.free.fr"
+	 :nick "bob`"
+	 :user-name "bob"
+	 :full-name "bob")))
 
 (provide 'dim-rcirc)

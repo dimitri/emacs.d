@@ -3,7 +3,7 @@
   
   See [[elisp:(describe-variable%20'special-display-regexps)][special-display-regexps]] and [[elisp:(describe-function%20'set-window-dedicated-p)][set-window-dedicated-p]]
 
-* TODO add some emacs documentation org-mode special links
+* DONE add some emacs documentation org-mode special links
   - Note taken on [2009-05-01 Fri 23:59] \\
     (with-current-buffer (pop-to-buffer (get-buffer-create "*Help*"))
       (let ((buffer-read-only))

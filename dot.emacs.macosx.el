@@ -8,7 +8,7 @@
 		     "~/dev/elisp"
 		     "~/dev/muse"
 		     "~/dev/magit/mainline"
-		     "~/.emacs.d/egg/egg"
+		     ;"~/.emacs.d/egg/egg"
 		     "~/.emacs.d/color-theme-6.6.0"
 		     "~/.emacs.d/color-theme-6.6.0/themes"
 		     "~/.emacs.d/muse/muse/lisp"
@@ -18,6 +18,7 @@
 		     ;;"~/.emacs.d/emacs-jabber-0.7.1"
 		     "~/.emacs.d/dictionary-1.8.7"
 		     "~/.emacs.d/w3m/emacs-w3m/"
+		     "~/.emacs.d/emms/lisp/"
 		     )))
     (dolist (path dim:paths)
       (setq load-path (cons path load-path)))))
@@ -64,7 +65,7 @@
       (set-frame-position (selected-frame) 60 30)
       ;(set-frame-size (selected-frame) 165 45))
       ;(set-frame-size (selected-frame) 180 55))
-      (set-frame-size (selected-frame) 192 54))
+      (set-frame-size (selected-frame) 192 55))
 
   ;; older emacs (23.0.90) didn't share same fonts rendering
   (set-frame-position (selected-frame) 90 45)
@@ -97,7 +98,9 @@
 (set-scroll-bar-mode nil)
 
 ;; gestion de session
+(setq desktop-restore-eager 20)
 (desktop-save-mode 1)
+(savehist-mode 1)
 
 ; winner-mode pour revenir sur le layout précédent
 (winner-mode 1)
@@ -110,10 +113,18 @@
 ;; escreen from http://www.splode.com/~friedman/software/emacs-lisp/
 (load "escreen")
 (setq escreen-prefix-char (kbd "C-ù"))
+(setq escreen-prefix-char (kbd "C-\\"))
 (global-set-key (kbd "C-(") 'escreen-goto-prev-screen)
 (global-set-key (kbd "C-)") 'escreen-goto-next-screen)
+
 (escreen-install)
 
+(global-set-key (kbd "C-\\ DEL") 'escreen-goto-prev-screen)
+(global-set-key (kbd "C-\\ SPC") 'escreen-goto-next-screen)
+
+;; add support for C-\ from terms
+(require 'term)
+(define-key term-raw-map escreen-prefix-char escreen-map)
 
 ;; Backuper les fichiers dans ~/.elisp/backups
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
@@ -163,8 +174,8 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;; egg: Emacs Got Git! (magit fork)
-(require 'egg)
-(setq egg-git-command/"sw/bin/git")
+;(require 'egg)
+;(setq egg-git-command/"sw/bin/git")
 
 ;; dict mode
 (load "~/.emacs.d/dictionary-1.8.7/dictionary-init.el")
@@ -196,8 +207,38 @@
   "SGML mode adjusted for PostgreSQL project"
   (interactive)
   (sgml-mode)
+  (setq indent-tabs-mode nil)
   (setq sgml-basic-offset 1))
 
 (setq auto-mode-alist
   (cons '("\\(postgres\\|pgsql\\).*\\.sgml\\'" . pgsql-sgml-mode)
         auto-mode-alist))
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(canlock-password "bc2580ebe73be0bee691b54cf28de5bfe55ef484"))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+;; EMMS
+(require 'emms-setup)
+(emms-standard)
+(emms-default-players)
+
+;; Show the current track each time EMMS
+;; starts to play a track with "NP : "
+(add-hook 'emms-player-started-hook 'emms-show)
+(setq emms-show-format "EMMS Now Playing: %s")
+
+;; When asked for emms-play-directory,
+;; always start from this one 
+(setq emms-source-file-default-directory "~/Music/iTunes/iTunes Music/")
+
+(add-hook 'dired-load-hook
+	  (define-key dired-mode-map (kbd "E") 'emms-play-dired))
