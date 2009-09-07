@@ -185,11 +185,20 @@ vi style of % jumping to matching brace."
 (put 'email-address 'bounds-of-thing-at-point 'thing-at-point-bounds-of-email-address)
 (put 'email-address 'thing-at-point 'thing-at-point-email-address)
 
-(defun dim:mailrc-add-entry (alias)
-  "read email at point"
-  (interactive "Malias: ")
-  (let ((address (thing-at-point 'email-address))
-	(buffer (find-file-noselect mail-personal-alias-file t)))
+(defun dim:mailrc-add-entry (&optional prefix alias)
+  "read email at point and add it to an ~/.mailrc file"
+  (interactive "P\nMalias: ")
+  (let* ((default-mailrc (file-name-nondirectory mail-personal-alias-file))
+	 (mailrc (if prefix (expand-file-name
+			     (read-file-name 
+			      "Add alias into file: " 
+			      "~/" 
+			      default-mailrc
+			      t
+			      default-mailrc))
+		   mail-personal-alias-file))
+	 (address (thing-at-point 'email-address))
+	 (buffer (find-file-noselect mailrc t)))
     (when address
       (with-current-buffer buffer
 	;; we don't support updating existing alias in the file
