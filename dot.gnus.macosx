@@ -1,0 +1,96 @@
+;;;
+;;; Gnus
+;;;
+;;; Settings differ from main .gnus because here we choose not to run
+;;; associated software, namely dovecot for local Imap mirror, kept both-way
+;;; in sync with OfflineIMAP; and postfix as local forwarding SMTP server... to heavy
+
+(setq user-mail-address "dfontaine@hi-media.com")
+(setq user-full-name "Dimitri Fontaine")
+
+(setq gnus-select-method '(nntp "news.free.fr")
+      gnus-secondary-select-methods
+      '((nnimap "HM"
+	       (nnimap-address "imaps.hi-media-techno.com")
+	       (nnimap-authinfo-file "~/.netrc")
+	       (nnimap-server-port 993)
+	       (nnimap-stream ssl))))
+	       ;(nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
+	       ;(nnmail-expiry-wait immediate))))
+
+;;; SMTP
+(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-smtp-server "smtp.hi-media-techno.com"
+      smtpmail-smtp-service 25
+      smtpmail-starttls-credentials `((,smtpmail-smtp-server
+				       ,smtpmail-smtp-service
+				       nil nil))
+      smtpmail-auth-credentials "~/.netrc")
+
+(setq gnus-message-archive-group "nnimap+HM:Sent Messages")
+(setq gnus-gcc-mark-as-read t)
+
+(setq gnus-posting-styles
+      '(("HM"
+	 (address "dfontaine@hi-media.com")
+	 (organization "Hi-Media")
+	 (signature-file "~/.signature"))
+
+	;; Hi-Media listes PostgreSQL
+	((header "List-ID" "postgresql.org")
+	 (signature "dim"))
+
+	;; listes PostgreSQL sur pgfoundry
+	((header "List-Id" "pgfoundry.org")
+	 (signature "dim"))))
+
+;; aliases --- allow usage of TAB to expand a complete alias into an address
+(add-hook 'mail-mode-hook 'mail-abbrevs-setup)
+(add-hook 'message-mode-hook 'mail-abbrevs-setup)
+
+(setq gnus-agent nil)
+
+;;
+;; Try looking modern
+;;
+(gnus-add-configuration
+ '(article
+   (vertical 1.0
+	     (horizontal 8
+    			 (group 50)
+    			 (summary 1.0 point) )
+	     (horizontal 1.0
+    			 (article 1.0)))))
+
+(gnus-add-configuration
+ '(summary
+   (vertical 1.0
+	     (horizontal 1.0
+			 (group 50)
+			 (summary 1.0 point) 
+			 (if gnus-carpal
+			     '(summary-carpal 4))))))
+
+;;
+;; gnus porn
+;;
+(setq gnus-user-date-format-alist
+          '(((gnus-seconds-today) . "Today, %H:%M")
+            ((+ 86400 (gnus-seconds-today)) . "Yesterday, %H:%M")
+            (604800 . "%A %H:%M") ;;that's one week
+            ((gnus-seconds-month) . "%A %d")
+            ((gnus-seconds-year) . "%B %d")
+            (t . "%B %d '%y"))) ;;this one is used when no other does match
+
+(setq gnus-summary-line-format
+      (concat "%U%R %~(max-right 17)~(pad-right 17)&user-date;  "
+	      "%~(max-right 20)~(pad-right 20)n %B%s\n"))
+
+(setq gnus-sum-thread-tree-false-root "❀ "
+      gnus-sum-thread-tree-single-indent "⊚ "
+      gnus-sum-thread-tree-indent " "
+      gnus-sum-thread-tree-root "✪ "
+      gnus-sum-thread-tree-leaf-with-other "├─►"  ; "┣━► "
+      gnus-sum-thread-tree-single-leaf     "└─►"  ; "┗━► "
+      gnus-sum-thread-tree-vertical        "┆"  ) ; "┋")
+      gnus-sum-thread-tree-vertical "┋")
