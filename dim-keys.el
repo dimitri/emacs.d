@@ -158,7 +158,9 @@ vi style of % jumping to matching brace."
   (global-set-key (kbd "s-i") 'toggle-input-method))
 
 ;; mails
-(global-set-key (kbd "C-c @") 'mail-abbrev-insert-alias)
+;(global-set-key (kbd "C-c @") 'mail-abbrev-insert-alias)
+(require 'message)
+(define-key message-mode-map (kbd "C-'") 'mail-abbrev-complete-alias)
 
 ;; automate adding mail at point to ~/.mailrc
 (require 'mail-parse)
