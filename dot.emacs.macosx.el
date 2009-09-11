@@ -55,7 +55,8 @@
 (setq mac-allow-anti-aliasing t)
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'none)
-(ns-set-background-alpha 0.9)
+;(ns-set-background-alpha 0.9)
+(add-to-list 'default-frame-alist '(alpha . 90))
 
 ;; font, taille et position
 (if (or (eq 0 (string-match "^23.1.50" emacs-version))
@@ -141,6 +142,7 @@
 (setq cssh-override-nameserver "ns1.hi-media-techno.com")
 (setq cssh-override-domain ".hi-media-techno.com")
 (setq cssh-hostname-resolve 'cssh-override-resolver)
+(setq cssh-hostname-resolve 'cssh-default-resolver)
 
 ;; fonctions pratiques pour spliter la fenêtre courante et faire les choses
 ;; habituelles, comme démarrer un term à droite.
@@ -213,18 +215,6 @@
 (setq auto-mode-alist
   (cons '("\\(postgres\\|pgsql\\).*\\.sgml\\'" . pgsql-sgml-mode)
         auto-mode-alist))
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(canlock-password "bc2580ebe73be0bee691b54cf28de5bfe55ef484"))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
 
 ;; EMMS
 (require 'emms-setup)
