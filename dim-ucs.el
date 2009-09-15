@@ -16,8 +16,14 @@
 (defvar dim:ucs-diese "♯"
   "From http://unicode.org/charts/PDF/U2600.pdf --- code point 266F")
 
-(defvar dim:ucs-gear "☼"
+(defvar dim:ucs-white-sun "☼"
   "From http://unicode.org/charts/PDF/U2600.pdf --- code point 263C")
+
+(defvar dim:ucs-gear "⚙"
+  "From http://unicode.org/charts/PDF/U2600.pdf --- code point 2699")
+
+(defvar dim:ucs-wheel-dharma "☸"
+  "From http://unicode.org/charts/PDF/U2600.pdf --- code point 2638")
 
 (defvar dim:ucs-sun-black "☀"
   "From http://unicode.org/charts/PDF/U2600.pdf --- code point 2600")
@@ -30,6 +36,21 @@
 
 (defvar dim:ucs-circle-point "☉"
   "From http://unicode.org/charts/PDF/U2600.pdf --- code point 2609")
+
+(defvar dim:ucs-medium-black-circle "⚫"
+  "From http://unicode.org/charts/PDF/U2600.pdf --- code point 26AB")
+
+(defvar dim:ucs-recycling-symbol-generic "♺"
+  "From http://unicode.org/charts/PDF/U2600.pdf --- code point 267A")
+
+(defvar dim:ucs-radioactive "☢"
+  "From http://unicode.org/charts/PDF/U2600.pdf --- code point 2622")
+
+(defvar dim:ucs-biohasard "☣"
+  "From http://unicode.org/charts/PDF/U2600.pdf --- code point 2623")
+
+(defvar dim:ucs-recycling-symbol "♻"
+  "From http://unicode.org/charts/PDF/U2600.pdf --- code point 267B")
 
 (defvar dim:ucs-check-mark "✓"
   "From http://unicode.org/charts/PDF/U2700.pdf --- code point 2713")
