@@ -4,7 +4,10 @@
 (defvar dim:offlineimap-bin "/usr/bin/offlineimap"
   "Absolute pathname where to find the offlineimap command")
 
-(defvar dim:offlineimap-pause "120"
+(defvar dim:offlineimap-options "-1"
+  "custom options to offlineimap")
+
+(defvar dim:offlineimap-pause "300"
   "Delay in seconds to sleep between offlineimap invocations ")
 
 (defun dim:offlineimap-start ()
@@ -24,7 +27,7 @@
       (ansi-term "/bin/bash" run-command)
       (set-buffer (get-buffer buffer-name))
       (insert (concat "while :; " 
-		      "do " dim:offlineimap-bin "; "
+		      "do " dim:offlineimap-bin " " dim:offlineimap-options "; "
 		      "if [ $? -eq 0 ]; then "
 		      "echo; "
 		      "date; "
