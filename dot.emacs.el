@@ -170,6 +170,7 @@
 ;; et on enregistre l'historique du minibuffer aussi
 (when (= emacs-major-version 23)
   (progn
+    (setq desktop-restore-eager 20)
     (desktop-save-mode 1)
     (savehist-mode 1)))
 
