@@ -41,6 +41,10 @@
 	 (address "dim@tapoueh.org")
 	 (signature "dim"))))
 
+;; aliases --- allow usage of TAB to expand a complete alias into an address
+(add-hook 'mail-mode-hook 'mail-abbrevs-setup)
+(add-hook 'message-mode-hook 'mail-abbrevs-setup)
+
 (setq gnus-agent nil)
 (gnus-add-configuration
  '(article
@@ -70,3 +74,25 @@
 	      (ispell-change-dictionary "francais")))))
 
 	      
+;;
+;; gnus porn
+;;
+(setq gnus-user-date-format-alist
+          '(((gnus-seconds-today) . "Today, %H:%M")
+            ((+ 86400 (gnus-seconds-today)) . "Yesterday, %H:%M")
+            (604800 . "%A %H:%M") ;;that's one week
+            ((gnus-seconds-month) . "%A %d")
+            ((gnus-seconds-year) . "%B %d")
+            (t . "%B %d '%y"))) ;;this one is used when no other does match
+
+(setq gnus-summary-line-format
+      (concat "%U%R %~(max-right 17)~(pad-right 17)&user-date;  "
+	      "%~(max-right 20)~(pad-right 20)n %B%s\n"))
+
+(setq gnus-sum-thread-tree-false-root " ♽ "
+      gnus-sum-thread-tree-single-indent "⚙ "
+      gnus-sum-thread-tree-indent " "
+      gnus-sum-thread-tree-root "⚈ "
+      gnus-sum-thread-tree-leaf-with-other "├─►"  ; "┣━► "  "▶"
+      gnus-sum-thread-tree-single-leaf     "└─►"  ; "┗━► "
+      gnus-sum-thread-tree-vertical        "┆"  ) ; "┆" "┋")  "│" "┆"
