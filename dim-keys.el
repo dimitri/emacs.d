@@ -151,6 +151,36 @@ vi style of % jumping to matching brace."
     (when c
       (insert c))))
 
+;; escreen from http://www.splode.com/~friedman/software/emacs-lisp/
+(load "escreen")
+(escreen-install)
+
+(global-set-key (kbd "C-\\ DEL") 'escreen-goto-prev-screen)
+(global-set-key (kbd "C-\\ SPC") 'escreen-goto-next-screen)
+
+;; add support for C-\ from terms
+(require 'term)
+(define-key term-raw-map escreen-prefix-char escreen-map)
+
+;; add C-\ l to list screens with emphase for current one
+(defun escreen-get-active-screen-numbers-with-emphasis ()
+  "what the name says"
+  (interactive)
+  (let ((escreens (escreen-get-active-screen-numbers))
+	(emphased ""))
+
+    (dolist (s escreens)
+      (setq emphased
+	    (concat emphased (if (= escreen-current-screen-number s)
+				 (propertize (number-to-string s)
+					     ;;'face 'custom-variable-tag) " ")
+					     'face 'info-title-3)
+			       (number-to-string s))
+		    " ")))
+    (message "escreen: active screens: %s" emphased)))
+
+(global-set-key (kbd "C-\\ l") 'escreen-get-active-screen-numbers-with-emphasis)
+
 ;; as we use C-\ for escreen we find another key for toggle-input-method,
 ;; which is less frequently used
 (if (string-match "apple-darwin" system-configuration)

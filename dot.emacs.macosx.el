@@ -106,27 +106,6 @@
 ; winner-mode pour revenir sur le layout précédent
 (winner-mode 1)
 
-;; elscreen
-;(require 'elscreen)
-;(global-set-key (kbd "C-(") '(lambda () (interactive) (elscreen-previous)))
-;(global-set-key (kbd "C-)") '(lambda () (interactive) (elscreen-next)))))
-
-;; escreen from http://www.splode.com/~friedman/software/emacs-lisp/
-(load "escreen")
-(setq escreen-prefix-char (kbd "C-ù"))
-(setq escreen-prefix-char (kbd "C-\\"))
-(global-set-key (kbd "C-(") 'escreen-goto-prev-screen)
-(global-set-key (kbd "C-)") 'escreen-goto-next-screen)
-
-(escreen-install)
-
-(global-set-key (kbd "C-\\ DEL") 'escreen-goto-prev-screen)
-(global-set-key (kbd "C-\\ SPC") 'escreen-goto-next-screen)
-
-;; add support for C-\ from terms
-(require 'term)
-(define-key term-raw-map escreen-prefix-char escreen-map)
-
 ;; Backuper les fichiers dans ~/.elisp/backups
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
 
