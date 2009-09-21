@@ -155,12 +155,18 @@ vi style of % jumping to matching brace."
 (load "escreen")
 (escreen-install)
 
+(global-set-key (kbd "M-[") 'escreen-goto-prev-screen)
+(global-set-key (kbd "M-]") 'escreen-goto-next-screen)
 (global-set-key (kbd "C-\\ DEL") 'escreen-goto-prev-screen)
 (global-set-key (kbd "C-\\ SPC") 'escreen-goto-next-screen)
+(global-set-key '[s-mouse-4] 'escreen-goto-prev-screen)
+(global-set-key '[s-mouse-5] 'escreen-goto-next-screen)
 
 ;; add support for C-\ from terms
 (require 'term)
 (define-key term-raw-map escreen-prefix-char escreen-map)
+(define-key term-raw-map (kbd "M-[") 'escreen-goto-prev-screen)
+(define-key term-raw-map (kbd "M-]") 'escreen-goto-next-screen)
 
 ;; add C-\ l to list screens with emphase for current one
 (defun escreen-get-active-screen-numbers-with-emphasis ()
