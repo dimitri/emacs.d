@@ -14,12 +14,15 @@
 (require 'dired-x)
 
 ;; C-c d pour écrire la date
-(defun insert-date()
+(defun insert-date(&optional format)
   "Insert a time-stamp according to locale's date and time format."
-  (interactive)
-  (insert (format-time-string "%Y%m%d-%k:%M" (current-time))))
+  (insert (format-time-string (or format "%Y%m%d-%R") (current-time))))
 
-(global-set-key (kbd "C-c d") 'insert-date)
+(defun insert-date-blog-format() (interactive) (insert-date "%Y%m%d-%R"))
+(defun insert-date-year-s-week() (interactive) (insert-date "%YS%V"))
+
+(global-set-key (kbd "C-c d b") 'insert-date-blog-format)
+(global-set-key (kbd "C-c d s") 'insert-date-year-s-week)
 
 ; find-file-at-point quand ça a du sens
 (setq ffap-machine-p-known 'accept) ; no pinging
