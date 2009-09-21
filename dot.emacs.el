@@ -221,6 +221,7 @@
 
 ;; Magit mode
 (require 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
 
 ;; nxhtml pour PHP/HTML
 (load "~/.elisp/nxhtml/nxhtml/autostart.el")
