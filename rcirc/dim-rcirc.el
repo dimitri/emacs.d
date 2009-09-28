@@ -5,6 +5,54 @@
 (require 'rcirc-groups)
 ;(require 'rcirc-notify-mode)
 
+
+;; Some utility functions to have automated layout upon startup
+(requice 'cl)
+
+(defun dim:wait-for-buffers (buffer-list &optional n)
+  "return only when all buffers in the list exist, or we tried n times"
+  (let ((n (or n 15))
+	(buffers))
+    (while (and (< (length buffers) 3) (not (eq n 0)))
+      (dolist (buffer-name buffer-list)
+	(when (not (memq buffer-name buffers))
+	  (when (get-buffer buffer-name)
+	    (setq buffers (cons buffer-name buffers)))))
+      (message "%s, waiting for %d buffers still: %S" n (- (length buffer-list)
+							   (length buffers)) buffers)
+      (sleep-for 0.5)
+      (decf n))
+    ;; we return buffers
+    buffers))
+
+(defun dim:rcirc-layout-home ()
+  "Organise screen layout for IRC setup"
+  (let ((buffers  (dim:wait-for-buffers '("#vieuxcons@irc.lost-oasis.net"
+					  "#emacs@irc.freenode.net"
+					  "#postgresql@irc.freenode.net"))))
+    (when (eq 3 (length buffers))
+      (delete-other-windows)
+      (let ((right-window (split-window-horizontally)))
+	(set-window-buffer (selected-window) "#vieuxcons@irc.lost-oasis.net")
+	(set-window-buffer right-window "#postgresql@irc.freenode.net")
+	(select-window (split-window-vertically))
+	(set-window-buffer (selected-window) "#emacs@irc.freenode.net")))))
+
+(defun dim:rcirc-layout-work ()
+  "Organise screen layout for IRC setup"
+  (let ((buffers (dim:wait-for-buffers '("#vieuxcons@irc.lost-oasis.net"
+					 "#pg@irc.hi-media-techno.com"
+					 "#postgresql@irc.freenode.net"))))
+    (when (eq 3 (length buffers))
+      (delete-other-windows)
+      (split-window-horizontally)
+      (let ((bottom-window (split-window-vertically)))
+	(set-window-buffer (selected-window) "#postgresql@irc.freenode.net")
+	(set-window-buffer bottom-window "#vieuxcons@irc.lost-oasis.net")
+	(select-window (split-window-vertically))
+	(set-window-buffer (selected-window) "#pg@irc.hi-media-techno.com")
+	(balance-windows)))))
+
 ;; Central place to handle connecting
 (defun dim-rcirc-start ()
   "Start biltbee and rcirc, and connects to default places"
@@ -16,7 +64,15 @@
     (require 'bitlbee)
     (setq bitlbee-executable "/sw/sbin/bitlbee")
     (bitlbee-start))
-  (rcirc nil))
+
+  ;; now start rcirc
+  (rcirc nil)
+
+  ;; and organize a nice layout
+  (if (string-match "apple-darwin" system-configuration)
+      (dim:rcirc-layout-home)
+    (dim:rcirc-layout-work)))
+
 
 ;; each nick its own color, notifications, extra goodies
 (eval-after-load 'rcirc '(require 'rcirc-color))
