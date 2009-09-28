@@ -211,9 +211,16 @@ vi style of % jumping to matching brace."
 
 ;; as we use C-\ for escreen we find another key for toggle-input-method,
 ;; which is less frequently used
+(defun dim:toggle-my-input-method ()
+  "Toggle between default input method (nil) and hard coded latin-1-alt-postfix"
+  (interactive) 
+  (if (string= current-input-method "latin-1-alt-postfix")
+      (inactivate-input-method)
+    (set-input-method "latin-1-alt-postfix")))
+
 (if (string-match "apple-darwin" system-configuration)
-    (global-set-key (kbd "M-§") 'toggle-input-method)
-  (global-set-key (kbd "s-i") 'toggle-input-method))
+    (global-set-key (kbd "M-§") 'dim:toggle-my-input-method)
+  (global-set-key (kbd "s-i") 'dim:toggle-my-input-method))
 
 ;; mails
 ;(global-set-key (kbd "C-c @") 'mail-abbrev-insert-alias)
