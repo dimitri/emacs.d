@@ -7,7 +7,7 @@
 
 
 ;; Some utility functions to have automated layout upon startup
-(requice 'cl)
+(require 'cl)
 
 (defun dim:wait-for-buffers (buffer-list &optional n)
   "return only when all buffers in the list exist, or we tried n times"
@@ -49,8 +49,9 @@
       (let ((bottom-window (split-window-vertically)))
 	(set-window-buffer (selected-window) "#postgresql@irc.freenode.net")
 	(set-window-buffer bottom-window "#vieuxcons@irc.lost-oasis.net")
-	(select-window (split-window-vertically))
-	(set-window-buffer (selected-window) "#pg@irc.hi-media-techno.com")
+	(select-window bottom-window)
+	(set-window-buffer 
+	 (split-window-vertically) "#pg@irc.hi-media-techno.com")
 	(balance-windows)))))
 
 ;; Central place to handle connecting
