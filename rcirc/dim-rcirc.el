@@ -132,6 +132,14 @@
 (eval-after-load 'rcirc
   '(add-to-list 'window-size-change-functions 'dim:dynamic-fill-column))
 
+;; whois on private even if I'm receiving it
+(add-hook 'rcirc-mode-hook 
+	  (lambda () 
+	    (when (and (string= response "PRIVMSG")
+		       (not (rcirc-channel-p rcirc-target))
+		       (not (string= sender (rcirc-nick proc))))
+	      (rcirc-cmd-whois (rcirc-nick rcirc-process)))))
+
 ;; encodings
 (setq rcirc-decode-coding-system 'undecided)
 ;(setq rcirc-coding-system-alist '(("#postgresqlfr" . iso-8859-15)))
