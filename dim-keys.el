@@ -9,6 +9,7 @@
 
 ;; déplacements avec Shift-<flèche>
 (windmove-default-keybindings)
+(setq windmove-wrap-around t)
 
 ;; dired-x pour C-x C-j
 (require 'dired-x)
