@@ -22,11 +22,20 @@
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
 (setq gnus-gcc-mark-as-read t)
 
+;; FIXME: adapt the setup for debian too, using relative msmtp path should do?
+(if (string-match "apple-darwin" system-configuration)
+    (progn
+      (setq message-send-mail-function 'message-send-mail-with-sendmail)
+      (setq sendmail-program "/sw/bin/msmtp")
+      (setq message-sendmail-extra-arguments '("-a" "himedia"))))
+
 (setq gnus-posting-styles
       '(("hm.local"
 	 (address "dfontaine@hi-media.com")
 	 (organization "Hi-Media")
-	 (signature-file "~/.signature"))
+	 (signature-file "~/.signature")
+	 (eval (setq message-sendmail-extra-arguments '("-a" "himedia")))
+	 (user-mail-address "dfontaine@hi-media.com"))
 
 	;; Hi-Media listes PostgreSQL
 	((header "List-ID" "postgresql.org")
@@ -39,7 +48,9 @@
 	;; Tapoueh
 	("tapoueh.local"
 	 (address "dim@tapoueh.org")
-	 (signature "dim"))))
+	 (signature "dim")
+	 (eval (setq message-sendmail-extra-arguments '("-a" "tapoueh")))
+	 (user-mail-address "dfontaine@hi-media.com"))))
 
 ;; aliases --- allow usage of TAB to expand a complete alias into an address
 (add-hook 'mail-mode-hook 'mail-abbrevs-setup)
@@ -96,3 +107,4 @@
       gnus-sum-thread-tree-leaf-with-other "├─►"  ; "┣━► "  "▶"
       gnus-sum-thread-tree-single-leaf     "└─►"  ; "┗━► "
       gnus-sum-thread-tree-vertical        "┆"  ) ; "┆" "┋")  "│" "┆"
+

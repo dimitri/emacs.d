@@ -27,8 +27,12 @@
 (dim:add-my-extra-load-paths)
 
 ;; Sous mac plein de softs intéressants sont dans /sw/bin
-(setenv "PATH" (concat (getenv "PATH") ":" "/sw/bin"))
+(setenv "PATH" (concat (getenv "PATH") ":" "/sw/bin" ":" "/usr/local/git/bin"))
 (add-to-list 'exec-path "/sw/bin")
+(add-to-list 'exec-path "/usr/local/git/bin")
+
+(require 'woman)
+(add-to-list 'woman-manpath "/sw/share/man")
 
 ;; par défaut on fait tout en UTF-8
 (prefer-coding-system 'utf-8)
@@ -66,11 +70,16 @@
       (set-frame-position (selected-frame) 60 30)
       ;(set-frame-size (selected-frame) 165 45))
       ;(set-frame-size (selected-frame) 180 55))
-      (set-frame-size (selected-frame) 192 55))
+      ;(set-frame-size (selected-frame) 192 55))
+      (set-frame-size (selected-frame) 174 90))
 
   ;; older emacs (23.0.90) didn't share same fonts rendering
   (set-frame-position (selected-frame) 90 45)
   (set-frame-size (selected-frame) 170 45))
+
+(when (string-match "apple-darwin" system-configuration)
+  (set-frame-size (make-frame '((top . 30)
+				(left . 1311))) 174 90))
 
 ;; configuration rcirc
 (require 'dim-rcirc)
@@ -151,7 +160,8 @@
 
 ;; Magit!
 (require 'magit)
-(setq magit-git-executable "/sw/bin/git")
+;(setq magit-git-executable "/sw/bin/git")
+(setq magit-git-executable "/usr/local/git/bin/git")
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;; egg: Emacs Got Git! (magit fork)
@@ -170,16 +180,14 @@
 (add-hook 'c-mode-hook
 	  (function
 	   (lambda nil 
-	     (if (or (string-match "pgsql" buffer-file-name)
-		     (string-match "postgresql" buffer-file-name))
-		 (progn
-		   (c-set-style "bsd")
-		   (setq c-basic-offset 4) 
-		   (setq tab-width 4)
-		   (c-set-offset 'case-label '+)
-		   (setq indent-tabs-mode t)
-		   )
-	       ))))
+	     (when (and buffer-file-name
+			(or (string-match "pgsql" buffer-file-name)
+			    (string-match "postgresql" buffer-file-name)))
+	       (c-set-style "bsd")
+	       (setq c-basic-offset 4) 
+	       (setq tab-width 4)
+	       (c-set-offset 'case-label '+)
+	       (setq indent-tabs-mode t)))))
 
 ;;; To work on the documentation, the following (or a variant, as above)
 ;;; can be helpful.
@@ -211,3 +219,18 @@
 
 (add-hook 'dired-load-hook
 	  (define-key dired-mode-map (kbd "E") 'emms-play-dired))
+
+;; offlineimap
+(require 'dim-offlineimap)
+(setq dim:offlineimap-bin "/sw/bin/offlineimap"
+      dim:offlineimap-options "")
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))

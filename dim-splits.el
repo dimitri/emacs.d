@@ -1,3 +1,4 @@
+;;; dim-splits.el --- Dimitri Fontaine
 ;; Custom window splitting shortcuts
 ;;  C-c 1  horizontal split, very little window on the bottom
 ;;  C-c 2  horizontal split, 3/4 of the space atop, 1/4 at the bottom

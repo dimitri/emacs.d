@@ -1,3 +1,5 @@
+;;; dim-ucs.el --- Dimitri Fontaine
+
 (defvar dim:ucs-croche-1 "♪"
   "From http://unicode.org/charts/PDF/U2600.pdf --- code point 266A")
 

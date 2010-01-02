@@ -135,8 +135,7 @@
 ;; whois on private even if I'm receiving it
 (add-hook 'rcirc-mode-hook 
 	  (lambda () 
-	    (when (and (string= response "PRIVMSG")
-		       (not (rcirc-channel-p rcirc-target))
+	    (when (and (not (rcirc-channel-p rcirc-target))
 		       (not (string= sender (rcirc-nick proc))))
 	      (rcirc-cmd-whois (rcirc-nick rcirc-process)))))
 

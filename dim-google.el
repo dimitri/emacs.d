@@ -1,4 +1,4 @@
-;;; dim-google.el
+;;; dim-google.el --- Dimitri Fontaine
 ;;
 ;; Ask google about current region, select word-at-point if no region is
 ;; selected
