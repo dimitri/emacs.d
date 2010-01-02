@@ -47,7 +47,7 @@
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
 
-(require 'w3m-load)
+(require 'w3m-load nil t)
 (require 'dim-pgsql)
 
 ;; EMMS
