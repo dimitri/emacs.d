@@ -60,5 +60,5 @@
 
 ;; and the session
 (setq desktop-restore-eager 20)
-;(desktop-save-mode 1)
+(desktop-save-mode 1)
 (savehist-mode 1)
