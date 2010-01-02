@@ -8,8 +8,6 @@
 
 ;; don't forget platform specific things
 (dim:add-my-extra-load-paths '("~/.emacs.d/nxhtml"
-			       "~/dev/emacs/cssh"
-			       "~/dev/emacs/rcirc-groups"
 			       "~/.emacs.d/w3m/emacs-w3m/"
 			       "~/.emacs.d/color-theme-6.6.0"
 			       "~/.emacs.d/color-theme-6.6.0/themes"))
