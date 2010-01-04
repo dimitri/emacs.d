@@ -34,9 +34,19 @@
 ;; nxhtml
 (load "~/.emacs.d/nxhtml/autostart.el")
 (setq debug-on-error nil)
+(setq mumamo-chunk-coloring 1)
 
 (custom-set-faces 
- '(mumamo-background-chunk-submode ((((class color)
+ '(mumamo-background-chunk-submode1 ((((class color)
+				      (min-colors 88)
+				      (background dark)) nil)))
+ '(mumamo-background-chunk-submode2 ((((class color)
+				      (min-colors 88)
+				      (background dark)) nil)))
+ '(mumamo-background-chunk-submode3 ((((class color)
+				      (min-colors 88)
+				      (background dark)) nil)))
+ '(mumamo-background-chunk-submode4 ((((class color)
 				      (min-colors 88)
 				      (background dark)) nil)))
  '(mumamo-background-chunk-major ((((class color)
