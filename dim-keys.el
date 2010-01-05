@@ -108,6 +108,8 @@ vi style of % jumping to matching brace."
 
 ;; as we use C-\ for escreen we find another key for toggle-input-method,
 ;; which is less frequently used
+(require 'dim-input-method)
+
 (defcustom dim:my-input-method "french-dim-postfix"
   "Typing french on a qwerty keyboard... used to be latin-1-alt-postfix")
 
