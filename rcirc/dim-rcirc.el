@@ -185,14 +185,20 @@
 	("irc.lost-oasis.net" 
 	 :nick "dim"
 	 :channels ("#vieuxcons"))
-	("localhost" ("&bitlbee"))
-	("irc.hi-media-techno.com"
-	 :channels ("#hm" "#pg" "#eurovox" "#allopass" "#comtrack" "#admin"))
+	("localhost" ("&bitlbee"))))
 
-	;; I want to define it but I'd rather not connect to it by default
-	("irc.free.fr"
-	 :nick "bob`"
-	 :user-name "bob"
-	 :full-name "bob")))
+(when (string-match "hi-media-techno" (get-domain-name))
+  (add-to-list 'rcirc-server-alist
+	       '("irc.hi-media-techno.com"
+		 :channels 
+		 ("#hm" "#pg" "#eurovox" "#allopass" "#comtrack" "#admin"))))
+
+(when (not (string-match "hi-media-techno" (get-domain-name)))
+  ;; I want to define it but I'd rather not connect to it by default
+  (add-to-list 'rcirc-server-alist
+	       '("irc.free.fr"
+		 :nick "bob`"
+		 :user-name "bob"
+		 :full-name "bob")))
 
 (provide 'dim-rcirc)
