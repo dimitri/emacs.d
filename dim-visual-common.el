@@ -17,7 +17,7 @@
 (require 'font-lock)
 (global-font-lock-mode 1)
 
+(require 'woman)
 (setq woman-use-own-frame nil)
-
 
 (provide 'dim-visual-common)

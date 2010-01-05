@@ -31,14 +31,16 @@
 
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
 
+;; first the common stuff
+(require 'dim-visual-common)
+
 (if (string-match "apple-darwin" system-configuration)
     (require 'dim-init-macosx)
 
-  ;; beware of debian/kFreeBSD. Yet I intend to be using it.
+  ;; beware of debian/kFreeBSD. Yes I intend to be using it.
   (when (string-match "Debian" (emacs-version))
     (require 'dim-init-debian)))
 
-(require 'dim-visual-common)
 (require 'dim-projects)
 
 ;; that's tapoueh.org git depo, but still named dim-muse.el
@@ -53,7 +55,6 @@
 (require 'dim-keys)
 (require 'dim-modes)
 (require 'dim-tels-pro)
-
 
 ;; empower M-term to remote hosts
 (require 'cssh)

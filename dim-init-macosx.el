@@ -12,9 +12,13 @@
 			       "~/.emacs.d/color-theme-6.6.0"
 			       "~/.emacs.d/color-theme-6.6.0/themes"))
 
+;; special visual tweaking
 (require 'color-theme)
 (require 'color-theme-emacs23-default)
 (color-theme-emacs23-default)
+
+;; here hiding the menu bar makes no sens
+(menu-bar-mode 1)
 
 (require 'woman)
 (add-to-list 'woman-manpath "/sw/share/man")
