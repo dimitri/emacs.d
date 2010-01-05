@@ -108,12 +108,15 @@ vi style of % jumping to matching brace."
 
 ;; as we use C-\ for escreen we find another key for toggle-input-method,
 ;; which is less frequently used
+(defcustom dim:my-input-method "french-dim-postfix"
+  "Typing french on a qwerty keyboard... used to be latin-1-alt-postfix")
+
 (defun dim:toggle-my-input-method ()
   "Toggle between default input method (nil) and hard coded latin-1-alt-postfix"
   (interactive) 
-  (if (string= current-input-method "latin-1-alt-postfix")
+  (if (string= current-input-method dim:my-input-method)
       (inactivate-input-method)
-    (set-input-method "latin-1-alt-postfix")))
+    (set-input-method dim:my-input-method)))
 
 (global-set-key (kbd "C-'") 'dim:toggle-my-input-method)
 (global-set-key (kbd "C-c w") 'woman)
