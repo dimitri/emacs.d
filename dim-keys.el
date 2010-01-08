@@ -123,6 +123,20 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-'") 'dim:toggle-my-input-method)
 (global-set-key (kbd "C-c w") 'woman)
 
+;; language settings, e is english, f is french
+(global-set-key (kbd "C-c e") 
+		(lambda ()
+		  (interactive)
+		  (inactivate-input-method)
+		  (ispell-change-dictionary "english")))
+
+(global-set-key (kbd "C-c f") 
+		(lambda ()
+		  (interactive)
+		  (set-input-method dim:my-input-method)
+		  (ispell-change-dictionary "francais")))
+
+
 (require 'dim-mailrc)
 (require 'dim-previous-message)
 (provide 'dim-keys)

@@ -75,6 +75,9 @@
 			 (if gnus-carpal
 			     '(summary-carpal 4))))))
 
+;; flyspell
+(add-hook 'message-mode-hook 'flyspell-mode)
+
 (add-hook 'gnus-select-group-hook
 	  (lambda ()
 	    (cond
