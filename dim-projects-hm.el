@@ -40,6 +40,7 @@
 (project-add "min_update" "/home/dim/PostgreSQL/pgfoundry/backports/min_update")
 (project-add "uuid" "/home/dim/PostgreSQL/pgfoundry/backports/uuid")
 (project-add "uuid-ossp" "/home/dim/PostgreSQL/pgfoundry/backports/uuid-ossp")
+(project-add "pgdeb" "/home/dim/PostgreSQL/debian")
 
 ;; misc projects
 (project-add "tsung-plotter" "/home/dim/dev/tsung-plotter")
@@ -101,7 +102,8 @@
 	 ("pitrtools"      (name . "pitrtools:"))
 	 ("temporal"       (name . "temporal:"))
 	 ("hstore"         (name . "hstore:"))
-	 ("pg-etc"         (name . "pg-etc"))
+	 ("pg-etc"         (name . "pg-etc:"))
+	 ("pgdeb"          (name . "pgdeb:"))
 
 	 ("misc"           (or (name . "tsung-plotter:")
 			       (name . "hdi:")
