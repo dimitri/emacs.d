@@ -74,8 +74,8 @@ vi style of % jumping to matching brace."
 (require 'dim-google)
 
 ;; dictionary lookups
-(global-set-key (kbd "C-c ?") (lambda () (interactive) 
-				(dictionary-lookup-definition)))
+(global-set-key (kbd "M-?") (lambda () (interactive) 
+			      (dictionary-lookup-definition)))
 
 ;; déplacements sans changer la position du point dans le buffer
 (global-set-key (kbd "M-<up>")   (lambda () (interactive) (scroll-down 1)) )
