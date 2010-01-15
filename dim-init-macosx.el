@@ -38,13 +38,14 @@
 (set-frame-position (selected-frame) 60 30)
 ;;(set-frame-size (selected-frame) 165 45))
 ;;(set-frame-size (selected-frame) 180 55))
-;;(set-frame-size (selected-frame) 192 55))
-(set-frame-size (selected-frame) 174 90)
 
-;; iMac 27" with 2580x1440, so 2 frames here
-(when (string-match "apple-darwin" system-configuration)
-  (set-frame-size (make-frame '((top . 30)
-				(left . 1311))) 174 90))
+(if (equal (get-screen-dimensions) '(2560 1440))
+    (progn
+      (set-frame-size (selected-frame) 174 90)
+      (set-frame-size (make-frame '((top . 30)
+				    (left . 1311))) 174 90))
+
+  (set-frame-size (selected-frame) 192 55))
 
 ;;
 ;; cssh special settings for when working from home
