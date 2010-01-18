@@ -87,6 +87,8 @@
 	     (t
 	      (ispell-change-dictionary "francais")))))
 
+;; topics
+(add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 	      
 ;;
 ;; gnus porn
