@@ -136,6 +136,12 @@ vi style of % jumping to matching brace."
 		  (set-input-method dim:my-input-method)
 		  (ispell-change-dictionary "francais")))
 
+;; Diff the current buffer with the file contents
+(add-to-list 'same-window-buffer-names "*Diff*")
+(global-set-key (kbd "C-c =")
+		(lambda () 
+		  (interactive)
+		  (diff-buffer-with-file (current-buffer))))
 
 (require 'dim-mailrc)
 (require 'dim-previous-message)
