@@ -29,6 +29,14 @@
 
 (require 'ibuffer)
 (global-set-key "\C-x\C-b" 'ibuffer)
+
+; jump to current buffer - © Romain Françoise
+(defun ore-ibuffer-jump-to-last ()
+  (ibuffer-jump-to-buffer
+   (buffer-name (other-buffer (current-buffer) t))))
+ (add-hook 'ibuffer-hook 'ore-ibuffer-jump-to-last)
+
+;; use iswitchb-mode for C-x b
 (iswitchb-mode)
 
 ;; C-c d pour écrire la date
