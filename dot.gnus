@@ -57,23 +57,27 @@
 (add-hook 'message-mode-hook 'mail-abbrevs-setup)
 
 (setq gnus-agent nil)
-(gnus-add-configuration
- '(article
-   (vertical 1.0
-	     (horizontal 8
-    			 (group 50)
-    			 (summary 1.0 point) )
-	     (horizontal 1.0
-    			 (article 1.0)))))
 
-(gnus-add-configuration
- '(summary
-   (vertical 1.0
-	     (horizontal 1.0
-			 (group 50)
-			 (summary 1.0 point) 
-			 (if gnus-carpal
-			     '(summary-carpal 4))))))
+;; I still have a setup in 1024x768...
+(unless (equal '(1024 768) (get-screen-dimensions))
+  (add-hook 'gnus-article-mode-hook 'text-scale-increase)
+  (gnus-add-configuration
+   '(article
+     (vertical 1.0
+	       (horizontal 8
+			   (group 50)
+			   (summary 1.0 point) )
+	       (horizontal 1.0
+			   (article 1.0)))))
+
+  (gnus-add-configuration
+   '(summary
+     (vertical 1.0
+	       (horizontal 1.0
+			   (group 50)
+			   (summary 1.0 point) 
+			   (if gnus-carpal
+			       '(summary-carpal 4)))))))
 
 ;; flyspell
 (add-hook 'message-mode-hook 'flyspell-mode)
