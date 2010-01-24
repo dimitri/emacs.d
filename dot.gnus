@@ -109,6 +109,11 @@
       (concat "%U%R %~(max-right 17)~(pad-right 17)&user-date;  "
 	      "%~(max-right 20)~(pad-right 20)n %B%s\n"))
 
+(require 'gnus-art)
+(setq gnus-visible-headers 
+      (concat gnus-visible-headers "\\|^User-Agent:\\|^X-Mailer:"))
+
+
 (setq gnus-sum-thread-tree-false-root " ♽ "
       gnus-sum-thread-tree-single-indent "⚙ "
       gnus-sum-thread-tree-indent " "
