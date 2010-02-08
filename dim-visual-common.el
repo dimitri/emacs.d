@@ -45,7 +45,7 @@
 	"xwininfo -root -metric | awk -F '[ x+]' '/geometry/ {print $4, $5}'")
        0 -1) " ")))
 
-  ;; linux version is yet to write
+  ;; other systems are yet unknown
   (t '(0 0))))
 
 (provide 'dim-visual-common)

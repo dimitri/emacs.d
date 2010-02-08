@@ -32,14 +32,11 @@
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
 
 ;; first the common stuff
+(require 'dim-ports)
 (require 'dim-visual-common)
 
-(if (string-match "apple-darwin" system-configuration)
-    (require 'dim-init-macosx)
-
-  ;; beware of debian/kFreeBSD. Yes I intend to be using it.
-  (when (string-match "Debian" (emacs-version))
-    (require 'dim-init-debian)))
+(when-running-macosx (require 'dim-init-macosx))
+(when-running-debian (require 'dim-init-debian))
 
 (require 'dim-projects)
 
