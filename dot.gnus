@@ -3,7 +3,8 @@
 (setq user-mail-address "dfontaine@hi-media.com")
 (setq user-full-name "Dimitri Fontaine")
 
-(setq gnus-select-method '(nnspool ""))
+;; No primary select method
+(setq gnus-select-method '(nnnil ""))
 
 (setq gnus-secondary-select-methods
       ;; Both servers are in fact localhost, trick /etc/hosts
