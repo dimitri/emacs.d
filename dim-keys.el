@@ -151,6 +151,9 @@ vi style of % jumping to matching brace."
 		  (interactive)
 		  (diff-buffer-with-file (current-buffer))))
 
+;; ELPA
+(global-set-key (kbd "C-c p") 'package-list-packages)
+
 (require 'dim-mailrc)
 (require 'dim-previous-message)
 (provide 'dim-keys)
