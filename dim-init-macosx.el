@@ -8,6 +8,8 @@
 
 ;; don't forget platform specific things
 (dim:add-my-extra-load-paths '("~/.emacs.d/nxhtml"
+			       "~/.emacs.d/bbdb-2.35/lisp"
+			       "~/.emacs.d/bbdb-2.35/bits"
 			       "~/.emacs.d/w3m/emacs-w3m/"
 			       "~/.emacs.d/color-theme-6.6.0"
 			       "~/.emacs.d/color-theme-6.6.0/themes"))

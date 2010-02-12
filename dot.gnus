@@ -61,7 +61,7 @@
 
 ;; I still have a setup in 1024x768...
 (unless (equal '(1024 768) (get-screen-dimensions))
-  (add-hook 'gnus-article-mode-hook 'text-scale-increase)
+  ;;(add-hook 'gnus-article-mode-hook 'text-scale-increase)
   (gnus-add-configuration
    '(article
      (vertical 1.0
@@ -123,3 +123,8 @@
       gnus-sum-thread-tree-single-leaf     "└─►"  ; "┗━► "
       gnus-sum-thread-tree-vertical        "┆"  ) ; "┆" "┋")  "│" "┆"
 
+;; BBDB
+(require 'bbdb)
+(bbdb-initialize 'gnus 'message)
+(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+(setq bbdb/news-auto-create-p t)
