@@ -110,6 +110,11 @@
       (concat "%U%R %~(max-right 17)~(pad-right 17)&user-date;  "
 	      "%~(max-right 20)~(pad-right 20)n %B%s\n"))
 
+;; gnus-group-line-format, cf dim-gnus-imap-count
+;; "%M%S%p%P%5y:%B%(%g%)%O\n"
+(require 'dim-gnus-imap-count)
+(setq gnus-group-line-format "%M%S%p%P%5uy:%B%(%g%)%O\n")
+
 (require 'gnus-art)
 (setq gnus-visible-headers 
       (concat gnus-visible-headers "\\|^User-Agent:\\|^X-Mailer:"))
