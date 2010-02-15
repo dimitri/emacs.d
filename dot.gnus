@@ -1,5 +1,7 @@
 ;;; .gnus
 ;;
+(require 'dim-ports)
+
 (setq user-mail-address "dfontaine@hi-media.com")
 (setq user-full-name "Dimitri Fontaine")
 
@@ -23,19 +25,17 @@
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
 (setq gnus-gcc-mark-as-read t)
 
-;; FIXME: adapt the setup for debian too, using relative msmtp path should do?
-(if (string-match "apple-darwin" system-configuration)
-    (progn
-      (setq message-send-mail-function 'message-send-mail-with-sendmail)
-      (setq sendmail-program "/sw/bin/msmtp")
-      (setq message-sendmail-extra-arguments '("-a" "himedia"))))
+(when-using-msmtp
+ (setq message-send-mail-function 'message-send-mail-with-sendmail)
+ (when-running-macosx (setq sendmail-program "/sw/bin/msmtp"))
+ (setq message-sendmail-extra-arguments '("-a" "himedia")))
 
 (setq gnus-posting-styles
       '(("hm.local"
 	 (address "dfontaine@hi-media.com")
 	 (organization "Hi-Media")
 	 (signature-file "~/.signature")
-	 (eval (setq message-sendmail-extra-arguments '("-a" "himedia")))
+	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "himedia")))
 	 (user-mail-address "dfontaine@hi-media.com"))
 
 	;; Hi-Media listes PostgreSQL
@@ -50,8 +50,28 @@
 	("tapoueh.local"
 	 (address "dim@tapoueh.org")
 	 (signature "dim")
-	 (eval (setq message-sendmail-extra-arguments '("-a" "tapoueh")))
+	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "tapoueh")))
 	 (user-mail-address "dfontaine@hi-media.com"))))
+
+;; fix gnus-posting-styles when we're using msmtp to add the -a account option
+(when-using-msmtp
+ (setq gnus-posting-styles
+       (mapcar 
+	(lambda (x) 
+	  (cond ((and (stringp (car x)) 
+		      (string= (car x) "hm.local"))
+		 (append x '((eval 
+			      (setq message-sendmail-extra-arguments 
+				    '("-a" "himedia"))))))
+		
+		((and (stringp (car x)) 
+		      (string= (car x) "tapoueh.local"))
+		 (append x '((eval 
+			      (setq message-sendmail-extra-arguments 
+				    '("-a" "tapoueh"))))))
+		
+		(t x)))
+	gnus-posting-styles)))
 
 ;; aliases --- allow usage of TAB to expand a complete alias into an address
 (add-hook 'mail-mode-hook 'mail-abbrevs-setup)

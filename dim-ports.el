@@ -21,4 +21,9 @@
   "eval body only when running under MacOSX"
    `(when (string-match "apple-darwin" system-configuration) ,@body))
 
+;; Used from .gnus msmtp
+(defmacro when-using-msmtp (&rest body)
+  "eval body only when ~/.msmtprc exists and is readable"
+  `(when (file-readable-p (expand-file-name "~/.msmtprc")) ,@body))
+
 (provide 'dim-ports)
