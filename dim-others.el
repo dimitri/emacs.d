@@ -26,3 +26,45 @@
 	  (setq c (thing-at-point 'char)))))
     (when c
       (insert c))))
+
+;;;
+;;; jd.gnus.buttons.el --- Dimitri Fontaine & Julien Danjou
+;;
+;; Buttonize things
+
+(defvar jd:orig-gnus-button-alist gnus-button-alist
+  "Allow to reset the button list to the default gnus one when changing group")
+
+(defun jd:gnus-button-browse (url)
+  "produce a function that browse an url formated to contain the number"
+  `(lambda (n) (browse-url (format ,url n))))
+
+(defcustom jd:gnus-buttons-alist 
+  '(("debian" 
+     "\\#\\([0-9]+\\)" 
+     "http://bugs.debian.org/%s")
+
+    ("Easter-eggs"
+     "\\#\\([0-9]+\\)" 
+     "https://ssl.easter-eggs.fr/rt/Ticket/Display.html?id=%s"))
+  "Setup for generating buttons and adding them to gnus when selecting a group")
+
+(defun jd:gnus-add-buttons (regexp func)
+  "add buttons for given regexp and function"
+  (add-to-list 
+   'gnus-header-button-alist (list "Subject:" regexp 0 t func 1))
+  (add-to-list 
+   'gnus-button-alist (list regexp 0 t func 1)))
+
+(defun jd:gnus-buttonize ()
+  "Check for buttons setup to add to current newsgroup"
+  (setq gnus-button-alist jd:orig-gnus-button-alist)
+  (mapc
+   (lambda (x)
+     (when (string-match (car x) gnus-newsgroup-name)
+       (let ((regexp (cadr x))
+	     (url    (caddr x)))
+	 (jd:gnus-add-buttons regexp (jd:gnus-button-browse url)))))
+   jd:gnus-buttons-alist))
+
+;(add-hook 'gnus-select-group-hook 'jd:gnus-buttonize)
