@@ -58,6 +58,10 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 
 (require 'w3m-load nil t)
+(setq mm-inline-text-html-with-images t)
+(setq mm-inline-large-images t)
+(setq mm-w3m-safe-url-regexp nil)
+
 (require 'dim-pgsql)
 
 ;; EMMS
