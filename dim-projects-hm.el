@@ -15,9 +15,10 @@
 (project-add "DataManager" "/home/dim/Hi-Media/Partenaires")
 (project-add "HPMP" "/home/dim/Hi-Media/hpmp")
 
-(project-add "emacs" "/home/dim/.elisp")
-(project-add "emacs-dev" "/home/dim/dev/elisp")
+(project-add "emacs" "/home/dim/dev/emacs.d")
+;;(project-add "emacs-dev" "/home/dim/dev/emacs.d")
 (project-add "tapoueh" "/home/dim/dev/tapoueh.org")
+(project-add "pgconfs" "/home/dim/dev/pgconfs")
 (project-add "pgloader" "/home/dim/PostgreSQL/pgfoundry/pgloader")
 (project-add "libphp-pgq" "~/PostgreSQL/pgfoundry/libpgq-php")
 (project-add "skytools" "/home/dim/PostgreSQL/pgfoundry/skytools")
@@ -55,6 +56,7 @@
 ;; setup
 (project-add "~xdg" "/home/dim/.config")
 (project-add "xdg" "/etc/xdg")
+(project-add "ssh" "~/.ssh")
 
 (project-add "temp" "/tmp")
 
@@ -76,6 +78,7 @@
 			       (name . "emacs-dev:")
 			       (filename . ".emacs")))
 	 ("tapoueh"        (name . "tapoueh:"))
+	 ("pgconfs"        (name . "pgconfs:"))
 	 ("pgloader"       (name . "pgloader:"))
 	 ("libphp-pgq"     (name . "libphp-pgq:"))
 	 ("skytools"       (name . "skytools:"))
@@ -113,6 +116,7 @@
 
 	 ("xdg"            (or (name . "~xdg:")
 			       (name . "xdg")))
+	 ("ssh"            (name . "ssh:"))
 
 	 ("Temp"           (name . "temp:"))
 	 
