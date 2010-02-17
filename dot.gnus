@@ -51,7 +51,7 @@
 	 (address "dim@tapoueh.org")
 	 (signature "dim")
 	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "tapoueh")))
-	 (user-mail-address "dfontaine@hi-media.com"))))
+	 (user-mail-address "dim@tapoueh.org"))))
 
 ;; fix gnus-posting-styles when we're using msmtp to add the -a account option
 (when-using-msmtp
