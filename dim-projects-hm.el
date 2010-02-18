@@ -50,6 +50,9 @@
 (project-add "sql2dot" "/home/dim/dev/sql2dot")
 (project-add "mbot" "/home/dim/dev/mbot-0.3")
 
+(project-add "django" "/usr/share/pyshared/django/")
+(project-add "transifex" "/home/dim/Hi-Media/transifex")
+
 ;; local pg clusters /etc files
 (project-add "pg-etc" "/home/dim/pgsql")
 
@@ -117,6 +120,9 @@
 	 ("xdg"            (or (name . "~xdg:")
 			       (name . "xdg")))
 	 ("ssh"            (name . "ssh:"))
+
+	 ("django"         (name . "django:"))
+	 ("transifex"      (name . "transifex:"))
 
 	 ("Temp"           (name . "temp:"))
 	 
