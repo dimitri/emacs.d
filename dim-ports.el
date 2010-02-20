@@ -2,6 +2,17 @@
 ;;
 ;; Some portability oriented stuff, macros
 
+;; ok as of now it's the same on all system, but still, it has its place here.
+(defun get-domain-name (&optional from)
+  "Returns the system domain name.  If FROM is 'resolv or nil,
+returns the value defined in /etc/resolv.conf."
+  (when (or (null from) (eq from 'resolv))
+    (when (file-readable-p "/etc/resolv.conf")
+      (with-temp-buffer
+	(insert-file-contents-literally "/etc/resolv.conf")
+	(when (re-search-forward "^domain \\([^ ]+\\)$" nil t)
+	  (match-string 1))))))
+
 ;; thanks to ams on #emacs on irc.freenode.net
 (defmacro with-window-system (&rest body) 
   "eval body only when running an windowed version of Emacs"

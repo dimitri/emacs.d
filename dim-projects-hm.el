@@ -1,140 +1,62 @@
 ;;; On définit les projets locaux
-(require 'projects)
 
-(project-add "admin" "/home/dim/Hi-Media/admin/admin")
-(project-add "hm-min-update" 
-	     "/home/dim/Hi-Media/admin/admin/PostgreSQL/min-update")
-(project-add "pg_staging" 
-	     "/home/dim/PostgreSQL/pgfoundry/pg_staging")
+(setq
+ dim:my-projects 
+ '(("admin"		. "~/Hi-Media/admin/admin")
+   ("hm-min-update"	. "~/Hi-Media/admin/admin/PostgreSQL/min-update")
+   ("pg_staging"	. "~/PostgreSQL/pgfoundry/pg_staging")
 
-(project-add "comtrack" "/home/dim/Hi-Media/comtrack")
-(project-add "HMEurovox" "/home/dim/Hi-Media/Eurovox")
-(project-add "Eurovox" "/home/dim/Hi-Media/admin/git/Eurovox")
-(project-add "Allopass" "/home/dim/Hi-Media/AlloPass")
-(project-add "MediaReporting" "/home/dim/Hi-Media/MediaReporting")
-(project-add "DataManager" "/home/dim/Hi-Media/Partenaires")
-(project-add "HPMP" "/home/dim/Hi-Media/hpmp")
+   ;; Hi-Media
+   ("comtrack"		. "~/Hi-Media/comtrack")
+   ("HMEurovox"		. "~/Hi-Media/Eurovox")
+   ("Eurovox"		. "~/Hi-Media/admin/git/Eurovox")
+   ("Allopass"		. "~/Hi-Media/AlloPass")
+   ("MediaReporting"	. "~/Hi-Media/MediaReporting")
+   ("DataManager"	. "~/Hi-Media/Partenaires")
+   ("HPMP"		. "~/Hi-Media/hpmp")
 
-(project-add "emacs" "/home/dim/dev/emacs.d")
-;;(project-add "emacs-dev" "/home/dim/dev/emacs.d")
-(project-add "tapoueh" "/home/dim/dev/tapoueh.org")
-(project-add "pgconfs" "/home/dim/dev/pgconfs")
-(project-add "pgloader" "/home/dim/PostgreSQL/pgfoundry/pgloader")
-(project-add "libphp-pgq" "~/PostgreSQL/pgfoundry/libpgq-php")
-(project-add "skytools" "/home/dim/PostgreSQL/pgfoundry/skytools")
-(project-add "skytools-3" "/home/dim/PostgreSQL/skytools-3/skytools-dev")
-(project-add "prefix" "/home/dim/PostgreSQL/pgfoundry/prefix")
-(project-add "pgbouncer" "/home/dim/PostgreSQL/pgfoundry/pgbouncer")
-(project-add "tablelog" "/home/dim/PostgreSQL/pgfoundry/table_log-0.4.4")
-(project-add "pgfouine" "/home/dim/PostgreSQL/pgfoundry/pgfouine-1.0")
-(project-add "pgsql" "~/PostgreSQL/git/postgresql")
-(project-add "pg8.2" "~/pgsql/8.2")
-(project-add "pg8.3" "~/pgsql/8.3")
-(project-add "pghead" "~/pgsql/head")
-(project-add "plproxy" "/home/dim/PostgreSQL/pgfoundry/plproxy")
-(project-add "fr_ops" "/home/dim/Hi-Media/admin/admin/PostgreSQL/btree_fr_ops")
-(project-add "period" "/home/dim/PostgreSQL/pgfoundry/temporal")
-(project-add "pre_prepare" "/home/dim/PostgreSQL/pgfoundry/preprepare")
-(project-add "temporal" "/home/dim/PostgreSQL/pgfoundry/temporal")
-(project-add "pitrtools" "/home/dim/PostgreSQL/pgfoundry/pitrtools")
-(project-add "hstore" "/home/dim/PostgreSQL/pgfoundry/hstore")
-(project-add "min_update" "/home/dim/PostgreSQL/pgfoundry/backports/min_update")
-(project-add "uuid" "/home/dim/PostgreSQL/pgfoundry/backports/uuid")
-(project-add "uuid-ossp" "/home/dim/PostgreSQL/pgfoundry/backports/uuid-ossp")
-(project-add "pgdeb" "/home/dim/PostgreSQL/debian")
+   ;; PostgreSQL / pgfoundry
+   ("pgloader"		. "~/PostgreSQL/pgfoundry/pgloader")
+   ("libphp-pgq"	. "~/PostgreSQL/pgfoundry/libpgq-php")
+   ("skytools"		. "~/PostgreSQL/pgfoundry/skytools")
+   ("skytools-3"	. "~/PostgreSQL/skytools-3/skytools-dev")
+   ("prefix"		. "~/PostgreSQL/pgfoundry/prefix")
+   ("pgbouncer"		. "~/PostgreSQL/pgfoundry/pgbouncer")
+   ("tablelog"		. "~/PostgreSQL/pgfoundry/table_log-0.4.4")
+   ("pgfouine"		. "~/PostgreSQL/pgfoundry/pgfouine-1.0")
+   ("pgsql"		. "~/PostgreSQL/git/postgresql")
+   ("pg8.2"		. "~/pgsql/8.2")
+   ("pg8.3"		. "~/pgsql/8.3")
+   ("pghead"		. "~/pgsql/head")
+   ("plproxy"		. "~/PostgreSQL/pgfoundry/plproxy")
+   ("fr_ops"		. "~/Hi-Media/admin/admin/PostgreSQL/btree_fr_ops")
+   ("period"		. "~/PostgreSQL/pgfoundry/temporal")
+   ("pre_prepare"	. "~/PostgreSQL/pgfoundry/preprepare")
+   ("temporal"		. "~/PostgreSQL/pgfoundry/temporal")
+   ("pitrtools"		. "~/PostgreSQL/pgfoundry/pitrtools")
+   ("hstore"		. "~/PostgreSQL/pgfoundry/hstore")
+   ("min_update"	. "~/PostgreSQL/pgfoundry/backports/min_update")
+   ("uuid"		. "~/PostgreSQL/pgfoundry/backports/uuid")
+   ("uuid-ossp"		. "~/PostgreSQL/pgfoundry/backports/uuid-ossp")
+   ("pgdeb"		. "~/PostgreSQL/debian")
 
-;; misc projects
-(project-add "tsung-plotter" "/home/dim/dev/tsung-plotter")
-(project-add "hdi" "/home/dim/dev/hdi")
-(project-add "dalidoc" "/home/dim/dev/dalidoc")
-(project-add "sql2dot" "/home/dim/dev/sql2dot")
-(project-add "mbot" "/home/dim/dev/mbot-0.3")
+   ;; misc projects
+   ("tsung-plotter"	. "~/dev/tsung-plotter")
+   ("hdi"		. "~/dev/hdi")
+   ("dalidoc"		. "~/dev/dalidoc")
+   ("sql2dot"		. "~/dev/sql2dot")
+   ("mbot"		. "~/dev/mbot-0.3")
 
-(project-add "django" "/usr/share/pyshared/django/")
-(project-add "transifex" "/home/dim/Hi-Media/transifex")
+   ;; others projects
+   ("django"		. "/usr/share/pyshared/django/")
+   ("transifex"		. "~/Hi-Media/transifex")
 
-;; local pg clusters /etc files
-(project-add "pg-etc" "/home/dim/pgsql")
+   ;; local pg clusters /etc files
+   ("pg-etc"		. "~/pgsql")
 
-;; setup
-(project-add "~xdg" "/home/dim/.config")
-(project-add "xdg" "/etc/xdg")
-(project-add "ssh" "~/.ssh")
-
-(project-add "temp" "/tmp")
-
-(setq ibuffer-saved-filter-groups
-      '(("Groups"
-	 ("admin"          (name . "admin:"))
-	 ("hm-min-update"  (name . "hm-min-update"))
-	 ("pg_staging"     (name . "pg_staging"))
-
-	 ("Eurovox"        (or (name . "Eurovox:")
-			       (name . "HMEurovox:")))
-	 ("comtrack"       (name . "comtrack:"))
-	 ("Allopass"       (name . "Allopass:"))
-	 ("MediaReporting" (name . "MediaReporting:"))
-	 ("DataManager"    (name . "DataManager:"))
-	 ("hpmp"           (name . "HPMP:"))
-	 
-	 ("emacs"          (or (name . "emacs:")
-			       (name . "emacs-dev:")
-			       (filename . ".emacs")))
-	 ("tapoueh"        (name . "tapoueh:"))
-	 ("pgconfs"        (name . "pgconfs:"))
-	 ("pgloader"       (name . "pgloader:"))
-	 ("libphp-pgq"     (name . "libphp-pgq:"))
-	 ("skytools"       (name . "skytools:"))
-	 ("skytools-3"     (name . "skytools-3:"))
-	 ("prefix"         (name . "prefix:"))
-	 ("pgbouncer"      (name . "pgbouncer:"))
-
-	 ("min_update"     (name . "min_update:"))
-	 ("uuid"           (name . "uuid:"))
-	 ("uuid-ossp"      (name . "uuid-ossp:"))
-
-	 ("tablelog"       (name . "tablelog:"))
-	 ("pgfouine"       (name . "pgfouine:"))
-	 ("pgsql"          (name . "pgsql:"))
-
-	 ("pg8.2"          (name . "pg8.2:"))
-	 ("pg8.3"          (name . "pg8.3:"))
-	 ("pghead"         (name . "pghead:"))
-
-	 ("plproxy"        (name . "plproxy:"))
-	 ("fr_ops"         (name . "fr_ops:"))
-	 ("period"         (name . "period:"))
-	 ("pre_prepare"    (name . "pre_prepare:"))
-	 ("pitrtools"      (name . "pitrtools:"))
-	 ("temporal"       (name . "temporal:"))
-	 ("hstore"         (name . "hstore:"))
-	 ("pg-etc"         (name . "pg-etc:"))
-	 ("pgdeb"          (name . "pgdeb:"))
-
-	 ("misc"           (or (name . "tsung-plotter:")
-			       (name . "hdi:")
-			       (name . "dalidoc:")
-			       (name . "sql2dot:")
-			       (name . "mbot:")))
-
-	 ("xdg"            (or (name . "~xdg:")
-			       (name . "xdg")))
-	 ("ssh"            (name . "ssh:"))
-
-	 ("django"         (name . "django:"))
-	 ("transifex"      (name . "transifex:"))
-
-	 ("Temp"           (name . "temp:"))
-	 
-	 ("IRC"            (mode . rcirc-mode))
-	 ("Terms"          (mode . term-mode))
-	 ("Gnus"           (or (mode . gnus-group-mode)
-			       (mode . gnus-summary-mode)
-			       (mode . gnus-article-mode)
-			       (mode . message-mode))))))
-
-(add-hook 'ibuffer-mode-hook
-	  (lambda ()
-	    (ibuffer-switch-to-saved-filter-groups "Groups")))
+   ;; setup
+   ("~xdg"		. "~/.config")
+   ("xdg"		. "/etc/xdg")
+   ("ssh"		. "~/.ssh")))
 
 (provide 'dim-projects-hm)
