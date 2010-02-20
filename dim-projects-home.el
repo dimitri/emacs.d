@@ -64,8 +64,15 @@
 	 ("zinn"           (name . "zinn:"))
 	 ("zinn-clients"   (name . "zinn-clients:"))
 
+	 ("GNUS"           (or (mode . message-mode)
+			       (mode . mail-mode)
+			       (mode . gnus-group-mode)
+			       (mode . gnus-summary-mode)
+			       (mode . gnus-article-mode)))
+
 	 ("TERM"           (mode . term-mode))
-	 ("IRC"            (mode . rcirc-mode)))))
+	 ("IRC"            (mode . rcirc-mode))
+	 ("dired"          (mode . dired-mode)))))
 
 (add-hook 'ibuffer-mode-hook
 	  (lambda ()
