@@ -1,7 +1,6 @@
 ;;; On définit les projets locaux
 
-(setq
- dim:my-projects 
+(dim:project-merge
  '(("admin"		. "~/Hi-Media/admin/admin")
    ("hm-min-update"	. "~/Hi-Media/admin/admin/PostgreSQL/min-update")
    ("pg_staging"	. "~/PostgreSQL/pgfoundry/pg_staging")

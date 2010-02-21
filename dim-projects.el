@@ -1,7 +1,13 @@
 ;;; dim-projects.el --- Dimitri Fontaine
-;; load the right projects definition file
+;;
+;; load the right projects definition file, provide project-merge and
+;; ibuffer integration
+
+(require 'ibuffer)
+(require 'ibuf-ext)
 (require 'projects)
 (require 'dim-ports)
+(require 'cl)
 
 (defcustom dim:my-projects-common '(("tmp"         . "/tmp")
 				    ("temp"        . "~/temp")
@@ -38,7 +44,7 @@ project-add and ibuffer-saved-filter-groups."
 	   (mode-clauses (car mode-clauses))
 	   (t '())))))
 				     
-(defun dim:setup-my-projects (&optional project-alist)
+(defun dim:add-projects-and-setup-ibuffer-groups (&optional project-alist)
   "Apply dim:my-projects to both project-add and ibuffer-saved-filter-groups."
 
   ;; add projects
@@ -48,21 +54,42 @@ project-add and ibuffer-saved-filter-groups."
   ;; hard code the '(("Groups" (list (of . setups))))
   (setq ibuffer-saved-filter-groups
 	`(("Groups" 
-	   ,@(mapcar (lambda (x) 
-		       (dim:build-ibuffer-groups (car x)
-						 (list (concat (car x) ":"))))
-		     project-alist)))))
-;;
-;; the following files should only add projects to dim:my-projects
-;;
+	   ;; retain existing values
+	   ,@(cdar ibuffer-saved-filter-groups)
+
+	   ;; add new projects, avoid duplicates
+	   ,@(set-difference 
+	      (mapcar
+	       (lambda (x) 
+		 (dim:build-ibuffer-groups 
+		  (car x) (list (concat (car x) ":"))))
+	       project-alist)
+	      ibuffer-saved-filter-groups
+	      :key 'car
+	      :test 'equal)))))
+
+(defun dim:project-merge (project-alist)
+  "merge the given list of projects with the current installed one"
+  ;; remove projects to merge from current project list, so that we use the
+  ;; new directory if it changed
+  (let ((duplicates 
+	 (mapcar 
+	  'car 
+	  (intersection project-alist project-root-alist :key 'car :test 'equal))))
+    (message "dim:project-merge removing %S" duplicates)
+    (mapc 'project-remove duplicates))
+
+  ;; now install the new projects
+  (dim:add-projects-and-setup-ibuffer-groups
+   (set-difference project-alist project-root-alist :key 'car :test 'equal)))
+
+;; Now we load the common definitions
+(dim:add-projects-and-setup-ibuffer-groups dim:my-projects-common)
+
+;; the following files will use dim:project-merge to add their setup
 (if (string-match "hi-media-techno" (get-domain-name))
     (require 'dim-projects-hm)
   (require 'dim-projects-home))
-
-;;
-;; and now we can use the previous funcion definitions to load our projects
-;;
-(dim:setup-my-projects `(,@dim:my-projects-common ,@dim:my-projects))
 
 ;;
 ;; finally, add some common setups (mode dependant)
