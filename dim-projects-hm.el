@@ -2,6 +2,7 @@
 
 (dim:project-merge
  '(("admin"		. "~/Hi-Media/admin/admin")
+   ("dba-site"		. "~/Hi-Media/dba/")
    ("hm-min-update"	. "~/Hi-Media/admin/admin/PostgreSQL/min-update")
    ("pg_staging"	. "~/PostgreSQL/pgfoundry/pg_staging")
 
