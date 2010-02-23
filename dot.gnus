@@ -153,3 +153,27 @@
 (bbdb-initialize 'gnus 'message)
 (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
 (setq bbdb/news-auto-create-p t)
+
+;; tweak mm-attachment-override-types in nnimap+hm.local:cron.pgfouine group
+(defcustom dim:mm-attachment-override-types '("text/plain")
+  "mm-inline-attachment-types value to apply to dim:gnus-inline-override-groups"
+  :type '(repeat regexp))
+
+(defcustom dim:gnus-attachment-override-groups '("nnimap+hm.local:cron.pgfouine")
+  "List of gnus groups where to apply dim:mm-attachment-override-types"
+  :type '(repeat string))
+
+(setq dim:mm-attachment-override-types-orig mm-attachment-override-types)
+
+(defun dim:gnus-attachment-override-types ()
+  "Apply the local override-types settings"
+  ;; reset orig settings
+  (setq mm-attachment-override-types dim:mm-attachment-override-types-orig)
+  (when (member gnus-newsgroup-name dim:gnus-attachment-override-groups)
+    (setq 
+     mm-attachment-override-types 
+     `(,@mm-attachment-override-types ,@dim:mm-attachment-override-types))
+    (message "dim:gnus-attachment-override-types %S" 
+	     mm-attachment-override-types)))
+
+(add-hook 'gnus-select-group-hook 'dim:gnus-attachment-override-types)
