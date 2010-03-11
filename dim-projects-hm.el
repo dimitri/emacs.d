@@ -40,6 +40,10 @@
    ("uuid-ossp"		. "~/PostgreSQL/pgfoundry/backports/uuid-ossp")
    ("pgdeb"		. "~/PostgreSQL/debian")
 
+   ;; emacs related projects
+   ("cssh"		. "~/dev/emacs/cssh")
+   ("rcirc-groups"	. "~/dev/emacs/rcirc-groups")
+
    ;; misc projects
    ("tsung-plotter"	. "~/dev/tsung-plotter")
    ("hdi"		. "~/dev/hdi")
@@ -58,5 +62,8 @@
    ("~xdg"		. "~/.config")
    ("xdg"		. "/etc/xdg")
    ("ssh"		. "~/.ssh")))
+
+(dim:add-my-extra-load-paths '("~/Hi-Media/dba"))
+(require 'dba-site)
 
 (provide 'dim-projects-hm)

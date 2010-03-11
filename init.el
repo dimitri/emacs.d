@@ -38,10 +38,11 @@
 (when-running-macosx (require 'dim-init-macosx))
 (when-running-debian (require 'dim-init-debian))
 
-(require 'dim-projects)
-
 ;; that's tapoueh.org git depo, but still named dim-muse.el
 (require 'dim-muse)
+
+;; that's local projects, and some other local muse sites
+(require 'dim-projects)
 
 ;; configuration rcirc, and global shortcut to connect to servers
 (require 'dim-rcirc)
