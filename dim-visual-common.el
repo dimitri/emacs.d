@@ -14,11 +14,11 @@
 (global-hl-line-mode 1)
 (transient-mark-mode 1)
 
+;; quite a stretch, but has its place here too
+(setq indent-tabs-mode nil)
+
 (require 'font-lock)
 (global-font-lock-mode 1)
-
-(require 'woman)
-(setq woman-use-own-frame nil)
 
 (defun get-screen-dimensions ()
   "get dimensions of current screen, support X window system and macosx"
