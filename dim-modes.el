@@ -99,6 +99,9 @@
 ;; iedit, see lib/ --- use C-: as C-; is already flyspell
 (define-key global-map (kbd "C-:") 'iedit-mode)
 
+;; ack is a better grep
+(require 'dim-ack)
+
 ;; offlineimap
 (require 'dim-offlineimap)
 (provide 'dim-modes)
