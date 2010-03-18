@@ -81,7 +81,7 @@
 
 ;; I still have a setup in 1024x768...
 (unless (equal '(1024 768) (get-screen-dimensions))
-  ;;(add-hook 'gnus-article-mode-hook 'text-scale-increase)
+  ;;(add-hook 'gnus-article-mode-hook (lambda () (text-scale-increase 1)))
   (gnus-add-configuration
    '(article
      (vertical 1.0
