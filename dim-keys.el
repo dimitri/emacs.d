@@ -118,7 +118,7 @@ vi style of % jumping to matching brace."
 (defun copy-current-line ()
   "Copy current line to kill ring"
   (interactive)
-  (copy-region-as-kill (line-beginning-position) (line-end-position)))
+  (copy-region-as-kill (point-at-bol) (point-at-eol)))
 
 (global-set-key (kbd "C-S-y") 'copy-current-line)
 
