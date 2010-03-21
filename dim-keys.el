@@ -114,6 +114,14 @@ vi style of % jumping to matching brace."
 
 (global-set-key (kbd "C-S-d") 'duplicate-current-line)  
 
+;; copy-current-line
+(defun copy-current-line ()
+  "Copy current line to kill ring"
+  (interactive)
+  (copy-region-as-kill (line-beginning-position) (line-end-position)))
+
+(global-set-key (kbd "C-S-y") 'copy-current-line)
+
 ;; as we use C-\ for escreen we find another key for toggle-input-method,
 ;; which is less frequently used
 (require 'dim-input-method)
