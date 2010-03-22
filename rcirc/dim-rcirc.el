@@ -11,15 +11,15 @@
 
 (defun dim:wait-for-buffers (buffer-list &optional n)
   "return only when all buffers in the list exist, or we tried n times"
-  (let ((n (or n 15))
+  (let ((n (or n 2))
 	(buffers))
-    (while (and (< (length buffers) 3) (not (eq n 0)))
+    (while (and (< (length buffers) (length buffer-list) (not (eq n 0)))
       (dolist (buffer-name buffer-list)
 	(when (not (memq buffer-name buffers))
 	  (when (get-buffer buffer-name)
 	    (setq buffers (cons buffer-name buffers)))))
-      (message "%s, waiting for %d buffers still: %S" n (- (length buffer-list)
-							   (length buffers)) buffers)
+      (message "%s, waiting for %d buffers still: %S" 
+	       n (- (length buffer-list) (length buffers)) buffers)
       (sleep-for 0.5)
       (decf n))
     ;; we return buffers
@@ -42,17 +42,22 @@
   "Organise screen layout for IRC setup"
   (let ((buffers (dim:wait-for-buffers '("#vieuxcons@irc.lost-oasis.net"
 					 "#pg@irc.hi-media-techno.com"
-					 "#postgresql@irc.freenode.net"))))
-    (when (eq 3 (length buffers))
+					 "#postgresql@irc.freenode.net"
+					 "#emacs@irc.freenode.net"))))
+    (when (eq 4 (length buffers))
       (delete-other-windows)
-      (split-window-horizontally)
-      (let ((bottom-window (split-window-vertically)))
+      (let* ((right-window (split-window-horizontally))
+	     (bottom-window (split-window-vertically)))
 	(set-window-buffer (selected-window) "#postgresql@irc.freenode.net")
 	(set-window-buffer bottom-window "#vieuxcons@irc.lost-oasis.net")
 	(select-window bottom-window)
-	(set-window-buffer 
-	 (split-window-vertically) "#pg@irc.hi-media-techno.com")
-	(balance-windows)))))
+	(set-window-buffer (split-window-vertically) "#emacs@irc.freenode.net")
+	(set-window-buffer right-window "#pg@irc.hi-media-techno.com")
+	(balance-windows)
+	;; now cut the right part
+	(select-window right-window)
+	(split-window-vertically-quarter-bottom)
+	(rcirc-groups:switch-to-groups-buffer)))))
 
 ;; Central place to handle connecting
 (defun dim-rcirc-start ()
