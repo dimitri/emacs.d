@@ -13,7 +13,7 @@
   "return only when all buffers in the list exist, or we tried n times"
   (let ((n (or n 2))
 	(buffers))
-    (while (and (< (length buffers) (length buffer-list) (not (eq n 0)))
+    (while (and (< (length buffers) (length buffer-list)) (not (eq n 0)))
       (dolist (buffer-name buffer-list)
 	(when (not (memq buffer-name buffers))
 	  (when (get-buffer buffer-name)
