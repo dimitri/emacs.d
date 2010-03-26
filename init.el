@@ -32,6 +32,7 @@
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
 
 ;; first the common stuff
+(require 'dim-lib)
 (require 'dim-ports)
 (require 'dim-visual-common)
 
