@@ -27,6 +27,10 @@
 ;; dired-x pour C-x C-j
 (require 'dired-x)
 
+;; dired-details pour passer à une vue courte
+(require 'dired-details)
+(define-key dired-mode-map "/" 'dired-details-toggle)
+
 (require 'ibuffer)
 (global-set-key "\C-x\C-b" 'ibuffer)
 

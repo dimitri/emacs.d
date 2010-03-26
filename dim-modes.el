@@ -56,6 +56,7 @@
 
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x C-z") 'magit-status)
 
 (require 'w3m-load nil t)
 (setq mm-inline-text-html-with-images t)
