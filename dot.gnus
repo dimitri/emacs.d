@@ -80,25 +80,25 @@
 (setq gnus-agent nil)
 
 ;; I still have a setup in 1024x768...
-(unless (equal '(1024 768) (get-screen-dimensions))
-  ;;(add-hook 'gnus-article-mode-hook (lambda () (text-scale-increase 1)))
-  (gnus-add-configuration
-   '(article
-     (vertical 1.0
-	       (horizontal 8
-			   (group 50)
-			   (summary 1.0 point) )
-	       (horizontal 1.0
-			   (article 1.0)))))
-
-  (gnus-add-configuration
-   '(summary
-     (vertical 1.0
-	       (horizontal 1.0
-			   (group 50)
-			   (summary 1.0 point) 
-			   (if gnus-carpal
-			       '(summary-carpal 4)))))))
+(when-running-debian
+ (unless (equal '(1024 768) (get-screen-dimensions))
+   (gnus-add-configuration
+    '(article
+      (vertical 1.0
+		(horizontal 8
+			    (group 50)
+			    (summary 1.0 point) )
+		(horizontal 1.0
+			    (article 1.0)))))
+   
+   (gnus-add-configuration
+    '(summary
+      (vertical 1.0
+		(horizontal 1.0
+			    (group 50)
+			    (summary 1.0 point) 
+			    (if gnus-carpal
+				'(summary-carpal 4))))))))
 
 ;; flyspell
 (add-hook 'message-mode-hook 'flyspell-mode)
