@@ -1,6 +1,9 @@
 ;;; dim-keys.el --- some additional shortcuts
 (require 'cl)
 
+;; I can't remember having meant to use C-z as suspend-frame
+(global-set-key (kbd "C-z") 'undo)
+
 ;; C-c r pour revert-buffer
 (global-set-key (kbd "C-c r") '(lambda () (interactive) (revert-buffer)))
 
