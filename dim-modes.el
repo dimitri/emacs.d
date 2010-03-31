@@ -56,8 +56,13 @@
 
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x C-z") 'magit-status)
 
 (require 'w3m-load nil t)
+(setq mm-inline-text-html-with-images t)
+(setq mm-inline-large-images t)
+(setq mm-w3m-safe-url-regexp nil)
+
 (require 'dim-pgsql)
 
 ;; EMMS
@@ -91,6 +96,12 @@
 
 ;; optimisation surtout bénéfique à Tramp
 (setq vc-handled-backends nil)
+
+;; iedit, see lib/ --- use C-: as C-; is already flyspell
+(define-key global-map (kbd "C-:") 'iedit-mode)
+
+;; ack is a better grep
+(require 'dim-ack)
 
 ;; offlineimap
 (require 'dim-offlineimap)

@@ -1,6 +1,9 @@
 ;;; dim-keys.el --- some additional shortcuts
 (require 'cl)
 
+;; I can't remember having meant to use C-z as suspend-frame
+(global-set-key (kbd "C-z") 'undo)
+
 ;; C-c r pour revert-buffer
 (global-set-key (kbd "C-c r") '(lambda () (interactive) (revert-buffer)))
 
@@ -26,6 +29,10 @@
 
 ;; dired-x pour C-x C-j
 (require 'dired-x)
+
+;; dired-details pour passer à une vue courte
+(require 'dired-details)
+(define-key dired-mode-map "/" 'dired-details-toggle)
 
 (require 'ibuffer)
 (global-set-key "\C-x\C-b" 'ibuffer)
@@ -114,6 +121,14 @@ vi style of % jumping to matching brace."
 
 (global-set-key (kbd "C-S-d") 'duplicate-current-line)  
 
+;; copy-current-line
+(defun copy-current-line ()
+  "Copy current line to kill ring"
+  (interactive)
+  (copy-region-as-kill (point-at-bol) (point-at-eol)))
+
+(global-set-key (kbd "C-S-y") 'copy-current-line)
+
 ;; as we use C-\ for escreen we find another key for toggle-input-method,
 ;; which is less frequently used
 (require 'dim-input-method)
@@ -150,6 +165,9 @@ vi style of % jumping to matching brace."
 		(lambda () 
 		  (interactive)
 		  (diff-buffer-with-file (current-buffer))))
+
+;; ELPA
+(global-set-key (kbd "C-c p") 'package-list-packages)
 
 (require 'dim-mailrc)
 (require 'dim-previous-message)

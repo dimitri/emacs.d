@@ -1,9 +1,12 @@
 ;;; .gnus
 ;;
+(require 'dim-ports)
+
 (setq user-mail-address "dfontaine@hi-media.com")
 (setq user-full-name "Dimitri Fontaine")
 
-(setq gnus-select-method '(nnspool ""))
+;; No primary select method
+(setq gnus-select-method '(nnnil ""))
 
 (setq gnus-secondary-select-methods
       ;; Both servers are in fact localhost, trick /etc/hosts
@@ -22,19 +25,17 @@
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
 (setq gnus-gcc-mark-as-read t)
 
-;; FIXME: adapt the setup for debian too, using relative msmtp path should do?
-(if (string-match "apple-darwin" system-configuration)
-    (progn
-      (setq message-send-mail-function 'message-send-mail-with-sendmail)
-      (setq sendmail-program "/sw/bin/msmtp")
-      (setq message-sendmail-extra-arguments '("-a" "himedia"))))
+(when-using-msmtp
+ (setq message-send-mail-function 'message-send-mail-with-sendmail)
+ (when-running-macosx (setq sendmail-program "/sw/bin/msmtp"))
+ (setq message-sendmail-extra-arguments '("-a" "himedia")))
 
 (setq gnus-posting-styles
       '(("hm.local"
 	 (address "dfontaine@hi-media.com")
 	 (organization "Hi-Media")
 	 (signature-file "~/.signature")
-	 (eval (setq message-sendmail-extra-arguments '("-a" "himedia")))
+	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "himedia")))
 	 (user-mail-address "dfontaine@hi-media.com"))
 
 	;; Hi-Media listes PostgreSQL
@@ -49,8 +50,28 @@
 	("tapoueh.local"
 	 (address "dim@tapoueh.org")
 	 (signature "dim")
-	 (eval (setq message-sendmail-extra-arguments '("-a" "tapoueh")))
-	 (user-mail-address "dfontaine@hi-media.com"))))
+	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "tapoueh")))
+	 (user-mail-address "dim@tapoueh.org"))))
+
+;; fix gnus-posting-styles when we're using msmtp to add the -a account option
+(when-using-msmtp
+ (setq gnus-posting-styles
+       (mapcar 
+	(lambda (x) 
+	  (cond ((and (stringp (car x)) 
+		      (string= (car x) "hm.local"))
+		 (append x '((eval 
+			      (setq message-sendmail-extra-arguments 
+				    '("-a" "himedia"))))))
+		
+		((and (stringp (car x)) 
+		      (string= (car x) "tapoueh.local"))
+		 (append x '((eval 
+			      (setq message-sendmail-extra-arguments 
+				    '("-a" "tapoueh"))))))
+		
+		(t x)))
+	gnus-posting-styles)))
 
 ;; aliases --- allow usage of TAB to expand a complete alias into an address
 (add-hook 'mail-mode-hook 'mail-abbrevs-setup)
@@ -59,25 +80,25 @@
 (setq gnus-agent nil)
 
 ;; I still have a setup in 1024x768...
-(unless (equal '(1024 768) (get-screen-dimensions))
-  (add-hook 'gnus-article-mode-hook 'text-scale-increase)
-  (gnus-add-configuration
-   '(article
-     (vertical 1.0
-	       (horizontal 8
-			   (group 50)
-			   (summary 1.0 point) )
-	       (horizontal 1.0
-			   (article 1.0)))))
-
-  (gnus-add-configuration
-   '(summary
-     (vertical 1.0
-	       (horizontal 1.0
-			   (group 50)
-			   (summary 1.0 point) 
-			   (if gnus-carpal
-			       '(summary-carpal 4)))))))
+(when-running-debian
+ (unless (equal '(1024 768) (get-screen-dimensions))
+   (gnus-add-configuration
+    '(article
+      (vertical 1.0
+		(horizontal 8
+			    (group 50)
+			    (summary 1.0 point) )
+		(horizontal 1.0
+			    (article 1.0)))))
+   
+   (gnus-add-configuration
+    '(summary
+      (vertical 1.0
+		(horizontal 1.0
+			    (group 50)
+			    (summary 1.0 point) 
+			    (if gnus-carpal
+				'(summary-carpal 4))))))))
 
 ;; flyspell
 (add-hook 'message-mode-hook 'flyspell-mode)
@@ -109,6 +130,11 @@
       (concat "%U%R %~(max-right 17)~(pad-right 17)&user-date;  "
 	      "%~(max-right 20)~(pad-right 20)n %B%s\n"))
 
+;; gnus-group-line-format, cf dim-gnus-imap-count
+;; "%M%S%p%P%5y:%B%(%g%)%O\n"
+(require 'dim-gnus-imap-count)
+(setq gnus-group-line-format "%M%S%p%P%5uy:%B%(%g%)%O\n")
+
 (require 'gnus-art)
 (setq gnus-visible-headers 
       (concat gnus-visible-headers "\\|^User-Agent:\\|^X-Mailer:"))
@@ -122,3 +148,32 @@
       gnus-sum-thread-tree-single-leaf     "└─►"  ; "┗━► "
       gnus-sum-thread-tree-vertical        "┆"  ) ; "┆" "┋")  "│" "┆"
 
+;; BBDB
+(require 'bbdb)
+(bbdb-initialize 'gnus 'message)
+(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+(setq bbdb/news-auto-create-p t)
+
+;; tweak mm-attachment-override-types in nnimap+hm.local:cron.pgfouine group
+(defcustom dim:mm-attachment-override-types '("text/plain")
+  "mm-inline-attachment-types value to apply to dim:gnus-inline-override-groups"
+  :type '(repeat regexp))
+
+(defcustom dim:gnus-attachment-override-groups '("nnimap+hm.local:cron.pgfouine")
+  "List of gnus groups where to apply dim:mm-attachment-override-types"
+  :type '(repeat string))
+
+(setq dim:mm-attachment-override-types-orig mm-attachment-override-types)
+
+(defun dim:gnus-attachment-override-types ()
+  "Apply the local override-types settings"
+  ;; reset orig settings
+  (setq mm-attachment-override-types dim:mm-attachment-override-types-orig)
+  (when (member gnus-newsgroup-name dim:gnus-attachment-override-groups)
+    (setq 
+     mm-attachment-override-types 
+     `(,@mm-attachment-override-types ,@dim:mm-attachment-override-types))
+    (message "dim:gnus-attachment-override-types %S" 
+	     mm-attachment-override-types)))
+
+(add-hook 'gnus-select-group-hook 'dim:gnus-attachment-override-types)

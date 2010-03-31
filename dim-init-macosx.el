@@ -8,6 +8,8 @@
 
 ;; don't forget platform specific things
 (dim:add-my-extra-load-paths '("~/.emacs.d/nxhtml"
+			       "~/.emacs.d/bbdb-2.35/lisp"
+			       "~/.emacs.d/bbdb-2.35/bits"
 			       "~/.emacs.d/w3m/emacs-w3m/"
 			       "~/.emacs.d/color-theme-6.6.0"
 			       "~/.emacs.d/color-theme-6.6.0/themes"))
@@ -34,17 +36,16 @@
 (add-to-list 'default-frame-alist '(alpha . 90))
 
 ;; font, taille et position
-(set-face-font 'default "Monaco-12")
+(set-face-font 'default "Monaco-13")
 (set-frame-position (selected-frame) 60 30)
-;;(set-frame-size (selected-frame) 165 45))
-;;(set-frame-size (selected-frame) 180 55))
 
 (if (equal (get-screen-dimensions) '(2560 1440))
     (progn
       (set-frame-size (selected-frame) 174 90)
-      (set-frame-size (make-frame '((top . 30)
-				    (left . 1311))) 174 90))
-
+      (let ((right-frame (make-frame '((top . 30)))))
+	(set-frame-parameter right-frame 'font "Monaco-13")
+	(set-frame-parameter right-frame 'left 1480)
+	(set-frame-size (selected-frame) 130 90)))
   (set-frame-size (selected-frame) 192 55))
 
 ;;

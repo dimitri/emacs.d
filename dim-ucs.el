@@ -72,6 +72,9 @@
 (defvar dim:ucs-telephone "✆"
   "From http://unicode.org/charts/PDF/U2700.pdf --- code point 2706")
 
+(defvar dim:ucs-black-telephone "☎"
+  "From http://unicode.org/charts/PDF/U2600.pdf --- code point 260E")
+
 (defvar dim:ucs-white-florette "❀"
   "From http://unicode.org/charts/PDF/U2700.pdf --- code point 2740")
 
