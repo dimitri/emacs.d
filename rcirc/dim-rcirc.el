@@ -25,12 +25,19 @@
     ;; we return buffers
     buffers))
 
+(defun dim:rcirc-layout-home-waiting ()
+  "Organize screen layout for seeing the IRC connections"
+  (delete-other-windows)
+  (set-window-buffer (selected-window) "*irc.lost-oasis.net*")
+  (set-window-buffer (split-window-horizontally) "*irc.freenode.net*"))
+
 (defun dim:rcirc-layout-home ()
   "Organise screen layout for IRC setup"
   (let ((buffers  (dim:wait-for-buffers '("#vieuxcons@irc.lost-oasis.net"
 					  "#emacs@irc.freenode.net"
 					  "#postgresql@irc.freenode.net"))))
-    (when (eq 3 (length buffers))
+    (if (not (eq 3 (length buffers)))
+	(dim:rcirc-layout-home-waiting)
       (delete-other-windows)
       (let ((right-window (split-window-horizontally)))
 	(set-window-buffer (selected-window) "#vieuxcons@irc.lost-oasis.net")
