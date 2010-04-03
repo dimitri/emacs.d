@@ -103,7 +103,7 @@
 ;; flyspell
 (add-hook 'message-mode-hook 'flyspell-mode)
 
-(add-hook 'gnus-select-group-hook
+(add-hook 'message-mode-hook
 	  (lambda ()
 	    (cond
 	     ((string-match 
