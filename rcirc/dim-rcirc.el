@@ -51,7 +51,9 @@
 					 "#pg@irc.hi-media-techno.com"
 					 "#postgresql@irc.freenode.net"
 					 "#emacs@irc.freenode.net"))))
-    (when (eq 4 (length buffers))
+    (if (not (eq 4 (length buffers)))
+	;; yes, at work too, same servers
+	(dim:rcirc-layout-home-waiting)
       (delete-other-windows)
       (let* ((right-window (split-window-horizontally))
 	     (bottom-window (split-window-vertically)))

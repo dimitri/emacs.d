@@ -107,7 +107,7 @@
 	  (lambda ()
 	    (cond
 	     ((string-match 
-	       "PostgreSQL" (gnus-group-real-name gnus-newsgroup-name))
+	       "PostgreSQL" gnus-newsgroup-name)
 	      (ispell-change-dictionary "english"))
 	     (t
 	      (ispell-change-dictionary "francais")))))
