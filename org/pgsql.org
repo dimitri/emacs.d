@@ -1,0 +1,64 @@
+#+FILETAGS: PG
+#+TODO: TODO(t) STARTED(s!) | DONE(d!/!)
+#+TODO: WAITING(w@/!) SOMEDAY(S!) OPEN(O@) | CANCELLED(c@/!)
+
+* Développement
+  :PROPERTIES:
+  :CATEGORY: PG DEV
+  :END:
+
+Projets Open Source et PostgreSQL, outils d'infrastructure.
+
+** pg_staging
+** prefix
+** pgloader
+*** TODO Rework pgloader parallelism
+
+    We should use [[http://docs.python.org/library/subprocess.html]] instead of 
+    threads. 
+
+    1. add options on the command line
+    2. run another command line from the main pgloader in case of parallel
+       setup
+
+    That means something like --limit-file-range and having - as a filename,
+    which means read from stdin.
+
+** Skytools
+** preprepare
+** Extensions
+   :PROPERTIES:
+   :CATEGORY: PG exts
+   :END:
+*** TODO Summarise how to implement it
+*** TODO pg_execute_from_file()
+    :PROPERTIES:
+    :Effort:   6:00
+    :END:
+** TODO Mentoring GSoC 2010
+   [2010-04-13 mar]
+   [[gnus:nnimap%2Bhm.local:INBOX#201004021812.47551.xzilla@users.sourceforge.net][Email from Robert Treat: Mentoring GSoC 2010]]
+
+* Conferences
+  :PROPERTIES:
+  :CATEGORY: PG Confs
+  :END:
+
+** PGcon 2010
+
+   <2010-05-17 Mon>--<2010-05-23 dim>
+   
+*** TODO Slides [[http://www.pgcon.org/2010/schedule/events/224.en.html][2 years of londiste]]
+
+*** TODO Extensions, prepare dev meeting, prepare patch
+
+* Notes
+  :PROPERTIES:
+  :CATEGORY: PG Ideas
+  :END:
+** Type de données multi-devises ?				       :NOTE:
+   :CLOCK:
+   :END:
+   [2010-04-13 mar 09:14]
+   [[gnus:nnimap%2Bhm.local:INBOX#j2l5ed37b141004061053o381a88f8zc2e15e602d46c93d@mail.gmail.com][Email from Chris Travers: Re: Draft 2 of requirements sp]]
+  
