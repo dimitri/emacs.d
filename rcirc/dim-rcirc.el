@@ -5,6 +5,9 @@
 (require 'rcirc-groups)
 ;(require 'rcirc-notify-mode)
 
+;; Exclude rcirc properties when yanking, in order to be able to send mails
+;; for example.  
+(add-to-list 'yank-excluded-properties 'rcirc-text)
 
 ;; Some utility functions to have automated layout upon startup
 (require 'cl)
