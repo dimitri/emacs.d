@@ -103,6 +103,9 @@
 ;; ack is a better grep
 (require 'dim-ack)
 
+;; init org-mode
+(require 'dim-org)
+
 ;; offlineimap
 (require 'dim-offlineimap)
 (provide 'dim-modes)

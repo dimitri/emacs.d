@@ -103,11 +103,11 @@
 ;; flyspell
 (add-hook 'message-mode-hook 'flyspell-mode)
 
-(add-hook 'gnus-select-group-hook
+(add-hook 'message-mode-hook
 	  (lambda ()
 	    (cond
 	     ((string-match 
-	       "PostgreSQL" (gnus-group-real-name gnus-newsgroup-name))
+	       "PostgreSQL" gnus-newsgroup-name)
 	      (ispell-change-dictionary "english"))
 	     (t
 	      (ispell-change-dictionary "francais")))))

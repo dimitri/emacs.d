@@ -5,6 +5,9 @@
 (require 'rcirc-groups)
 ;(require 'rcirc-notify-mode)
 
+;; Exclude rcirc properties when yanking, in order to be able to send mails
+;; for example.  
+(add-to-list 'yank-excluded-properties 'rcirc-text)
 
 ;; Some utility functions to have automated layout upon startup
 (require 'cl)
@@ -25,12 +28,19 @@
     ;; we return buffers
     buffers))
 
+(defun dim:rcirc-layout-home-waiting ()
+  "Organize screen layout for seeing the IRC connections"
+  (delete-other-windows)
+  (set-window-buffer (selected-window) "*irc.lost-oasis.net*")
+  (set-window-buffer (split-window-horizontally) "*irc.freenode.net*"))
+
 (defun dim:rcirc-layout-home ()
   "Organise screen layout for IRC setup"
   (let ((buffers  (dim:wait-for-buffers '("#vieuxcons@irc.lost-oasis.net"
 					  "#emacs@irc.freenode.net"
 					  "#postgresql@irc.freenode.net"))))
-    (when (eq 3 (length buffers))
+    (if (not (eq 3 (length buffers)))
+	(dim:rcirc-layout-home-waiting)
       (delete-other-windows)
       (let ((right-window (split-window-horizontally)))
 	(set-window-buffer (selected-window) "#vieuxcons@irc.lost-oasis.net")
@@ -44,7 +54,9 @@
 					 "#pg@irc.hi-media-techno.com"
 					 "#postgresql@irc.freenode.net"
 					 "#emacs@irc.freenode.net"))))
-    (when (eq 4 (length buffers))
+    (if (not (eq 4 (length buffers)))
+	;; yes, at work too, same servers
+	(dim:rcirc-layout-home-waiting)
       (delete-other-windows)
       (let* ((right-window (split-window-horizontally))
 	     (bottom-window (split-window-vertically)))
