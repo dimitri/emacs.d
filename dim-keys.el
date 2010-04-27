@@ -93,8 +93,15 @@ vi style of % jumping to matching brace."
 			      (dictionary-lookup-definition)))
 
 ;; déplacements sans changer la position du point dans le buffer
-(global-set-key (kbd "M-<up>")   (lambda () (interactive) (scroll-down 1)) )
-(global-set-key (kbd "M-<down>") (lambda () (interactive) (scroll-up   1)) )
+(global-set-key (kbd "M-<up>")
+		(lambda () (interactive) (scroll-down 1) (forward-line -1)))
+(global-set-key (kbd "M-S-<up>")
+		(lambda () (interactive) (scroll-down 10) (forward-line -10)))
+
+(global-set-key (kbd "M-<down>")
+		(lambda () (interactive) (scroll-up 1) (forward-line 1)))
+(global-set-key (kbd "M-S-<down>")
+		(lambda () (interactive) (scroll-up 10) (forward-line 10)))
 
 ;; M-x svn-status
 (global-set-key (kbd "C-c s") 'svn-status)

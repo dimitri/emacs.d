@@ -35,9 +35,18 @@ Projets Open Source et PostgreSQL, outils d'infrastructure.
     :PROPERTIES:
     :Effort:   6:00
     :END:
-** TODO Mentoring GSoC 2010
+** DONE Mentoring GSoC 2010
+   CLOSED: [2010-04-13 mar 16:57]
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2010-04-13 mar 16:57]
+   - State "STARTED"    from "TODO"       [2010-04-13 mar 16:56]
+   :END:
    [2010-04-13 mar]
    [[gnus:nnimap%2Bhm.local:INBOX#201004021812.47551.xzilla@users.sourceforge.net][Email from Robert Treat: Mentoring GSoC 2010]]
+
+   Enregistré sur http://socghop.appspot.com/user/requests, j'attend la
+   réponse de Robert, entre temps pas d'action à suivre. L'idée c'est de
+   créer une autre tâche si further action etc.
 
 * Conferences
   :PROPERTIES:
