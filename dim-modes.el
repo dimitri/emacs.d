@@ -103,6 +103,10 @@
 ;; iedit, see lib/ --- use C-: as C-; is already flyspell
 (define-key global-map (kbd "C-:") 'iedit-mode)
 
+(require 'browse-kill-ring)
+(when (require 'browse-kill-ring nil 'noerror)
+  (browse-kill-ring-default-keybindings))
+
 ;; ack is a better grep
 (require 'dim-ack)
 
