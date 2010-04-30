@@ -27,6 +27,9 @@
 ; winner-mode pour revenir sur le layout précédent
 (winner-mode 1)
 
+;; C-x o will give (big) numbers to windows for easy choosing
+(require 'dim-switch-window)
+
 ;; dired-x pour C-x C-j
 (require 'dired-x)
 
