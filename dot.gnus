@@ -33,6 +33,11 @@
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
 (setq gnus-gcc-mark-as-read t)
 
+;; The RSS groups are set level 4 (S l), the normal groups are level 3
+;; M-3 g allows to skip getting RSS updates
+;; this setting makes it so that subsequent g will continue skipping
+(setq gnus-group-use-permanent-levels 't)
+
 (when-using-msmtp
  (setq message-send-mail-function 'message-send-mail-with-sendmail)
  (when-running-macosx (setq sendmail-program "/sw/bin/msmtp"))
