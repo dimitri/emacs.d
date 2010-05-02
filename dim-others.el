@@ -68,3 +68,15 @@
    jd:gnus-buttons-alist))
 
 ;(add-hook 'gnus-select-group-hook 'jd:gnus-buttonize)
+
+;;;
+;; from rgr on #emacs, reopen current file as root
+;; bind on C-x C-r e.g.
+
+(defun find-alternative-file-with-sudo ()
+  "Open current buffer as root!"
+  (interactive)
+  (when buffer-file-name
+    (find-alternate-file
+     (concat "/sudo:root@localhost:"
+	     buffer-file-name))))

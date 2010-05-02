@@ -7,4 +7,7 @@
 ;; be easy on the eyes
 (set-face-font 'default "Monospace-12")
 
+;; apt-get install squid
+(setenv "http_proxy" "127.0.0.1:3128")
+
 (provide 'dim-init-debian)

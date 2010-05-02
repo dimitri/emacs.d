@@ -97,8 +97,15 @@
 ;; optimisation surtout bénéfique à Tramp
 (setq vc-handled-backends nil)
 
+;; pendant qu'on est dans Tramp, support de /sudo:remote:/path/to/file
+(require 'tramp-multi-sshx)
+
 ;; iedit, see lib/ --- use C-: as C-; is already flyspell
 (define-key global-map (kbd "C-:") 'iedit-mode)
+
+(require 'browse-kill-ring)
+(when (require 'browse-kill-ring nil 'noerror)
+  (browse-kill-ring-default-keybindings))
 
 ;; ack is a better grep
 (require 'dim-ack)

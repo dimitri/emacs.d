@@ -14,16 +14,29 @@
 		(nnimap-address "localhost"))
 
 	(nnimap "tapoueh.local"
+		(nnimap-address "localhost"))
+
+	(nnimap "quadrant.local"
 		(nnimap-address "localhost"))))
 
 (defun dim:gnus-choose-sent-folder (current-group)
   "see gnus-message-archive-group documentation"
-  (if (string-match "hm.local" current-group)
-      "nnimap+hm.local:Sent Messages"
-    "nnimap+tapoueh.local:INBOX.Sent Messages"))
+  (cond ((string-match "hm.local" current-group)
+	 "nnimap+hm.local:Sent Messages")
+
+	((string-match "tapoueh.local" current-group)
+	 "nnimap+tapoueh.local:INBOX.Sent Messages")
+
+	((string-match "quadrant.local" current-group)
+	 "nnimap+quadrant.local:Sent Messages")))
   
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
 (setq gnus-gcc-mark-as-read t)
+
+;; The RSS groups are set level 4 (S l), the normal groups are level 3
+;; M-3 g allows to skip getting RSS updates
+;; this setting makes it so that subsequent g will continue skipping
+(setq gnus-group-use-permanent-levels 't)
 
 (when-using-msmtp
  (setq message-send-mail-function 'message-send-mail-with-sendmail)
@@ -51,7 +64,14 @@
 	 (address "dim@tapoueh.org")
 	 (signature "dim")
 	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "tapoueh")))
-	 (user-mail-address "dim@tapoueh.org"))))
+	 (user-mail-address "dim@tapoueh.org"))
+
+	("quadrant.local"
+	 (address "dimitri@2ndQuadrant.fr")
+	 (organization "2ndQuadrant")
+	 (signature-file "~/.signature.2nd")
+	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "quadrant")))
+	 (user-mail-address "dimitri@2ndQuadrant.fr"))))
 
 ;; fix gnus-posting-styles when we're using msmtp to add the -a account option
 (when-using-msmtp
@@ -69,6 +89,12 @@
 		 (append x '((eval 
 			      (setq message-sendmail-extra-arguments 
 				    '("-a" "tapoueh"))))))
+
+		((and (stringp (car x)) 
+		      (string= (car x) "quadrant.local"))
+		 (append x '((eval 
+			      (setq message-sendmail-extra-arguments 
+				    '("-a" "quadrant"))))))
 		
 		(t x)))
 	gnus-posting-styles)))
