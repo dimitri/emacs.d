@@ -14,6 +14,7 @@
    ("MediaReporting"	. "~/Hi-Media/MediaReporting")
    ("DataManager"	. "~/Hi-Media/Partenaires")
    ("HPMP"		. "~/Hi-Media/hpmp")
+   ("AdLink"            . "~/Hi-Media/AdLink/")
 
    ;; PostgreSQL / pgfoundry
    ("pgloader"		. "~/PostgreSQL/pgfoundry/pgloader")
@@ -35,9 +36,9 @@
    ("temporal"		. "~/PostgreSQL/pgfoundry/temporal")
    ("pitrtools"		. "~/PostgreSQL/pgfoundry/pitrtools")
    ("hstore"		. "~/PostgreSQL/pgfoundry/hstore")
-   ("min_update"	. "~/PostgreSQL/pgfoundry/backports/min_update")
-   ("uuid"		. "~/PostgreSQL/pgfoundry/backports/uuid")
-   ("uuid-ossp"		. "~/PostgreSQL/pgfoundry/backports/uuid-ossp")
+   ("min_update"	. "~/PostgreSQL/pgfoundry/backport/min_update")
+   ("uuid"		. "~/PostgreSQL/pgfoundry/backport/uuid")
+   ("uuid-ossp"		. "~/PostgreSQL/pgfoundry/backport/uuid-ossp")
    ("pgdeb"		. "~/PostgreSQL/debian")
 
    ;; emacs related projects
