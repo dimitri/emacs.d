@@ -51,7 +51,7 @@
 (defun dim:rcirc-layout-work ()
   "Organise screen layout for IRC setup"
   (let ((buffers (dim:wait-for-buffers '("#vieuxcons@irc.lost-oasis.net"
-					 "#pg@irc.hi-media-techno.com"
+					 "#dba@irc.hi-media-techno.com"
 					 "#postgresql@irc.freenode.net"
 					 "#emacs@irc.freenode.net"))))
     (if (not (eq 4 (length buffers)))
@@ -64,7 +64,7 @@
 	(set-window-buffer bottom-window "#vieuxcons@irc.lost-oasis.net")
 	(select-window bottom-window)
 	(set-window-buffer (split-window-vertically) "#emacs@irc.freenode.net")
-	(set-window-buffer right-window "#pg@irc.hi-media-techno.com")
+	(set-window-buffer right-window "#dba@irc.hi-media-techno.com")
 	(balance-windows)
 	;; now cut the right part
 	(select-window right-window)
@@ -208,7 +208,8 @@
   (add-to-list 'rcirc-server-alist
 	       '("irc.hi-media-techno.com"
 		 :channels 
-		 ("#hm" "#pg" "#eurovox" "#allopass" "#comtrack" "#admin"))))
+		 ("#hm" "#pg" "#dba"
+		  "#eurovox" "#allopass" "#comtrack" "#admin"))))
 
 (when (not (string-match "hi-media-techno" (get-domain-name)))
   ;; I want to define it but I'd rather not connect to it by default
