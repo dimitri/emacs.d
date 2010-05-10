@@ -31,29 +31,13 @@
 	    (bg (face-background 'default))
 	    (fg (face-foreground 'rcirc-my-nick))
 	    candidates)
-
-	;; (dolist (item color-name-rgb-alist)
-	;;   (let ((color (car item))
-	;; 	(rgb   (cdr item)))
-	;;     (when (and (not (color-gray-p color))
-	;; 	       (> (color-distance color bg) min-distance)
-	;; 	       (> (color-distance color fg) min-distance))
-	;;       (setq candidates (cons color candidates)))))
-	;; candidates)
-
-	(let (candidates)
-	  (dolist (item color-name-rgb-alist)
-	    (destructuring-bind (color r g b) item
-	      (let ((d (sqrt (+ (* (/ r 512) (/ r 512))
-				(* (/ g 512) (/ g 512))
-				(* (/ b 512) (/ b 512))))))
-		(if (and (not (= r g))
-			 (not (= r b)); grey
-			 (> d 10)
-			 (< d 150))
-		    (setq candidates (cons color candidates))))))
-	  candidates))
-
+	(dolist (item color-name-rgb-alist)
+	  (let ((color (car item)))
+	    (when (and (not (color-gray-p color))
+		       (> (color-distance color bg) min-distance)
+		       (> (color-distance color fg) min-distance))
+	      (setq candidates (cons color candidates)))))
+	candidates)
     (delete (face-background 'default) (defined-colors)))
   "Colors to use for nicks in rcirc.
 By default, all the non-grey colors that are very different from
