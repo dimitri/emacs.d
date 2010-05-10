@@ -2,6 +2,7 @@
 
 (dim:project-merge
  '(("admin"		. "~/Hi-Media/admin/admin")
+   ("UT"		. "~/Hi-Media/admin/admin/UT")
    ("dba-site"		. "~/Hi-Media/dba/")
    ("hm-min-update"	. "~/Hi-Media/admin/admin/PostgreSQL/min-update")
    ("pg_staging"	. "~/PostgreSQL/pgfoundry/pg_staging")
@@ -11,13 +12,16 @@
    ("HMEurovox"		. "~/Hi-Media/Eurovox")
    ("Eurovox"		. "~/Hi-Media/admin/git/Eurovox")
    ("Allopass"		. "~/Hi-Media/AlloPass")
+   ("ApCode"	        . "~/Hi-Media/AlloPass/svn/alloscripts_lib/stable/sql/apcode/")
    ("MediaReporting"	. "~/Hi-Media/MediaReporting")
    ("DataManager"	. "~/Hi-Media/Partenaires")
    ("HPMP"		. "~/Hi-Media/hpmp")
-   ("AdLink"            . "~/Hi-Media/AdLink/")
+   ("AdLink"            . "~/Hi-Media/AdLink")
 
    ;; PostgreSQL / pgfoundry
-   ("pgloader"		. "~/PostgreSQL/pgfoundry/pgloader")
+   ("pgsql"             . "~/PostgreSQL/postgresql")
+   ("pgext"             . "~/PostgreSQL/postgresql-extension")
+   ("pgloader"		. "~/PostgreSQL/pgfoundry/pgloader") 
    ("libphp-pgq"	. "~/PostgreSQL/pgfoundry/libpgq-php")
    ("skytools"		. "~/PostgreSQL/pgfoundry/skytools")
    ("skytools-3"	. "~/PostgreSQL/skytools-3/skytools-dev")
@@ -28,6 +32,7 @@
    ("pgsql"		. "~/PostgreSQL/git/postgresql")
    ("pg8.2"		. "~/pgsql/8.2")
    ("pg8.3"		. "~/pgsql/8.3")
+   ("pg8.4"		. "~/pgsql/8.4")
    ("pghead"		. "~/pgsql/head")
    ("plproxy"		. "~/PostgreSQL/pgfoundry/plproxy")
    ("fr_ops"		. "~/Hi-Media/admin/admin/PostgreSQL/btree_fr_ops")
@@ -40,6 +45,7 @@
    ("uuid"		. "~/PostgreSQL/pgfoundry/backport/uuid")
    ("uuid-ossp"		. "~/PostgreSQL/pgfoundry/backport/uuid-ossp")
    ("pgdeb"		. "~/PostgreSQL/debian")
+   ("pgexamples"        . "~/PostgreSQL/examples")
 
    ;; emacs related projects
    ("cssh"		. "~/dev/emacs/cssh")
