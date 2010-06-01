@@ -45,8 +45,11 @@
 (global-set-key (kbd "C-\\ DEL") 'dim:escreen-goto-prev-screen)
 (global-set-key (kbd "C-\\ SPC") 'dim:escreen-goto-next-screen)
 
-(global-set-key '[s-mouse-4] 'dim:escreen-goto-prev-screen)
-(global-set-key '[s-mouse-5] 'dim:escreen-goto-next-screen)
+(global-set-key '[s-mouse-4] 'dim:escreen-goto-next-screen)
+(global-set-key '[s-mouse-5] 'dim:escreen-goto-prev-screen)
+
+(global-set-key '[M-mouse-4] 'dim:escreen-goto-next-screen)
+(global-set-key '[M-mouse-5] 'dim:escreen-goto-prev-screen)
 
 ;; add support for C-\ from terms
 (require 'term)
