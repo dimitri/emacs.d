@@ -21,8 +21,9 @@
    ;; PostgreSQL / pgfoundry
    ("pgsql"             . "~/PostgreSQL/postgresql")
    ("pgext"             . "~/PostgreSQL/postgresql-extension")
+   ("pgconfs"           . "~/dev/pgconfs")
    ("pgloader"		. "~/PostgreSQL/pgfoundry/pgloader") 
-   ("libphp-pgq"	. "~/PostgreSQL/pgfoundry/libpgq-php")
+   ("libphp-pgq"	. "~/PostgreSQL/pgfoundry/libphp-pgq")
    ("skytools"		. "~/PostgreSQL/pgfoundry/skytools")
    ("skytools-3"	. "~/PostgreSQL/skytools-3/skytools-dev")
    ("prefix"		. "~/PostgreSQL/pgfoundry/prefix")
