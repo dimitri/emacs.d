@@ -23,38 +23,45 @@
 
 (global-set-key (kbd "C-\\ l") 'escreen-get-active-screen-numbers-with-emphasis)
 
-(defun dim:escreen-goto-last-screen ()
-  (interactive)
-  (escreen-goto-last-screen)
+;;
+;; We want the last/prev/next escreen function to show the list with
+;; emphasis
+;;
+(defadvice escreen-goto-last-screen 
+  (after dim:escreen-goto-last-screen activate)
+  "Show the escreen list each time we go to last screen."
   (escreen-get-active-screen-numbers-with-emphasis))
 
-(defun dim:escreen-goto-prev-screen (&optional n)
-  (interactive "p")
-  (escreen-goto-prev-screen n)
+(defadvice escreen-goto-prev-screen
+  (after dim:escreen-goto-prev-screen activate)
+  "Show the escreen list each time we go to previous screen."
   (escreen-get-active-screen-numbers-with-emphasis))
 
-(defun dim:escreen-goto-next-screen (&optional n)
-  (interactive "p")
-  (escreen-goto-next-screen n)
+(defadvice escreen-goto-next-screen
+  (after dim:escreen-goto-next-screen activate)
+  "Show the escreen list each time we go to next screen."
   (escreen-get-active-screen-numbers-with-emphasis))
 
-(define-key escreen-map escreen-prefix-char 'dim:escreen-goto-last-screen)
+;;
+;; Custom escreen keys
+;;
+(define-key escreen-map escreen-prefix-char 'escreen-goto-last-screen)
 
-(global-set-key (kbd "M-[") 'dim:escreen-goto-prev-screen)
-(global-set-key (kbd "M-]") 'dim:escreen-goto-next-screen)
-(global-set-key (kbd "C-\\ DEL") 'dim:escreen-goto-prev-screen)
-(global-set-key (kbd "C-\\ SPC") 'dim:escreen-goto-next-screen)
+(global-set-key (kbd "M-[") 'escreen-goto-prev-screen)
+(global-set-key (kbd "M-]") 'escreen-goto-next-screen)
+(global-set-key (kbd "C-\\ DEL") 'escreen-goto-prev-screen)
+(global-set-key (kbd "C-\\ SPC") 'escreen-goto-next-screen)
 
-(global-set-key '[s-mouse-4] 'dim:escreen-goto-next-screen)
-(global-set-key '[s-mouse-5] 'dim:escreen-goto-prev-screen)
+(global-set-key '[s-mouse-4] 'escreen-goto-next-screen)
+(global-set-key '[s-mouse-5] 'escreen-goto-prev-screen)
 
-(global-set-key '[M-mouse-4] 'dim:escreen-goto-next-screen)
-(global-set-key '[M-mouse-5] 'dim:escreen-goto-prev-screen)
+(global-set-key '[M-mouse-4] 'escreen-goto-next-screen)
+(global-set-key '[M-mouse-5] 'escreen-goto-prev-screen)
 
 ;; add support for C-\ from terms
 (require 'term)
 (define-key term-raw-map escreen-prefix-char escreen-map)
-(define-key term-raw-map (kbd "M-[") 'dim:escreen-goto-prev-screen)
-(define-key term-raw-map (kbd "M-]") 'dim:escreen-goto-next-screen)
+(define-key term-raw-map (kbd "M-[") 'escreen-goto-prev-screen)
+(define-key term-raw-map (kbd "M-]") 'escreen-goto-next-screen)
 
 (provide 'dim-escreen)
