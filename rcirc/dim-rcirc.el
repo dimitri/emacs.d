@@ -42,11 +42,16 @@
     (if (not (eq 3 (length buffers)))
 	(dim:rcirc-layout-home-waiting)
       (delete-other-windows)
-      (let ((right-window (split-window-horizontally)))
+      (let ((upper-left-window (selected-window))
+	    (right-window (split-window-horizontally)))
 	(set-window-buffer (selected-window) "#vieuxcons@irc.lost-oasis.net")
 	(set-window-buffer right-window "#postgresql@irc.freenode.net")
 	(select-window (split-window-vertically))
-	(set-window-buffer (selected-window) "#emacs@irc.freenode.net")))))
+	(set-window-buffer (selected-window) "#emacs@irc.freenode.net")
+	(select-window upper-left-window)
+	(split-window-vertically-quarter-bottom)
+	(rcirc-groups:switch-to-groups-buffer)))))
+
 
 (defun dim:rcirc-layout-work ()
   "Organise screen layout for IRC setup"
