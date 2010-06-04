@@ -115,4 +115,11 @@
 
 ;; offlineimap
 (require 'dim-offlineimap)
+
+;; hl-sexp
+(require 'hl-sexp)
+(set-face-attribute 'hl-sexp-face nil :background "LightYellow")
+;(set-face-attribute 'hl-sexp-face nil :background "RosyBrown1")
+;(set-face-attribute 'hl-sexp-face nil :background "LightGoldenRod")
+
 (provide 'dim-modes)
