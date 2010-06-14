@@ -68,7 +68,14 @@
 ;; EMMS
 (require 'emms-setup)
 (emms-standard)
-(emms-default-players)
+;(emms-default-players) ; I want VLC mainly
+(setq emms-player-list
+      '(emms-player-vlc
+	emms-player-mpg321
+	emms-player-ogg123
+	emms-player-mplayer-playlist
+	emms-player-mplayer))
+
 
 ;; Show the current track each time EMMS
 ;; starts to play a track with "NP : "
