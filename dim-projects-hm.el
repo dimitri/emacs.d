@@ -72,6 +72,6 @@
    ("ssh"		. "~/.ssh")))
 
 (dim:add-my-extra-load-paths '("~/Hi-Media/dba"))
-(require 'dba-site)
+(require 'dba-site nil t)
 
 (provide 'dim-projects-hm)

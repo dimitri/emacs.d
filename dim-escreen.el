@@ -52,11 +52,11 @@
 (global-set-key (kbd "C-\\ DEL") 'escreen-goto-prev-screen)
 (global-set-key (kbd "C-\\ SPC") 'escreen-goto-next-screen)
 
-(global-set-key '[s-mouse-4] 'escreen-goto-next-screen)
-(global-set-key '[s-mouse-5] 'escreen-goto-prev-screen)
+(global-set-key '[s-mouse-4] 'escreen-goto-prev-screen)
+(global-set-key '[s-mouse-5] 'escreen-goto-next-screen)
 
-(global-set-key '[M-mouse-4] 'escreen-goto-next-screen)
-(global-set-key '[M-mouse-5] 'escreen-goto-prev-screen)
+(global-set-key '[M-mouse-4] 'escreen-goto-prev-screen)
+(global-set-key '[M-mouse-5] 'escreen-goto-next-screen)
 
 ;; add support for C-\ from terms
 (require 'term)

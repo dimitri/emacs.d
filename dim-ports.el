@@ -13,6 +13,22 @@ returns the value defined in /etc/resolv.conf."
 	(when (re-search-forward "^domain \\([^ ]+\\)$" nil t)
 	  (match-string 1))))))
 
+(defun lsb-release (&optional property)
+  "Parse lsb-release output and return an alist, or the value for the given property"
+  (when (file-executable-p "/usr/bin/lsb_release")
+    (let* ((lsbr (shell-command-to-string "/usr/bin/lsb_release -a 2>/dev/null"))
+	   (props (split-string lsbr "[:\n]" t))
+	   (kv))
+      (while (>= (length props) 2)
+	;; Don't keep extra spaces. This way seems like the easy one in elisp.
+	(let ((key (mapconcat 'identity (split-string (car props)) " "))
+	      (val (mapconcat 'identity (split-string (cadr props)) " ")))
+	  (setq kv (add-to-list 'kv (cons key val)))
+	  (setq props (cddr props))))
+      (if property
+	  (cdr (assoc property (lsb-release)))
+	kv))))
+
 ;; thanks to ams on #emacs on irc.freenode.net
 (defmacro with-window-system (&rest body) 
   "eval body only when running an windowed version of Emacs"
@@ -25,8 +41,19 @@ returns the value defined in /etc/resolv.conf."
 ;; variations on the theme
 (defmacro when-running-debian (&rest body)
   "eval body only when running under debian"
-  ;; beware of debian/kFreeBSD. Yes I intend to be using it.
-  `(when (string-match "Debian" (emacs-version)) ,@body))
+  ;; FIXME: check "lsb_release -a" output on debian/kFreeBSD
+  `(when (equal (lsb-release "Distributor ID") "Debian") ,@body))
+
+(defmacro when-running-ubuntu (&rest body)
+  "eval body only when running under debian"
+  ;; FIXME: check "lsb_release -a" output on debian/kFreeBSD
+  `(when (equal (lsb-release "Distributor ID") "Ubuntu") ,@body))
+
+(defmacro when-running-debian-or-ubuntu (&rest body)
+  "eval body only when running under debian"
+  ;; FIXME: check "lsb_release -a" output on debian/kFreeBSD
+  `(when  (or (equal (lsb-release "Distributor ID") "Debian")
+	      (equal (lsb-release "Distributor ID") "Ubuntu")) ,@body))
 
 (defmacro when-running-macosx (&rest body)
   "eval body only when running under MacOSX"
