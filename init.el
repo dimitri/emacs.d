@@ -37,7 +37,7 @@
 (require 'dim-visual-common)
 
 (when-running-macosx (require 'dim-init-macosx))
-(when-running-debian (require 'dim-init-debian))
+(when-running-debian-or-ubuntu (require 'dim-init-debian))
 
 ;; that's tapoueh.org git depo, but still named dim-muse.el
 (require 'dim-muse)

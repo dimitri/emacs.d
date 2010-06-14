@@ -2,11 +2,10 @@
 ;;
 ;; http://stackoverflow.com/questions/2322389/ack-does-not-work-when-run-from-grep-find-in-emacs-on-windows
 
-(defcustom ack-command (executable-find "ack")
+(defcustom ack-command (or (executable-find "ack")
+			   (executable-find "ack-grep"))
   "Command to use to call ack, e.g. ack-grep under debian"
   :type 'file)
-
-(when-running-debian (setq ack-command (executable-find "ack-grep")))  
 
 (defvar ack-command-line (concat ack-command " --nogroup --nocolor "))
 (defvar ack-history nil)
