@@ -29,6 +29,15 @@
      (expand-file-name "~/.emacs.d/elpa/package.el"))
   (package-initialize))
 
+;;
+;; My attempts at managing packages
+;;
+(require 'el-get)
+(setq el-get-sources 
+      '((jd   (:git . "git://git.naquadah.org/~jd/jd-el.git"))
+	(bbdb (:git . "git://github.com/barak/BBDB.git"))))
+;(el-get)
+
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
 
 ;; first the common stuff
