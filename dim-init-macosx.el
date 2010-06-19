@@ -8,8 +8,8 @@
 
 ;; don't forget platform specific things
 (dim:add-my-extra-load-paths '("~/.emacs.d/nxhtml"
-			       "~/.emacs.d/bbdb-2.35/lisp"
-			       "~/.emacs.d/bbdb-2.35/bits"
+			       "~/.emacs.d/BBDB/lisp"
+			       "~/.emacs.d/BBDB/bits"
 			       "~/.emacs.d/w3m/emacs-w3m/"
 			       "~/.emacs.d/color-theme-6.6.0"
 			       "~/.emacs.d/color-theme-6.6.0/themes"))
@@ -46,7 +46,7 @@
 	(set-frame-parameter right-frame 'font "Monaco-13")
 	(set-frame-parameter right-frame 'left 1480)
 	(set-frame-size (selected-frame) 130 90)))
-  (set-frame-size (selected-frame) 192 55))
+  (set-frame-size (selected-frame) 168 52))
 
 ;;
 ;; cssh special settings for when working from home
@@ -57,10 +57,6 @@
 (setq cssh-override-domain ".hi-media-techno.com")
 (setq cssh-hostname-resolve 'cssh-override-resolver)
 (setq cssh-hostname-resolve 'cssh-default-resolver)
-
-;; some special for magit
-(require 'magit)
-(setq magit-git-executable "/usr/local/git/bin/git")
 
 ;; some special for offlineimap
 (require 'dim-offlineimap)

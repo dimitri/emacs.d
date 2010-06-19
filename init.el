@@ -10,24 +10,15 @@
 		     "~/dev/emacs/cssh"
 		     "~/dev/emacs/rcirc-groups"
 		     "~/dev/tapoueh.org"
-		     "~/.emacs.d/w3m/emacs-w3m/"
-		     "~/.emacs.d/emms/lisp/"
+		     ;;"~/.emacs.d/w3m/emacs-w3m/"
+		     ;;"~/.emacs.d/emms/lisp/"
+		     ;;"~/.emacs.d/magit"
 		     )))
     (dolist (path (or paths dim:paths))
       (setq load-path (cons path load-path)))))
 
 ;; extension du load-path proprement dite.
 (dim:add-my-extra-load-paths)
-
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
-(when
-    (load
-     (expand-file-name "~/.emacs.d/elpa/package.el"))
-  (package-initialize))
 
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
 
@@ -36,8 +27,11 @@
 (require 'dim-ports)
 (require 'dim-visual-common)
 
+;; now the external packages we depend upon
+(require 'dim-packages)
+
 (when-running-macosx (require 'dim-init-macosx))
-(when-running-debian (require 'dim-init-debian))
+(when-running-debian-or-ubuntu (require 'dim-init-debian))
 
 ;; that's tapoueh.org git depo, but still named dim-muse.el
 (require 'dim-muse)

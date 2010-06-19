@@ -106,7 +106,7 @@
 (setq gnus-agent nil)
 
 ;; I still have a setup in 1024x768...
-(when-running-debian
+(when-running-debian-or-ubuntu
  (unless (equal '(1024 768) (get-screen-dimensions))
    (gnus-add-configuration
     '(article
@@ -140,6 +140,10 @@
 
 ;; topics
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+
+;; M-3 g will be faster served with f
+(define-key gnus-group-mode-map (kbd "f") 
+  (lambda () (interactive) (gnus-group-get-new-news 3)))
 	      
 ;;
 ;; gnus porn
@@ -172,7 +176,7 @@
       gnus-sum-thread-tree-root "⚈ "
       gnus-sum-thread-tree-leaf-with-other "├─►"  ; "┣━► "  "▶"
       gnus-sum-thread-tree-single-leaf     "└─►"  ; "┗━► "
-      gnus-sum-thread-tree-vertical        "┆"  ) ; "┆" "┋")  "│" "┆"
+      gnus-sum-thread-tree-vertical        "│"  ) ; "┆" "┋")  "│" "┆"
 
 ;; BBDB
 (require 'bbdb)
