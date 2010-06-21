@@ -6,27 +6,40 @@
 (defmacro until (cond &rest body) `(while (progn ,@body ,cond)))
 
 ;; my try at walk-path
-(defun walk-path (path fun &optional match-regexp depth-first)
-  "walk given path recursively, calling fun for each entry"
+(defun walk-path (path fun &optional match-regexp depth-first filter depth)
+  "walk given path recursively, calling fun for each entry
+
+If filter is not nil it's expected to be a function taking
+filename, attributes and depth as parameters, returning a
+boolean. The (sub)path is walked into only when true.
+"
   (dolist (e (directory-files-and-attributes path t match-regexp))
       (let* ((filename   (car e))
 	     (attributes (cdr e))
-	     (is-subdir  (nth 0 attributes)))
-	;; skip . and ..
-	(unless (string-match "/\\.\\.?$" filename)
-	  (if (and is-subdir depth-first)
-	      (progn
-		(walk-path filename fun match-regexp depth-first)
-		(funcall fun filename attributes))
+	     (is-subdir  (nth 0 attributes))
+	     (cur-depth  (or depth 0))
+	     (walk       (and is-subdir
+			      ;; skip . and .. to protect the recursion
+			      (not (string-match "/\\.\\.?$" filename))
+			      (if (functionp filter) 
+				  (funcall filter filename attributes depth)
+				t))))
+	(when (and walk depth-first)
+	  (walk-path filename fun match-regexp depth-first filter (1+ cur-depth)))
 
-	    (funcall fun filename attributes)
-	    (when is-subdir
-	      (walk-path filename fun match-regexp depth-first)))))))
+	(funcall fun filename attributes)
 
-(defun walk-path-list (path &optional match-regexp depth-first)
-  "walk given path and build a list of (filename . attributes)"
+	(when (and walk (not depth-first))
+	  (walk-path filename fun match-regexp depth-first filter (1+ cur-depth))))))
+
+(defun walk-path-list (path &optional match-regexp depth-first ignore-dirs)
+  "walk given path and build a list of filenames. Don't walk into ignore-dirs."
   (let ((l))
-    (walk-path path #'(lambda (f a) (add-to-list 'l (cons f a))) 
-	       match-regexp depth-first) l))
+    (walk-path path
+	       (lambda (f a) (add-to-list 'l f ))
+	       match-regexp
+	       depth-first
+	       (lambda (f a d) (not (member (file-name-nondirectory f) ignore-dirs))))
+    l))
       
 (provide 'dim-lib)
