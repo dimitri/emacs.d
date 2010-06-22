@@ -16,7 +16,8 @@ boolean. The (sub)path is walked into only when true.
   (dolist (e (directory-files-and-attributes path t match-regexp))
       (let* ((filename   (car e))
 	     (attributes (cdr e))
-	     (is-subdir  (nth 0 attributes))
+	     (dir-or-sl  (nth 0 attributes))
+	     (is-subdir  (and dir-or-sl (not (stringp dir-or-sl))))
 	     (cur-depth  (or depth 0))
 	     (walk       (and is-subdir
 			      ;; skip . and .. to protect the recursion
