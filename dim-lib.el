@@ -20,8 +20,7 @@ on filter.
   (dolist (e (directory-files-and-attributes path t match-regexp))
       (let* ((filename   (car e))
 	     (attributes (cdr e))
-	     (dir-or-sl  (nth 0 attributes))
-	     (is-subdir  (and dir-or-sl (not (stringp dir-or-sl))))
+	     (is-subdir  (file-directory-p filename))
 	     (cur-depth  (or depth 0))
 	     (walk       (and is-subdir
 			      ;; skip . and .. to protect the recursion
@@ -33,7 +32,7 @@ on filter.
 	  (walk-path filename fun match-regexp depth-first filter
 		     filter-call (1+ cur-depth)))
 
-	(when (or (not filter-call) (and filter-call walk))
+	(when (or (not is-subdir) (not filter-call) (and filter-call walk))
 	  (funcall fun filename attributes))
 
 	(when (and walk (not depth-first))
@@ -44,7 +43,7 @@ on filter.
   "walk given path and build a list of filenames. Don't walk into ignore-dirs."
   (let ((l))
     (walk-path path
-	       (lambda (f a) (add-to-list 'l f ))
+	       (lambda (f a) (add-to-list 'l f))
 	       match-regexp
 	       depth-first
 	       (lambda (f a d) (not (member (file-name-nondirectory f) ignore-dirs)))
