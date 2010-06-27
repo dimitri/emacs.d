@@ -37,6 +37,24 @@
 (setq el-get-sources 
       '((jd   (:git . "git://git.naquadah.org/~jd/jd-el.git"))
 	(bbdb (:git . "git://github.com/barak/BBDB.git"))))
+
+(setq el-get-sources 
+      '((:name jd
+	       :type git
+	       :url git://git.naquadah.org/~jd/jd-el.git
+	       :features flyguess
+	       :info nil
+	       :build nil)
+	(:name bbdb
+	       :type git
+	       :url git://github.com/barak/BBDB.git
+	       :load-path ("./lisp" "./bits")
+	       :info "texinfo"
+	       :build ("./configure --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs" "make"))
+	(:name vkill
+	       :type http
+	       :url "http://www.splode.com/~friedman/software/emacs-lisp/src/vkill.el"
+	       :features vkill)))
 ;(el-get)
 
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
