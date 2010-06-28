@@ -54,7 +54,9 @@
 	(:name vkill
 	       :type http
 	       :url "http://www.splode.com/~friedman/software/emacs-lisp/src/vkill.el"
-	       :features vkill)))
+	       :features vkill)
+	(:name dictionary-el
+	       :type apt-get)))
 ;(el-get)
 
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
