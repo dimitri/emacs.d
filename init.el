@@ -20,6 +20,14 @@
 ;; extension du load-path proprement dite.
 (dim:add-my-extra-load-paths)
 
+(setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
+
+;; first the common stuff
+(require 'dim-lib)
+(require 'dim-ports)
+(require 'dim-visual-common)
+
+
 ;;; This was installed by package-install.el.
 ;;; This provides support for the package system and
 ;;; interfacing with ELPA, the package archive.
@@ -34,41 +42,51 @@
 ;; My attempts at managing packages
 ;;
 (require 'el-get)
-(setq el-get-sources 
-      '((jd   (:git . "git://git.naquadah.org/~jd/jd-el.git"))
-	(bbdb (:git . "git://github.com/barak/BBDB.git"))))
 
-(setq el-get-sources 
+(setq el-get-sources
       '((:name jd
 	       :type git
-	       :url git://git.naquadah.org/~jd/jd-el.git
+	       :url "git://git.naquadah.org/~jd/jd-el.git"
 	       :features flyguess
 	       :info nil
 	       :build nil)
+
 	(:name bbdb
 	       :type git
-	       :url git://github.com/barak/BBDB.git
+	       :url "git://github.com/barak/BBDB.git"
 	       :load-path ("./lisp" "./bits")
 	       :info "texinfo"
 	       :build ("./configure --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs" "make"))
+
+	(:name magit
+	       :type git
+	       :url "http://github.com/philjackson/magit.git"
+	       :info "."
+	       :build ("./autogen.sh" "./configure" "make"))
+
 	(:name vkill
 	       :type http
 	       :url "http://www.splode.com/~friedman/software/emacs-lisp/src/vkill.el"
 	       :features vkill)
+
 	(:name asciidoc        :type elpa)
 	(:name auto-dictionary :type elpa)
 	(:name css-mode        :type elpa)
 	(:name gist            :type elpa)
 	(:name lua-mode        :type elpa)
-	(:name dictionary-el   :type apt-get)))
-;(el-get)
+	(:name lisppaste       :type elpa)))
 
-(setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
+(when-running-debian-or-ubuntu 
+ (mapc (lambda (source) (add-to-list 'el-get-sources source))
+       '((:name dictionary-el   :type apt-get)
+	 (:name muse            :type apt-get))))
 
-;; first the common stuff
-(require 'dim-lib)
-(require 'dim-ports)
-(require 'dim-visual-common)
+(when-running-macosx
+ (mapc (lambda (source) (add-to-list 'el-get-sources source))
+       '((:name htmlize         :type elpa)
+	 (:name dictionary-el   :type elpa)
+	 (:name muse            :type elpa))))
+(el-get)
 
 (when-running-macosx (require 'dim-init-macosx))
 (when-running-debian-or-ubuntu (require 'dim-init-debian))
