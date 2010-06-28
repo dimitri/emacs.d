@@ -55,8 +55,12 @@
 	       :type http
 	       :url "http://www.splode.com/~friedman/software/emacs-lisp/src/vkill.el"
 	       :features vkill)
-	(:name dictionary-el
-	       :type apt-get)))
+	(:name asciidoc        :type elpa)
+	(:name auto-dictionary :type elpa)
+	(:name css-mode        :type elpa)
+	(:name gist            :type elpa)
+	(:name lua-mode        :type elpa)
+	(:name dictionary-el   :type apt-get)))
 ;(el-get)
 
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
