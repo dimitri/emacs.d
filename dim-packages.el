@@ -31,14 +31,13 @@
 	       :type git
 	       :url "http://github.com/philjackson/magit.git"
 	       :info "."
-	       :build ("./autogen.sh" "./configure" "make" 
-		       "ginstall-info magit.info dir"))
+	       :build ("./autogen.sh" "./configure" "make"))
 
 	(:name emms
 	       :type git
 	       :url "git://git.sv.gnu.org/emms.git"
 	       :info "doc"
-	       :build ("make" "cd doc && ginstall-info emms.info dir"))
+	       :build ("make"))
 
 	(:name vkill
 	       :type http
@@ -59,7 +58,7 @@
 		:url "git://github.com/barak/BBDB.git"
 		:load-path ("./lisp" "./bits")
 		:info "texinfo"
-		:build ("./configure" "make" "cd doc && ginstall-info emms.info dir"))
+		:build ("./configure" "make"))
 	 (:name dictionary-el   :type apt-get)
 	 (:name emacs-goodie-el :type apt-get)
 	 (:name apel            :type apt-get)
