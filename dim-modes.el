@@ -32,7 +32,8 @@
 		("\\.rest$" . rst-mode)) auto-mode-alist))
 
 ;; nxhtml
-(load "~/.emacs.d/nxhtml/autostart.el")
+; load done by el-get
+;(load "~/.emacs.d/nxhtml/autostart.el")
 (setq debug-on-error nil)
 (setq mumamo-chunk-coloring 1)
 
