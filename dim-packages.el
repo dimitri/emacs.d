@@ -23,9 +23,7 @@
       '((:name jd
 	       :type git
 	       :url "git://git.naquadah.org/~jd/jd-el.git"
-	       :features flyguess
-	       :info nil
-	       :build nil)
+	       :features google-maps)
 
 	(:name magit
 	       :type git
