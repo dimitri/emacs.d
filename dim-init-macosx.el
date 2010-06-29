@@ -46,7 +46,7 @@
 	(set-frame-parameter right-frame 'font "Monaco-13")
 	(set-frame-parameter right-frame 'left 1480)
 	(set-frame-size (selected-frame) 130 90)))
-  (set-frame-size (selected-frame) 168 52))
+  (set-frame-size (selected-frame) 168 49))
 
 ;;
 ;; cssh special settings for when working from home
