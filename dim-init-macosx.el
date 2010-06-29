@@ -58,10 +58,6 @@
 (setq cssh-hostname-resolve 'cssh-override-resolver)
 (setq cssh-hostname-resolve 'cssh-default-resolver)
 
-;; some special for magit
-(require 'magit)
-(setq magit-git-executable "/usr/local/git/bin/git")
-
 ;; some special for offlineimap
 (require 'dim-offlineimap)
 (setq dim:offlineimap-bin "/sw/bin/offlineimap"

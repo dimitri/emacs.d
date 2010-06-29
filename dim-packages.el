@@ -19,6 +19,10 @@
 ;;
 (require 'el-get)
 
+;; some special for magit under MacOSX
+(when-running-macosx
+ (setq magit-git-executable "/usr/local/git/bin/git"))
+
 (setq el-get-sources
       '((:name jd
 	       :type git
@@ -71,9 +75,9 @@
 		:info "texinfo"
 		:build ("./configure --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs" "make"))
 
-	 (:name htmlize         :type elpa)
-	 (:name dictionary-el   :type elpa)
-	 (:name muse            :type elpa))))
+	 (:name htmlize      :type elpa)
+	 (:name dictionary   :type elpa)
+	 (:name muse         :type elpa))))
 (el-get)
 
 (provide 'dim-packages)
