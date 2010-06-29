@@ -41,6 +41,11 @@
 	       :info "doc"
 	       :build ("make"))
 
+	(:name nxhtml
+	       :type git
+	       :url "http://github.com/emacsmirror/nxhtml.git"
+	       :load "autostart.el")
+
 	(:name vkill
 	       :type http
 	       :url "http://www.splode.com/~friedman/software/emacs-lisp/src/vkill.el"
