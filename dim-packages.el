@@ -57,10 +57,10 @@
 		:load-path ("./lisp" "./bits")
 		:info "texinfo"
 		:build ("./configure" "make"))
-	 (:name dictionary-el   :type apt-get)
-	 (:name emacs-goodie-el :type apt-get)
-	 (:name apel            :type apt-get)
-	 (:name muse-el         :type apt-get))))
+	 (:name dictionary-el    :type apt-get)
+	 (:name emacs-goodies-el :type apt-get)
+	 (:name apel             :type apt-get)
+	 (:name muse-el          :type apt-get))))
 
 (when-running-macosx
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
