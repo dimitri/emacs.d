@@ -73,7 +73,7 @@
 		:url "git://github.com/barak/BBDB.git"
 		:load-path ("./lisp" "./bits")
 		:info "texinfo"
-		:build ("./configure --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs" "make"))
+		:build ("./configure --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs" "make autoload" "make"))
 
 	 (:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa)
