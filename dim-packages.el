@@ -23,6 +23,10 @@
 (when-running-macosx
  (setq magit-git-executable "/usr/local/git/bin/git"))
 
+;;
+;; TODO: add ispell/aspell dependancies
+;;
+
 (setq el-get-sources
       '((:name jd
 	       :type git
@@ -83,6 +87,8 @@
 	 (:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa)
 	 (:name muse         :type elpa))))
+	 ;; (:name aspell-fr    :type fink)
+	 ;; (:name aspell-en    :type fink))))
 (el-get)
 
 (provide 'dim-packages)
