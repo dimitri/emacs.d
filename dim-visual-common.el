@@ -11,7 +11,15 @@
 (setq-default fill-column 76)
 (setq auto-fill-mode 1)
 
+;; we want global-hl-line-mode except in M-x term buffers.
 (global-hl-line-mode 1)
+
+(defadvice global-hl-line-highlight
+  (around dim:global-hl-line-highlight activate)
+  (unless (and (string= (symbol-name major-mode) "term-mode")
+	       (term-in-char-mode))
+    ad-do-it))
+
 (transient-mark-mode 1)
 
 ;; quite a stretch, but has its place here too
