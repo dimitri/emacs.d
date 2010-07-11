@@ -55,6 +55,11 @@
 	       :url "http://www.splode.com/~friedman/software/emacs-lisp/src/vkill.el"
 	       :features vkill)
 
+	(:name xcscope
+	       :type http
+	       :url "http://cscope.cvs.sourceforge.net/viewvc/cscope/cscope/contrib/xcscope/xcscope.el?revision=1.14&content-type=text%2Fplain"
+	       :features xcscope)
+
 	(:name asciidoc        :type elpa)
 	(:name auto-dictionary :type elpa)
 	(:name css-mode        :type elpa)
