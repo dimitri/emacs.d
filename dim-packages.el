@@ -39,7 +39,9 @@
 	       :type git
 	       :url "git://git.sv.gnu.org/emms.git"
 	       :info "doc"
-	       :build ("make"))
+	       :load-path ("./lisp")
+	       :features emms-setup
+	       :build ("make autoloads" "make"))
 
 	(:name nxhtml
 	       :type git

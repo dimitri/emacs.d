@@ -67,7 +67,6 @@
 (require 'dim-pgsql)
 
 ;; EMMS
-(require 'emms-setup)
 (emms-standard)
 ;(emms-default-players) ; I want VLC mainly
 (setq emms-player-list
