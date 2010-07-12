@@ -23,6 +23,10 @@
 (when-running-macosx
  (setq magit-git-executable "/usr/local/git/bin/git"))
 
+;;
+;; TODO: add ispell/aspell dependancies
+;;
+
 (setq el-get-sources
       '((:name jd
 	       :type git
@@ -52,6 +56,11 @@
 	       :type http
 	       :url "http://www.splode.com/~friedman/software/emacs-lisp/src/vkill.el"
 	       :features vkill)
+
+	(:name xcscope
+	       :type http
+	       :url "http://cscope.cvs.sourceforge.net/viewvc/cscope/cscope/contrib/xcscope/xcscope.el?revision=1.14&content-type=text%2Fplain"
+	       :features xcscope)
 
 	(:name asciidoc        :type elpa)
 	(:name auto-dictionary :type elpa)
@@ -85,6 +94,8 @@
 	 (:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa)
 	 (:name muse         :type elpa))))
+	 ;; (:name aspell-fr    :type fink)
+	 ;; (:name aspell-en    :type fink))))
 (el-get)
 
 (provide 'dim-packages)

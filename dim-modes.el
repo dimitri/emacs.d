@@ -129,4 +129,7 @@
 ;(set-face-attribute 'hl-sexp-face nil :background "RosyBrown1")
 ;(set-face-attribute 'hl-sexp-face nil :background "LightGoldenRod")
 
+;; xcscope --- has been required by el-get
+(setq cscope-indexing-script "~/bin/cscope-indexer")
+
 (provide 'dim-modes)
