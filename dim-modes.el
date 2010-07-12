@@ -130,6 +130,10 @@
 ;(set-face-attribute 'hl-sexp-face nil :background "LightGoldenRod")
 
 ;; xcscope --- has been required by el-get
-(setq cscope-indexing-script "~/bin/cscope-indexer")
+;; cscope debian package includes cscope-indexer, no luck under MacOSX
+(setq cscope-indexing-script 
+      (if (file-executable-p "/usr/bin/cscope-indexer")
+	  "/usr/bin/cscope-indexer"
+	"~/bin/cscope-indexer"))
 
 (provide 'dim-modes)
