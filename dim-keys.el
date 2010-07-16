@@ -163,8 +163,8 @@ vi style of % jumping to matching brace."
 
 (global-set-key (kbd "C-'")
  (lambda () (interactive) 
-   (if (eq major-mode (intern-soft "term-mode")) 
-       (term-char-mode) 
+   (if (eq major-mode 'term-mode)
+       (term-char-mode)
      (dim:toggle-my-input-method))))
 
 (global-set-key (kbd "C-c w") 'woman)

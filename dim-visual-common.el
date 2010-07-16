@@ -16,9 +16,7 @@
 
 (defadvice global-hl-line-highlight
   (around dim:global-hl-line-highlight activate)
-  (unless (and (string= (symbol-name major-mode) "term-mode")
-	       (term-in-char-mode))
-    ad-do-it))
+  (unless (and (eq major-mode 'term-mode) (term-in-char-mode)) ad-do-it))
 
 (transient-mark-mode 1)
 
