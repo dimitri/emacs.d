@@ -89,11 +89,7 @@
 (setq woman-use-own-frame nil)
 
 ;; M-x term
-(add-hook 'term-mode-hook 
-	  (lambda () (setq truncate-lines t)))
-
-(add-hook 'term-mode-hook 
-	  (lambda () (hl-line-mode -1)))
+(add-hook 'term-mode-hook (lambda () (setq truncate-lines t)))
 
 ;; dict
 (require 'dictionary)
