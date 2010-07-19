@@ -99,6 +99,7 @@
 
 ;; optimisation surtout bénéfique à Tramp
 (setq vc-handled-backends nil)
+(setq tramp-terminal-type "screen")
 
 ;; pendant qu'on est dans Tramp, support de /sudo:remote:/path/to/file
 (require 'tramp-multi-sshx)
