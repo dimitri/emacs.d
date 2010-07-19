@@ -1,5 +1,5 @@
-ASCIIDOC := /usr/bin/asciidoc
-XMLTO := /usr/bin/xmlto
+ASCIIDOC := $(shell which asciidoc)
+XMLTO    := $(shell which xmlto)
 
 %.xml: %.txt
 	$(ASCIIDOC) -b docbook -d manpage $<

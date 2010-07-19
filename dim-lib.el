@@ -5,6 +5,12 @@
 ;; I don't like the clever while hack to have until, let's hide it
 (defmacro until (cond &rest body) `(while (progn ,@body ,cond)))
 
+;; with-current-directory sounds too useful not to have
+(defmacro with-current-directory (directory &rest body)
+  "execute body from within directory, then get back from where started"
+  `(let ((cwd ,default-directory))
+     (cd ,directory) ,@body (cd cwd)))
+
 ;; my try at walk-path
 (defun walk-path (path fun &optional
 		       match-regexp depth-first filter filter-call depth)
