@@ -1,3 +1,4 @@
+# -*- mode: makefile-gmake -*-
 ASCIIDOC := $(shell which asciidoc)
 XMLTO    := $(shell which xmlto)
 
