@@ -52,6 +52,8 @@
   (unless (string-match "\.[15]\.txt" (buffer-file-name))
     (error "%s does not look like an asciidoc manpage source." (buffer-file-name)))
 
+  (save-buffer)
+
   (let* ((default-directory (file-name-directory (buffer-file-name)))
 	 (man (file-name-nondirectory 
 	       (file-name-sans-extension (buffer-file-name))))
