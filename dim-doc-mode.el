@@ -45,6 +45,9 @@
 		   "make" "-k" "-f" dim-doc-mode:makefile man)
       
     (cond ((eq dim-doc-mode:man-reader 'man)
+	   ;; man users certainly will prefer to kill pre-existing buffers
+	   (let ((man-buffer-name (concat "*Man " target "*")))
+	     (when (get-buffer man-buffer-name) (kill-buffer man-buffer-name)))
 	   (Man-getpage-in-background target))
 	  
 	  ((eq dim-doc-mode:man-reader 'woman)
