@@ -22,31 +22,34 @@
 (defcustom dim-doc-mode:man-reader 'woman 
   "man or woman")
 
+(defcustom dim-doc-mode:make "make"
+  "how do you spell GNU Make on your system")
+
 (require 'dim-lib) ; defines with-current-directory
 (require 'doc-mode)
 
 (defun dim-doc-mode:compile ()
   "Compile current asciidoc document to a man page"
   (interactive)
-  (when (string-match "\.[15]\.txt" (buffer-file-name))
-    (let* ((dir (file-name-directory (buffer-file-name)))
-	   (man (file-name-nondirectory 
-		 (file-name-sans-extension (buffer-file-name))))
-	   (target (concat (file-name-directory dir) man)))
+  (unless (string-match "\.[15]\.txt" (buffer-file-name))
+    (error "%s does not look like an asciidoc manpage source." (buffer-file-name)))
 
-      ;; fed up of M-x compile breakings of window configuration
-      (with-current-directory 
-       dir
-       (message
-	(shell-command-to-string
-	 (format "make -k -f %s %s" dim-doc-mode:makefile man))))
+  (let* ((default-directory (file-name-directory (buffer-file-name)))
+	 (man (file-name-nondirectory 
+	       (file-name-sans-extension (buffer-file-name))))
+	 (target (concat (file-name-directory default-directory) man)))
+
+    ;; fed up of M-x compile breakings of window configuration
+    (start-process (format "asciidoc to man %s" target)
+		   target
+		   "make" "-k" "-f" dim-doc-mode:makefile man)
       
-      (cond ((eq dim-doc-mode:man-reader 'man)
-	     (Man-getpage-in-background target))
-	    
-	    ((eq dim-doc-mode:man-reader 'woman)
-	     (message "woman-find-file %s" target)
-	     (woman-find-file target))))))
+    (cond ((eq dim-doc-mode:man-reader 'man)
+	   (Man-getpage-in-background target))
+	  
+	  ((eq dim-doc-mode:man-reader 'woman)
+	   (message "woman-find-file %s" target)
+	   (woman-find-file target))))))
 
 (define-key doc-mode-map (kbd "C-c m") 'dim-doc-mode:compile)
 
