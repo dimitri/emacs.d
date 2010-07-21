@@ -50,14 +50,25 @@
 	    (when open-as-$$ (match-string-no-properties 1)))
 	   ($$-line-num
 	    (when open-as-$$ (line-number-at-pos)))
+	   (begin-line-num
+	    (when open-as-$$
+	      (unless (looking-at "\n") (forward-char))
+	      (if (string-match "begin" (current-word))
+		  (1- (line-number-at-pos))
+		(line-number-at-pos))))
 	   (close-as-$$ 
 	    (when open-as-$$
-	      (re-search-forward (format "\\$%s\\$" $$-name) nil t)))
+	      (re-search-forward (format "\\$%s\\$" $$-name) nil t)
+	      (beginning-of-line)
+	      (point)))
 	   (reading-function
 	    (when (and open-as-$$ close-as-$$)
-	      (and (>= start open-as-$$) (<= start close-as-$$)))))
+	      (and (or (>= start open-as-$$)
+		       (and (not (eq $$-line-num begin-line-num))
+			    (= (line-number-at-pos start) $$-line-num)))
+		   (< start close-as-$$)))))
 
-      (if reading-function $$-line-num nil))))
+      (if reading-function begin-line-num nil))))
 
 (defun dim:pgsql-linum-format (line)
   "Return the current line number linum output"
@@ -68,8 +79,8 @@
       (goto-char (point-min)) (forward-line (1- line))
       (let ((current-func-start (dim:pgsql-current-func)))
 	(if current-func-start
-	    (format "%3d %d" (- line current-func-start) line)
-	  (format "%7d" line))))))
+	    (format "%3d %5d" (- line current-func-start) line)
+	  (format "%9d" line))))))
 
 (setq linum-format 'dim:pgsql-linum-format)
 
