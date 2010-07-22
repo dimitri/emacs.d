@@ -153,20 +153,14 @@ vi style of % jumping to matching brace."
       (inactivate-input-method)
     (set-input-method dim:my-input-method)))
 
-;; it used to be that simple
-;;(global-set-key (kbd "C-'") 'dim:toggle-my-input-method)
+;; Global key for input method, but we steal it in terms
+(global-set-key (kbd "C-'") 'dim:toggle-my-input-method)
 
 ;; Toogle between line and char mode in term-mode
-;; term-raw-map is only used in term-mode
-(define-key term-raw-map (kbd "C-'") 
-  (lambda () (interactive) (term-line-mode)))
+(define-key term-raw-map  (kbd "C-'") 'term-line-mode)
+(define-key term-mode-map (kbd "C-'") 'term-char-mode)
 
-(global-set-key (kbd "C-'")
- (lambda () (interactive) 
-   (if (eq major-mode 'term-mode)
-       (term-char-mode)
-     (dim:toggle-my-input-method))))
-
+;; woman
 (global-set-key (kbd "C-c w") 'woman)
 
 ;; language settings, e is english, f is french
