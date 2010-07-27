@@ -178,6 +178,11 @@
       gnus-sum-thread-tree-single-leaf     "└─►"  ; "┗━► "
       gnus-sum-thread-tree-vertical        "│"  ) ; "┆" "┋")  "│" "┆"
 
+;; with Tango-2 Theme, adapt some colors
+(when-running-debian-or-ubuntu
+ (set-face-attribute 'gnus-summary-normal-ticked nil 
+		     :foreground "pale violet red"))
+
 ;; BBDB
 (require 'bbdb)
 (bbdb-initialize 'gnus 'message)
