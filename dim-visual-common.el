@@ -11,6 +11,9 @@
 (setq-default fill-column 76)
 (setq auto-fill-mode 1)
 
+;; Use the clipboard, pretty please, so that copy/paste "works"
+(setq x-select-enable-clipboard t)
+
 ;; we want global-hl-line-mode except in M-x term buffers.
 (global-hl-line-mode 1)
 
