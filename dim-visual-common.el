@@ -22,6 +22,7 @@
 
 ;; quite a stretch, but has its place here too
 (setq indent-tabs-mode nil)
+(put 'narrow-to-page 'disabled nil)
 
 (require 'font-lock)
 (global-font-lock-mode 1)
