@@ -28,9 +28,9 @@
 ;;
 
 (setq el-get-sources
-      '((:name jd
+      '((:name google-maps
 	       :type git
-	       :url "git://git.naquadah.org/~jd/jd-el.git"
+	       :url "git://git.naquadah.org/google-maps.git"
 	       :features google-maps)
 
 	(:name magit
