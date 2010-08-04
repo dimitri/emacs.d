@@ -62,6 +62,10 @@
 	       :url "http://cscope.cvs.sourceforge.net/viewvc/cscope/cscope/contrib/xcscope/xcscope.el?revision=1.14&content-type=text%2Fplain"
 	       :features xcscope)
 
+	(:name yasnippet
+	       :type git-svn
+	       :url "http://yasnippet.googlecode.com/svn/trunk/")
+
 	(:name asciidoc        :type elpa)
 	(:name auto-dictionary :type elpa)
 	(:name css-mode        :type elpa)
@@ -93,9 +97,9 @@
 
 	 (:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa)
-	 (:name muse         :type elpa))))
-	 ;; (:name aspell-fr    :type fink)
-	 ;; (:name aspell-en    :type fink))))
+	 (:name muse         :type elpa)
+	 (:name aspell-fr    :type fink)
+	 (:name aspell-en    :type fink))))
 (el-get)
 
 (provide 'dim-packages)
