@@ -155,11 +155,40 @@
   '(add-to-list 'window-size-change-functions 'dim:dynamic-fill-column))
 
 ;; whois on private even if I'm receiving it
-;; (add-hook 'rcirc-mode-hook 
-;; 	  (lambda () 
-;; 	    (when (and (not (rcirc-channel-p rcirc-target))
-;; 		       (not (string= sender (rcirc-nick proc))))
-;; 	      (rcirc-cmd-whois (rcirc-nick rcirc-process)))))
+(defun dim:rcirc-whois-on-query-from-others ()
+  (unless (rcirc-channel-p target)
+    ;; as this buffer ain't ready to receive the answer, it'll
+    ;; go into the process server buffer
+    (rcirc-cmd-whois target (get-buffer-process (current-buffer)))
+    (let (whois whois-lines)
+      (with-rcirc-process-buffer process
+	(save-excursion
+	  (forward-line -1)
+	  (let ((p (point))
+		(b (re-search-backward 
+		    (concat "^.*\*\*\* 311 " target))))
+	    (setq whois       (buffer-substring b p)
+		  whois-lines (count-lines b p)))))
+      ;; insert the whois into the new buffer now, at the very
+      ;; beginning of it
+      (let ((inhibit-read-only t))
+	(save-excursion
+	  (goto-char rcirc-prompt-start-marker)
+	  (insert-before-markers whois))))))
+
+(setq rcirc-mode-hook nil)
+(add-hook 'rcirc-mode-hook 'dim:rcirc-whois-on-query-from-others)
+
+;;
+;; as there's apparently no way to distinguish between opening a query and
+;; receiving a query request from rcirc-mode-hook, we just remove the hook
+;; when opening a query with C-c C-q
+;;
+(defadvice rcirc-cmd-query
+  (around dim:remove-whois-hook activate)
+  (remove-hook 'rcirc-mode-hook 'dim:rcirc-whois-on-query-from-others)
+  ad-do-it
+  (add-hook 'rcirc-mode-hook 'dim:rcirc-whois-on-query-from-others))
 
 ;; encodings
 (setq rcirc-decode-coding-system 'undecided)
