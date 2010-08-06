@@ -95,6 +95,11 @@
 		:info "texinfo"
 		:build ("./configure --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs" "make autoloads" "make"))
 
+	(:name psvn
+	       :type http
+	       :url "http://www.xsteve.at/prg/emacs/psvn.el"
+	       :features psvn)
+
 	 (:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa)
 	 (:name muse         :type elpa)
