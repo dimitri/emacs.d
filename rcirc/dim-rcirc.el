@@ -156,7 +156,7 @@
 
 ;; whois on private even if I'm receiving it
 (defun dim:rcirc-whois-on-query-from-others ()
-  (unless (rcirc-channel-p target)
+  (when (and target (not (rcirc-channel-p target)))
     ;; as this buffer ain't ready to receive the answer, it'll
     ;; go into the process server buffer
     (rcirc-cmd-whois target (get-buffer-process (current-buffer)))
