@@ -48,16 +48,6 @@
 	(set-frame-size (selected-frame) 130 90)))
   (set-frame-size (selected-frame) 168 49))
 
-;;
-;; cssh special settings for when working from home
-;;
-(require 'cssh)
-(setq cssh-remote-user "dfontaine")
-(setq cssh-override-nameserver "ns1.hi-media-techno.com")
-(setq cssh-override-domain ".hi-media-techno.com")
-(setq cssh-hostname-resolve 'cssh-override-resolver)
-(setq cssh-hostname-resolve 'cssh-default-resolver)
-
 ;; some special for offlineimap
 (require 'dim-offlineimap)
 (setq dim:offlineimap-bin "/sw/bin/offlineimap"

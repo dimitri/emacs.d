@@ -23,10 +23,14 @@
 (when-running-macosx
  (setq magit-git-executable "/usr/local/git/bin/git"))
 
+;;
+;; TODO: add ispell/aspell dependancies
+;;
+
 (setq el-get-sources
-      '((:name jd
+      '((:name google-maps
 	       :type git
-	       :url "git://git.naquadah.org/~jd/jd-el.git"
+	       :url "git://git.naquadah.org/google-maps.git"
 	       :features google-maps)
 
 	(:name magit
@@ -39,7 +43,9 @@
 	       :type git
 	       :url "git://git.sv.gnu.org/emms.git"
 	       :info "doc"
-	       :build ("make"))
+	       :load-path ("./lisp")
+	       :features emms-setup
+	       :build ("make autoloads" "make"))
 
 	(:name nxhtml
 	       :type git
@@ -50,6 +56,15 @@
 	       :type http
 	       :url "http://www.splode.com/~friedman/software/emacs-lisp/src/vkill.el"
 	       :features vkill)
+
+	(:name xcscope
+	       :type http
+	       :url "http://cscope.cvs.sourceforge.net/viewvc/cscope/cscope/contrib/xcscope/xcscope.el?revision=1.14&content-type=text%2Fplain"
+	       :features xcscope)
+
+	(:name yasnippet
+	       :type git-svn
+	       :url "http://yasnippet.googlecode.com/svn/trunk/")
 
 	(:name asciidoc        :type elpa)
 	(:name auto-dictionary :type elpa)
@@ -80,9 +95,16 @@
 		:info "texinfo"
 		:build ("./configure --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs" "make autoloads" "make"))
 
+	(:name psvn
+	       :type http
+	       :url "http://www.xsteve.at/prg/emacs/psvn.el"
+	       :features psvn)
+
 	 (:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa)
-	 (:name muse         :type elpa))))
+	 (:name muse         :type elpa)
+	 (:name aspell-fr    :type fink)
+	 (:name aspell-en    :type fink))))
 (el-get)
 
 (provide 'dim-packages)

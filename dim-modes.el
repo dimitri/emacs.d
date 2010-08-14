@@ -67,7 +67,6 @@
 (require 'dim-pgsql)
 
 ;; EMMS
-(require 'emms-setup)
 (emms-standard)
 ;(emms-default-players) ; I want VLC mainly
 (setq emms-player-list
@@ -90,11 +89,7 @@
 (setq woman-use-own-frame nil)
 
 ;; M-x term
-(add-hook 'term-mode-hook 
-	  (lambda () (setq truncate-lines t)))
-
-(add-hook 'term-mode-hook 
-	  (lambda () (hl-line-mode -1)))
+(add-hook 'term-mode-hook (lambda () (setq truncate-lines t)))
 
 ;; dict
 (require 'dictionary)
@@ -104,6 +99,7 @@
 
 ;; optimisation surtout bénéfique à Tramp
 (setq vc-handled-backends nil)
+(setq tramp-terminal-type "screen")
 
 ;; pendant qu'on est dans Tramp, support de /sudo:remote:/path/to/file
 (require 'tramp-multi-sshx)
@@ -129,5 +125,12 @@
 (set-face-attribute 'hl-sexp-face nil :background "LightYellow")
 ;(set-face-attribute 'hl-sexp-face nil :background "RosyBrown1")
 ;(set-face-attribute 'hl-sexp-face nil :background "LightGoldenRod")
+
+;; xcscope --- has been required by el-get
+;; cscope debian package includes cscope-indexer, no luck under MacOSX
+(setq cscope-indexing-script 
+      (if (file-executable-p "/usr/bin/cscope-indexer")
+	  "/usr/bin/cscope-indexer"
+	"~/bin/cscope-indexer"))
 
 (provide 'dim-modes)

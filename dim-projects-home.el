@@ -23,6 +23,7 @@
    ("min_update"	. "~/dev/min_update")
    ("preprepare"	. "~/dev/preprepare")
    ("pgstaging"	. "~/dev/pg_staging")
+   ("libphp-pgq"	. "~/dev/libphp-pgq")
    
    ;; lost-oasis open source
    ("sinn"		. "~/dev/niftyname/git/sinn/")

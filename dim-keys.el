@@ -92,8 +92,7 @@ vi style of % jumping to matching brace."
 (require 'dim-google)
 
 ;; dictionary lookups
-(global-set-key (kbd "M-?") (lambda () (interactive) 
-			      (dictionary-lookup-definition)))
+(global-set-key (kbd "M-?") 'dictionary-lookup-definition)
 
 ;; déplacements sans changer la position du point dans le buffer
 (global-set-key (kbd "M-<up>")
@@ -153,7 +152,14 @@ vi style of % jumping to matching brace."
       (inactivate-input-method)
     (set-input-method dim:my-input-method)))
 
+;; Global key for input method, but we steal it in terms
 (global-set-key (kbd "C-'") 'dim:toggle-my-input-method)
+
+;; Toogle between line and char mode in term-mode
+(define-key term-raw-map  (kbd "C-'") 'term-line-mode)
+(define-key term-mode-map (kbd "C-'") 'term-char-mode)
+
+;; woman
 (global-set-key (kbd "C-c w") 'woman)
 
 ;; language settings, e is english, f is french
