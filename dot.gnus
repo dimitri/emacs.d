@@ -168,6 +168,7 @@
     (set-process-filter proc 'el-get-sudo-password-process-filter)))
 
 (define-key gnus-group-mode-map (kbd "M-q") 'dim:check-postqueue-p)
+(define-key gnus-summary-mode-map (kbd "M-q") 'dim:check-postqueue-p)
 	      
 ;;
 ;; gnus porn
