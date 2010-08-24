@@ -87,9 +87,11 @@ project-add and ibuffer-saved-filter-groups."
 (dim:add-projects-and-setup-ibuffer-groups dim:my-projects-common)
 
 ;; the following files will use dim:project-merge to add their setup
-(if (string-match "hi-media-techno" (get-domain-name))
-    (require 'dim-projects-hm)
-  (require 'dim-projects-home))
+(if (get-domain-name)
+    (if (string-match "hi-media-techno" (get-domain-name))
+	(require 'dim-projects-hm)
+      (require 'dim-projects-home))
+  (error "get-domain-name is nil, can't load local projects."))
 
 ;;
 ;; finally, add some common setups (mode dependant)
