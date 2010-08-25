@@ -8,14 +8,17 @@
   "psql arguments to use on the remote server")
 
 (defvar dim:check-prefix-sql
-  "select * from checknum('%s') c join operateur o on o.id = c.operateur"
+  "select c.prefix, p.nom as pays, o.code, o.nom as operateur
+     from checknum('%s') c
+          join pays p on p.id = c.pays 
+          join operateur o on o.id = c.operateur;"
   "SQL command to get the result")
 
 (defun dim:check-prefix (&optional dont-complete)
   "Check for given numtel against the prefix database"
   (interactive)
   (message "%S" current-prefix-arg)
-  (let* ((num (read-from-minibuffer "Phone number:"))
+  (let* ((num (read-from-minibuffer "Phone number: "))
 	 (numtel (if current-prefix-arg num
 		   (replace-regexp-in-string " " "0" (format "%-10s" num))))
 	 (buffer-name "*check-prefix*"))
@@ -30,8 +33,11 @@
 			   dim:check-prefix-remote-host
 			   dim:check-prefix-psql-options)))
       (message command)
-      (insert (format dim:check-prefix-sql numtel) "\n")
-      (insert (shell-command-to-string command)))))
+      (with-current-buffer buffer-name
+	(save-excursion
+	  (goto-char (point-max))
+	  (insert "\n" (format dim:check-prefix-sql numtel) "\n")
+	  (insert (shell-command-to-string command)))))))
 
 (global-set-key (kbd "C-c P") 'dim:check-prefix)
     

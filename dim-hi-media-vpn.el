@@ -10,6 +10,7 @@
   "Start local VPN by means of the given script"
   (interactive)
   (let* ((name  "*VPN*")
+	 (default-directory (file-name-directory dim:hi-media-vpn-start-script))
 	 (proc  (start-process-shell-command
 		 name name ;; both the process and buffer name
 		 (executable-find "sudo") 
