@@ -6,7 +6,10 @@
 (setq user-full-name "Dimitri Fontaine")
 
 ;; No primary select method
-(setq gnus-select-method '(nnnil ""))
+;(setq gnus-select-method '(nnnil ""))
+
+;; Use this great NNTP gateway that publishes mailing lists and RSS
+(setq gnus-select-method '(nntp "news.gwene.org"))
 
 (setq gnus-secondary-select-methods
       ;; Both servers are in fact localhost, trick /etc/hosts
@@ -237,3 +240,18 @@
 	     mm-attachment-override-types)))
 
 (add-hook 'gnus-select-group-hook 'dim:gnus-attachment-override-types)
+
+;; gwene articles contain long lines, wrap them
+(defadvice gnus-summary-scroll-up
+  (after dim:gnus-article-word-wrap-gwene activate)
+  (when (string-match "gwene" gnus-newsgroup-name)
+    (gnus-article-fill-cited-article)))
+
+(defadvice gnus-summary-next-unread-article
+  (after dim:gnus-article-word-wrap-gwene activate)
+  (when (string-match "gwene" gnus-newsgroup-name)
+    (gnus-article-fill-cited-article)))
+
+;; dovecot searching through nnir
+(require 'nnir)
+(setq nnir-search-engine 'imap)
