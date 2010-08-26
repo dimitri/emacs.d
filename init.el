@@ -52,6 +52,12 @@
 ;; empower M-term to remote hosts
 (require 'cssh)
 
+;; local utilities
+(when (and (get-domain-name)
+	   (string-match "hi-media-techno" (get-domain-name)))
+  (require 'dim-check-prefix)
+  (require 'dim-hi-media-vpn))
+
 ;; and the session
 (setq desktop-restore-eager 20)
 (desktop-save-mode 1)

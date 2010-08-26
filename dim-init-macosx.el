@@ -53,8 +53,4 @@
 (setq dim:offlineimap-bin "/sw/bin/offlineimap"
       dim:offlineimap-options "")
 
-;; and local utilities
-(require 'dim-check-prefix)
-(require 'dim-hi-media-vpn)
-
 (provide 'dim-init-macosx)
