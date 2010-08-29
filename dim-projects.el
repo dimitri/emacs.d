@@ -13,6 +13,9 @@
 				    ("temp"        . "~/temp")
 				    ("emacs"       . "~/dev/emacs.d")
 				    (".emacs.d"    . "~/.emacs.d")
+				    ("cssh"        . "~/dev/emacs/cssh")
+				    ("el-get"      . "~/dev/emacs/el-get")
+				    ("rcirc-groups". "~/dev/emacs/rcirc-groups")
 				    ("confs"       . "~/dev/confs")
 				    ("tapoueh.org" .  "~/dev/tapoueh.org"))
   "List of the common custom projects, will get used with
