@@ -6,7 +6,7 @@
 
 (defun fizzbuzz-loop (a b)
   "Use loop from CL to list fizzbuzz"
-  (loop for i from (or a 1) to (or b 24)
+  (loop for i from a to b
 	if (zerop (mod i 3)) collect "fizz" and collect i into fizz
 	if (zerop (mod i 5)) collect "buzz" and collect i into buzz
 	unless (memq i (append fizz buzz)) collect (number-to-string i)
@@ -30,6 +30,6 @@
 	(b (or b 24)))
     (with-current-buffer (get-buffer-create "*fizzbuzz*")
       (erase-buffer)
-      ;; (mapc 'insert (fizzbuzz-loop a b)))
-      (mapc 'insert (fizzbuzz-dotimes a b)))
+      (mapc 'insert (fizzbuzz-loop a b)))
+      ;; (mapc 'insert (fizzbuzz-dotimes a b)))
     (set-window-buffer (selected-window) "*fizzbuzz*")))
