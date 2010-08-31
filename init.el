@@ -4,7 +4,8 @@
 
 (defun dim:add-my-extra-load-paths (&optional paths)
   "define a list of paths to add to load-path and add each of them"
-  (let ((dim:paths '("~/dev/emacs.d"
+  (let ((dim:paths '("~/dev/emacs/el-get"
+		     "~/dev/emacs.d"
 		     "~/dev/emacs.d/rcirc"
 		     "~/dev/emacs.d/lib"
 		     "~/dev/emacs/cssh"
