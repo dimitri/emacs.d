@@ -105,6 +105,13 @@
 			;;(set-face-attribute 'hl-sexp-face nil :background "RosyBrown1")
 			;;(set-face-attribute 'hl-sexp-face nil :background "LightGoldenRod")
 			(set-face-attribute 'hl-sexp-face nil :background "LightYellow")))
+
+	(:name offlineimap
+	       :after (lambda ()
+			(set-face-attribute 'offlineimap-syncing-face nil
+					    :foreground "DarkGoldenrod")
+			(require 'gnus)
+			(define-key gnus-group-mode-map (kbd "O") 'offlineimap)))
 	       
 	(:name auto-dictionary :type elpa)
 	(:name gist            :type elpa)
