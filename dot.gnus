@@ -255,3 +255,29 @@
 ;; dovecot searching through nnir
 (require 'nnir)
 (setq nnir-search-engine 'imap)
+
+;;
+;; cat *current-article* | git am
+;;
+
+;; Git apply
+(defcustom dim:gnus-group-git-repos
+  '(el-get "~/dev/emacs/el-get")
+  "A plist of repositories and dir where to apply git patches")
+
+(defun dim:gnus-group-git-read-repo ()
+  "Ask use where to apply the current patch"
+  (completing-read 
+   "Choose a repository where to apply: "
+   (loop for (r p) on dim:gnus-group-git-repos by 'cddr collect (symbol-name r)) nil t))
+
+(defun dim:gnus-group-git-am (repo)
+  (interactive (list (dim:gnus-group-git-read-repo)))
+  (let ((git-dir 
+	 (expand-file-name 
+	  (plist-get dim:gnus-group-git-repos (intern repo)))))
+    (when git-dir
+      (gnus-summary-save-in-pipe
+       (format "git --git-dir=%s/.git am -s" git-dir) 'raw))))
+
+(define-key gnus-summary-mode-map (kbd "G A") 'dim:gnus-group-git-am)
