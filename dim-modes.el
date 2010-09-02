@@ -29,6 +29,8 @@
 (setq woman-use-own-frame nil)
 
 ;; M-x term
+(setq term-default-bg-color (frame-parameter nil 'background-color))
+(setq term-default-fg-color (frame-parameter nil 'foreground-color))
 (add-hook 'term-mode-hook (lambda () (setq truncate-lines t)))
 
 ;; optimisation surtout bénéfique à Tramp
