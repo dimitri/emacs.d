@@ -108,8 +108,8 @@
 
 	(:name offlineimap
 	       :after (lambda ()
-			(set-face-attribute 'offlineimap-syncing-face nil
-					    :foreground "DarkGoldenrod")
+			(set-face-attribute 'offlineimap-msg-syncingfolders-face nil :foreground "DarkGoldenrod")
+			(set-face-attribute 'offlineimap-msg-skippingfolder-face nil :foreground "DarkGoldenrod")
 			(require 'gnus)
 			(define-key gnus-group-mode-map (kbd "O") 'offlineimap)))
 	       
