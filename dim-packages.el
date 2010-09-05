@@ -141,6 +141,9 @@
 	 (:name nognus
 		:build ("./configure --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs" "make"))
 
+	 (:name emacs-w3m
+		:build ("autoconf" "./configure --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs" "make"))
+
 	 (:name bbdb
 		:build ("./configure --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs" "make autoloads" "make"))
 
