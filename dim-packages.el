@@ -108,11 +108,12 @@
 
 	(:name offlineimap
 	       :after (lambda ()
+			(require 'gnus-load)
+			(require 'gnus)
 			(setq offlineimap-enable-mode-line-p 
 			      '(member major-mode '(gnus-group-mode gnus-summary-mode)))
 			(set-face-attribute 'offlineimap-msg-syncingfolders-face nil :foreground "DarkGoldenrod")
 			(set-face-attribute 'offlineimap-msg-skippingfolder-face nil :foreground "DarkGoldenrod")
-			(require 'gnus-load)
 			(define-key gnus-group-mode-map (kbd "O") 'offlineimap)))
 	       
 	(:name auto-dictionary :type elpa)
