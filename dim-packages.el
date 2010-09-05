@@ -112,7 +112,7 @@
 			      '(member major-mode '(gnus-group-mode gnus-summary-mode)))
 			(set-face-attribute 'offlineimap-msg-syncingfolders-face nil :foreground "DarkGoldenrod")
 			(set-face-attribute 'offlineimap-msg-skippingfolder-face nil :foreground "DarkGoldenrod")
-			(require 'gnus)
+			(require 'gnus-load)
 			(define-key gnus-group-mode-map (kbd "O") 'offlineimap)))
 	       
 	(:name auto-dictionary :type elpa)
@@ -137,6 +137,9 @@
 (when-running-macosx
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
        '(psvn
+
+	 (:name nognus
+		:build ("./configure --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs" "make"))
 
 	 (:name bbdb
 		:build ("./configure --with-emacs=/Applications/Emacs.app/Contents/MacOS/Emacs" "make autoloads" "make"))

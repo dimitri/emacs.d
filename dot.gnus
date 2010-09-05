@@ -190,8 +190,9 @@
 
 ;; gnus-group-line-format, cf dim-gnus-imap-count
 ;; "%M%S%p%P%5y:%B%(%g%)%O\n"
-(require 'dim-gnus-imap-count)
-(setq gnus-group-line-format "%M%S%p%P%5uy:%B%(%g%)%O\n")
+;; (require 'dim-gnus-imap-count)
+;; (setq gnus-group-line-format "%M%S%p%P%5uy:%B%(%g%)%O\n")
+(setq gnus-group-line-format "%M\%S\%p\%P\%5y:%B%(%g%)\n")
 
 (require 'gnus-art)
 (setq gnus-visible-headers 
