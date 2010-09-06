@@ -112,8 +112,10 @@
 			(require 'gnus)
 			(setq offlineimap-enable-mode-line-p 
 			      '(member major-mode '(gnus-group-mode gnus-summary-mode)))
-			(set-face-attribute 'offlineimap-msg-syncingfolders-face nil :foreground "DarkGoldenrod")
-			(set-face-attribute 'offlineimap-msg-skippingfolder-face nil :foreground "DarkGoldenrod")
+			(loop with color = "DarkGoldenrod"
+			      for face in '(offlineimap-msg-syncingfolders-face 
+					    offlineimap-msg-skippingfolder-face)
+			      do (set-face-attribute face nil :foreground color))
 			(define-key gnus-group-mode-map (kbd "O") 'offlineimap)))
 	       
 	(:name auto-dictionary :type elpa)
@@ -129,7 +131,7 @@
 
 (when-running-debian-or-ubuntu 
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '(bbdb
+       '(nognus bbdb 
 	 (:name dictionary-el    :type apt-get   :after 'dim:setup-package-dictionary)
 	 (:name emacs-goodies-el :type apt-get)
 	 (:name apel             :type apt-get)
