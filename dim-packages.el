@@ -110,6 +110,7 @@
 	       :after (lambda ()
 			(require 'gnus-load)
 			(require 'gnus)
+			(setq offlineimap-command (concat offlineimap-command " -1"))
 			(setq offlineimap-enable-mode-line-p 
 			      '(member major-mode '(gnus-group-mode gnus-summary-mode)))
 			(loop with color = "DarkGoldenrod"
