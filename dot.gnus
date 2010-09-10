@@ -41,10 +41,13 @@
 ;; this setting makes it so that subsequent g will continue skipping
 (setq gnus-group-use-permanent-levels 't)
 
-(when-using-msmtp
- (setq message-send-mail-function 'message-send-mail-with-sendmail)
- (when-running-macosx (setq sendmail-program "/sw/bin/msmtp"))
- (setq message-sendmail-extra-arguments '("-a" "himedia")))
+;; (when-using-msmtp
+;;  (setq message-send-mail-function 'message-send-mail-with-sendmail)
+;;  (when-running-macosx (setq sendmail-program "/sw/bin/msmtp"))
+;;  (setq message-sendmail-extra-arguments '("-a" "himedia")))
+
+(setq message-send-mail-function 'message-send-mail-with-sendmail)
+(when-running-macosx (setq sendmail-program "/sw/sbin/sendmail"))
 
 (setq gnus-posting-styles
       '(("hm.local"
