@@ -182,6 +182,9 @@ vi style of % jumping to matching brace."
 ;; ELPA
 (global-set-key (kbd "C-c p") 'package-list-packages)
 
+;; IELM
+(global-set-key (kbd "C-M-;") 'ielm)
+
 (require 'dim-mailrc)
 (require 'dim-previous-message)
 (provide 'dim-keys)
