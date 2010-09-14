@@ -15,6 +15,7 @@
 				    (".emacs.d"    . "~/.emacs.d")
 				    ("cssh"        . "~/dev/emacs/cssh")
 				    ("el-get"      . "~/dev/emacs/el-get")
+				    ("el-get.d"    . "~/.emacs.d/el-get")
 				    ("rcirc-groups". "~/dev/emacs/rcirc-groups")
 				    ("confs"       . "~/dev/confs")
 				    ("tapoueh.org" .  "~/dev/tapoueh.org"))
