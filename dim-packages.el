@@ -110,10 +110,11 @@
 	       :after (lambda ()
 			(require 'gnus-load)
 			(require 'gnus)
-			(when-running-debian-or-ubuntu
-			 (setq offlineimap-command (concat offlineimap-command " -1")))
 			(setq offlineimap-enable-mode-line-p 
-			      '(member major-mode '(gnus-group-mode gnus-summary-mode)))
+			      '(member major-mode '(offlineimap-mode 
+						    gnus-group-mode 
+						    gnus-summary-mode)))
+			(setq offlineimap-mode-line-symbol "♻")
 			(loop with color = "DarkGoldenrod"
 			      for face in '(offlineimap-msg-syncingfolders-face 
 					    offlineimap-msg-skippingfolder-face)
