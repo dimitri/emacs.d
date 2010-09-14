@@ -37,6 +37,10 @@
 (setq vc-handled-backends nil)
 (setq tramp-terminal-type "screen")
 
+;; pour les couleurs dans M-x shell
+(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
 ;; pendant qu'on est dans Tramp, support de /sudo:remote:/path/to/file
 (require 'tramp-multi-sshx)
 
