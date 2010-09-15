@@ -120,6 +120,10 @@
 					    offlineimap-msg-skippingfolder-face)
 			      do (set-face-attribute face nil :foreground color))
 			(define-key gnus-group-mode-map (kbd "O") 'offlineimap)))
+
+	(:name goto-last-change
+	       :after (lambda ()
+			(global-set-key (kbd "C-x C-/") 'goto-last-change)))
 	       
 	(:name auto-dictionary :type elpa)
 	(:name gist            :type elpa)
