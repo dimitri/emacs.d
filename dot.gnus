@@ -8,19 +8,25 @@
 ;; No primary select method
 ;(setq gnus-select-method '(nnnil ""))
 
+;; Let's have a chance to login against local IMAP services
+;; (add-to-list 'auth-sources '(:source "~/.authinfo"))
+
 ;; Use this great NNTP gateway that publishes mailing lists and RSS
 (setq gnus-select-method '(nntp "news.gwene.org"))
 
 (setq gnus-secondary-select-methods
       ;; Both servers are in fact localhost, trick /etc/hosts
       '((nnimap "hm.local"
-		(nnimap-address "localhost"))
+		(nnimap-address "hm.local")
+		(nnimap-stream network))
 
 	(nnimap "tapoueh.local"
-		(nnimap-address "localhost"))
+		(nnimap-address "tapoueh.local")
+		(nnimap-stream network))
 
 	(nnimap "quadrant.local"
-		(nnimap-address "localhost"))))
+		(nnimap-address "quadrant.local")
+		(nnimap-stream network))))
 
 (defun dim:gnus-choose-sent-folder (current-group)
   "see gnus-message-archive-group documentation"
