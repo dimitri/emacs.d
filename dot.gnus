@@ -200,6 +200,9 @@
  (set-face-attribute 'gnus-summary-normal-ticked nil 
 		     :foreground "pale violet red"))
 
+;; allow the html-renderer to display images
+(setq gnus-blocked-images nil)
+
 ;; BBDB
 (require 'bbdb)
 (bbdb-initialize 'gnus 'message)
