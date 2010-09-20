@@ -147,6 +147,10 @@
 ;; topics
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
+;; start offlineimap automatically on platforms where it works ok
+(when-running-macosx
+ (add-hook 'gnus-group-mode-hook 'offlineimap))
+
 ;; M-3 g will be faster served with f
 (define-key gnus-group-mode-map (kbd "f") 
   (lambda () (interactive) (gnus-group-get-new-news 3)))
