@@ -157,30 +157,9 @@
 (define-key gnus-group-mode-map (kbd "f") 
   (lambda () (interactive) (gnus-group-get-new-news 3)))
 
-;; I run a local postfix to deliver messages --- check the queue!
-(require 'el-get) ; el-get-sudo-password-process-filter
-(defun dim:check-postqueue-p ()
-  "run postqueue -p and complain loudly when there's staged message"
-  (interactive)
-  (let* ((name  "*postqueue -p*")
-	 (postq (if (file-executable-p "/sw/sbin/postqueue") 
-		    "/sw/sbin/postqueue"
-		  (executable-find "postqueue")))
-	 (proc  (start-process 
-		 name name ;; both the process and buffer name
-		 (executable-find "sudo") "-S" postq "-p")))
-    (set-process-sentinel proc
-			  ;; async processing means we get there at the end
-			  ;; of the subprocess --- upon other state change
-			  (lambda (proc change)
-			    (when (eq (process-status proc) 'exit)
-			      (if (not (eq 0 (process-exit-status proc)))
-				  (set-window-buffer name)
-				(message "Mail queue is empty.")))))
-    (set-process-filter proc 'el-get-sudo-password-process-filter)))
-
-(define-key gnus-group-mode-map (kbd "M-q") 'dim:check-postqueue-p)
-(define-key gnus-summary-mode-map (kbd "M-q") 'dim:check-postqueue-p)
+(require 'dim-postqueue)
+(define-key gnus-group-mode-map (kbd "M-q") 'dim:postqueue-p)
+(define-key gnus-summary-mode-map (kbd "M-q") 'dim:postqueue-p)
 	      
 ;;
 ;; gnus porn
