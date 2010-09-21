@@ -162,8 +162,8 @@
   (lambda () (interactive) (gnus-group-get-new-news 3)))
 
 (require 'dim-postqueue)
-(define-key gnus-group-mode-map (kbd "M-q") 'dim:postqueue-p)
-(define-key gnus-summary-mode-map (kbd "M-q") 'dim:postqueue-p)
+(define-key gnus-group-mode-map (kbd "M-q") 'postqueue-p)
+(define-key gnus-summary-mode-map (kbd "M-q") 'postqueue-p)
 	      
 ;;
 ;; gnus porn
