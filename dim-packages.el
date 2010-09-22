@@ -26,7 +26,7 @@
  (setq magit-git-executable "/usr/local/git/bin/git"))
 
 (setq el-get-sources
-      '(cssh el-get switch-window vkill google-maps yasnippet verbiste
+      '(cssh el-get switch-window vkill google-maps yasnippet verbiste mailq
 
 	(:name magit 
 	       :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
