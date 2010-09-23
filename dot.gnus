@@ -238,15 +238,16 @@
 (add-hook 'gnus-select-group-hook 'dim:gnus-attachment-override-types)
 
 ;; gwene articles contain long lines, wrap them
-(defadvice gnus-summary-scroll-up
-  (after dim:gnus-article-word-wrap-gwene activate)
-  (when (string-match "gwene" gnus-newsgroup-name)
-    (gnus-article-fill-cited-article)))
+;; not necessary anymore thanks to the newer gnus html renderer
+;; (defadvice gnus-summary-scroll-up
+;;   (after dim:gnus-article-word-wrap-gwene activate)
+;;   (when (string-match "gwene" gnus-newsgroup-name)
+;;     (gnus-article-fill-cited-article)))
 
-(defadvice gnus-summary-next-unread-article
-  (after dim:gnus-article-word-wrap-gwene activate)
-  (when (string-match "gwene" gnus-newsgroup-name)
-    (gnus-article-fill-cited-article)))
+;; (defadvice gnus-summary-next-unread-article
+;;   (after dim:gnus-article-word-wrap-gwene activate)
+;;   (when (string-match "gwene" gnus-newsgroup-name)
+;;     (gnus-article-fill-cited-article)))
 
 ;; dovecot searching through nnir
 (require 'nnir)
