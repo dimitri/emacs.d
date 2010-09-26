@@ -13,6 +13,7 @@
 	       (setq c-basic-offset 4) 
 	       (setq tab-width 4)
 	       (c-set-offset 'case-label '+)
+	       (setq show-trailing-whitespace t)
 	       (setq indent-tabs-mode t)))))
 
 ;;; To work on the documentation, the following (or a variant, as above)

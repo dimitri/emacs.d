@@ -2,7 +2,7 @@
 ;;
 
 ;; Use nxml-mode for smarty & cheetah template files, .tpl & .tmpl
-(setq auto-mode-alist       
+(setq auto-mode-alist
       ;(cons '("\\.tpl\\'" . html-mode) auto-mode-alist))
       (append '(("\\.tpl$" . nxml-mode)
 		("\\.tmpl$" . nxml-mode)) auto-mode-alist))
@@ -50,6 +50,10 @@
 (require 'browse-kill-ring)
 (when (require 'browse-kill-ring nil 'noerror)
   (browse-kill-ring-default-keybindings))
+
+;; emacs-lisp-mode tweaks
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda () (interactive) (setq show-trailing-whitespace t)))
 
 ;; ack is a better grep
 (require 'dim-ack)
