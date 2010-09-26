@@ -161,7 +161,7 @@
 (define-key gnus-group-mode-map (kbd "f") 
   (lambda () (interactive) (gnus-group-get-new-news 3)))
 
-(require 'dim-postqueue)
+(require 'mailq)
 (define-key gnus-group-mode-map (kbd "M-q") 'mailq)
 (define-key gnus-summary-mode-map (kbd "M-q") 'mailq)
 	      
