@@ -204,6 +204,9 @@
  (set-face-attribute 'gnus-summary-normal-ticked nil 
 		     :foreground "pale violet red"))
 
+;; don't display the <hr> like bar between header and body
+(setq gnus-treat-body-boundary nil)
+
 ;; allow the html-renderer to display images
 (setq gnus-blocked-images nil)
 
