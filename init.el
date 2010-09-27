@@ -23,6 +23,10 @@
 
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
 
+;; custom loading
+(setq custom-file "~/dev/emacs.d/dim-custom.el")
+(load custom-file)
+
 ;; first the common stuff
 (require 'dim-lib)
 (require 'dim-ports)
