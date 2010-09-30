@@ -4,16 +4,16 @@
 ;; PostgreSQL source code
 (add-hook 'c-mode-hook
 	  (function
-	   (lambda nil 
+	   (lambda nil
 	     (when (and buffer-file-name
 			(or (string-match "pgsql" buffer-file-name)
 			    (string-match "pgext" buffer-file-name)
 			    (string-match "postgresql" buffer-file-name)))
 	       (c-set-style "bsd")
-	       (setq c-basic-offset 4) 
+	       (setq c-basic-offset 4)
 	       (setq tab-width 4)
 	       (c-set-offset 'case-label '+)
-	       (setq show-trailing-whitespace t)
+	       ;; (setq show-trailing-whitespace t) ; we now use whitespace-mode
 	       (setq indent-tabs-mode t)))))
 
 ;;; To work on the documentation, the following (or a variant, as above)

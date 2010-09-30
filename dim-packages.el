@@ -28,10 +28,10 @@
 (setq el-get-sources
       '(cssh el-get switch-window vkill google-maps yasnippet verbiste mailq sicp
 
-	(:name magit 
+	(:name magit
 	       :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
 
-	(:name asciidoc        
+	(:name asciidoc
 	       :type elpa
 	       :after (lambda ()
 			(autoload 'doc-mode "doc-mode" nil t)
@@ -63,7 +63,7 @@
 	       :after (lambda ()
 			(setq debug-on-error nil)
 			(setq mumamo-chunk-coloring 1)
-			(custom-set-faces 
+			(custom-set-faces
 			 '(mumamo-background-chunk-submode1 ((((class color)
 							       (min-colors 88)
 							       (background dark)) nil)))
@@ -77,24 +77,24 @@
 							       (min-colors 88)
 							       (background dark)) nil)))
 			 '(mumamo-background-chunk-major ((((class color)
-							    (min-colors 88) 
+							    (min-colors 88)
 							    (background dark)) nil))))))
 
 	(:name xcscope
 	       :after (lambda ()
 			;; cscope debian package includes cscope-indexer, no luck under MacOSX
-			(setq cscope-indexing-script 
+			(setq cscope-indexing-script
 			      (if (file-executable-p "/usr/bin/cscope-indexer")
 				  "/usr/bin/cscope-indexer"
 				"~/bin/cscope-indexer"))))
 
-	(:name css-mode        
+	(:name css-mode
 	       :type elpa
 	       :after (lambda ()
 			(autoload 'css-mode "css-mode")
 			(add-to-list 'auto-mode-alist '("\\.css\\'" . css-mode))))
 
-	(:name lua-mode        
+	(:name lua-mode
 	       :type elpa
 	       :after (lambda ()
 			(setq auto-mode-alist (cons '("\\.lua$" . lua-mode) auto-mode-alist))
@@ -110,13 +110,13 @@
 	       :after (lambda ()
 			(require 'gnus-load)
 			(require 'gnus)
-			(setq offlineimap-enable-mode-line-p 
-			      '(member major-mode '(offlineimap-mode 
-						    gnus-group-mode 
+			(setq offlineimap-enable-mode-line-p
+			      '(member major-mode '(offlineimap-mode
+						    gnus-group-mode
 						    gnus-summary-mode)))
 			(setq offlineimap-mode-line-symbol "♻")
 			(loop with color = "DarkGoldenrod"
-			      for face in '(offlineimap-msg-syncingfolders-face 
+			      for face in '(offlineimap-msg-syncingfolders-face
 					    offlineimap-msg-skippingfolder-face)
 			      do (set-face-attribute face nil :foreground color))
 			(define-key gnus-group-mode-map (kbd "O") 'offlineimap)))
@@ -124,7 +124,7 @@
 	(:name goto-last-change
 	       :after (lambda ()
 			(global-set-key (kbd "C-x C-/") 'goto-last-change)))
-	       
+
 	(:name auto-dictionary :type elpa)
 	(:name gist            :type elpa)
 	(:name lisppaste       :type elpa)))
@@ -136,9 +136,9 @@
   (unless (string-match "apple-darwin" system-configuration)
     (setq dictionary-server "localhost")))
 
-(when-running-debian-or-ubuntu 
+(when-running-debian-or-ubuntu
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '(nognus bbdb 
+       '(nognus bbdb
 	 (:name dictionary-el    :type apt-get   :after 'dim:setup-package-dictionary)
 	 (:name emacs-goodies-el :type apt-get)
 	 (:name apel             :type apt-get)

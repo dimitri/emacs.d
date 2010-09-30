@@ -51,10 +51,6 @@
 (when (require 'browse-kill-ring nil 'noerror)
   (browse-kill-ring-default-keybindings))
 
-;; emacs-lisp-mode tweaks
-(add-hook 'emacs-lisp-mode-hook
-	  (lambda () (interactive) (setq show-trailing-whitespace t)))
-
 ;; ack is a better grep
 (require 'dim-ack)
 
