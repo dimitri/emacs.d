@@ -164,7 +164,12 @@
 (require 'mailq)
 (define-key gnus-group-mode-map (kbd "M-q") 'mailq)
 (define-key gnus-summary-mode-map (kbd "M-q") 'mailq)
-	      
+
+;;
+;; use iswitchb like UI everywhere sensible
+;;
+(setq gnus-completing-read-function 'gnus-icompleting-read)
+
 ;;
 ;; gnus porn
 ;;
