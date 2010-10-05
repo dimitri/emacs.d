@@ -43,7 +43,7 @@
 
 	((string-match "quadrant.local" current-group)
 	 "nnimap+quadrant.local:Sent Messages")))
-  
+
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
 (setq gnus-gcc-mark-as-read t)
 
@@ -105,26 +105,26 @@
 ;; fix gnus-posting-styles when we're using msmtp to add the -a account option
 (when-using-msmtp
  (setq gnus-posting-styles
-       (mapcar 
-	(lambda (x) 
-	  (cond ((and (stringp (car x)) 
+       (mapcar
+	(lambda (x)
+	  (cond ((and (stringp (car x))
 		      (string= (car x) "hm.local"))
-		 (append x '((eval 
-			      (setq message-sendmail-extra-arguments 
+		 (append x '((eval
+			      (setq message-sendmail-extra-arguments
 				    '("-a" "himedia"))))))
-		
-		((and (stringp (car x)) 
+
+		((and (stringp (car x))
 		      (string= (car x) "tapoueh.local"))
-		 (append x '((eval 
-			      (setq message-sendmail-extra-arguments 
+		 (append x '((eval
+			      (setq message-sendmail-extra-arguments
 				    '("-a" "tapoueh"))))))
 
-		((and (stringp (car x)) 
+		((and (stringp (car x))
 		      (string= (car x) "quadrant.local"))
-		 (append x '((eval 
-			      (setq message-sendmail-extra-arguments 
+		 (append x '((eval
+			      (setq message-sendmail-extra-arguments
 				    '("-a" "quadrant"))))))
-		
+
 		(t x)))
 	gnus-posting-styles)))
 
@@ -145,13 +145,13 @@
 			    (summary 1.0 point) )
 		(horizontal 1.0
 			    (article 1.0)))))
-   
+
    (gnus-add-configuration
     '(summary
       (vertical 1.0
 		(horizontal 1.0
 			    (group 50)
-			    (summary 1.0 point) 
+			    (summary 1.0 point)
 			    (if gnus-carpal
 				'(summary-carpal 4))))))))
 
@@ -161,7 +161,7 @@
 (add-hook 'message-mode-hook
 	  (lambda ()
 	    (cond
-	     ((string-match 
+	     ((string-match
 	       "PostgreSQL" gnus-newsgroup-name)
 	      (ispell-change-dictionary "english"))
 	     (t
@@ -175,7 +175,7 @@
  (add-hook 'gnus-group-mode-hook 'offlineimap))
 
 ;; M-3 g will be faster served with f
-(define-key gnus-group-mode-map (kbd "f") 
+(define-key gnus-group-mode-map (kbd "f")
   (lambda () (interactive) (gnus-group-get-new-news 3)))
 
 (require 'mailq)
@@ -209,7 +209,7 @@
 (setq gnus-group-line-format "%M\%S\%p\%P\%5y:%B%(%g%)\n")
 
 (require 'gnus-art)
-(setq gnus-visible-headers 
+(setq gnus-visible-headers
       (concat gnus-visible-headers "\\|^User-Agent:\\|^X-Mailer:"))
 
 
@@ -223,7 +223,7 @@
 
 ;; with Tango-2 Theme, adapt some colors
 (when-running-debian-or-ubuntu
- (set-face-attribute 'gnus-summary-normal-ticked nil 
+ (set-face-attribute 'gnus-summary-normal-ticked nil
 		     :foreground "pale violet red"))
 
 ;; don't display the <hr> like bar between header and body
@@ -254,10 +254,10 @@
   ;; reset orig settings
   (setq mm-attachment-override-types dim:mm-attachment-override-types-orig)
   (when (member gnus-newsgroup-name dim:gnus-attachment-override-groups)
-    (setq 
-     mm-attachment-override-types 
+    (setq
+     mm-attachment-override-types
      `(,@mm-attachment-override-types ,@dim:mm-attachment-override-types))
-    (message "dim:gnus-attachment-override-types %S" 
+    (message "dim:gnus-attachment-override-types %S"
 	     mm-attachment-override-types)))
 
 (add-hook 'gnus-select-group-hook 'dim:gnus-attachment-override-types)
@@ -285,14 +285,14 @@
 
 (defun dim:gnus-group-git-read-repo ()
   "Ask use where to apply the current patch"
-  (completing-read 
+  (completing-read
    "Choose a repository where to apply: "
    (loop for (r p) on dim:gnus-group-git-repos by 'cddr collect (symbol-name r)) nil t))
 
 (defun dim:gnus-group-git-am (repo)
   (interactive (list (dim:gnus-group-git-read-repo)))
-  (let ((git-dir 
-	 (expand-file-name 
+  (let ((git-dir
+	 (expand-file-name
 	  (plist-get dim:gnus-group-git-repos (intern repo)))))
     (when git-dir
       (gnus-summary-save-in-pipe
