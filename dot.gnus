@@ -70,12 +70,16 @@
 
 	;; Hi-Media listes PostgreSQL
 	((header "List-ID" "postgresql.org")
-	 (signature "dim"))
+	 (address "dimitri@2ndQuadrant.fr")
+	 (organization "2ndQuadrant")
+	 (signature-file "~/.signature.2nd")
+	 (user-mail-address "dimitri@2ndQuadrant.fr"))
+
 
 	;; listes PostgreSQL sur pgfoundry
 	((header "List-Id" "pgfoundry.org")
 	 (signature "dim"))
-	
+
 	;; Tapoueh
 	("tapoueh.local"
 	 (address "dim@tapoueh.org")
@@ -89,6 +93,14 @@
 	 (signature-file "~/.signature.2nd")
 	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "quadrant")))
 	 (user-mail-address "dimitri@2ndQuadrant.fr"))))
+
+(setq gnus-parameters
+      '(("PostgreSQL\\..*"
+	 (posting-style
+	  (address "dimitri@2ndQuadrant.fr")
+	  (organization "2ndQuadrant")
+	  (signature-file "~/.signature.2nd")
+	  (user-mail-address "dimitri@2ndQuadrant.fr")))))
 
 ;; fix gnus-posting-styles when we're using msmtp to add the -a account option
 (when-using-msmtp
