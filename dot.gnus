@@ -185,7 +185,7 @@
 ;;
 ;; use iswitchb like UI everywhere sensible
 ;;
-(setq gnus-completing-read-function 'gnus-icompleting-read)
+(setq gnus-completing-read-function 'gnus-iswitchb-completing-read)
 
 ;;
 ;; gnus porn
