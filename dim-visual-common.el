@@ -23,6 +23,7 @@
 
 ;; display only tails of lines longer than 80 columns, tabs and
 ;; trailing whitespaces
+(require 'whitespace)
 (setq whitespace-line-column 80
       whitespace-style '(face trailing lines-tail empty))
 
