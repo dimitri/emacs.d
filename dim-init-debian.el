@@ -5,8 +5,10 @@
 (color-theme-tango)
 
 ;; be easy on the eyes
-(if (equal (get-screen-dimensions) '(1440 900))
-    (set-face-font 'default "Monospace-10")
-  (set-face-font 'default "Monospace-12"))
+;; (if (equal (get-screen-dimensions) '(1440 900))
+;;     (set-face-font 'default "Monospace-10")
+;;   (set-face-font 'default "Monospace-12"))
+
+(set-face-font 'default "Monospace-10")
 
 (provide 'dim-init-debian)

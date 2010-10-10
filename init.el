@@ -4,13 +4,14 @@
 
 (defun dim:add-my-extra-load-paths (&optional paths)
   "define a list of paths to add to load-path and add each of them"
-  (let ((dim:paths '("~/dev/emacs.d"
+  (let ((dim:paths '("~/dev/emacs/el-get"
+		     "~/dev/emacs.d"
 		     "~/dev/emacs.d/rcirc"
 		     "~/dev/emacs.d/lib"
 		     "~/dev/emacs/cssh"
 		     "~/dev/emacs/rcirc-groups"
 		     "~/dev/tapoueh.org"
-		     "~/.emacs.d/w3m/emacs-w3m/"
+		     ;;"~/.emacs.d/w3m/emacs-w3m/"
 		     ;;"~/.emacs.d/emms/lisp/"
 		     ;;"~/.emacs.d/magit"
 		     )))
@@ -21,6 +22,10 @@
 (dim:add-my-extra-load-paths)
 
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
+
+;; custom loading
+(setq custom-file "~/dev/emacs.d/dim-custom.el")
+(load custom-file)
 
 ;; first the common stuff
 (require 'dim-lib)
@@ -51,6 +56,12 @@
 
 ;; empower M-term to remote hosts
 (require 'cssh)
+
+;; local utilities
+(when (and (get-domain-name)
+	   (string-match "hi-media-techno" (get-domain-name)))
+  (require 'dim-check-prefix)
+  (require 'dim-hi-media-vpn))
 
 ;; and the session
 (setq desktop-restore-eager 20)

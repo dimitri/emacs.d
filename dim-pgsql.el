@@ -4,15 +4,16 @@
 ;; PostgreSQL source code
 (add-hook 'c-mode-hook
 	  (function
-	   (lambda nil 
+	   (lambda nil
 	     (when (and buffer-file-name
 			(or (string-match "pgsql" buffer-file-name)
 			    (string-match "pgext" buffer-file-name)
 			    (string-match "postgresql" buffer-file-name)))
 	       (c-set-style "bsd")
-	       (setq c-basic-offset 4) 
+	       (setq c-basic-offset 4)
 	       (setq tab-width 4)
 	       (c-set-offset 'case-label '+)
+	       ;; (setq show-trailing-whitespace t) ; we now use whitespace-mode
 	       (setq indent-tabs-mode t)))))
 
 ;;; To work on the documentation, the following (or a variant, as above)
@@ -38,9 +39,9 @@
   "return first line number of current function, if any"
   (save-excursion
     (let* ((start (point))
-	   (prev-create-function 
+	   (prev-create-function
 	    (re-search-backward "create.*function" nil t))
-	   (open-as-$$ 
+	   (open-as-$$
 	    (when prev-create-function
 	      ;; limit the search to next semi-colon
 	      (let ((next-semi-col (re-search-forward ";" nil t)))
@@ -56,7 +57,7 @@
 	      (if (string-match "begin" (current-word))
 		  (1- (line-number-at-pos))
 		(line-number-at-pos))))
-	   (close-as-$$ 
+	   (close-as-$$
 	    (when open-as-$$
 	      (re-search-forward (format "\\$%s\\$" $$-name) nil t)
 	      (beginning-of-line)

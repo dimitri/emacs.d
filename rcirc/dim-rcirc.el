@@ -159,22 +159,27 @@
   (when (and target (not (rcirc-channel-p target)))
     ;; as this buffer ain't ready to receive the answer, it'll
     ;; go into the process server buffer
-    (rcirc-cmd-whois target (get-buffer-process (current-buffer)))
-    (let (whois whois-lines)
+    ;;(rcirc-cmd-whois target (get-buffer-process (current-buffer)))
+    (rcirc-cmd-whois target process)
+    (let (whois)
       (with-rcirc-process-buffer process
 	(save-excursion
 	  (forward-line -1)
 	  (let ((p (point))
 		(b (re-search-backward 
-		    (concat "^.*\*\*\* 311 " target))))
-	    (setq whois       (buffer-substring b p)
-		  whois-lines (count-lines b p)))))
+		    (concat "^.*\*\*\* 311 " target) nil t)))
+	    (when b
+	      (setq whois (buffer-substring b p))))))
       ;; insert the whois into the new buffer now, at the very
       ;; beginning of it
       (let ((inhibit-read-only t))
 	(save-excursion
 	  (goto-char rcirc-prompt-start-marker)
-	  (insert-before-markers whois))))))
+	  (if whois
+	      (insert-before-markers whois)
+	    (insert-before-markers "didn't get whois back on-time"
+				   (format " (%S %S)" target process)
+				   "\n")))))))
 
 (setq rcirc-mode-hook nil)
 (add-hook 'rcirc-mode-hook 'dim:rcirc-whois-on-query-from-others)

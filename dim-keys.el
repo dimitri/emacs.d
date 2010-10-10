@@ -4,6 +4,12 @@
 ;; I can't remember having meant to use C-z as suspend-frame
 (global-set-key (kbd "C-z") 'undo)
 
+;; M-z is zap-to-char, arrange it though
+(defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)
+  "Kill up to the ARG'th occurence of CHAR, and leave CHAR."
+    (insert char)
+    (forward-char -1))
+
 ;; C-c r pour revert-buffer
 (global-set-key (kbd "C-c r") '(lambda () (interactive) (revert-buffer)))
 
@@ -26,9 +32,6 @@
 
 ; winner-mode pour revenir sur le layout précédent
 (winner-mode 1)
-
-;; C-x o will give (big) numbers to windows for easy choosing
-(require 'dim-switch-window)
 
 ;; dired-x pour C-x C-j
 (require 'dired-x)
@@ -67,8 +70,8 @@
 (define-key global-map (kbd "C-x C-f") 'find-file-at-point)
 
 ; Hippie Expand pour un meilleur M-/ (noms de fichiers)
-(require 'hippie-exp) 
-(global-set-key (kbd "M-/") 'hippie-expand) 
+(require 'hippie-exp)
+(global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; full screen
 (defun fullscreen ()
@@ -109,7 +112,7 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c s") 'svn-status)
 
 ;; dict mode
-(global-set-key (kbd "C-c ?") (lambda () (interactive) 
+(global-set-key (kbd "C-c ?") (lambda () (interactive)
 				(dictionary-lookup-definition)))
 
 ;; duplicate current line
@@ -128,7 +131,7 @@ vi style of % jumping to matching brace."
 	(insert current-line)
 	(decf n)))))
 
-(global-set-key (kbd "C-S-d") 'duplicate-current-line)  
+(global-set-key (kbd "C-S-d") 'duplicate-current-line)
 
 ;; copy-current-line
 (defun copy-current-line ()
@@ -147,7 +150,7 @@ vi style of % jumping to matching brace."
 
 (defun dim:toggle-my-input-method ()
   "Toggle between default input method (nil) and hard coded latin-1-alt-postfix"
-  (interactive) 
+  (interactive)
   (if (string= current-input-method dim:my-input-method)
       (inactivate-input-method)
     (set-input-method dim:my-input-method)))
@@ -163,13 +166,13 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-c w") 'woman)
 
 ;; language settings, e is english, f is french
-(global-set-key (kbd "C-c e") 
+(global-set-key (kbd "C-c e")
 		(lambda ()
 		  (interactive)
 		  (inactivate-input-method)
 		  (ispell-change-dictionary "english")))
 
-(global-set-key (kbd "C-c f") 
+(global-set-key (kbd "C-c f")
 		(lambda ()
 		  (interactive)
 		  (set-input-method dim:my-input-method)
@@ -178,12 +181,18 @@ vi style of % jumping to matching brace."
 ;; Diff the current buffer with the file contents
 (add-to-list 'same-window-buffer-names "*Diff*")
 (global-set-key (kbd "C-c =")
-		(lambda () 
+		(lambda ()
 		  (interactive)
 		  (diff-buffer-with-file (current-buffer))))
 
 ;; ELPA
 (global-set-key (kbd "C-c p") 'package-list-packages)
+
+;; IELM
+(global-set-key (kbd "C-M-;") 'ielm)
+
+;; M-x shell
+(global-set-key (kbd "C-M-'") 'shell)
 
 (require 'dim-mailrc)
 (require 'dim-previous-message)

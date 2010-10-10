@@ -5,6 +5,16 @@
 ;; I don't like the clever while hack to have until, let's hide it
 (defmacro until (cond &rest body) `(while (progn ,@body ,cond)))
 
+;; a little timing facility, useful at the *ielm* prompt e.g.
+;; will discard your results -- part of why it's useful at the prompt.
+(defun %time (fn)
+  (let* ((t0 (current-time)))
+    (funcall fn)
+    (time-to-seconds (time-subtract (current-time) t0))))
+
+(defmacro time (form)
+  `(%time (lambda () ,form)))
+
 ;; my try at walk-path
 (defun walk-path (path fun &optional
 		       match-regexp depth-first filter filter-call depth)

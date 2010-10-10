@@ -26,6 +26,11 @@ returns the value defined in /etc/resolv.conf."
 				    ("temp"        . "~/temp")
 				    ("emacs"       . "~/dev/emacs.d")
 				    (".emacs.d"    . "~/.emacs.d")
+				    ("cssh"        . "~/dev/emacs/cssh")
+				    ("el-get"      . "~/dev/emacs/el-get")
+				    ("el-get.d"    . "~/.emacs.d/el-get")
+				    ("rcirc-groups". "~/dev/emacs/rcirc-groups")
+				    ("mailq"       . "~/dev/emacs/mailq-el")
 				    ("confs"       . "~/dev/confs")
 				    ("tapoueh.org" .  "~/dev/tapoueh.org"))
   "List of the common custom projects, will get used with
@@ -100,9 +105,11 @@ project-add and ibuffer-saved-filter-groups."
 (dim:add-projects-and-setup-ibuffer-groups dim:my-projects-common)
 
 ;; the following files will use dim:project-merge to add their setup
-(if (string-match "hi-media-techno" (get-domain-name))
-    (require 'dim-projects-hm)
-  (require 'dim-projects-home))
+(if (get-domain-name)
+    (if (string-match "hi-media-techno" (get-domain-name))
+	(require 'dim-projects-hm)
+      (require 'dim-projects-home))
+  (error "get-domain-name is nil, can't load local projects."))
 
 ;;
 ;; finally, add some common setups (mode dependant)

@@ -21,6 +21,29 @@
   (around dim:global-hl-line-highlight activate)
   (unless (and (eq major-mode 'term-mode) (term-in-char-mode)) ad-do-it))
 
+;; display only tails of lines longer than 80 columns, tabs and
+;; trailing whitespaces
+(require 'whitespace)
+(setq whitespace-line-column 80
+      whitespace-style '(face trailing lines-tail empty))
+
+;; face for tabs long lines' tails
+(set-face-attribute 'whitespace-tab nil
+		    :background "red1"
+		    :foreground "yellow"
+		    :weight 'bold)
+
+(set-face-attribute 'whitespace-line nil
+		    :background "red1"
+		    :foreground "yellow"
+		    :weight 'bold)
+
+;; activate minor whitespace mode when in some coding modes
+(add-hook 'emacs-lisp-mode-hook 'whitespace-mode)
+(add-hook 'python-mode-hook 'whitespace-mode)
+(add-hook 'c-mode-hook 'whitespace-mode)
+
+;; see what the current selection/region is
 (transient-mark-mode 1)
 
 ;; quite a stretch, but has its place here too
@@ -37,9 +60,9 @@
    ((string-match "apple-darwin" system-configuration)
     ;; osascript -e 'tell application \"Finder\" to get bounds of window of desktop'
     ;; "0, 0, 2560, 1440\n"
-    (mapcar 
+    (mapcar
      'string-to-number
-     (split-string 
+     (split-string
       (substring
        (shell-command-to-string
 	"osascript -e 'tell application \"Finder\" to get bounds of window of desktop'") 6 -1) ", ")))
@@ -51,7 +74,7 @@
      'string-to-number
      (split-string
       (substring
-       (shell-command-to-string 
+       (shell-command-to-string
 	"xwininfo -root -metric | awk -F '[ x+]' '/geometry/ {print $4, $5}'")
        0 -1) " ")))
 

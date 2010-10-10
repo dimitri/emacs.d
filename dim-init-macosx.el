@@ -6,6 +6,8 @@
 (add-to-list 'exec-path "/sw/bin")
 (add-to-list 'exec-path "/usr/local/git/bin")
 
+(add-to-list 'Info-directory-list "/sw/share/info/")
+
 ;; don't forget platform specific things
 (dim:add-my-extra-load-paths '("~/.emacs.d/nxhtml"
 			       "~/.emacs.d/BBDB/lisp"
