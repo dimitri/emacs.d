@@ -23,7 +23,9 @@
 
 ;; some special for magit under MacOSX
 (when-running-macosx
- (setq magit-git-executable "/usr/local/git/bin/git"))
+ (setq magit-git-executable "/usr/local/git/bin/git")
+ (setq el-get-svn   "/usr/bin/svn")
+ (setq el-get-darcs "~/.cabal/bin/darcs"))
 
 (setq el-get-sources
       '(cssh el-get switch-window vkill google-maps yasnippet verbiste mailq sicp
