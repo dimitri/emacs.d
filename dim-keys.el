@@ -185,6 +185,9 @@ vi style of % jumping to matching brace."
 ;; IELM
 (global-set-key (kbd "C-M-;") 'ielm)
 
+;; M-x shell
+(global-set-key (kbd "C-M-'") 'shell)
+
 (require 'dim-mailrc)
 (require 'dim-previous-message)
 (provide 'dim-keys)
