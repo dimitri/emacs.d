@@ -39,9 +39,9 @@
   "return first line number of current function, if any"
   (save-excursion
     (let* ((start (point))
-	   (prev-create-function 
+	   (prev-create-function
 	    (re-search-backward "create.*function" nil t))
-	   (open-as-$$ 
+	   (open-as-$$
 	    (when prev-create-function
 	      ;; limit the search to next semi-colon
 	      (let ((next-semi-col (re-search-forward ";" nil t)))
@@ -57,7 +57,7 @@
 	      (if (string-match "begin" (current-word))
 		  (1- (line-number-at-pos))
 		(line-number-at-pos))))
-	   (close-as-$$ 
+	   (close-as-$$
 	    (when open-as-$$
 	      (re-search-forward (format "\\$%s\\$" $$-name) nil t)
 	      (beginning-of-line)
