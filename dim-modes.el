@@ -17,6 +17,8 @@
       (append '(("\\.rst$" . rst-mode)
 		("\\.rest$" . rst-mode)) auto-mode-alist))
 
+;; global-auto-revert-mode for automated git checkout following!
+(global-auto-revert-mode 1)
 
 (require 'w3m-load nil t)
 (setq mm-inline-text-html-with-images t)
