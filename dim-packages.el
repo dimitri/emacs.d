@@ -149,7 +149,7 @@
 
 (when-running-macosx
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '(psvn nognus emacs-w3m bbdb
+       '(psvn nognus emacs-w3m bbdb emacs-goodies-el
 	 (:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa   :after 'dim:setup-package-dictionary)
 	 (:name muse         :type elpa)
