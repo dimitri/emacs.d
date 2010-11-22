@@ -23,7 +23,9 @@
 			    (when (eq (process-status proc) 'exit)
 			      (if (not (eq 0 (process-exit-status proc)))
 				  (set-window-buffer (selected-window) (process-buffer proc))
-				(message "VPN started.")))))
+				(message "VPN started.")
+				(sleep-for 2)
+				(ifconfig)))))
     (set-process-filter proc 'el-get-sudo-password-process-filter)))
 
 (global-set-key (kbd "C-c V") 'dim:hi-media-vpn-start)
