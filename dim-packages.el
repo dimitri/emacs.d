@@ -29,6 +29,7 @@
 
 (setq el-get-sources
       '(cssh el-get switch-window vkill google-maps yasnippet verbiste mailq sicp
+	      emacs-goodies-el
 
 	(:name magit
 	       :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
@@ -143,13 +144,12 @@
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
        '(nognus bbdb
 	 (:name dictionary-el    :type apt-get   :after 'dim:setup-package-dictionary)
-	 (:name emacs-goodies-el :type apt-get)
 	 (:name apel             :type apt-get)
 	 (:name muse-el          :type apt-get))))
 
 (when-running-macosx
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '(psvn nognus emacs-w3m bbdb emacs-goodies-el
+       '(psvn nognus emacs-w3m bbdb
 	 (:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa   :after 'dim:setup-package-dictionary)
 	 (:name muse         :type elpa)

@@ -25,7 +25,7 @@
 ;; trailing whitespaces
 (require 'whitespace)
 (setq whitespace-line-column 80
-      whitespace-style '(face trailing lines-tail empty))
+      whitespace-style '(face trailing lines-tail))
 
 ;; face for tabs long lines' tails
 (set-face-attribute 'whitespace-tab nil
