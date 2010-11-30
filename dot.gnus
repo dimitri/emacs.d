@@ -232,6 +232,9 @@
 ;; allow the html-renderer to display images
 (setq gnus-blocked-images nil)
 
+;; display GnuPG signatures etc
+
+
 ;; BBDB
 (require 'bbdb)
 (bbdb-initialize 'gnus 'message)
