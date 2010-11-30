@@ -303,3 +303,10 @@
        (format "git --git-dir=%s/.git am -s" git-dir) 'raw))))
 
 (define-key gnus-summary-mode-map (kbd "G A") 'dim:gnus-group-git-am)
+
+
+;; dired insinuate, (info "(gnus) Other modes")
+;; C-c C-m C-a send mail with attachments
+;; C-c C-m C-l open with mailcap
+;; C-c C-m C-p print via mailcap
+(add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
