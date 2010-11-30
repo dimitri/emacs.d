@@ -81,14 +81,6 @@
      (concat "/sudo:root@localhost:"
 	     buffer-file-name))))
 
-;;;
-;; Experimentation from vimpulse, go to given char
-(defun dim:forward-to-char ()
-  "Go to next given char"
-  (interactive)
-  (search-forward (char-to-string (read-char "Forward to char: "))))
-
-
 ;;
 ;; renard activates the remote directory tracking in M-x term thusly:
 ;;

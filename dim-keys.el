@@ -10,6 +10,14 @@
     (insert char)
     (forward-char -1))
 
+;; C-M-z is an experimentation from vimpulse, go to given char
+(defun dim:forward-to-char ()
+  "Go to next given char"
+  (interactive)
+  (search-forward (char-to-string (read-char "Forward to char: "))))
+
+(global-set-key (kbd "C-M-z") 'dim:forward-to-char)
+
 ;; C-c r pour revert-buffer
 (global-set-key (kbd "C-c r") '(lambda () (interactive) (revert-buffer)))
 
