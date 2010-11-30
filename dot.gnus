@@ -233,7 +233,8 @@
 (setq gnus-blocked-images nil)
 
 ;; display GnuPG signatures etc
-
+(setq gnus-buttonized-mime-types '("multipart/signed"))
+(setq mm-verify-option 'always)
 
 ;; BBDB
 (require 'bbdb)
