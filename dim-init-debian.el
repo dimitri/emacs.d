@@ -1,5 +1,7 @@
 ;;; dim-init-debian.el --- Dimitri Fontaine
 
+(setq color-theme-libraries nil)
+
 (require 'color-theme)
 (require 'color-theme-tango)
 (color-theme-tango)
@@ -9,6 +11,6 @@
 ;;     (set-face-font 'default "Monospace-10")
 ;;   (set-face-font 'default "Monospace-12"))
 
-(set-face-font 'default "Monospace-10")
+(set-face-font 'default "Monospace-8")
 
 (provide 'dim-init-debian)
