@@ -29,7 +29,7 @@
 
 (setq el-get-sources
       '(cssh el-get switch-window vkill google-maps yasnippet verbiste mailq sicp
-	      emacs-goodies-el
+	      emacs-goodies-el notify
 
 	(:name magit
 	       :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
