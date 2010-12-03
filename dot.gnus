@@ -315,10 +315,12 @@
 ;; Fix printing when running MacOSX, where sending PS is broken, and sending
 ;; PDF works seemlessly --- guess what? yeah, that's not working
 ;;
-;; (when-running-macosx
-;;  (defun dim:ps2pdf-current-buffer ()
-;;    "run ps2pdf on current buffer"
-;;    (shell-command-on-region (point-min) (point-max) "ps2pdf - -" nil 'replace))
-;;
-;;  (add-hook 'gnus-ps-print-hook 'dim:ps2pdf-current-buffer))
-
+(when-running-macosx
+ ;; run ps2pdf on spooled buffer before to send it to printer
+ (defadvice ps-do-despool
+   (before dim:ps-do-despool activate)
+   (unless filename
+     (message "Converting PS to PDF before printing")
+     (with-current-buffer ps-spool-buffer
+       (shell-command-on-region
+	(point-min) (point-max) "ps2pdf - -" nil 'replace)))))
