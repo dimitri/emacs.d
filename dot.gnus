@@ -310,3 +310,15 @@
 ;; C-c C-m C-l open with mailcap
 ;; C-c C-m C-p print via mailcap
 (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
+
+;;
+;; Fix printing when running MacOSX, where sending PS is broken, and sending
+;; PDF works seemlessly --- guess what? yeah, that's not working
+;;
+;; (when-running-macosx
+;;  (defun dim:ps2pdf-current-buffer ()
+;;    "run ps2pdf on current buffer"
+;;    (shell-command-on-region (point-min) (point-max) "ps2pdf - -" nil 'replace))
+;;
+;;  (add-hook 'gnus-ps-print-hook 'dim:ps2pdf-current-buffer))
+
