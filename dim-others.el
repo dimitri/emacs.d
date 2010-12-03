@@ -81,11 +81,47 @@
      (concat "/sudo:root@localhost:"
 	     buffer-file-name))))
 
-;;;
-;; Experimentation from vimpulse, go to given char
-(defun dim:forward-to-char ()
-  "Go to next given char"
+;;
+;; renard activates the remote directory tracking in M-x term thusly:
+;;
+(defun cw:term:run ()
+  "Run an ansi-terminal."
   (interactive)
-  (search-forward (char-to-string (read-char "Forward to char: "))))
-	
-    
+  (let* ((current-buffer-file (buffer-file-name))
+	 (current-dir
+	  ;; only if buffer is a dired.
+	  (if (string-match (symbol-name major-mode) "dired-mode")
+	      (dired-current-directory)
+	    ;; Else find file directory from buffer name.
+	    (when current-buffer-file
+	      (file-name-directory current-buffer-file))))
+	 (current-host))
+    (when current-dir
+      (save-match-data
+	(when (string-match "^/scp:\\([^:]+\\):\\(.*\\)" current-dir)
+	  (setq current-host (match-string 1 current-dir))
+	  (setq current-dir (match-string 2 current-dir)))))
+    ;; Run terminal
+    (if current-host
+	;; run remote shell
+	(progn
+	  (cssh-term-create current-host)
+	  (term-send-input)
+	  ;; Make sure Bash is the default shell
+	  (insert " HISTCONTROL=ignoreboth exec bash")
+	  (term-send-input)
+	  ;; Launch remote directory tracking
+	  (insert
+	   (concat
+	    " function prompt_cmd { "
+	    "echo -e \"\\033AnSiTu\" ${TRAMP_USERNAME-$(whoami)};"
+	    "echo -e \"\\033AnSiTc\" $(pwd);"
+	    "echo -e \"\\033AnSiTh\" ${TRAMP_HOSTNAME-$(hostname)}; };"
+	    " export PROMPT_COMMAND=prompt_cmd ; unset HISTCONTROL"))
+	  (term-send-input))
+      ;; run local shell
+      (ansi-term "/bin/bash"))
+    ;; change directory if needed.
+    (when current-dir
+      (insert (concat " cd " current-dir))
+      (term-send-input))))

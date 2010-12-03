@@ -10,6 +10,26 @@
     (insert char)
     (forward-char -1))
 
+;; C-M-z is an experimentation from vimpulse, go to given char
+(defun dim:forward-to-char (char)
+  "Go to next given char"
+  (interactive "cForward to char: ")
+  (if (not (eq 'dired-mode major-mode))
+      (search-forward (char-to-string char))
+    ;; in dired-mode, only match file names
+    (goto-char
+     (let ((p (point)))
+       (goto-char (point-min))
+       (catch 'found
+	 (while (not (eobp))
+	   (let ((n (dired-get-filename 'verbatim t)))
+	     (when (and n (string= (substring n 0 1) (char-to-string char)))
+	       (throw 'found (point))))
+	   (dired-next-line 1))
+	 p)))))
+
+(global-set-key (kbd "C-M-z") 'dim:forward-to-char)
+
 ;; C-c r pour revert-buffer
 (global-set-key (kbd "C-c r") '(lambda () (interactive) (revert-buffer)))
 

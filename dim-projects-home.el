@@ -24,6 +24,8 @@
    ("preprepare"	. "~/dev/preprepare")
    ("pgstaging"	. "~/dev/pg_staging")
    ("libphp-pgq"	. "~/dev/libphp-pgq")
+   ("preprepare"	. "~/dev/preprepare")
+   ("pgfincore"	. "~/dev/pgfincore")
    
    ;; lost-oasis open source
    ("sinn"		. "~/dev/niftyname/git/sinn/")

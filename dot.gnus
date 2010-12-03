@@ -232,6 +232,10 @@
 ;; allow the html-renderer to display images
 (setq gnus-blocked-images nil)
 
+;; display GnuPG signatures etc
+(setq gnus-buttonized-mime-types '("multipart/signed"))
+(setq mm-verify-option 'always)
+
 ;; BBDB
 (require 'bbdb)
 (bbdb-initialize 'gnus 'message)
@@ -299,3 +303,24 @@
        (format "git --git-dir=%s/.git am -s" git-dir) 'raw))))
 
 (define-key gnus-summary-mode-map (kbd "G A") 'dim:gnus-group-git-am)
+
+
+;; dired insinuate, (info "(gnus) Other modes")
+;; C-c C-m C-a send mail with attachments
+;; C-c C-m C-l open with mailcap
+;; C-c C-m C-p print via mailcap
+(add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
+
+;;
+;; Fix printing when running MacOSX, where sending PS is broken, and sending
+;; PDF works seemlessly --- guess what? yeah, that's not working
+;;
+(when-running-macosx
+ ;; run ps2pdf on spooled buffer before to send it to printer
+ (defadvice ps-do-despool
+   (before dim:ps-do-despool activate)
+   (unless filename
+     (message "Converting PS to PDF before printing")
+     (with-current-buffer ps-spool-buffer
+       (shell-command-on-region
+	(point-min) (point-max) "ps2pdf - -" nil 'replace)))))
