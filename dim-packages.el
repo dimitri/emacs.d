@@ -29,7 +29,7 @@
 
 (setq el-get-sources
       '(cssh el-get switch-window vkill google-maps yasnippet verbiste mailq sicp
-	      emacs-goodies-el notify
+	      emacs-goodies-el notify auto-dictionnary
 
 	(:name magit
 	       :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
@@ -129,7 +129,6 @@
 	       :after (lambda ()
 			(global-set-key (kbd "C-x C-/") 'goto-last-change)))
 
-	(:name auto-dictionary :type elpa)
 	(:name gist            :type elpa)
 	(:name lisppaste       :type elpa)))
 
