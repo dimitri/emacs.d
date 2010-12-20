@@ -31,7 +31,7 @@
 (global-set-key (kbd "C-M-z") 'dim:forward-to-char)
 
 ;; C-c r pour revert-buffer
-(global-set-key (kbd "C-c r") '(lambda () (interactive) (revert-buffer)))
+(global-set-key (kbd "C-c r") 'revert-buffer)
 
 ;; rcirc global shortcut to connect to servers
 (global-set-key (kbd "C-c i") 'dim-rcirc-start)
