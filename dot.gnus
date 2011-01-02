@@ -46,6 +46,7 @@
 
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
 (setq gnus-gcc-mark-as-read t)
+(setq gnus-message-replyencrypt t)
 
 ;; The RSS groups are set level 4 (S l), the normal groups are level 3
 ;; M-3 g allows to skip getting RSS updates
