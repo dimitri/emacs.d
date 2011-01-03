@@ -233,8 +233,11 @@
 ;; allow the html-renderer to display images
 (setq gnus-blocked-images nil)
 
+;; prefer plain text over html when there's a choice
+(setq mm-discouraged-alternatives '("text/html" "text/richtext"))
+
 ;; display GnuPG signatures etc
-(setq gnus-buttonized-mime-types '("multipart/signed"))
+(setq gnus-buttonized-mime-types '("multipart/signed" "multipart/alternative"))
 (setq mm-verify-option 'always)
 
 ;; BBDB
