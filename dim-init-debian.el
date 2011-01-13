@@ -11,6 +11,6 @@
 ;;     (set-face-font 'default "Monospace-10")
 ;;   (set-face-font 'default "Monospace-12"))
 
-(set-face-font 'default "Monospace-8")
+(set-face-font 'default "Monospace-10")
 
 (provide 'dim-init-debian)
