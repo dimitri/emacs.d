@@ -46,7 +46,7 @@
 	      ;; limit the search to next semi-colon
 	      (let ((next-semi-col (re-search-forward ";" nil t)))
 		(goto-char prev-create-function)
-		(re-search-forward "AS.*\\$\\([^$\n]*\\)\\$" next-semi-col t))))
+		(re-search-forward "AS[^$]*\\$\\([^$\n]*\\)\\$" next-semi-col t))))
 	   ($$-name
 	    (when open-as-$$ (match-string-no-properties 1)))
 	   ($$-line-num
