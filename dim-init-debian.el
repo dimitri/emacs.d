@@ -2,9 +2,10 @@
 
 (setq color-theme-libraries nil)
 
-(require 'color-theme)
-(require 'color-theme-tango)
-(color-theme-tango)
+(when (eq window-system 'x)
+  (require 'color-theme)
+  (require 'color-theme-tango)
+  (color-theme-tango))
 
 ;; be easy on the eyes
 ;; (if (equal (get-screen-dimensions) '(1440 900))
