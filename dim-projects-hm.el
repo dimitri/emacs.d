@@ -8,6 +8,7 @@
    ("pg_staging"	. "~/PostgreSQL/pgfoundry/pg_staging")
 
    ;; Hi-Media
+   ("reporting"		. "~/Hi-Media/admin/git/reporting")
    ("comtrack"		. "~/Hi-Media/comtrack")
    ("HMEurovox"		. "~/Hi-Media/Eurovox")
    ("Eurovox"		. "~/Hi-Media/admin/git/Eurovox")
