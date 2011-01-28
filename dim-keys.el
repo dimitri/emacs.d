@@ -53,6 +53,12 @@
 ; winner-mode pour revenir sur le layout précédent
 (winner-mode 1)
 
+;; C-x 2 et C-x 3 et C-x 0 ne sont pas si pratiques
+(global-set-key (kbd "C-x C-;") 'delete-window)
+(global-set-key (kbd "C-x C-'") 'delete-other-windows)
+(global-set-key (kbd "C-x C-,") 'split-window-vertically)
+(global-set-key (kbd "C-x C-.") 'split-window-horizontally)
+
 ;; dired-x pour C-x C-j
 (require 'dired-x)
 
