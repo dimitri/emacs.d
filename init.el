@@ -46,7 +46,6 @@
 
 ;; configuration rcirc, and global shortcut to connect to servers
 (require 'dim-rcirc)
-(require 'dim-splits)
 
 ;; bindings --- depends on rcirc being loaded
 (require 'dim-escreen)
