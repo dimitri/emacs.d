@@ -46,6 +46,7 @@
 
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
 (setq gnus-gcc-mark-as-read t)
+(setq gnus-message-replyencrypt t)
 
 ;; The RSS groups are set level 4 (S l), the normal groups are level 3
 ;; M-3 g allows to skip getting RSS updates
@@ -232,8 +233,11 @@
 ;; allow the html-renderer to display images
 (setq gnus-blocked-images nil)
 
+;; prefer plain text over html when there's a choice
+(setq mm-discouraged-alternatives '("text/html" "text/richtext"))
+
 ;; display GnuPG signatures etc
-(setq gnus-buttonized-mime-types '("multipart/signed"))
+(setq gnus-buttonized-mime-types '("multipart/signed" "multipart/alternative"))
 (setq mm-verify-option 'always)
 
 ;; BBDB

@@ -31,7 +31,7 @@
 (global-set-key (kbd "C-M-z") 'dim:forward-to-char)
 
 ;; C-c r pour revert-buffer
-(global-set-key (kbd "C-c r") '(lambda () (interactive) (revert-buffer)))
+(global-set-key (kbd "C-c r") 'revert-buffer)
 
 ;; rcirc global shortcut to connect to servers
 (global-set-key (kbd "C-c i") 'dim-rcirc-start)
@@ -52,6 +52,18 @@
 
 ; winner-mode pour revenir sur le layout précédent
 (winner-mode 1)
+
+;; Quelques outils locaux
+(require 'dim-splits)
+
+;; C-x 2 et C-x 3 et C-x 0 ne sont pas si pratiques
+(global-set-key (kbd "C-x C-;") 'delete-window)
+(global-set-key (kbd "C-x C-'") 'delete-other-windows)
+(global-set-key (kbd "C-x C-,") 'split-window-vertically)
+(global-set-key (kbd "C-x C-.") 'split-window-horizontally)
+
+;; Et du coup on adapte C-c 2 sur le même modèle
+(global-set-key (kbd "C-c C-,") 'split-window-vertically-quarter-bottom)
 
 ;; dired-x pour C-x C-j
 (require 'dired-x)

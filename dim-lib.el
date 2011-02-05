@@ -15,6 +15,9 @@
 (defmacro time (form)
   `(%time (lambda () ,form)))
 
+;; just for fun
+(defalias 'λ 'lambda)
+
 ;; my try at walk-path
 (defun walk-path (path fun &optional
 		       match-regexp depth-first filter filter-call depth)
