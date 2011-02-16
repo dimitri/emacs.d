@@ -195,8 +195,7 @@ vi style of % jumping to matching brace."
 (define-key term-mode-map (kbd "C-'") 'term-char-mode)
 
 ; Have C-y act as usual in term-mode, to avoid C-' C-y C-'
-(define-key term-raw-map  (kbd "C-y")
-  (lambda () (interactive) (term-line-mode) (yank) (term-char-mode)))
+(define-key term-raw-map  (kbd "C-y") 'term-paste)
 
 ;; woman
 (global-set-key (kbd "C-c w") 'woman)
