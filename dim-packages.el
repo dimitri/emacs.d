@@ -28,9 +28,11 @@
  (setq el-get-darcs "~/.cabal/bin/darcs"))
 
 (setq el-get-sources
+
       '(cssh el-get switch-window vkill google-maps verbiste
 	      mailq sicp emacs-goodies-el notify auto-dictionnary
 	      keywiz git-commit-mode pgsql-linum-format lua-mode
+	      python
 
 	(:name magit
 	       :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
