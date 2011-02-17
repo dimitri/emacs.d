@@ -28,9 +28,9 @@
  (setq el-get-darcs "~/.cabal/bin/darcs"))
 
 (setq el-get-sources
-      '(cssh el-get switch-window vkill google-maps yasnippet verbiste mailq sicp
-	      emacs-goodies-el notify auto-dictionnary keywiz git-commit-mode
-	      pgsql-linum-format lua-mode
+      '(cssh el-get switch-window vkill google-maps verbiste
+	      mailq sicp emacs-goodies-el notify auto-dictionnary
+	      keywiz git-commit-mode pgsql-linum-format lua-mode
 
 	(:name magit
 	       :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
@@ -149,6 +149,7 @@
 	 (:name muse         :type elpa)
 	 (:name aspell-fr    :type fink)
 	 (:name aspell-en    :type fink))))
-(el-get)
+
+(el-get 'sync)
 
 (provide 'dim-packages)
