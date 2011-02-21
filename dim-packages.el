@@ -32,7 +32,7 @@
       '(cssh el-get switch-window vkill google-maps verbiste
 	      mailq sicp emacs-goodies-el notify auto-dictionnary
 	      keywiz git-commit-mode pgsql-linum-format lua-mode
-	      python
+	      python psvn rect-mark
 
 	(:name magit
 	       :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
@@ -145,7 +145,7 @@
 
 (when-running-macosx
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '(psvn nognus emacs-w3m bbdb
+       '(nognus emacs-w3m bbdb
 	 (:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa   :after 'dim:setup-package-dictionary)
 	 (:name muse         :type elpa)
