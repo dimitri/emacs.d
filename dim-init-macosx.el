@@ -43,11 +43,11 @@
 
 (if (equal (get-screen-dimensions) '(2560 1440))
     (progn
-      (set-frame-size (selected-frame) 174 90)
+      (set-frame-size (selected-frame) 174 81)
       (let ((right-frame (make-frame '((top . 30)))))
 	(set-frame-parameter right-frame 'font "Monaco-13")
 	(set-frame-parameter right-frame 'left 1480)
-	(set-frame-size (selected-frame) 130 90)))
+	(set-frame-size (selected-frame) 130 81)))
   (set-frame-size (selected-frame) 168 49))
 
 ;; some special for offlineimap
