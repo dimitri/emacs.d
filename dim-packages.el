@@ -145,10 +145,9 @@
 
 (when-running-macosx
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '(nognus emacs-w3m bbdb
+       '(nognus emacs-w3m bbdb muse
 	 (:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa   :after 'dim:setup-package-dictionary)
-	 (:name muse         :type elpa)
 	 (:name aspell-fr    :type fink)
 	 (:name aspell-en    :type fink))))
 
