@@ -14,4 +14,5 @@
 
   (set-face-font 'default "Monospace-10"))
 
+(require 'dim-desktop)
 (provide 'dim-init-debian)

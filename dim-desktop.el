@@ -5,11 +5,11 @@
 (require 'desktop)
 
 (defvar dim-desktop-file-readahead-list
-  "/tmp/readahead.emacs.early"
+  ".emacs.desktop.readahead"
   "*Where to save the emacs desktop `readahead` file list")
 
 (defvar dim-desktop-filelist-command
-  "gawk 'n==1{if(!/nil/)print gensub(/\"/, \"\", \"g\", $1);n=0} /desktop-.*-buffer/{n=1}' %s"
+  "gawk -F '[ \"]' '/desktop-.*-buffer/ {getline; if($4) print $4}' %s"
   "Command to run to prepare the readahead file list")
 
 (defun dim-desktop-get-readahead-file-list (&optional filename dir)
@@ -20,6 +20,14 @@
       (format dim-desktop-filelist-command
 	      (expand-file-name desktop-base-file-name (or dir "~")))))))
 
-(add-hook 'desktop-save-hook 'dim-desktop-get-readahead-file-list)
+;; This will not work because the hook is run before to add the buffers into
+;; the desktop file.
+;;
+;;(add-hook 'desktop-save-hook 'dim-desktop-get-readahead-file-list)
+
+;; so instead, advise the function
+(defadvice desktop-save (after desktop-save-readahead activate)
+  "Prepare a readahead(8) file for the desktop file"
+  (dim-desktop-get-readahead-file-list))
 
 (provide 'dim-desktop)
