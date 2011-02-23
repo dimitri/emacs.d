@@ -63,6 +63,7 @@
   (require 'dim-hi-media-vpn))
 
 ;; and the session
-(setq desktop-restore-eager 20)
+(setq desktop-restore-eager 20
+      desktop-lazy-verbose nil)
 (desktop-save-mode 1)
 (savehist-mode 1)
