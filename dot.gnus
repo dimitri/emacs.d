@@ -213,6 +213,7 @@
 (setq gnus-visible-headers
       (concat gnus-visible-headers "\\|^User-Agent:\\|^X-Mailer:"))
 
+(setq gnus-article-update-date-headers 60)
 
 (setq gnus-sum-thread-tree-false-root " ♽ "
       gnus-sum-thread-tree-single-indent "⚙ "
