@@ -5,7 +5,7 @@
 (require 'desktop)
 
 (defvar dim-desktop-file-readahead-list
-  ".emacs.desktop.readahead"
+  "~/.emacs.desktop.readahead"
   "*Where to save the emacs desktop `readahead` file list")
 
 (defvar dim-desktop-filelist-command
