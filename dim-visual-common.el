@@ -56,7 +56,7 @@
 ;; (ad-update 'message)
 (defadvice message (before when-was-that activate)
   "Add timestamps to `message' output."
-  (ad-set-arg 0 (concat (format-time-string "%Y-%m-%d %T ") (ad-get-arg 0))))
+  (ad-set-arg 0 (concat (format-time-string "%k:%M ") (ad-get-arg 0))))
 
 (require 'font-lock)
 (global-font-lock-mode 1)
