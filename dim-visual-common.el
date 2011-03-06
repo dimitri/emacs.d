@@ -50,6 +50,14 @@
 (setq indent-tabs-mode nil)
 (put 'narrow-to-page 'disabled nil)
 
+;; timestamp *Messages*
+;; if you come tired of it
+;; (ad-disable-advice 'message 'before 'when-was-that)
+;; (ad-update 'message)
+(defadvice message (before when-was-that activate)
+  "Add timestamps to `message' output."
+  (ad-set-arg 0 (concat (format-time-string "%Y-%m-%d %T ") (ad-get-arg 0))))
+
 (require 'font-lock)
 (global-font-lock-mode 1)
 
