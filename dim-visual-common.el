@@ -92,9 +92,9 @@
 
     ;; Either insert the dimensions, message them, or return them
     (if (called-interactively-p)
-	(if insert
-	    (insert (format "%sx%s" (car dims) (cadr dims)))
-	  (message "%sx%s" (car dims) (cadr dims)))
+	(if (eq insert 1)
+	    (message "%sx%s" (car dims) (cadr dims))
+	  (insert (format "%sx%s" (car dims) (cadr dims))))
       dims)))
 
 (provide 'dim-visual-common)
