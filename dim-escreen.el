@@ -64,4 +64,16 @@
 (define-key term-raw-map (kbd "M-[") 'escreen-goto-prev-screen)
 (define-key term-raw-map (kbd "M-]") 'escreen-goto-next-screen)
 
+;; easier direct access to screens
+(global-set-key (kbd "C-0") 'escreen-goto-screen-0)
+(global-set-key (kbd "C-1") 'escreen-goto-screen-1)
+(global-set-key (kbd "C-2") 'escreen-goto-screen-2)
+(global-set-key (kbd "C-3") 'escreen-goto-screen-3)
+(global-set-key (kbd "C-4") 'escreen-goto-screen-4)
+(global-set-key (kbd "C-5") 'escreen-goto-screen-5)
+(global-set-key (kbd "C-6") 'escreen-goto-screen-6)
+(global-set-key (kbd "C-7") 'escreen-goto-screen-7)
+(global-set-key (kbd "C-8") 'escreen-goto-screen-8)
+(global-set-key (kbd "C-9") 'escreen-goto-screen-9)
+
 (provide 'dim-escreen)
