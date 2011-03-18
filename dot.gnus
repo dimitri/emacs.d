@@ -184,9 +184,12 @@
 (define-key gnus-summary-mode-map (kbd "M-q") 'mailq)
 
 ;;
-;; use iswitchb like UI everywhere sensible
+;; use iswitchb like UI everywhere sensible with
+;; gnus-iswitchb-completing-read
 ;;
-(setq gnus-completing-read-function 'gnus-iswitchb-completing-read)
+;; but we've been switching to ido
+;;
+(setq gnus-completing-read-function 'gnus-ido-completing-read)
 
 ;;
 ;; gnus porn
