@@ -10,8 +10,8 @@
       ;; so won't get choosen for refiling there.
       (loop for path in '("~/Hi-Media/hi-media.org"
 			  "~/Hi-Media/refile.org"
-			  "~/Quadrant/quadrant.org"
-			  "~/Quadrant/refile.org"
+			  "~/Quadrant/Notes/quadrant.org"
+			  "~/Quadrant/Notes/refile.org"
 			  "~/dev/emacs.d/org/pgsql.org")
 	    when (file-exists-p (expand-file-name path))
 	    collect path))
