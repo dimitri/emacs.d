@@ -81,12 +81,16 @@
    (buffer-name (other-buffer (current-buffer) t))))
  (add-hook 'ibuffer-hook 'ore-ibuffer-jump-to-last)
 
-;; use iswitchb-mode for C-x b
-;(iswitchb-mode)
+;; find-file-at-point, deprecated, see ido
+;; (setq ffap-machine-p-known 'accept) ; no pinging
+;; (setq ffap-url-regexp nil)          ; disable URL features in ffap
+;; (setq ffap-ftp-regexp nil)          ; disable FTP features in ffap
+;; (define-key global-map (kbd "C-x C-f") 'find-file-at-point)
 
 ;; use ido for minibuffer completion
 (require 'ido)
 (ido-mode t)
+(setq ido-save-directory-list-file "~/.emacs.d/.ido.last")
 (setq ido-enable-flex-matching t)
 (setq ido-use-filename-at-point 'guess)
 (setq ido-show-dot-for-dired t)
@@ -101,13 +105,6 @@
 
 (global-set-key (kbd "C-c d b") 'insert-date-blog-format)
 (global-set-key (kbd "C-c d s") 'insert-date-year-s-week)
-
-; find-file-at-point quand ça a du sens
-; deprecated, see ido
-;; (setq ffap-machine-p-known 'accept) ; no pinging
-;; (setq ffap-url-regexp nil)          ; disable URL features in ffap
-;; (setq ffap-ftp-regexp nil)          ; disable FTP features in ffap
-;; (define-key global-map (kbd "C-x C-f") 'find-file-at-point)
 
 ; Hippie Expand pour un meilleur M-/ (noms de fichiers)
 (require 'hippie-exp)
