@@ -234,6 +234,26 @@ vi style of % jumping to matching brace."
 ;; M-x shell
 (global-set-key (kbd "C-M-'") 'shell)
 
+;; resolve name/ip at point and place the result in the kill ring
+(require 'net-utils)
+(defun dim:dns-lookup-host ()
+  "Lookup the DNS information for HOST at point (name or IP address)."
+  (interactive)
+  (let* ((host (net-utils-machine-at-point))
+	 (out
+	  (shell-command-to-string (format "%s %s" dns-lookup-program host)))
+	 (lines (split-string out "\n"))
+	 (first (car lines))
+	 (split (split-string first)))
+    (message "%s" first)
+    ;; ("google.fr" "has" "address" "74.125.230.84")
+    (when (and (eq 4 (length split))
+	       (equal (nth 1 split) "has")
+	       (equal (nth 2 split) "address"))
+      (kill-new (nth 3 split)))))
+
+(global-set-key (kbd "C-M-S-H") 'dim:dns-lookup-host)
+
 (require 'dim-mailrc)
 (require 'dim-previous-message)
 (provide 'dim-keys)
