@@ -240,17 +240,23 @@ vi style of % jumping to matching brace."
   "Lookup the DNS information for HOST at point (name or IP address)."
   (interactive)
   (let* ((host (net-utils-machine-at-point))
-	 (out
-	  (shell-command-to-string (format "%s %s" dns-lookup-program host)))
-	 (lines (split-string out "\n"))
+	 (default-directory "/tmp")	; LOCAL resolver please
+	 (lines (process-lines dns-lookup-program host))
 	 (first (car lines))
 	 (split (split-string first)))
     (message "%s" first)
     ;; ("google.fr" "has" "address" "74.125.230.84")
-    (when (and (eq 4 (length split))
-	       (equal (nth 1 split) "has")
-	       (equal (nth 2 split) "address"))
-      (kill-new (nth 3 split)))))
+    ;; ("xxxx.in-addr.arpa" "domain" "name" "pointer" "name.domain.tld.")
+    (cond ((and (eq 4 (length split))
+		(equal (nth 1 split) "has")
+		(equal (nth 2 split) "address"))
+	   (kill-new (nth 3 split)))
+
+	  ((and (eq 5 (length split))
+		(equal (nth 1 split) "domain")
+		(equal (nth 2 split) "name")
+		(equal (nth 3 split) "pointer"))
+	   (kill-new (nth 4 split))))))
 
 (global-set-key (kbd "C-M-S-H") 'dim:dns-lookup-host)
 
