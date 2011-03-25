@@ -95,6 +95,21 @@
 (setq ido-use-filename-at-point 'guess)
 (setq ido-show-dot-for-dired t)
 
+;; user defined completing-read-function entered in emacs24
+(when (boundp 'completing-read-function)
+  (defun ido-completing-read* (prompt choices &optional predicate require-match
+				      initial-input hist def inherit-input-method)
+    "Adjust arguments when it's necessary"
+    (if (and (listp choices) (not (functionp choices)))
+	(ido-completing-read
+	 prompt
+	 (mapcar (lambda (c) (if (listp c) (car c) c)) choices)
+	 predicate require-match initial-input hist def inherit-input-method)
+      (completing-read-default prompt choices predicate require-match
+			       initial-input hist def inherit-input-method)))
+
+  (setq completing-read-function 'ido-completing-read*))
+
 ;; C-c d pour écrire la date
 (defun insert-date(&optional format)
   "Insert a time-stamp according to locale's date and time format."
