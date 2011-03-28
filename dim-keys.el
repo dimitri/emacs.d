@@ -95,6 +95,11 @@
 (setq ido-use-filename-at-point 'guess)
 (setq ido-show-dot-for-dired t)
 
+;; invert C-x b and C-x C-b, the all control one is easier to type
+(define-key global-map (kbd "C-x C-b") 'ido-switch-buffer)
+(define-key global-map (kbd "C-x b") 'ido-switch-buffer)
+(define-key global-map (kbd "C-x B") 'ibuffer)
+
 ;; user defined completing-read-function entered in emacs24
 (when (boundp 'completing-read-function)
   (defun ido-completing-read* (prompt choices &optional predicate require-match
