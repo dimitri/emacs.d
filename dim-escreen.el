@@ -27,7 +27,7 @@
 ;; We want the last/prev/next escreen function to show the list with
 ;; emphasis
 ;;
-(defadvice escreen-goto-last-screen 
+(defadvice escreen-goto-last-screen
   (after dim:escreen-goto-last-screen activate)
   "Show the escreen list each time we go to last screen."
   (escreen-get-active-screen-numbers-with-emphasis))
@@ -40,6 +40,11 @@
 (defadvice escreen-goto-next-screen
   (after dim:escreen-goto-next-screen activate)
   "Show the escreen list each time we go to next screen."
+  (escreen-get-active-screen-numbers-with-emphasis))
+
+(defadvice escreen-create-screen
+  (after dim:escreen-create-screen activate)
+  "Show the escreen list each time we create a new screen."
   (escreen-get-active-screen-numbers-with-emphasis))
 
 ;;
