@@ -5,6 +5,7 @@
 (scroll-bar-mode nil)
 (tool-bar-mode -1)
 (set-scroll-bar-mode nil)
+(setq indicate-buffer-boundaries 'left)
 
 (line-number-mode 1)
 (column-number-mode 1)
