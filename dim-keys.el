@@ -97,6 +97,7 @@
 
 ;; invert C-x b and C-x C-b, the all control one is easier to type
 (define-key global-map (kbd "C-x C-b") 'ido-switch-buffer)
+(define-key global-map (kbd "C-x C-c") 'ido-switch-buffer) ; use M-x kill-emacs
 (define-key global-map (kbd "C-x b") 'ido-switch-buffer)
 (define-key global-map (kbd "C-x B") 'ibuffer)
 
