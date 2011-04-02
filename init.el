@@ -8,12 +8,8 @@
 		     "~/dev/emacs.d"
 		     "~/dev/emacs.d/rcirc"
 		     "~/dev/emacs.d/lib"
-		     "~/dev/emacs/cssh"
 		     "~/dev/emacs/rcirc-groups"
 		     "~/dev/tapoueh.org"
-		     ;;"~/.emacs.d/w3m/emacs-w3m/"
-		     ;;"~/.emacs.d/emms/lisp/"
-		     ;;"~/.emacs.d/magit"
 		     )))
     (dolist (path (or paths dim:paths))
       (setq load-path (cons path load-path)))))
