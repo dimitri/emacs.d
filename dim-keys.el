@@ -225,6 +225,7 @@ vi style of % jumping to matching brace."
 
 ; Arrange C-x C-c in term-mode too
 (define-key term-raw-map (kbd "C-x C-c") 'ido-switch-buffer)
+(define-key term-raw-map (kbd "C-c C-c") 'term-interrupt-subjob)
 
 ;; woman
 (global-set-key (kbd "C-c w") 'woman)
