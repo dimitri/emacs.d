@@ -253,7 +253,12 @@ vi style of % jumping to matching brace."
 (global-set-key (kbd "C-M-;") 'ielm)
 
 ;; M-x shell
-(global-set-key (kbd "C-M-'") 'shell)
+(defun cw:shell:run ()
+  "Run shell in `default-directory' and set buffer name."
+  (interactive)
+  (shell (format "* Shell: %s *" default-directory)))
+
+(global-set-key (kbd "C-M-'") 'cw:shell:run)
 
 ;; resolve name/ip at point and place the result in the kill ring
 (require 'net-utils)
