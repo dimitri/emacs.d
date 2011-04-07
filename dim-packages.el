@@ -133,6 +133,13 @@
 	       :after (lambda ()
 			(global-set-key (kbd "C-x C-/") 'goto-last-change)))
 
+	(:name fill-column-indicator
+	       :after (lambda()
+			(setq fci-style 'rule
+			      fci-rule-character ?│
+			      fci-rule-color "#373d3f")
+			(add-hook 'find-file-hook 'fci-mode)))
+
 	(:name gist            :type elpa)
 	(:name lisppaste       :type elpa)))
 
