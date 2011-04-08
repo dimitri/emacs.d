@@ -5,7 +5,12 @@
 (require 'term)
 
 ;; M-x shell
-(global-set-key (kbd "C-M-'") 'shell)
+(defun cw:shell:run ()
+  "Run shell in `default-directory' and set buffer name."
+  (interactive)
+  (shell (format "* Shell: %s *" default-directory)))
+
+(global-set-key (kbd "C-M-'") 'cw:shell:run)
 
 ;; pour les couleurs dans M-x shell
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
