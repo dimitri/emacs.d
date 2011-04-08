@@ -216,17 +216,6 @@ vi style of % jumping to matching brace."
 ;; Global key for input method, but we steal it in terms
 (global-set-key (kbd "C-'") 'dim:toggle-my-input-method)
 
-;; Toogle between line and char mode in term-mode
-(define-key term-raw-map  (kbd "C-'") 'term-line-mode)
-(define-key term-mode-map (kbd "C-'") 'term-char-mode)
-
-; Have C-y act as usual in term-mode, to avoid C-' C-y C-'
-(define-key term-raw-map  (kbd "C-y") 'term-paste)
-
-; Arrange C-x C-c in term-mode too
-(define-key term-raw-map (kbd "C-x C-c") 'ido-switch-buffer)
-(define-key term-raw-map (kbd "C-c C-c") 'term-interrupt-subjob)
-
 ;; woman
 (global-set-key (kbd "C-c w") 'woman)
 
@@ -255,9 +244,6 @@ vi style of % jumping to matching brace."
 
 ;; IELM
 (global-set-key (kbd "C-M-;") 'ielm)
-
-;; M-x shell
-(global-set-key (kbd "C-M-'") 'shell)
 
 ;; resolve name/ip at point and place the result in the kill ring
 (require 'net-utils)
