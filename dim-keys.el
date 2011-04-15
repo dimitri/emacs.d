@@ -36,8 +36,8 @@
 ;; rcirc global shortcut to connect to servers
 (global-set-key (kbd "C-c i") 'dim-rcirc-start)
 
-;; déplacements avec Shift-<flèche>
-(windmove-default-keybindings)
+;; déplacements avec M-<flèche>
+(windmove-default-keybindings 'meta)
 (setq windmove-wrap-around t)
 
 (require 'buffer-move)
