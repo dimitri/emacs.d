@@ -28,9 +28,17 @@
  (setq el-get-darcs "~/.cabal/bin/darcs"))
 
 (setq el-get-sources
-      '(cssh el-get switch-window vkill google-maps yasnippet verbiste mailq sicp
-	      emacs-goodies-el notify auto-dictionnary keywiz git-commit-mode
-	      pgsql-linum-format lua-mode
+
+      '(cssh el-get switch-window vkill google-maps verbiste
+	      mailq sicp emacs-goodies-el notify auto-dictionnary
+	      keywiz git-commit-mode pgsql-linum-format lua-mode
+	      python psvn rect-mark crontab-mode icomplete+
+
+        (:name smex
+	       :after (lambda ()
+			(setq smex-save-file "~/.emacs.d/.smex-items")
+			(global-set-key (kbd "M-x") 'smex)
+			(global-set-key (kbd "M-X") 'smex-major-mode-commands)))
 
 	(:name magit
 	       :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
@@ -40,6 +48,7 @@
 	       :after (lambda ()
 			(autoload 'doc-mode "doc-mode" nil t)
 			(add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode))
+			(add-to-list 'auto-mode-alist '("\\.asciidoc$" . doc-mode))
 			(add-hook 'doc-mode-hook '(lambda ()
 						    (turn-on-auto-fill)
 						    (require 'asciidoc)))))
@@ -137,18 +146,26 @@
 (when-running-debian-or-ubuntu
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
        '(nognus bbdb
+
+	(:name fill-column-indicator
+	       :after (lambda()
+			(setq fci-style 'rule
+			      fci-rule-character ?│
+			      fci-rule-color "#373d3f")
+			(add-hook 'find-file-hook 'fci-mode)))
+
 	 (:name dictionary-el    :type apt-get   :after 'dim:setup-package-dictionary)
 	 (:name apel             :type apt-get)
 	 (:name muse-el          :type apt-get))))
 
 (when-running-macosx
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '(psvn nognus emacs-w3m bbdb
+       '(nognus emacs-w3m bbdb muse
 	 (:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa   :after 'dim:setup-package-dictionary)
-	 (:name muse         :type elpa)
 	 (:name aspell-fr    :type fink)
 	 (:name aspell-en    :type fink))))
-(el-get)
+
+(el-get 'sync)
 
 (provide 'dim-packages)

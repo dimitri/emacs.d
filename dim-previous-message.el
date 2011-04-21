@@ -16,11 +16,12 @@
 	  ;; on first round, skip moving when we were not on a new empty line
 	  (unless (and (eq n nth) (not (eq p bol)))
 	    (forward-line -1))
-	  (unless (looking-at (rx (or "Mart set"
-				      "Mark activated"
-				      "Auto-saving"
-				      "Quit"
-				      "Undo")))
+	  (unless (looking-at (rx (and (* nonl)
+				       (or "Mart set"
+					   "Mark activated"
+					   "Auto-saving"
+					   "Quit"
+					   "Undo"))))
 	    (setq nth (- nth 1)))))
 	(buffer-substring (line-beginning-position) (line-end-position)))))
 

@@ -30,21 +30,15 @@
 (require 'woman)
 (setq woman-use-own-frame nil)
 
-;; M-x term
-(setq term-default-bg-color (frame-parameter nil 'background-color))
-(setq term-default-fg-color (frame-parameter nil 'foreground-color))
-(add-hook 'term-mode-hook (lambda () (setq truncate-lines t)))
-
 ;; optimisation surtout bénéfique à Tramp
 (setq vc-handled-backends nil)
 (setq tramp-terminal-type "screen")
 
-;; pour les couleurs dans M-x shell
-(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
 ;; pendant qu'on est dans Tramp, support de /sudo:remote:/path/to/file
 (require 'tramp-multi-sshx)
+
+;; M-x shell et M-x term
+(require 'dim-shell-term)
 
 ;; iedit, see lib/ --- use C-: as C-; is already flyspell
 (define-key global-map (kbd "C-:") 'iedit-mode)

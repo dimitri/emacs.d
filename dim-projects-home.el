@@ -11,7 +11,7 @@
    ;; public OpenSource stuff
    ("pgloader"	. "~/dev/pgloader")
    ("skytools-php" . "~/dev/skytools/pgq-php")
-   ("skytools"	. "~/devskytools/skytools")
+   ("skytools"	. "~/dev/skytools/skytools")
    ("prefix"	. "~/dev/prefix")
    ("ip4r"		. "~/dev/ip4r/ip4r")
    ("pgsql"	. "~/dev/PostgreSQL")
@@ -26,7 +26,7 @@
    ("libphp-pgq"	. "~/dev/libphp-pgq")
    ("preprepare"	. "~/dev/preprepare")
    ("pgfincore"	. "~/dev/pgfincore")
-   
+
    ;; lost-oasis open source
    ("sinn"		. "~/dev/niftyname/git/sinn/")
    ("zinn"		. "~/dev/niftyname/git/zinn/")

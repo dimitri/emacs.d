@@ -5,6 +5,7 @@
 (scroll-bar-mode nil)
 (tool-bar-mode -1)
 (set-scroll-bar-mode nil)
+(setq-default indicate-buffer-boundaries 'left)
 
 (line-number-mode 1)
 (column-number-mode 1)
@@ -50,35 +51,51 @@
 (setq indent-tabs-mode nil)
 (put 'narrow-to-page 'disabled nil)
 
+;; timestamp *Messages*
+;; if you come tired of it
+;; (ad-disable-advice 'message 'before 'when-was-that)
+;; (ad-update 'message)
+(defadvice message (before when-was-that activate)
+  "Add timestamps to `message' output."
+  (ad-set-arg 0 (concat (format-time-string "%k:%M ") (ad-get-arg 0))))
+
 (require 'font-lock)
 (global-font-lock-mode 1)
 
-(defun get-screen-dimensions ()
+(defun get-screen-dimensions (&optional insert)
   "get dimensions of current screen, support X window system and macosx"
+  (interactive "p")
+  (let ((dims
+	 (cond
+	  ((string-match "apple-darwin" system-configuration)
+	   ;; osascript -e 'tell application \"Finder\" to get bounds of window of desktop'
+	   ;; "0, 0, 2560, 1440\n"
+	   (mapcar
+	    'string-to-number
+	    (split-string
+	     (substring
+	      (shell-command-to-string
+	       "osascript -e 'tell application \"Finder\" to get bounds of window of desktop'") 6 -1) ", ")))
 
-  (cond
-   ((string-match "apple-darwin" system-configuration)
-    ;; osascript -e 'tell application \"Finder\" to get bounds of window of desktop'
-    ;; "0, 0, 2560, 1440\n"
-    (mapcar
-     'string-to-number
-     (split-string
-      (substring
-       (shell-command-to-string
-	"osascript -e 'tell application \"Finder\" to get bounds of window of desktop'") 6 -1) ", ")))
+	  ((eq window-system 'x)
+	   ;; dim ~ xwininfo -root -metric | awk -F '[ x+]' '/geometry/ {print $4, $5}'
+	   ;; 1680 1050
+	   (mapcar
+	    'string-to-number
+	    (split-string
+	     (substring
+	      (shell-command-to-string
+	       "xwininfo -root -metric | awk -F '[ x+]' '/geometry/ {print $4, $5}'")
+	      0 -1) " ")))
 
-   ((eq window-system 'x)
-    ;; dim ~ xwininfo -root -metric | awk -F '[ x+]' '/geometry/ {print $4, $5}'
-    ;; 1680 1050
-    (mapcar
-     'string-to-number
-     (split-string
-      (substring
-       (shell-command-to-string
-	"xwininfo -root -metric | awk -F '[ x+]' '/geometry/ {print $4, $5}'")
-       0 -1) " ")))
+	  ;; other systems are yet unknown
+	  (t '(0 0)))))
 
-  ;; other systems are yet unknown
-  (t '(0 0))))
+    ;; Either insert the dimensions, message them, or return them
+    (if (called-interactively-p)
+	(if (eq insert 1)
+	    (message "%sx%s" (car dims) (cadr dims))
+	  (insert (format "%sx%s" (car dims) (cadr dims))))
+      dims)))
 
 (provide 'dim-visual-common)

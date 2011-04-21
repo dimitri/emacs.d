@@ -184,6 +184,12 @@
 (setq rcirc-mode-hook nil)
 (add-hook 'rcirc-mode-hook 'dim:rcirc-whois-on-query-from-others)
 
+;; indicate-buffer-boundaries in rcirc is not doing the right thing
+(defun dim:rcirc-set-indicate-buffer-boundaries ()
+  (setq indicate-buffer-boundaries '((top . left) (up . left) (t nil))))
+
+(add-hook 'rcirc-mode-hook 'dim:rcirc-set-indicate-buffer-boundaries)
+
 ;;
 ;; as there's apparently no way to distinguish between opening a query and
 ;; receiving a query request from rcirc-mode-hook, we just remove the hook

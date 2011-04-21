@@ -27,7 +27,7 @@
 ;; We want the last/prev/next escreen function to show the list with
 ;; emphasis
 ;;
-(defadvice escreen-goto-last-screen 
+(defadvice escreen-goto-last-screen
   (after dim:escreen-goto-last-screen activate)
   "Show the escreen list each time we go to last screen."
   (escreen-get-active-screen-numbers-with-emphasis))
@@ -40,6 +40,11 @@
 (defadvice escreen-goto-next-screen
   (after dim:escreen-goto-next-screen activate)
   "Show the escreen list each time we go to next screen."
+  (escreen-get-active-screen-numbers-with-emphasis))
+
+(defadvice escreen-create-screen
+  (after dim:escreen-create-screen activate)
+  "Show the escreen list each time we create a new screen."
   (escreen-get-active-screen-numbers-with-emphasis))
 
 ;;
@@ -63,5 +68,18 @@
 (define-key term-raw-map escreen-prefix-char escreen-map)
 (define-key term-raw-map (kbd "M-[") 'escreen-goto-prev-screen)
 (define-key term-raw-map (kbd "M-]") 'escreen-goto-next-screen)
+
+;; easier direct access to screens
+(progn					; easier to C-M-x the block
+  (global-set-key (kbd "C-M-0") 'escreen-goto-screen-0)
+  (global-set-key (kbd "C-M-1") 'escreen-goto-screen-1)
+  (global-set-key (kbd "C-M-2") 'escreen-goto-screen-2)
+  (global-set-key (kbd "C-M-3") 'escreen-goto-screen-3)
+  (global-set-key (kbd "C-M-4") 'escreen-goto-screen-4)
+  (global-set-key (kbd "C-M-5") 'escreen-goto-screen-5)
+  (global-set-key (kbd "C-M-6") 'escreen-goto-screen-6)
+  (global-set-key (kbd "C-M-7") 'escreen-goto-screen-7)
+  (global-set-key (kbd "C-M-8") 'escreen-goto-screen-8)
+  (global-set-key (kbd "C-M-9") 'escreen-goto-screen-9))
 
 (provide 'dim-escreen)

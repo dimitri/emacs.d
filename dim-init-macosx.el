@@ -8,20 +8,13 @@
 
 (add-to-list 'Info-directory-list "/sw/share/info/")
 
-;; don't forget platform specific things
-(dim:add-my-extra-load-paths '("~/.emacs.d/nxhtml"
-			       "~/.emacs.d/BBDB/lisp"
-			       "~/.emacs.d/BBDB/bits"
-			       "~/.emacs.d/w3m/emacs-w3m/"
-			       "~/.emacs.d/color-theme-6.6.0"
-			       "~/.emacs.d/color-theme-6.6.0/themes"))
-
 ;; special visual tweaking
+(setq color-theme-libraries nil)
 (require 'color-theme)
 (require 'color-theme-emacs23-default)
 (color-theme-emacs23-default)
 
-;; here hiding the menu bar makes no sens
+;; here hiding the menu bar makes no sense
 (menu-bar-mode 1)
 
 (require 'woman)
@@ -43,11 +36,11 @@
 
 (if (equal (get-screen-dimensions) '(2560 1440))
     (progn
-      (set-frame-size (selected-frame) 174 90)
+      (set-frame-size (selected-frame) 174 81)
       (let ((right-frame (make-frame '((top . 30)))))
 	(set-frame-parameter right-frame 'font "Monaco-13")
 	(set-frame-parameter right-frame 'left 1480)
-	(set-frame-size (selected-frame) 130 90)))
+	(set-frame-size (selected-frame) 130 81)))
   (set-frame-size (selected-frame) 168 49))
 
 ;; some special for offlineimap

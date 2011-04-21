@@ -36,8 +36,8 @@
 ;; rcirc global shortcut to connect to servers
 (global-set-key (kbd "C-c i") 'dim-rcirc-start)
 
-;; déplacements avec Shift-<flèche>
-(windmove-default-keybindings)
+;; déplacements avec M-<flèche>
+(windmove-default-keybindings 'meta)
 (setq windmove-wrap-around t)
 
 (require 'buffer-move)
@@ -81,8 +81,40 @@
    (buffer-name (other-buffer (current-buffer) t))))
  (add-hook 'ibuffer-hook 'ore-ibuffer-jump-to-last)
 
-;; use iswitchb-mode for C-x b
-(iswitchb-mode)
+;; find-file-at-point, deprecated, see ido
+;; (setq ffap-machine-p-known 'accept) ; no pinging
+;; (setq ffap-url-regexp nil)          ; disable URL features in ffap
+;; (setq ffap-ftp-regexp nil)          ; disable FTP features in ffap
+;; (define-key global-map (kbd "C-x C-f") 'find-file-at-point)
+
+;; use ido for minibuffer completion
+(require 'ido)
+(ido-mode t)
+(setq ido-save-directory-list-file "~/.emacs.d/.ido.last")
+(setq ido-enable-flex-matching t)
+(setq ido-use-filename-at-point 'guess)
+(setq ido-show-dot-for-dired t)
+
+;; invert C-x b and C-x C-b, the all control one is easier to type
+(define-key global-map (kbd "C-x C-b") 'ido-switch-buffer)
+(define-key global-map (kbd "C-x C-c") 'ido-switch-buffer) ; use M-x kill-emacs
+(define-key global-map (kbd "C-x b") 'ido-switch-buffer)
+(define-key global-map (kbd "C-x B") 'ibuffer)
+
+;; user defined completing-read-function entered in emacs24
+(when (boundp 'completing-read-function)
+  (defun ido-completing-read* (prompt choices &optional predicate require-match
+				      initial-input hist def inherit-input-method)
+    "Adjust arguments when it's necessary"
+    (if (and (listp choices) (not (functionp choices)))
+	(ido-completing-read
+	 prompt
+	 (mapcar (lambda (c) (if (listp c) (car c) c)) choices)
+	 predicate require-match initial-input hist def inherit-input-method)
+      (completing-read-default prompt choices predicate require-match
+			       initial-input hist def inherit-input-method)))
+
+  (setq completing-read-function 'ido-completing-read*))
 
 ;; C-c d pour écrire la date
 (defun insert-date(&optional format)
@@ -94,12 +126,6 @@
 
 (global-set-key (kbd "C-c d b") 'insert-date-blog-format)
 (global-set-key (kbd "C-c d s") 'insert-date-year-s-week)
-
-; find-file-at-point quand ça a du sens
-(setq ffap-machine-p-known 'accept) ; no pinging
-(setq ffap-url-regexp nil)          ; disable URL features in ffap
-(setq ffap-ftp-regexp nil)          ; disable FTP features in ffap
-(define-key global-map (kbd "C-x C-f") 'find-file-at-point)
 
 ; Hippie Expand pour un meilleur M-/ (noms de fichiers)
 (require 'hippie-exp)
@@ -190,10 +216,6 @@ vi style of % jumping to matching brace."
 ;; Global key for input method, but we steal it in terms
 (global-set-key (kbd "C-'") 'dim:toggle-my-input-method)
 
-;; Toogle between line and char mode in term-mode
-(define-key term-raw-map  (kbd "C-'") 'term-line-mode)
-(define-key term-mode-map (kbd "C-'") 'term-char-mode)
-
 ;; woman
 (global-set-key (kbd "C-c w") 'woman)
 
@@ -223,8 +245,31 @@ vi style of % jumping to matching brace."
 ;; IELM
 (global-set-key (kbd "C-M-;") 'ielm)
 
-;; M-x shell
-(global-set-key (kbd "C-M-'") 'shell)
+;; resolve name/ip at point and place the result in the kill ring
+(require 'net-utils)
+(defun dim:dns-lookup-host ()
+  "Lookup the DNS information for HOST at point (name or IP address)."
+  (interactive)
+  (let* ((host (net-utils-machine-at-point))
+	 (default-directory "/tmp")	; LOCAL resolver please
+	 (lines (process-lines dns-lookup-program host))
+	 (first (car lines))
+	 (split (split-string first)))
+    (message "%s" first)
+    ;; ("google.fr" "has" "address" "74.125.230.84")
+    ;; ("xxxx.in-addr.arpa" "domain" "name" "pointer" "name.domain.tld.")
+    (cond ((and (eq 4 (length split))
+		(equal (nth 1 split) "has")
+		(equal (nth 2 split) "address"))
+	   (kill-new (nth 3 split)))
+
+	  ((and (eq 5 (length split))
+		(equal (nth 1 split) "domain")
+		(equal (nth 2 split) "name")
+		(equal (nth 3 split) "pointer"))
+	   (kill-new (nth 4 split))))))
+
+(global-set-key (kbd "C-M-S-H") 'dim:dns-lookup-host)
 
 (require 'dim-mailrc)
 (require 'dim-previous-message)

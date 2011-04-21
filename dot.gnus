@@ -184,9 +184,12 @@
 (define-key gnus-summary-mode-map (kbd "M-q") 'mailq)
 
 ;;
-;; use iswitchb like UI everywhere sensible
+;; use iswitchb like UI everywhere sensible with
+;; gnus-iswitchb-completing-read
 ;;
-(setq gnus-completing-read-function 'gnus-iswitchb-completing-read)
+;; but we've been switching to ido
+;;
+(setq gnus-completing-read-function 'gnus-ido-completing-read)
 
 ;;
 ;; gnus porn
@@ -213,6 +216,7 @@
 (setq gnus-visible-headers
       (concat gnus-visible-headers "\\|^User-Agent:\\|^X-Mailer:"))
 
+(setq gnus-article-update-date-headers 60)
 
 (setq gnus-sum-thread-tree-false-root " ♽ "
       gnus-sum-thread-tree-single-indent "⚙ "
