@@ -137,7 +137,8 @@
 
 ;; I still have a setup in 1024x768...
 (let ((srcsize (get-screen-dimensions)))
-  (unless (or (equal '(1024 768) srcsize) (equal '(2560 1440) srcsize))
+  (unless (or (equal '(1024 768) srcsize)
+	      (equal '(2560 1440) srcsize))
     (gnus-add-configuration
      '(article
        (vertical 1.0
@@ -146,7 +147,6 @@
 			     (summary 1.0 point) )
 		 (horizontal 1.0
 			     (article 1.0)))))
-
     (gnus-add-configuration
      '(summary
        (vertical 1.0
@@ -154,7 +154,15 @@
 			     (group 50)
 			     (summary 1.0 point)
 			     (if gnus-carpal
-				 '(summary-carpal 4))))))))
+				 '(summary-carpal 4)))))))
+
+  (when (or (equal '(1680 1050) srcsize)
+	    (equal '(1440 900) srcsize))
+    (gnus-add-configuration
+     ;; two panes side-by-side
+     '(article (horizontal 1.0
+			   (summary 0.5 point)
+			   (article 1.0))))))
 
 ;; flyspell
 (add-hook 'message-mode-hook 'flyspell-mode)
