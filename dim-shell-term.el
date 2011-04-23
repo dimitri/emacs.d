@@ -28,10 +28,6 @@
 ; Have C-y act as usual in term-mode, to avoid C-' C-y C-'
 (define-key term-raw-map  (kbd "C-y") 'term-paste)
 
-; Arrange C-x C-c in term-mode too
-(define-key term-raw-map (kbd "C-x C-c") 'ido-switch-buffer)
-(define-key term-raw-map (kbd "C-c C-c") 'term-interrupt-subjob)
-
 ;; allow easy switching from shell to term and back
 (defun term-switch-to-shell-mode ()
   (interactive)
