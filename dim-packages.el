@@ -134,6 +134,7 @@
 			(global-set-key (kbd "C-x C-/") 'goto-last-change)))
 
 	(:name fill-column-indicator
+	       :features fill-column-indicator
 	       :after (lambda()
 			(setq fci-style 'rule
 			      fci-rule-character ?│
