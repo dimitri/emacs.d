@@ -1,8 +1,21 @@
 ;;; dim-projects.el --- Dimitri Fontaine
+;; load the right projects definition file
+
+(defun get-domain-name (&optional from)
+  "Returns the system domain name.  If FROM is 'resolv or nil,
+returns the value defined in /etc/resolv.conf."
+  (or
+   (when (or (null from) (eq from 'resolv))
+     (when (file-readable-p "/etc/resolv.conf")
+       (with-temp-buffer
+	 (insert-file-contents-literally "/etc/resolv.conf")
+	 (when (re-search-forward "^domain \\([^ ]+\\)$" nil t)
+	   (match-string 1))))))
+  "")
+
 ;;
 ;; load the right projects definition file, provide project-merge and
 ;; ibuffer integration
-
 (require 'ibuffer)
 (require 'ibuf-ext)
 (require 'projects)
@@ -14,6 +27,7 @@
 				    ("emacs"       . "~/dev/emacs.d")
 				    (".emacs.d"    . "~/.emacs.d")
 				    ("cssh"        . "~/dev/emacs/cssh")
+				    ("kicker"      . "~/dev/emacs/emacs-kicker")
 				    ("el-get"      . "~/dev/emacs/el-get")
 				    ("el-get.d"    . "~/.emacs.d/el-get")
 				    ("rcirc-groups". "~/dev/emacs/rcirc-groups")
@@ -39,7 +53,7 @@ project-add and ibuffer-saved-filter-groups."
     (when modes (setq mode-clauses (mapcar (lambda (mode) `(mode . ,mode)) modes)))
 
     (list
-     group 
+     group
      (cond ((and name-clauses mode-clauses) `(or ,@name-clauses ,@mode-clauses))
 
 	   ((and name-clauses (cdr name-clauses)) `(or ,@name-clauses))
@@ -48,7 +62,7 @@ project-add and ibuffer-saved-filter-groups."
 	   ((and mode-clauses (cdr mode-clauses)) `(or ,@mode-clauses))
 	   (mode-clauses (car mode-clauses))
 	   (t '())))))
-				     
+
 (defun dim:add-projects-and-setup-ibuffer-groups (&optional project-alist)
   "Apply dim:my-projects to both project-add and ibuffer-saved-filter-groups."
 
@@ -58,15 +72,15 @@ project-add and ibuffer-saved-filter-groups."
   ;; tweak ibuffer-saved-filter-groups
   ;; hard code the '(("Groups" (list (of . setups))))
   (setq ibuffer-saved-filter-groups
-	`(("Groups" 
+	`(("Groups"
 	   ;; retain existing values
 	   ,@(cdar ibuffer-saved-filter-groups)
 
 	   ;; add new projects, avoid duplicates
-	   ,@(set-difference 
+	   ,@(set-difference
 	      (mapcar
-	       (lambda (x) 
-		 (dim:build-ibuffer-groups 
+	       (lambda (x)
+		 (dim:build-ibuffer-groups
 		  (car x) (list (concat (car x) ":"))))
 	       project-alist)
 	      ibuffer-saved-filter-groups
@@ -77,9 +91,9 @@ project-add and ibuffer-saved-filter-groups."
   "merge the given list of projects with the current installed one"
   ;; remove projects to merge from current project list, so that we use the
   ;; new directory if it changed
-  (let ((duplicates 
-	 (mapcar 
-	  'car 
+  (let ((duplicates
+	 (mapcar
+	  'car
 	  (intersection project-alist project-root-alist :key 'car :test 'equal))))
     (message "dim:project-merge removing %S" duplicates)
     (mapc 'project-remove duplicates))
@@ -102,7 +116,7 @@ project-add and ibuffer-saved-filter-groups."
 ;; finally, add some common setups (mode dependant)
 ;;
 (setq ibuffer-saved-filter-groups
-      `(("Groups" 
+      `(("Groups"
 	 ,@(cdar ibuffer-saved-filter-groups)
 
 	 ,(dim:build-ibuffer-groups "gnus" nil '(message-mode

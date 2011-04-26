@@ -33,6 +33,7 @@
 	      mailq sicp emacs-goodies-el notify auto-dictionnary
 	      keywiz git-commit-mode pgsql-linum-format lua-mode
 	      python psvn rect-mark crontab-mode icomplete+
+	      php-mode-improved
 
         (:name smex
 	       :after (lambda ()
@@ -71,27 +72,6 @@
 
 			(add-hook 'dired-load-hook
 				  (define-key dired-mode-map (kbd "E") 'emms-play-dired))))
-
-	(:name nxhtml
-	       :after (lambda ()
-			(setq debug-on-error nil)
-			(setq mumamo-chunk-coloring 1)
-			(custom-set-faces
-			 '(mumamo-background-chunk-submode1 ((((class color)
-							       (min-colors 88)
-							       (background dark)) nil)))
-			 '(mumamo-background-chunk-submode2 ((((class color)
-							       (min-colors 88)
-							       (background dark)) nil)))
-			 '(mumamo-background-chunk-submode3 ((((class color)
-							       (min-colors 88)
-							       (background dark)) nil)))
-			 '(mumamo-background-chunk-submode4 ((((class color)
-							       (min-colors 88)
-							       (background dark)) nil)))
-			 '(mumamo-background-chunk-major ((((class color)
-							    (min-colors 88)
-							    (background dark)) nil))))))
 
 	(:name xcscope
 	       :after (lambda ()
@@ -154,6 +134,14 @@
 (when-running-debian-or-ubuntu
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
        '(nognus bbdb
+
+	(:name fill-column-indicator
+	       :after (lambda()
+			(setq fci-style 'rule
+			      fci-rule-character ?│
+			      fci-rule-color "#373d3f")
+			(add-hook 'find-file-hook 'fci-mode)))
+
 	 (:name dictionary-el    :type apt-get   :after 'dim:setup-package-dictionary)
 	 (:name apel             :type apt-get)
 	 (:name muse-el          :type apt-get))))

@@ -6,7 +6,7 @@
 ;(require 'rcirc-notify-mode)
 
 ;; Exclude rcirc properties when yanking, in order to be able to send mails
-;; for example.  
+;; for example.
 (add-to-list 'yank-excluded-properties 'rcirc-text)
 
 ;; Some utility functions to have automated layout upon startup
@@ -21,7 +21,7 @@
 	(when (not (memq buffer-name buffers))
 	  (when (get-buffer buffer-name)
 	    (setq buffers (cons buffer-name buffers)))))
-      (message "%s, waiting for %d buffers still: %S" 
+      (message "%s, waiting for %d buffers still: %S"
 	       n (- (length buffer-list) (length buffers)) buffers)
       (sleep-for 0.5)
       (decf n))
@@ -31,23 +31,23 @@
 (defun dim:rcirc-layout-home-waiting ()
   "Organize screen layout for seeing the IRC connections"
   (delete-other-windows)
-  (set-window-buffer (selected-window) "*irc.lost-oasis.net*")
-  (set-window-buffer (split-window-horizontally) "*irc.freenode.net*"))
+  (set-window-buffer (selected-window) "*tapoueh.org*")
+  (set-window-buffer (split-window-horizontally) "*pgsql.tapoueh.org*"))
 
 (defun dim:rcirc-layout-home ()
   "Organise screen layout for IRC setup"
-  (let ((buffers  (dim:wait-for-buffers '("#vieuxcons@irc.lost-oasis.net"
-					  "#emacs@irc.freenode.net"
-					  "#postgresql@irc.freenode.net"))))
+  (let ((buffers  (dim:wait-for-buffers '("#vieuxcons@tapoueh.org"
+					  "#emacs@pgsql.tapoueh.org"
+					  "#postgresql@pgsql.tapoueh.org"))))
     (if (not (eq 3 (length buffers)))
 	(dim:rcirc-layout-home-waiting)
       (delete-other-windows)
       (let ((upper-left-window (selected-window))
 	    (right-window (split-window-horizontally)))
-	(set-window-buffer (selected-window) "#vieuxcons@irc.lost-oasis.net")
-	(set-window-buffer right-window "#postgresql@irc.freenode.net")
+	(set-window-buffer (selected-window) "#vieuxcons@tapoueh.org")
+	(set-window-buffer right-window "#postgresql@pgsql.tapoueh.org")
 	(select-window (split-window-vertically))
-	(set-window-buffer (selected-window) "#emacs@irc.freenode.net")
+	(set-window-buffer (selected-window) "#emacs@pgsql.tapoueh.org")
 	(select-window upper-left-window)
 	(split-window-vertically-quarter-bottom)
 	(rcirc-groups:switch-to-groups-buffer)))))
@@ -55,20 +55,20 @@
 
 (defun dim:rcirc-layout-work ()
   "Organise screen layout for IRC setup"
-  (let ((buffers (dim:wait-for-buffers '("#vieuxcons@irc.lost-oasis.net"
+  (let ((buffers (dim:wait-for-buffers '("#vieuxcons@tapoueh.org"
 					 "#dba@irc.hi-media-techno.com"
-					 "#postgresql@irc.freenode.net"
-					 "#emacs@irc.freenode.net"))))
+					 "#postgresql@pgsql.tapoueh.org"
+					 "#emacs@pgsql.tapoueh.org"))))
     (if (not (eq 4 (length buffers)))
 	;; yes, at work too, same servers
 	(dim:rcirc-layout-home-waiting)
       (delete-other-windows)
       (let* ((right-window (split-window-horizontally))
 	     (bottom-window (split-window-vertically)))
-	(set-window-buffer (selected-window) "#postgresql@irc.freenode.net")
-	(set-window-buffer bottom-window "#vieuxcons@irc.lost-oasis.net")
+	(set-window-buffer (selected-window) "#postgresql@pgsql.tapoueh.org")
+	(set-window-buffer bottom-window "#vieuxcons@tapoueh.org")
 	(select-window bottom-window)
-	(set-window-buffer (split-window-vertically) "#emacs@irc.freenode.net")
+	(set-window-buffer (split-window-vertically) "#emacs@pgsql.tapoueh.org")
 	(set-window-buffer right-window "#dba@irc.hi-media-techno.com")
 	(balance-windows)
 	;; now cut the right part
@@ -144,13 +144,13 @@
   (with-current-buffer (window-buffer window)
     (when (eq major-mode 'rcirc-mode)
       (setq fill-column
-	    (- (window-width window) 
+	    (- (window-width window)
 	       (or margin dim:dynamic-fill-column-margin))))))
 
 (defun dim:dynamic-fill-column (frame)
   "Dynamically tune fill-column for a frame's windows at redisplay time"
   (walk-windows 'dim:dynamic-fill-column-window 'no-minibuf frame))
-  
+
 (eval-after-load 'rcirc
   '(add-to-list 'window-size-change-functions 'dim:dynamic-fill-column))
 
@@ -177,7 +177,7 @@
 	(save-excursion
 	  (forward-line -1)
 	  (let ((p (point))
-		(b (re-search-backward 
+		(b (re-search-backward
 		    (concat "^.*\*\*\* 311 " target) nil t)))
 	    (when b
 	      (setq whois (buffer-substring b p))))))
@@ -194,6 +194,12 @@
 
 (setq rcirc-mode-hook nil)
 (add-hook 'rcirc-mode-hook 'dim:rcirc-whois-on-query-from-others)
+
+;; indicate-buffer-boundaries in rcirc is not doing the right thing
+(defun dim:rcirc-set-indicate-buffer-boundaries ()
+  (setq indicate-buffer-boundaries '((top . left) (up . left) (t nil))))
+
+(add-hook 'rcirc-mode-hook 'dim:rcirc-set-indicate-buffer-boundaries)
 
 ;;
 ;; as there's apparently no way to distinguish between opening a query and
@@ -240,33 +246,27 @@
 (setq rcirc-default-user-name "Dimitri")
 (setq rcirc-default-user-full-name "Dimitri Fontaine")
 
-;; p4ssw0rd
-(setq rcirc-authinfo '(("freenode" nickserv "dim" "ernieball")
-		       ("lost-oasis" nickserv "dim" "ernieball")
-		       ("localhost" bitlbee "dim" "secret")))
+(setq rcirc-authinfo '(("localhost" bitlbee "dim" "secret")))
 
 (setq rcirc-server-alist
-      '(("irc.freenode.net" 
-	 :channels ("#postgresql" "#skytools" "#postgresqlfr"
-		    "#emacs" "#gli" "#cvf"))
-	("irc.lost-oasis.net" 
-	 :nick "dim"
-	 :channels ("#vieuxcons"))
+      ;; we use ZNC
+      '(("pgsql.tapoueh.org"
+	 :port "6700"
+	 :password "dim.freenode:dim.freenode"
+      	 :channels ("#postgresql" "#skytools" "#postgresqlfr"
+      		    "#emacs" "#el-get" "#gli" "#cvf"))
+
+      	("tapoueh.org"
+	 :port "6700"
+	 :password "dim.lo:dim.lo"
+      	 :channels ("#vieuxcons"))
 	("localhost" ("&bitlbee"))))
 
 (when (string-match "hi-media-techno" (get-domain-name))
   (add-to-list 'rcirc-server-alist
 	       '("irc.hi-media-techno.com"
-		 :channels 
+		 :channels
 		 ("#hm" "#pg" "#dba"
 		  "#eurovox" "#allopass" "#comtrack" "#admin"))))
-
-(when (not (string-match "hi-media-techno" (get-domain-name)))
-  ;; I want to define it but I'd rather not connect to it by default
-  (add-to-list 'rcirc-server-alist
-	       '("irc.free.fr"
-		 :nick "bob`"
-		 :user-name "bob"
-		 :full-name "bob")))
 
 (provide 'dim-rcirc)
