@@ -262,7 +262,7 @@
       	 :channels ("#vieuxcons"))
 	("localhost" ("&bitlbee"))))
 
-(when (string-match "hi-media-techno" (get-domain-name))
+(when (string-match "hi-media" (get-domain-name))
   (add-to-list 'rcirc-server-alist
 	       '("irc.hi-media-techno.com"
 		 :channels

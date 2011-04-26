@@ -3,15 +3,28 @@
 ;; Some portability oriented stuff, macros
 
 ;; ok as of now it's the same on all system, but still, it has its place here.
+;;
+;; It was strange (buggy), replace the elisp implementation an awk one-liner
+;;
+;; (defun get-domain-name (&optional from)
+;;   "Returns the system domain name.  If FROM is 'resolv or nil,
+;; returns the value defined in /etc/resolv.conf."
+;;   (when (or (null from) (eq from 'resolv))
+;;     (when (file-readable-p "/etc/resolv.conf")
+;;       (with-temp-buffer
+;; 	(insert-file-contents-literally "/etc/resolv.conf")
+;; 	(when (re-search-forward "^domain \\([^ ]+\\)$" nil t)
+;; 	  (match-string 1))))))
+
 (defun get-domain-name (&optional from)
   "Returns the system domain name.  If FROM is 'resolv or nil,
 returns the value defined in /etc/resolv.conf."
-  (when (or (null from) (eq from 'resolv))
-    (when (file-readable-p "/etc/resolv.conf")
-      (with-temp-buffer
-	(insert-file-contents-literally "/etc/resolv.conf")
-	(when (re-search-forward "^domain \\([^ ]+\\)$" nil t)
-	  (match-string 1))))))
+  (or
+   (when (or (null from) (eq from 'resolv))
+     (car				; get rid of the ending \n
+      (split-string
+       (shell-command-to-string "awk '/^domain/ {print $2}' /etc/resolv.conf"))))
+   ""))
 
 (defun lsb-release (&optional property)
   "Parse lsb-release output and return an alist, or the value for the given property"
