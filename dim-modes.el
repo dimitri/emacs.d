@@ -30,6 +30,10 @@
 (require 'woman)
 (setq woman-use-own-frame nil)
 
+;; M-x re-builder
+(require 're-builder)
+(setq reb-re-syntax 'string)
+
 ;; optimisation surtout bénéfique à Tramp
 (setq vc-handled-backends nil)
 (setq tramp-terminal-type "screen")

@@ -29,11 +29,11 @@
 
 (setq el-get-sources
 
-      '(cssh el-get switch-window vkill google-maps verbiste
-	      mailq sicp emacs-goodies-el notify auto-dictionnary
-	      keywiz git-commit-mode pgsql-linum-format lua-mode
-	      python psvn rect-mark crontab-mode icomplete+
-	      php-mode-improved
+      '(nognus bbdb cssh el-get switch-window vkill google-maps
+	      verbiste mailq sicp emacs-goodies-el notify
+	      auto-dictionnary keywiz git-commit-mode
+	      pgsql-linum-format lua-mode python psvn rect-mark
+	      crontab-mode icomplete+ php-mode-improved
 
         (:name smex
 	       :after (lambda ()
@@ -120,6 +120,14 @@
 			(setq geiser-repl-history-filename "~/.emacs.d/geiser-history")
 			(setq geiser-active-implementations '(guile))))
 
+	(:name fill-column-indicator
+	       :features fill-column-indicator
+	       :after (lambda()
+			(setq fci-style 'rule
+			      fci-rule-character ?│
+			      fci-rule-color "#373d3f")
+			(add-hook 'find-file-hook 'fci-mode)))
+
 	(:name gist            :type elpa)
 	(:name lisppaste       :type elpa)))
 
@@ -132,22 +140,13 @@
 
 (when-running-debian-or-ubuntu
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '(nognus bbdb
-
-	(:name fill-column-indicator
-	       :after (lambda()
-			(setq fci-style 'rule
-			      fci-rule-character ?│
-			      fci-rule-color "#373d3f")
-			(add-hook 'find-file-hook 'fci-mode)))
-
-	 (:name dictionary-el    :type apt-get   :after 'dim:setup-package-dictionary)
+       '((:name dictionary-el    :type apt-get   :after 'dim:setup-package-dictionary)
 	 (:name apel             :type apt-get)
 	 (:name muse-el          :type apt-get))))
 
 (when-running-macosx
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '(nognus emacs-w3m bbdb muse
+       '(emacs-w3m muse
 	 (:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa   :after 'dim:setup-package-dictionary)
 	 (:name aspell-fr    :type fink)

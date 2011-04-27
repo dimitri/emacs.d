@@ -155,11 +155,22 @@
   '(add-to-list 'window-size-change-functions 'dim:dynamic-fill-column))
 
 ;; whois on private even if I'm receiving it
+(defadvice rcirc-handler-PRIVMSG
+  (before dim:rcirc-handler-PRIVMSG activate)
+  (unless (or (rcirc-channel-p (car args))
+	      (and (boundp 'dim:rcirc-handler-whois) dim:rcirc-handler-whois))
+    (message "PLOP")
+    (with-current-buffer (rcirc-get-buffer process sender t)
+      (rcirc-cmd-whois sender process)
+      (make-local-variable 'dim:rcirc-handler-whois)
+      (setq dim:rcirc-handler-whois t))))
+
 (defun dim:rcirc-whois-on-query-from-others ()
   (when (and target (not (rcirc-channel-p target)))
     ;; as this buffer ain't ready to receive the answer, it'll
     ;; go into the process server buffer
     ;;(rcirc-cmd-whois target (get-buffer-process (current-buffer)))
+    ;; (rcirc-cmd-whois target (rcirc-get-buffer process target t))
     (rcirc-cmd-whois target process)
     (let (whois)
       (with-rcirc-process-buffer process
@@ -251,7 +262,7 @@
       	 :channels ("#vieuxcons"))
 	("localhost" ("&bitlbee"))))
 
-(when (string-match "hi-media-techno" (get-domain-name))
+(when (string-match "hi-media" (get-domain-name))
   (add-to-list 'rcirc-server-alist
 	       '("irc.hi-media-techno.com"
 		 :channels

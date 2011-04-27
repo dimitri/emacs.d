@@ -136,7 +136,8 @@
 (setq gnus-agent nil)
 
 ;; I still have a setup in 1024x768...
-(let ((srcsize (get-screen-dimensions)))
+(let ((srcsize (get-screen-dimensions))
+      (frame-size (list (frame-pixel-width) (frame-pixel-height))))
   (unless (or (equal '(1024 768) srcsize)
 	      (equal '(2560 1440) srcsize))
     (gnus-add-configuration
@@ -157,12 +158,13 @@
 				 '(summary-carpal 4)))))))
 
   (when (or (equal '(1680 1050) srcsize)
+	    (equal '(1680 1050) frame-size) ; beware of multiple screens
 	    (equal '(1440 900) srcsize))
     (gnus-add-configuration
      ;; two panes side-by-side
      '(article (horizontal 1.0
-			   (summary 0.5 point)
-			   (article 1.0))))))
+			   (article 1.0)
+			   (summary 0.5 point))))))
 
 ;; flyspell
 (add-hook 'message-mode-hook 'flyspell-mode)
