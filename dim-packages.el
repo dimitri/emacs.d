@@ -113,6 +113,13 @@
 	       :after (lambda ()
 			(global-set-key (kbd "C-x C-/") 'goto-last-change)))
 
+	(:name geiser
+	       :after (lambda ()
+			(setq geiser-guile-binary "guile-2.0")
+			(setq geiser-repl-use-other-window nil)
+			(setq geiser-repl-history-filename "~/.emacs.d/geiser-history")
+			(setq geiser-active-implementations '(guile))))
+
 	(:name gist            :type elpa)
 	(:name lisppaste       :type elpa)))
 
