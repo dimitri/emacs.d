@@ -120,14 +120,6 @@
 			(setq geiser-repl-history-filename "~/.emacs.d/geiser-history")
 			(setq geiser-active-implementations '(guile))))
 
-	(:name fill-column-indicator
-	       :features fill-column-indicator
-	       :after (lambda()
-			(setq fci-style 'rule
-			      fci-rule-character ?│
-			      fci-rule-color "#373d3f")
-			(add-hook 'find-file-hook 'fci-mode)))
-
 	(:name gist            :type elpa)
 	(:name lisppaste       :type elpa)))
 
@@ -140,7 +132,15 @@
 
 (when-running-debian-or-ubuntu
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '((:name dictionary-el    :type apt-get   :after 'dim:setup-package-dictionary)
+       '((:name fill-column-indicator
+		:features fill-column-indicator
+		:after (lambda()
+			 (setq fci-style 'rule
+			       fci-rule-character ?│
+			       fci-rule-color "#373d3f")
+			 (add-hook 'find-file-hook 'fci-mode)))
+
+	 (:name dictionary-el    :type apt-get   :after 'dim:setup-package-dictionary)
 	 (:name apel             :type apt-get)
 	 (:name muse-el          :type apt-get))))
 
