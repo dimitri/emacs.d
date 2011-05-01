@@ -195,6 +195,13 @@
 (setq rcirc-mode-hook nil)
 (add-hook 'rcirc-mode-hook 'dim:rcirc-whois-on-query-from-others)
 
+;; avoid ido-completing-read* sometimes (problem with history)
+(defadvice rcirc-browse-url
+  (around dim:rcirc-browse-url activate)
+  "Avoid using ido-completing-read* in rcirc-browse-url"
+  (let ((completing-read-function 'completing-read-default))
+    ad-do-it))
+
 ;; indicate-buffer-boundaries in rcirc is not doing the right thing
 (defun dim:rcirc-set-indicate-buffer-boundaries ()
   (setq indicate-buffer-boundaries '((top . left) (up . left) (t nil))))
