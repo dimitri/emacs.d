@@ -253,21 +253,43 @@
 (setq rcirc-default-user-name "Dimitri")
 (setq rcirc-default-user-full-name "Dimitri Fontaine")
 
+;; Authentication
 (setq rcirc-authinfo '(("localhost" bitlbee "dim" "secret")))
+(add-to-list 'auth-source-protocols '(irc "irc" "6667" "6700"))
 
 (setq rcirc-server-alist
       ;; we use ZNC
       '(("pgsql.tapoueh.org"
 	 :port "6700"
-	 :password "dim.freenode:dim.freenode"
+	 :auth "dim.freenode"
       	 :channels ("#postgresql" "#skytools" "#postgresqlfr"
       		    "#emacs" "#el-get" "#gli" "#cvf"))
 
       	("tapoueh.org"
 	 :port "6700"
-	 :password "dim.lo:dim.lo"
+	 :auth "dim.lo"
       	 :channels ("#vieuxcons"))
-	("localhost" ("&bitlbee"))))
+
+	("localhost" :channels ("&bitlbee"))))
+
+;; build rcirc-authinfo from rcirc-server-alist and authinfo
+(require 'auth-source)
+(defun dim:rcirc-server-alist-get-authinfo ()
+  "replace :auth in rcirc-server-alist with :password \"login:password\""
+  (dolist (server rcirc-server-alist)
+    (let* ((host  (car server))
+	   (plist (cdr server))
+	   (auth  (plist-get plist :auth)))
+      (when auth
+	(plist-put plist
+		   :password
+		   (format "%s:%s"
+			   auth
+			   (auth-source-pick-first-password
+			    :host host :port "irc" :login auth))))))
+  rcirc-server-alist)
+
+(setq rcirc-server-alist (dim:rcirc-server-alist-get-authinfo))
 
 (when (string-match "hi-media" (get-domain-name))
   (add-to-list 'rcirc-server-alist
