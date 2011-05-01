@@ -73,7 +73,7 @@
 	((header "List-ID" "postgresql.org")
 	 (address "dimitri@2ndQuadrant.fr")
 	 (organization "2ndQuadrant")
-	 (signature-file "~/.signature.2nd")
+	 (signature-file "~/.signature.2nd.lists")
 	 (user-mail-address "dimitri@2ndQuadrant.fr"))
 
 
@@ -100,7 +100,7 @@
 	 (posting-style
 	  (address "dimitri@2ndQuadrant.fr")
 	  (organization "2ndQuadrant")
-	  (signature-file "~/.signature.2nd")
+	  (signature-file "~/.signature.2nd.lists")
 	  (user-mail-address "dimitri@2ndQuadrant.fr")))))
 
 ;; fix gnus-posting-styles when we're using msmtp to add the -a account option
