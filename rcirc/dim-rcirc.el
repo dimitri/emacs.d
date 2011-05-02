@@ -257,26 +257,11 @@
 (setq rcirc-authinfo '(("localhost" bitlbee "dim" "secret")))
 (add-to-list 'auth-source-protocols '(irc "irc" "6667" "6700"))
 
-(setq rcirc-server-alist
-      ;; we use ZNC
-      '(("pgsql.tapoueh.org"
-	 :port "6700"
-	 :auth "dim.freenode"
-      	 :channels ("#postgresql" "#skytools" "#postgresqlfr"
-      		    "#emacs" "#el-get" "#gli" "#cvf"))
-
-      	("tapoueh.org"
-	 :port "6700"
-	 :auth "dim.lo"
-      	 :channels ("#vieuxcons"))
-
-	("localhost" :channels ("&bitlbee"))))
-
 ;; build rcirc-authinfo from rcirc-server-alist and authinfo
 (require 'auth-source)
-(defun dim:rcirc-server-alist-get-authinfo ()
+(defun dim:rcirc-server-alist-get-authinfo (server-alist)
   "replace :auth in rcirc-server-alist with :password \"login:password\""
-  (dolist (server rcirc-server-alist)
+  (dolist (server server-alist)
     (let* ((host  (car server))
 	   (plist (cdr server))
 	   (auth  (plist-get plist :auth)))
@@ -289,7 +274,21 @@
 			    :host host :port "irc" :login auth))))))
   rcirc-server-alist)
 
-(setq rcirc-server-alist (dim:rcirc-server-alist-get-authinfo))
+(setq rcirc-server-alist
+      ;; we use ZNC
+      (dim:rcirc-server-alist-get-authinfo
+       '(("pgsql.tapoueh.org"
+	  :port "6700"
+	  :auth "dim.freenode"
+	  :channels ("#postgresql" "#skytools" "#postgresqlfr"
+		     "#emacs" "#el-get" "#gli" "#cvf"))
+
+	 ("tapoueh.org"
+	  :port "6700"
+	  :auth "dim.lo"
+	  :channels ("#vieuxcons"))
+
+	 ("localhost" :channels ("&bitlbee")))))
 
 (when (string-match "hi-media" (get-domain-name))
   (add-to-list 'rcirc-server-alist
