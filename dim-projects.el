@@ -93,7 +93,7 @@ project-add and ibuffer-saved-filter-groups."
 
 ;; the following files will use dim:project-merge to add their setup
 (if (get-domain-name)
-    (if (string-match "hi-media-techno" (get-domain-name))
+    (if (string-match "hi-media" (get-domain-name))
 	(require 'dim-projects-hm)
       (require 'dim-projects-home))
   (error "get-domain-name is nil, can't load local projects."))
