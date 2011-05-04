@@ -6,6 +6,9 @@
 (defvar dim:hi-media-vpn-start-script "~/Hi-Media/VPN/tunnel.connect.sh"
   "Path name to the script responsible for starting the VPN connections")
 
+(defvar dim:hi-media-vpn-start-fg-script "~/Hi-Media/VPN/tunnel.connect.fg.sh"
+  "Path name to the script responsible for starting the VPN connections")
+
 (defun dim:hi-media-vpn-start ()
   "Start local VPN by means of the given script"
   (interactive)
@@ -28,6 +31,24 @@
 				(ifconfig)))))
     (set-process-filter proc 'el-get-sudo-password-process-filter)))
 
-(global-set-key (kbd "C-c V") 'dim:hi-media-vpn-start)
+(defun dim:hi-media-vpn-start-hp ()
+  "Start a foreground special local VPN"
+  (interactive)
+  (let* ((name "OpenVPN HP")
+	 (fullname (concat "*" name "*"))
+	 (buffer   (get-buffer fullname))
+	 (default-directory
+	   (file-name-directory dim:hi-media-vpn-start-fg-script)))
+
+    (if buffer
+	(switch-to-buffer fullname)
+
+      (ansi-term "/bin/bash" name)
+      (with-current-buffer fullname
+	(insert (format "sudo %s" dim:hi-media-vpn-start-fg-script))
+	(term-send-input)))))
+
+(global-set-key (kbd "C-c V P") 'dim:hi-media-vpn-start)
+(global-set-key (kbd "C-c V H") 'dim:hi-media-vpn-start-hp)
 
 (provide 'dim-hi-media-vpn)
