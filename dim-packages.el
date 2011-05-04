@@ -30,7 +30,7 @@
 (setq el-get-sources
 
       '(nognus bbdb cssh el-get switch-window vkill google-maps
-	      verbiste mailq sicp emacs-goodies-el notify
+	      verbiste sicp emacs-goodies-el notify
 	      auto-dictionnary keywiz git-commit-mode
 	      pgsql-linum-format lua-mode python psvn rect-mark
 	      crontab-mode icomplete+ php-mode-improved
@@ -140,13 +140,16 @@
 			       fci-rule-color "#373d3f")
 			 (add-hook 'find-file-hook 'fci-mode)))
 
+	 (:name mailq
+		:after (lambda () (mailq-modeline-display)))
+
 	 (:name dictionary-el    :type apt-get   :after 'dim:setup-package-dictionary)
 	 (:name apel             :type apt-get)
 	 (:name muse-el          :type apt-get))))
 
 (when-running-macosx
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '(emacs-w3m muse
+       '(emacs-w3m muse mailq
 	 (:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa   :after 'dim:setup-package-dictionary)
 	 (:name aspell-fr    :type fink)
