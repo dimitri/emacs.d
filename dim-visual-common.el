@@ -7,6 +7,9 @@
 (set-scroll-bar-mode nil)
 (setq-default indicate-buffer-boundaries 'left)
 
+;; avoid changing existing window configuration for popups
+(setq even-window-heights nil)
+
 (line-number-mode 1)
 (column-number-mode 1)
 (setq-default fill-column 76)
