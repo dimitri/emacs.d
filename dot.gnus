@@ -259,6 +259,8 @@
 (bbdb-initialize 'gnus 'message)
 (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
 (setq bbdb/news-auto-create-p t)
+(setq bbdb/gnus-summary-user-format-letter nil
+      bbdb/gnus-summary-in-bbdb-format-letter nil)
 
 ;; tweak mm-attachment-override-types in nnimap+hm.local:cron.pgfouine group
 (defcustom dim:mm-attachment-override-types '("text/plain")
