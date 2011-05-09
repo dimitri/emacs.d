@@ -49,6 +49,7 @@
 	(term-send-input)))))
 
 (global-set-key (kbd "C-c V P") 'dim:hi-media-vpn-start)
+(global-set-key (kbd "C-c V V") 'dim:hi-media-vpn-start)
 (global-set-key (kbd "C-c V H") 'dim:hi-media-vpn-start-hp)
 
 (provide 'dim-hi-media-vpn)

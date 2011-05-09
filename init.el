@@ -54,7 +54,7 @@
 
 ;; local utilities
 (when (and (get-domain-name)
-	   (string-match "hi-media-techno" (get-domain-name)))
+	   (string-match "hi-media" (get-domain-name)))
   (require 'dim-check-prefix)
   (require 'dim-hi-media-vpn))
 
