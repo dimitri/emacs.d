@@ -272,7 +272,7 @@
 			   auth
 			   (auth-source-pick-first-password
 			    :host host :port "irc" :login auth))))))
-  rcirc-server-alist)
+  server-alist)
 
 (setq rcirc-server-alist
       ;; we use ZNC
