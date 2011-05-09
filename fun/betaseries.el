@@ -23,12 +23,20 @@
 say '((\"gameofthrones\" . \"Game Of Thrones\")) to refer to
 https://www.betaseries.com/serie/gameofthrones")
 
+(defcustom betaseries-dirs '()
+  "List of directories to scan for existing (already downloaded)
+episodes.  When found, M-x betaseries-list-next-urls will skip
+them")
+
 ;; somewhat bad style, but practical
 (setq betaseries-alist '((gameofthrones  . "Game Of Thrones")
 			 (vampirediaries . "Vampire Diaries")
 			 (bigbangtheory  . "Big Bang Theory")
 			 (trueblood      . "True Blood")
 			 (breakingbad    . "Breaking Bad")))
+
+(setq betaseries-dirs '("/Volumes/Dobro Partage/Series"
+			"/Volumes/Dobro Partage/Vampire Diaries"))
 
 (defun betaseries-date-in-past-p (jour mois)
   "Compute whether '(\"02\" \"mai\") is in the past"
@@ -67,6 +75,17 @@ https://www.betaseries.com/serie/gameofthrones")
   (concat
    torrentz-base-url (mapconcat 'identity (split-string name) "+") "+" episode))
 
+(defun betaseries-find-episode (name episode)
+  "Use `find' to check if given EPISODE is already there."
+  (let* ((find   "find \"%s\" -iname \"%s\"")
+	 (iname
+	  (format "*%s*%s*"
+		  (mapconcat 'identity (split-string name) "*") episode)))
+    (loop for path in betaseries-dirs
+	  for file = (shell-command-to-string (format find path iname))
+	  unless (string= file "")
+	  collect (split-string file "\n"))))
+
 (defun betaseries-list-next-urls (&optional alist)
   "Run through `betaseries-alist' and return torrentz URLs for
 last released episodes"
@@ -74,13 +93,16 @@ last released episodes"
 	for (episode jour mois) = (betaseries-fetch-next-episode (symbol-name code))
 	do (message "betaseries %s %s" code episode)
 	when (and episode (betaseries-date-in-past-p jour mois))
-	collect (list name episode jour mois (betaseries-get-torrentz-url name episode))))
+	collect (list name episode jour mois
+		      (or (betaseries-find-episode name episode) ; on disk already
+			  (betaseries-get-torrentz-url name episode)))))
 
 (defun betaseries-browse-urls (&optional alist)
   "Browse each torrent URL returned by `betaseries-list-next-urls'"
   (interactive)
   (loop for (n e j m url) in (betaseries-list-next-urls
 			      (or alist betaseries-alist))
+	when (and (stringp url) (string= "http://" (substring url 0 7)))
 	do (browse-url url)
 	collect (list n e j m url)))
 
