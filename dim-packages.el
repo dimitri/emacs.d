@@ -2,19 +2,6 @@
 ;;
 ;; Set el-get-sources and call el-get to init all those packages we need.
 ;;
-;; First setup ELPA, which el-get depends upon
-
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
-(when
-    (load
-     (expand-file-name "~/.emacs.d/elpa/package.el"))
-  (package-initialize))
-
-;;
 ;; Use el-get to init most things, including local packages.
 ;; We trick by adding local recipes to the el-get-recipe-path.
 ;;
@@ -34,6 +21,7 @@
 	      auto-dictionnary keywiz git-commit-mode
 	      pgsql-linum-format lua-mode python psvn rect-mark
 	      crontab-mode icomplete+ php-mode-improved
+	      rainbow-delimiters
 
         (:name smex
 	       :after (lambda ()

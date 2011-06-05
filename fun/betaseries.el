@@ -10,7 +10,7 @@
 ;;
 ;; This file is NOT part of GNU Emacs.
 
-(require 'cl-seq)
+(require 'cl)
 
 (defvar betaseries-base-url "https://www.betaseries.com/serie/%s"
   "Base URL for betaseries")
