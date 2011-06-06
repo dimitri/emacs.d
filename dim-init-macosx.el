@@ -6,10 +6,12 @@
 (add-to-list 'exec-path "/sw/bin")
 (add-to-list 'exec-path "/usr/local/git/bin")
 
+(require 'info)
 (add-to-list 'Info-directory-list "/sw/share/info/")
 
 ;; special visual tweaking
 (setq color-theme-libraries nil)
+(load "~/.emacs.d/el-get/color-theme/color-theme.el")
 (require 'color-theme)
 (require 'color-theme-emacs23-default)
 (color-theme-emacs23-default)
