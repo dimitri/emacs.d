@@ -280,8 +280,8 @@
        '(("pgsql.tapoueh.org"
 	  :port "6700"
 	  :auth "dim.freenode"
-	  :channels ("#postgresql" "#skytools" "#postgresqlfr"
-		     "#emacs" "#el-get" "#gli" "#cvf"))
+	  :channels ("#postgresql" "#postgresqlfr" "#postgresql-apt"
+		     "#skytools" "#emacs" "#el-get" "#gli" "#cvf"))
 
 	 ("tapoueh.org"
 	  :port "6700"
