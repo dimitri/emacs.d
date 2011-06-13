@@ -7,6 +7,7 @@
 (add-to-list 'exec-path "/usr/local/git/bin")
 
 (require 'info)
+(add-to-list 'Info-directory-list (concat invocation-directory "../Resources/info"))
 (add-to-list 'Info-directory-list "/sw/share/info/")
 
 ;; special visual tweaking
