@@ -10,6 +10,8 @@
   (require 'color-theme-tango)
   (color-theme-tango)
 
+  ;; (require 'naquadah-theme)
+
   ;; (el-get 'sync 'color-theme-solarized)
   ;; (color-theme-solarized 'dark)
 

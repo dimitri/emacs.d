@@ -7,6 +7,7 @@
 ;;
 (require 'el-get)
 (add-to-list 'el-get-recipe-path "~/dev/emacs/el-get/recipes")
+(setq el-get-status-file "~/dev/emacs.d/el-get-status.el")
 
 ;; some special for magit under MacOSX
 (when-running-macosx
@@ -14,16 +15,9 @@
  (setq el-get-svn   "/usr/bin/svn")
  (setq el-get-darcs "~/.cabal/bin/darcs"))
 
+;; personal recipes
 (setq el-get-sources
-
-      '(nognus bbdb cssh el-get switch-window vkill google-maps
-	      verbiste sicp emacs-goodies-el notify
-	      auto-dictionnary keywiz git-commit-mode
-	      pgsql-linum-format lua-mode python psvn rect-mark
-	      crontab-mode icomplete+ php-mode-improved
-	      rainbow-delimiters
-
-        (:name smex
+      '((:name smex
 	       :after (lambda ()
 			(setq smex-save-file "~/.emacs.d/.smex-items")
 			(global-set-key (kbd "ESC M-x") 'execute-extended-command)
@@ -107,10 +101,7 @@
 			(setq geiser-guile-binary "guile-2.0")
 			(setq geiser-repl-use-other-window nil)
 			(setq geiser-repl-history-filename "~/.emacs.d/geiser-history")
-			(setq geiser-active-implementations '(guile))))
-
-	(:name gist            :type elpa)
-	(:name lisppaste       :type elpa)))
+			(setq geiser-active-implementations '(guile))))))
 
 (defun dim:setup-package-dictionary ()
   "That's called from two places, give it a name"
@@ -127,17 +118,7 @@
 
 (when-running-debian-or-ubuntu
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '(naquadah-theme
-
-	 ;; (:name fill-column-indicator
-	 ;; 	:features fill-column-indicator
-	 ;; 	:after (lambda()
-	 ;; 		 (setq fci-style 'rule
-	 ;; 		       fci-rule-character ?│
-	 ;; 		       fci-rule-color "#373d3f")
-	 ;; 		 (add-hook 'find-file-hook 'fci-mode)))
-
-	 (:name mailq
+       '((:name mailq
 		:after (lambda () (mailq-modeline-display)))
 
 	 (:name dictionary-el    :type apt-get   :after 'dim:setup-package-dictionary)
@@ -146,12 +127,28 @@
 
 (when-running-macosx
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '(emacs-w3m muse mailq
-	 (:name htmlize      :type elpa)
+       '((:name htmlize      :type elpa)
 	 (:name dictionary   :type elpa   :after 'dim:setup-package-dictionary)
 	 (:name aspell-fr    :type fink)
 	 (:name aspell-en    :type fink))))
 
-(el-get 'sync)
+;; my packages
+(setq dim-packages
+      (append
+       ;; list of packages we use straight from official recipes
+       '(nognus bbdb cssh el-get switch-window vkill google-maps
+		verbiste sicp emacs-goodies-el notify
+		auto-dictionnary keywiz git-commit-mode
+		pgsql-linum-format lua-mode python psvn rect-mark
+		crontab-mode icomplete+ php-mode-improved
+		rainbow-delimiters)
+
+       ;; add to my packages all from `el-get-sources'
+       (loop for src in el-get-sources collect (el-get-source-name src))))
+
+(when-running-macosx
+ (loop for p in '(emacs-w3m muse mailq) do (add-to-list 'dim-packages p)))
+
+(el-get 'sync dim-packages)
 
 (provide 'dim-packages)
