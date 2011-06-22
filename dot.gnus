@@ -139,7 +139,8 @@
 (let ((srcsize (get-screen-dimensions))
       (frame-size (list (frame-pixel-width) (frame-pixel-height))))
   (unless (or (equal '(1024 768) srcsize)
-	      (equal '(2560 1440) srcsize))
+	      (equal '(2560 1440) srcsize)
+	      (equal '(1050 1680) frame-size))
     (gnus-add-configuration
      '(article
        (vertical 1.0
