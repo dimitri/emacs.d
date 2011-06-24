@@ -41,6 +41,17 @@
 ;; pendant qu'on est dans Tramp, support de /sudo:remote:/path/to/file
 (require 'tramp-multi-sshx)
 
+;; don't unneeded keep stuff around
+(defadvice tramp-open-connection-setup-interactive-shell
+  (before cw:tramp-open-connection-setup-interactive-shell activate)
+  "Add process-sentinel to tramp-shells. Kill buffer when process died."
+  (set-process-sentinel
+   ;; Arg 0 is proc
+   (ad-get-arg 0)
+   (lambda (proc change)
+     (when (eq (process-status proc) 'exit)
+       (kill-buffer (process-buffer proc))))))
+
 ;; M-x shell et M-x term
 (require 'dim-shell-term)
 
