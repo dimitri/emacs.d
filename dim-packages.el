@@ -137,7 +137,8 @@
       (append
        ;; list of packages we use straight from official recipes
        '(nognus bbdb cssh el-get switch-window vkill google-maps
-		verbiste sicp emacs-goodies-el notify
+		;; verbiste sicp emacs-goodies-el notify
+		verbiste sicp
 		auto-dictionnary keywiz git-commit-mode
 		pgsql-linum-format lua-mode python psvn rect-mark
 		crontab-mode icomplete+ php-mode-improved
@@ -145,6 +146,9 @@
 
        ;; add to my packages all from `el-get-sources'
        (loop for src in el-get-sources collect (el-get-source-name src))))
+
+(when-running-debian-or-ubuntu
+ (add-to-list 'dim-packages 'notify))
 
 (when-running-macosx
  (loop for p in '(emacs-w3m muse mailq) do (add-to-list 'dim-packages p)))
