@@ -7,7 +7,7 @@
 ;;
 (require 'el-get)
 (add-to-list 'el-get-recipe-path "~/dev/emacs/el-get/recipes")
-(setq el-get-status-file "~/dev/emacs.d/el-get-status.el")
+(setq el-get-verbose t)
 
 ;; some special for magit under MacOSX
 (when-running-macosx
@@ -28,7 +28,6 @@
 	       :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
 
 	(:name asciidoc
-	       :type elpa
 	       :after (lambda ()
 			(autoload 'doc-mode "doc-mode" nil t)
 			(add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode))
@@ -63,12 +62,6 @@
 			      (if (file-executable-p "/usr/bin/cscope-indexer")
 				  "/usr/bin/cscope-indexer"
 				"~/bin/cscope-indexer"))))
-
-	(:name css-mode
-	       :type elpa
-	       :after (lambda ()
-			(autoload 'css-mode "css-mode")
-			(add-to-list 'auto-mode-alist '("\\.css\\'" . css-mode))))
 
 	(:name hl-sexp
 	       :after (lambda ()
@@ -127,8 +120,7 @@
 
 (when-running-macosx
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '((:name htmlize      :type elpa)
-	 (:name dictionary   :type elpa   :after 'dim:setup-package-dictionary)
+       '((:name dictionary   :type elpa   :after 'dim:setup-package-dictionary)
 	 (:name aspell-fr    :type fink)
 	 (:name aspell-en    :type fink))))
 
@@ -137,21 +129,23 @@
       (append
        ;; list of packages we use straight from official recipes
        '(nognus bbdb cssh el-get switch-window vkill google-maps
-		;; verbiste sicp emacs-goodies-el notify
-		verbiste sicp
-		auto-dictionnary keywiz git-commit-mode
-		pgsql-linum-format lua-mode python psvn rect-mark
-		crontab-mode icomplete+ php-mode-improved
-		rainbow-delimiters)
+		emacs-goodies-el sicp auto-dictionnary keywiz
+		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
+		php-mode-improved rainbow-delimiters)
 
-       ;; add to my packages all from `el-get-sources'
-       (loop for src in el-get-sources collect (el-get-source-name src))))
+       ;; add to my packages almost all from `el-get-sources'
+       (loop for src in el-get-sources
+	     for name = (el-get-as-symbol (el-get-source-name src))
+	     unless (member name '(emms))
+	     collect name)))
 
 (when-running-debian-or-ubuntu
- (add-to-list 'dim-packages 'notify))
+ (loop for p in '(notify verbise)
+       do (add-to-list 'dim-packages p)))
 
 (when-running-macosx
- (loop for p in '(emacs-w3m muse mailq) do (add-to-list 'dim-packages p)))
+ (loop for p in '(htmlize emacs-w3m muse mailq)
+       do (add-to-list 'dim-packages p)))
 
 (el-get 'sync dim-packages)
 
