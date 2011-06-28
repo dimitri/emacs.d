@@ -50,6 +50,9 @@
 ;; see what the current selection/region is
 (transient-mark-mode 1)
 
+;; show matching parens ([{}]) while moving in the buffers
+(show-paren-mode)
+
 ;; quite a stretch, but has its place here too
 (setq indent-tabs-mode nil)
 (put 'narrow-to-page 'disabled nil)
