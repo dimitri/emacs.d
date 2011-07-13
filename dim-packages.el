@@ -131,7 +131,7 @@
        '(nognus bbdb cssh el-get switch-window vkill google-maps
 		emacs-goodies-el sicp auto-dictionnary keywiz
 		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
-		php-mode-improved rainbow-delimiters)
+		php-mode-improved rainbow-delimiters muse-blog muse-website)
 
        ;; add to my packages almost all from `el-get-sources'
        (loop for src in el-get-sources
