@@ -140,7 +140,7 @@
 	     collect name)))
 
 (when-running-debian-or-ubuntu
- (loop for p in '(notify verbise)
+ (loop for p in '(notify verbiste)
        do (add-to-list 'dim-packages p)))
 
 (when-running-macosx
