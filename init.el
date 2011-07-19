@@ -9,7 +9,6 @@
 		     "~/dev/emacs.d/rcirc"
 		     "~/dev/emacs.d/lib"
 		     "~/dev/emacs/rcirc-groups"
-		     "~/dev/tapoueh.org"
 		     )))
     (dolist (path (or paths dim:paths))
       (setq load-path (cons path load-path)))))
@@ -34,8 +33,8 @@
 (when-running-macosx (require 'dim-init-macosx))
 (when-running-debian-or-ubuntu (require 'dim-init-debian))
 
-;; that's tapoueh.org git depo, but still named dim-muse.el
-(require 'dim-muse)
+;; that's tapoueh.org git depo
+(load "~/dev/tapoueh.org/tapoueh.el")
 
 ;; that's local projects, and some other local muse sites
 (require 'dim-projects)
