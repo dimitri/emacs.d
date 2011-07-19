@@ -35,7 +35,8 @@
 
 (defun dim:gnus-choose-sent-folder (current-group)
   "see gnus-message-archive-group documentation"
-  (cond ((string-match "hm.local" current-group)
+  (cond ((or (null current-group)
+	     (string-match "hm.local" current-group))
 	 "nnimap+hm.local:Sent Messages")
 
 	((string-match "tapoueh.local" current-group)
@@ -170,14 +171,15 @@
 ;; flyspell
 (add-hook 'message-mode-hook 'flyspell-mode)
 
-(add-hook 'message-mode-hook
-	  (lambda ()
-	    (cond
-	     ((string-match
-	       "PostgreSQL" gnus-newsgroup-name)
-	      (ispell-change-dictionary "english"))
-	     (t
-	      (ispell-change-dictionary "francais")))))
+;; choose default dictionary
+(defun dim:pick-dictionary-from-newsgroup-name ()
+  "Choose the default dictionary depending on the group name, if any"
+  (when gnus-newsgroup-name
+    (if (string-match "PostgreSQL" gnus-newsgroup-name)
+	(ispell-change-dictionary "english"))
+    (ispell-change-dictionary "francais")))
+
+(add-hook 'message-mode-hook 'dim:pick-dictionary-from-newsgroup-name)
 
 ;; topics
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
