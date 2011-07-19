@@ -18,6 +18,12 @@
 ;; Use the clipboard, pretty please, so that copy/paste "works"
 (setq x-select-enable-clipboard t)
 
+;; see what the current selection/region is
+(transient-mark-mode 1)
+
+;; show matching parens ([{}]) while moving in the buffers
+(show-paren-mode)
+
 ;; we want global-hl-line-mode except in M-x term buffers.
 (global-hl-line-mode 1)
 
@@ -46,12 +52,6 @@
 (add-hook 'emacs-lisp-mode-hook 'whitespace-mode)
 (add-hook 'python-mode-hook 'whitespace-mode)
 (add-hook 'c-mode-hook 'whitespace-mode)
-
-;; see what the current selection/region is
-(transient-mark-mode 1)
-
-;; show matching parens ([{}]) while moving in the buffers
-(show-paren-mode)
 
 ;; quite a stretch, but has its place here too
 (setq indent-tabs-mode nil)
