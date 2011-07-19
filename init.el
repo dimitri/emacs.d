@@ -62,3 +62,12 @@
       desktop-lazy-verbose nil)
 (desktop-save-mode 1)
 (savehist-mode 1)
+
+(defun dim:notify-startup-done ()
+  " notify user that Emacs is now ready"
+  (el-get-notify
+   "Emacs is ready."
+   (format "The init sequence took %g seconds."
+	   (float-time (time-subtract after-init-time before-init-time)))))
+
+(add-hook 'after-init-hook 'dim:notify-startup-done)
