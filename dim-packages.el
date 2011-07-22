@@ -115,8 +115,7 @@
 		:after (lambda () (mailq-modeline-display)))
 
 	 (:name dictionary-el    :type apt-get   :after 'dim:setup-package-dictionary)
-	 (:name apel             :type apt-get)
-	 (:name muse-el          :type apt-get))))
+	 (:name apel             :type apt-get))))
 
 (when-running-macosx
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
@@ -131,7 +130,7 @@
        '(nognus bbdb cssh el-get switch-window vkill google-maps
 		emacs-goodies-el sicp auto-dictionnary keywiz
 		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
-		php-mode-improved rainbow-delimiters muse-blog muse-website)
+		php-mode-improved rainbow-delimiters muse)
 
        ;; add to my packages almost all from `el-get-sources'
        (loop for src in el-get-sources
@@ -144,7 +143,7 @@
        do (add-to-list 'dim-packages p)))
 
 (when-running-macosx
- (loop for p in '(htmlize emacs-w3m muse mailq)
+ (loop for p in '(htmlize emacs-w3m mailq)
        do (add-to-list 'dim-packages p)))
 
 (el-get 'sync dim-packages)
