@@ -265,6 +265,11 @@
 (setq bbdb/gnus-summary-user-format-letter nil
       bbdb/gnus-summary-in-bbdb-format-letter nil)
 
+;; display attached images and resize them
+(setq mm-inline-large-images 'resize
+      mm-inline-large-images-proportion 0.2)
+(add-to-list 'mm-attachment-override-types "image/.*")
+
 ;; tweak mm-attachment-override-types in nnimap+hm.local:cron.pgfouine group
 (defcustom dim:mm-attachment-override-types '("text/plain")
   "mm-inline-attachment-types value to apply to dim:gnus-inline-override-groups"
