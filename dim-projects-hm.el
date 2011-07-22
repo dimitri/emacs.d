@@ -48,6 +48,7 @@
    ("uuid-ossp"		. "~/PostgreSQL/pgfoundry/backport/uuid-ossp")
    ("pgdeb"		. "~/PostgreSQL/debian")
    ("pgexamples"        . "~/PostgreSQL/examples")
+   ("deadbolt"          . "~/PostgreSQL/pgfoundry/pg_deadbolt")
 
    ;; emacs related projects
    ("cssh"		. "~/dev/emacs/cssh")
