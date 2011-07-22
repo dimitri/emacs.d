@@ -16,6 +16,13 @@
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
+(setq ansi-color-names-vector
+      (vector (frame-parameter nil 'background-color)
+	      "#f57900" "#8ae234" "#edd400" "#729fcf"
+	      "#ad7fa8" "cyan3" "#eeeeec")
+      ansi-term-color-vector ansi-color-names-vector
+      ansi-color-map (ansi-color-make-color-map))
+
 ;; M-x term
 (setq term-default-bg-color (frame-parameter nil 'background-color))
 (setq term-default-fg-color (frame-parameter nil 'foreground-color))
