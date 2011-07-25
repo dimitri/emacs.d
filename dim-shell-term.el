@@ -18,6 +18,7 @@
 
 (when-running-debian-or-ubuntu
  ;; we are still using the default colors elsewhere
+ (require 'ansi-color)
  (setq ansi-color-names-vector
        (vector (frame-parameter nil 'background-color)
 	       "#f57900" "#8ae234" "#edd400" "#729fcf"
