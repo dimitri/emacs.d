@@ -39,7 +39,8 @@
 (setq tramp-terminal-type "screen")
 
 ;; pendant qu'on est dans Tramp, support de /sudo:remote:/path/to/file
-(require 'tramp-multi-sshx)
+;; (require 'tramp-multi-sshx)
+(require 'cw-tramp)
 
 ;; don't unneeded keep stuff around
 (defadvice tramp-open-connection-setup-interactive-shell

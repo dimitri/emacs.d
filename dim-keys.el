@@ -67,6 +67,7 @@
 
 ;; dired-x pour C-x C-j
 (require 'dired-x)
+(define-key dired-mode-map (kbd "C-s") 'dired-isearch-filenames)
 
 ;; dired-details pour passer à une vue courte
 (require 'dired-details)
