@@ -44,7 +44,7 @@
 (defvar bitlbee-user-directory "~/.bitlbee"
   "The directory where user configuration goes")
 
-(defvar bitlbee-options "-n -D -v "
+(defvar bitlbee-options "-n -F -v "
   "The options passed to Bitlbee on the command line.")
 
 (defvar bitlbee-executable "bitlbee"
