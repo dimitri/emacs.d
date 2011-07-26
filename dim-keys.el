@@ -132,6 +132,11 @@
 (require 'hippie-exp)
 (global-set-key (kbd "M-/") 'hippie-expand)
 
+;; broken in current snapshot
+;; GNU Emacs 24.0.50.1 (x86_64-pc-linux-gnu, GTK+ Version 2.24.4) of 2011-07-05
+(when-running-debian-or-ubuntu
+ (global-set-key (kbd "M-/") 'dabbrev-expand))
+
 ;; full screen
 (defun fullscreen ()
   (interactive)
