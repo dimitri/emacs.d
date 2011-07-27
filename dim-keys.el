@@ -73,6 +73,16 @@
 (require 'dired-details)
 (define-key dired-mode-map "/" 'dired-details-toggle)
 
+;; open files with the MacOSX default application
+(defun dired-do-shell-mac-open ()
+  (interactive)
+  (save-window-excursion
+    (dired-do-async-shell-command
+     "open" current-prefix-arg
+     (dired-get-marked-files t current-prefix-arg))))
+
+(define-key dired-mode-map (kbd "C-o") 'dired-do-shell-mac-open)
+
 (require 'ibuffer)
 (global-set-key "\C-x\C-b" 'ibuffer)
 
