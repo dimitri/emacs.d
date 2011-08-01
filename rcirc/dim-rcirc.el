@@ -157,43 +157,43 @@
 ;; whois on private even if I'm receiving it
 (defadvice rcirc-handler-PRIVMSG
   (before dim:rcirc-handler-PRIVMSG activate)
-  (unless (or (rcirc-channel-p (car args))
-	      (and (boundp 'dim:rcirc-handler-whois) dim:rcirc-handler-whois))
-    (message "PLOP")
-    (with-current-buffer (rcirc-get-buffer process sender t)
-      (rcirc-cmd-whois sender process)
-      (make-local-variable 'dim:rcirc-handler-whois)
-      (setq dim:rcirc-handler-whois t))))
+  (unless (rcirc-channel-p (car args))
+    (rcirc-cmd-whois sender process)))
 
-(defun dim:rcirc-whois-on-query-from-others ()
-  (when (and target (not (rcirc-channel-p target)))
-    ;; as this buffer ain't ready to receive the answer, it'll
-    ;; go into the process server buffer
-    ;;(rcirc-cmd-whois target (get-buffer-process (current-buffer)))
-    ;; (rcirc-cmd-whois target (rcirc-get-buffer process target t))
-    (rcirc-cmd-whois target process)
-    (let (whois)
-      (with-rcirc-process-buffer process
-	(save-excursion
-	  (forward-line -1)
-	  (let ((p (point))
-		(b (re-search-backward
-		    (concat "^.*\*\*\* 311 " target) nil t)))
-	    (when b
-	      (setq whois (buffer-substring b p))))))
-      ;; insert the whois into the new buffer now, at the very
-      ;; beginning of it
-      (let ((inhibit-read-only t))
-	(save-excursion
-	  (goto-char rcirc-prompt-start-marker)
-	  (if whois
-	      (insert-before-markers whois)
-	    (insert-before-markers "didn't get whois back on-time"
-				   (format " (%S %S)" target process)
-				   "\n")))))))
+(defun rcirc-handler-generic-whois (command process sender args text)
+  "generic rcirc handler for WHOIS related commands"
+  (let ((nick (cadr args))
+	(mesg (mapconcat 'identity (cddr args) " ")))
+    (with-current-buffer (rcirc-get-buffer-create process nick)
+      (rcirc-print process sender command nick mesg))))
 
-(setq rcirc-mode-hook nil)
-(add-hook 'rcirc-mode-hook 'dim:rcirc-whois-on-query-from-others)
+(defun rcirc-handler-311 (process sender args text)
+  "RPL_WHOISUSER"
+  (rcirc-handler-generic-whois "311" process sender args text))
+
+(defun rcirc-handler-312 (process sender args text)
+  "RPL_WHOISSERVER"
+  (rcirc-handler-generic-whois "312" process sender args text))
+
+(defun rcirc-handler-313 (process sender args text)
+  "RPL_WHOISOPERATOR"
+  (rcirc-handler-generic-whois "313" process sender args text))
+
+(defun rcirc-handler-317 (process sender args text)
+  "RPL_WHOISIDLE"
+  (rcirc-handler-generic-whois "317" process sender args text))
+
+(defun rcirc-handler-318 (process sender args text)
+  "RPL_ENDOFWHOIS"
+  (rcirc-handler-generic-whois "318" process sender args text))
+
+(defun rcirc-handler-319 (process sender args text)
+  "RPL_WHOISCHANNELS"
+  (rcirc-handler-generic-whois "319" process sender args text))
+
+(defun rcirc-handler-330 (process sender args text)
+  "330"
+  (rcirc-handler-generic-whois "330" process sender args text))
 
 ;; avoid ido-completing-read* sometimes (problem with history)
 (defadvice rcirc-browse-url
