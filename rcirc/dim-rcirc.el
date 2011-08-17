@@ -155,10 +155,10 @@
   '(add-to-list 'window-size-change-functions 'dim:dynamic-fill-column))
 
 ;; whois on private even if I'm receiving it
-(defadvice rcirc-handler-PRIVMSG
-  (before dim:rcirc-handler-PRIVMSG activate)
-  (unless (rcirc-channel-p (car args))
-    (rcirc-cmd-whois sender process)))
+;; (defadvice rcirc-handler-PRIVMSG
+;;   (before dim:rcirc-handler-PRIVMSG activate)
+;;   (unless (rcirc-channel-p (car args))
+;;     (rcirc-cmd-whois sender process)))
 
 (defun rcirc-handler-generic-whois (command process sender args text)
   "generic rcirc handler for WHOIS related commands"
@@ -167,33 +167,19 @@
     (with-current-buffer (rcirc-get-buffer-create process nick)
       (rcirc-print process sender command nick mesg))))
 
-(defun rcirc-handler-311 (process sender args text)
-  "RPL_WHOISUSER"
-  (rcirc-handler-generic-whois "311" process sender args text))
+(defun rcirc-install-whois-handlers ()
+  "Install rcirc-handler-XXX for WHOIS related protocol messages"
+  (dolist (cmd '(311 312 313 317 318 319 330))
+    (let ((name (intern (format "rcirc-handler-%d" cmd))))
+      (fset name `(lambda (process sender args text)
+		   (rcirc-handler-generic-whois
+		    ,(number-to-string cmd) process sender args text))))))
 
-(defun rcirc-handler-312 (process sender args text)
-  "RPL_WHOISSERVER"
-  (rcirc-handler-generic-whois "312" process sender args text))
+;; ignore some loosy messages
+(defun rcirc-handler-320 (process sender args text)
+  "*** 320 dim is an identified user")
 
-(defun rcirc-handler-313 (process sender args text)
-  "RPL_WHOISOPERATOR"
-  (rcirc-handler-generic-whois "313" process sender args text))
-
-(defun rcirc-handler-317 (process sender args text)
-  "RPL_WHOISIDLE"
-  (rcirc-handler-generic-whois "317" process sender args text))
-
-(defun rcirc-handler-318 (process sender args text)
-  "RPL_ENDOFWHOIS"
-  (rcirc-handler-generic-whois "318" process sender args text))
-
-(defun rcirc-handler-319 (process sender args text)
-  "RPL_WHOISCHANNELS"
-  (rcirc-handler-generic-whois "319" process sender args text))
-
-(defun rcirc-handler-330 (process sender args text)
-  "330"
-  (rcirc-handler-generic-whois "330" process sender args text))
+(rcirc-install-whois-handlers)
 
 ;; avoid ido-completing-read* sometimes (problem with history)
 (defadvice rcirc-browse-url
