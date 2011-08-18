@@ -132,11 +132,12 @@
 		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
 		php-mode-improved rainbow-delimiters muse)
 
-       ;; add to my packages almost all from `el-get-sources'
-       (loop for src in el-get-sources
-	     for name = (el-get-as-symbol (el-get-source-name src))
-	     unless (member name '(emms))
-	     collect name)))
+       ;; add to my packages all from `el-get-sources'
+       ;; (loop for src in el-get-sources
+       ;; 	     for name = (el-get-as-symbol (el-get-source-name src))
+       ;; 	     unless (member name '(emms))
+       ;; 	     collect name)))
+       (mapcar 'el-get-as-symbol (mapcar 'el-get-source-name el-get-sources))))
 
 (when-running-debian-or-ubuntu
  (loop for p in '(notify verbiste)
