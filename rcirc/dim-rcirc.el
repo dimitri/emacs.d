@@ -199,11 +199,11 @@
 ;; receiving a query request from rcirc-mode-hook, we just remove the hook
 ;; when opening a query with C-c C-q
 ;;
-(defadvice rcirc-cmd-query
-  (around dim:remove-whois-hook activate)
-  (remove-hook 'rcirc-mode-hook 'dim:rcirc-whois-on-query-from-others)
-  ad-do-it
-  (add-hook 'rcirc-mode-hook 'dim:rcirc-whois-on-query-from-others))
+;; (defadvice rcirc-cmd-query
+;;   (around dim:remove-whois-hook activate)
+;;   (remove-hook 'rcirc-mode-hook 'dim:rcirc-whois-on-query-from-others)
+;;   ad-do-it
+;;   (add-hook 'rcirc-mode-hook 'dim:rcirc-whois-on-query-from-others))
 
 ;; encodings
 (setq rcirc-decode-coding-system 'undecided)
