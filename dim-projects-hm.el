@@ -49,6 +49,7 @@
    ("pgdeb"		. "~/PostgreSQL/debian")
    ("pgexamples"        . "~/PostgreSQL/examples")
    ("deadbolt"          . "~/PostgreSQL/pgfoundry/pg_deadbolt")
+   ("apt.pg"            . "~/PostgreSQL/pgfoundry/apt.postgresql.org")
 
    ;; emacs related projects
    ("cssh"		. "~/dev/emacs/cssh")
