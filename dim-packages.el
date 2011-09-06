@@ -17,7 +17,10 @@
 
 ;; personal recipes
 (setq el-get-sources
-      '((:name smex
+      '((:name el-get
+	       :branch "master")
+
+	(:name smex
 	       :after (lambda ()
 			(setq smex-save-file "~/.emacs.d/.smex-items")
 			(global-set-key (kbd "ESC M-x") 'execute-extended-command)
@@ -46,6 +49,12 @@
 				emms-player-ogg123
 				emms-player-mplayer-playlist
 				emms-player-mplayer))
+
+			;; M-x emms-smart-browse
+			(require 'emms-browser)
+			(require 'emms-source-file-directory-tree-find)
+			(setq emms-source-file-directory-tree-function
+			      'emms-source-file-directory-tree-find)
 
 			;; Show the current track each time EMMS
 			;; starts to play a track with "NP : "
@@ -127,7 +136,7 @@
 (setq dim-packages
       (append
        ;; list of packages we use straight from official recipes
-       '(nognus bbdb cssh el-get switch-window vkill google-maps
+       '(nognus bbdb cssh switch-window vkill google-maps
 		emacs-goodies-el sicp auto-dictionnary keywiz
 		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
 		php-mode-improved rainbow-delimiters muse)
