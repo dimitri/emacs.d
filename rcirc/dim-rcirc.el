@@ -5,6 +5,13 @@
 (require 'rcirc-groups)
 ;(require 'rcirc-notify-mode)
 
+;; add a key for EMMS integration
+(defun dim:insert-current-emms-track ()
+  (interactive)
+  (insert (emms-track-description (emms-playlist-current-selected-track))))
+
+(define-key rcirc-mode-map (kbd "C-c C-e") 'dim:insert-current-emms-track)
+
 ;; Exclude rcirc properties when yanking, in order to be able to send mails
 ;; for example.
 (add-to-list 'yank-excluded-properties 'rcirc-text)
