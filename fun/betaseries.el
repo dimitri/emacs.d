@@ -42,7 +42,7 @@ them")
   "Compute whether '(\"02\" \"mai\") is in the past"
   (let* ((fr-months
 	  ["janvier" "fevrier" "mars" "avril" "mai" "juin"
-	   "juil." "ao\303\273t" "septembre" "octobre" "novembre" "decembre"])
+	   "juil." "ao\303\273t" "sept." "octobre" "novembre" "decembre"])
 	 (j  (string-to-int jour))
 	 (m  (1+ (position mois fr-months :test 'string=))))
     (time-less-p (encode-time 0 0 0 j m (nth 5 (decode-time))) (current-time))))
