@@ -56,6 +56,14 @@
 			(setq emms-source-file-directory-tree-function
 			      'emms-source-file-directory-tree-find)
 
+			;; some memory of what we did
+			(require 'emms-history)
+			(emms-history-load)
+
+			(global-set-key (kbd "<f9>") 'emms-smart-browse)
+			(define-key emms-browser-mode-map (kbd "+") 'emms-volume-raise)
+			(define-key emms-browser-mode-map (kbd "-") 'emms-volume-lower)
+
 			;; Show the current track each time EMMS
 			;; starts to play a track with "NP : "
 			(add-hook 'emms-player-started-hook 'emms-show)
