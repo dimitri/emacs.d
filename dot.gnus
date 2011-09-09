@@ -14,23 +14,18 @@
 ;; Use this great NNTP gateway that publishes mailing lists and RSS
 (setq gnus-select-method '(nntp "news.gwene.org"))
 
-;; dovecot searching through nnir
-(require 'nnir)
 (setq gnus-secondary-select-methods
       ;; Both servers are in fact localhost, trick /etc/hosts
       '((nnimap "hm.local"
 		(nnimap-address "hm.local")
-		(nnir-search-engine imap)
 		(nnimap-stream network))
 
 	(nnimap "tapoueh.local"
 		(nnimap-address "tapoueh.local")
-		(nnir-search-engine imap)
 		(nnimap-stream network))
 
 	(nnimap "quadrant.local"
 		(nnimap-address "quadrant.local")
-		(nnir-search-engine imap)
 		(nnimap-stream network))))
 
 (defun dim:gnus-choose-sent-folder (current-group)
