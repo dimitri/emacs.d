@@ -52,9 +52,12 @@
 
 			;; M-x emms-smart-browse
 			(require 'emms-browser)
-			(require 'emms-source-file-directory-tree-find)
+			(require 'emms-source-file)
 			(setq emms-source-file-directory-tree-function
 			      'emms-source-file-directory-tree-find)
+
+			;; librairy
+			(setq emms-source-file-default-directory "~/Music/")
 
 			;; some memory of what we did
 			(require 'emms-history)
