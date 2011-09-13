@@ -65,7 +65,7 @@
 		emms offlineimap asciidoc smex geiser xcscope
 		emacs-goodies-el sicp auto-dictionnary keywiz
 		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
-		php-mode-improved rainbow-delimiters muse)
+		php-mode-improved rainbow-delimiters muse deft)
 
        ;; add to my packages all from `el-get-sources'
        ;; (loop for src in el-get-sources
