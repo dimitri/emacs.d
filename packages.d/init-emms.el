@@ -17,6 +17,8 @@
 (setq emms-source-file-directory-tree-function
       'emms-source-file-directory-tree-find)
 
+(setq emms-source-file-default-directory "~/Music/")
+
 ;; some memory of what we did
 (require 'emms-history)
 (emms-history-load)

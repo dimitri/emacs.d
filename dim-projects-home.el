@@ -26,6 +26,7 @@
    ("libphp-pgq"	. "~/dev/libphp-pgq")
    ("preprepare"	. "~/dev/preprepare")
    ("pgfincore"	. "~/dev/pgfincore")
+   ("apt.pg"	. "~/dev/apt.postgresql.org")
 
    ;; lost-oasis open source
    ("sinn"		. "~/dev/niftyname/git/sinn/")
