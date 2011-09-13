@@ -15,103 +15,20 @@
  (setq el-get-svn   "/usr/bin/svn")
  (setq el-get-darcs "~/.cabal/bin/darcs"))
 
+;; where to find init-package.el files
+(setq el-get-user-package-directory "~/dev/emacs.d/packages.d")
+
 ;; personal recipes
 (setq el-get-sources
-      '((:name el-get
-	       :branch "master")
-
-	(:name smex
-	       :after (lambda ()
-			(setq smex-save-file "~/.emacs.d/.smex-items")
-			(global-set-key (kbd "ESC M-x") 'execute-extended-command)
-			(global-set-key (kbd "M-x") 'smex)
-			(global-set-key (kbd "M-X") 'smex-major-mode-commands)))
+      '((:name el-get :branch "master")
 
 	(:name magit
-	       :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
-
-	(:name asciidoc
-	       :after (lambda ()
-			(autoload 'doc-mode "doc-mode" nil t)
-			(add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode))
-			(add-to-list 'auto-mode-alist '("\\.asciidoc$" . doc-mode))
-			(add-hook 'doc-mode-hook '(lambda ()
-						    (turn-on-auto-fill)
-						    (require 'asciidoc)))))
-
-	(:name emms
-	       :after (lambda ()
-			(emms-standard)
-			;; (emms-default-players) ; I want VLC mainly
-			(setq emms-player-list
-			      '(emms-player-vlc
-				emms-player-mpg321
-				emms-player-ogg123
-				emms-player-mplayer-playlist
-				emms-player-mplayer))
-
-			;; M-x emms-smart-browse
-			(require 'emms-browser)
-			(require 'emms-source-file-directory-tree-find)
-			(setq emms-source-file-directory-tree-function
-			      'emms-source-file-directory-tree-find)
-
-			;; some memory of what we did
-			(require 'emms-history)
-			(emms-history-load)
-
-			(global-set-key (kbd "<f9>") 'emms-smart-browse)
-			(define-key emms-browser-mode-map (kbd "+") 'emms-volume-raise)
-			(define-key emms-browser-mode-map (kbd "-") 'emms-volume-lower)
-
-			;; Show the current track each time EMMS
-			;; starts to play a track with "NP : "
-			(add-hook 'emms-player-started-hook 'emms-show)
-			(setq emms-show-format "EMMS Now Playing: %s")
-
-			(add-hook 'dired-load-hook
-				  (define-key dired-mode-map (kbd "E") 'emms-play-dired))))
-
-	(:name xcscope
-	       :after (lambda ()
-			;; cscope debian package includes cscope-indexer, no luck under MacOSX
-			(setq cscope-indexing-script
-			      (if (file-executable-p "/usr/bin/cscope-indexer")
-				  "/usr/bin/cscope-indexer"
-				"~/bin/cscope-indexer"))))
-
-	(:name hl-sexp
-	       :after (lambda ()
-			;;(set-face-attribute 'hl-sexp-face nil :background "RosyBrown1")
-			;;(set-face-attribute 'hl-sexp-face nil :background "LightGoldenRod")
-			(set-face-attribute 'hl-sexp-face nil :background "LightYellow")))
-
-	(:name offlineimap
-	       :after (lambda ()
-			(require 'gnus-load)
-			(require 'gnus)
-			(setq offlineimap-enable-mode-line-p
-			      '(member major-mode '(offlineimap-mode
-						    gnus-group-mode
-						    gnus-summary-mode)))
-			(setq offlineimap-mode-line-symbol "♻")
-			(setq offlineimap-timestamp "%k:%M:%S ")
-			(loop with color = "DarkGoldenrod"
-			      for face in '(offlineimap-msg-syncingfolders-face
-					    offlineimap-msg-skippingfolder-face)
-			      do (set-face-attribute face nil :foreground color))
-			(define-key gnus-group-mode-map (kbd "O") 'offlineimap)))
+	       :before (lambda ()
+			 (global-set-key (kbd "C-x C-z") 'magit-status)))
 
 	(:name goto-last-change
-	       :after (lambda ()
-			(global-set-key (kbd "C-x C-/") 'goto-last-change)))
-
-	(:name geiser
-	       :after (lambda ()
-			(setq geiser-guile-binary "guile-2.0")
-			(setq geiser-repl-use-other-window nil)
-			(setq geiser-repl-history-filename "~/.emacs.d/geiser-history")
-			(setq geiser-active-implementations '(guile))))))
+	       :before (lambda ()
+			 (global-set-key (kbd "C-x C-/") 'goto-last-change)))))
 
 (defun dim:setup-package-dictionary ()
   "That's called from two places, give it a name"
@@ -145,6 +62,7 @@
       (append
        ;; list of packages we use straight from official recipes
        '(nognus bbdb cssh switch-window vkill google-maps
+		emms offlineimap asciidoc smex geiser xcscope
 		emacs-goodies-el sicp auto-dictionnary keywiz
 		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
 		php-mode-improved rainbow-delimiters muse)
