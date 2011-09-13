@@ -13,7 +13,7 @@
 
 ;; M-x emms-smart-browse
 (require 'emms-browser)
-(require 'emms-source-file-directory-tree-find)
+(require 'emms-source-file)
 (setq emms-source-file-directory-tree-function
       'emms-source-file-directory-tree-find)
 
