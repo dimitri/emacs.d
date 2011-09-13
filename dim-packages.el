@@ -26,6 +26,12 @@
 	       :before (lambda ()
 			 (global-set-key (kbd "C-x C-z") 'magit-status)))
 
+	(:name deft
+	       :before (lambda ()
+			 (setq deft-extension "muse")
+			 (setq deft-directory "~/dev/emacs.d/notes")
+			 (setq deft-text-mode 'muse-mode)))
+
 	(:name goto-last-change
 	       :before (lambda ()
 			 (global-set-key (kbd "C-x C-/") 'goto-last-change)))))

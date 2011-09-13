@@ -1,0 +1,17 @@
+Skytools3, Article documentation walmgr
+
+* installation
+
+apt-get install postgresql-9.1 skytools3-walmgr
+pg_lsclusters
+pg_createcluster 9.1 standby
+<setup walmgr>
+walmgr backup
+
+* replicating data
+
+Hot Standby
+walmgr
+
+Show a simple test with pg_bench, change hba mid test
+
