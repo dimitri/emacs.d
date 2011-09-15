@@ -33,14 +33,15 @@
 			 (setq deft-text-mode 'muse-mode)))
 
 	(:name anything
+	       :features anything-config
 	       :before (lambda ()
 			 (global-set-key (kbd "M-s a") 'dim:anything-occur)))
 
 	(:name descbinds-anything
 	       :features descbinds-anything
-	       :before (lambda ()
-			 (descbinds-anything-install)
-			 (global-set-key (kbd "C-h b") 'descbinds-anything)))
+	       :after (lambda ()
+			(descbinds-anything-install)
+			(global-set-key (kbd "C-h b") 'descbinds-anything)))
 
 	(:name goto-last-change
 	       :before (lambda ()
@@ -79,7 +80,7 @@
        ;; list of packages we use straight from official recipes
        '(nognus bbdb cssh switch-window vkill google-maps
 		emms offlineimap asciidoc smex geiser xcscope
-		anything anything-match-plugin descbinds-anything
+		anything descbinds-anything
 		emacs-goodies-el sicp auto-dictionnary keywiz
 		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
 		php-mode-improved rainbow-delimiters muse deft)
