@@ -7,4 +7,7 @@
 If region is active, search only in region,
 otherwise search in whole buffer."
   (interactive)
-  (anything-other-buffer 'anything-c-source-occur "*Anything Occur*"))
+  (save-restriction
+    (when (region-active-p)
+      (narrow-to-region (region-beginning) (region-end)))
+    (anything-other-buffer 'anything-c-source-occur "*Anything Occur*")))
