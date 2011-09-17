@@ -38,7 +38,6 @@
 			 (global-set-key (kbd "M-s a") 'dim:anything-occur)))
 
 	(:name descbinds-anything
-	       :features descbinds-anything
 	       :after (lambda ()
 			(descbinds-anything-install)
 			(global-set-key (kbd "C-h b") 'descbinds-anything)))
