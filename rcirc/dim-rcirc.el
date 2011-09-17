@@ -41,24 +41,45 @@
   (set-window-buffer (selected-window) "*tapoueh.org*")
   (set-window-buffer (split-window-horizontally) "*pgsql.tapoueh.org*"))
 
+(defun dim:rcirc-layout-home-large ()
+  "Organize screen layout for a large frame (2 columns)"
+  (let ((upper-left-window (selected-window))
+	(right-window (split-window-horizontally)))
+    (set-window-buffer (selected-window) "#vieuxcons@tapoueh.org")
+    (set-window-buffer right-window "#postgresql@pgsql.tapoueh.org")
+    (select-window (split-window-vertically))
+    (set-window-buffer (selected-window) "#emacs@pgsql.tapoueh.org")
+    (select-window upper-left-window)
+    (split-window-vertically-quarter-bottom)
+    (rcirc-groups:switch-to-groups-buffer)))
+
+(defun dim:rcirc-layout-home-thin ()
+  "Organize screen layout for a thin frame (1 useful column)"
+  (let ((upper-left-window (selected-window))
+	(right-window (split-window-horizontally 86)))
+    (set-window-buffer (selected-window) "#postgresql@pgsql.tapoueh.org")
+    (split-window-vertically)
+    (split-window-vertically)
+    (windmove-down)
+    (set-window-buffer (selected-window) "#postgresql-apt@pgsql.tapoueh.org")
+    (windmove-down)
+    (split-window-vertically)
+    (set-window-buffer (selected-window) "#vieuxcons@tapoueh.org")
+    (windmove-down)
+    (set-window-buffer (selected-window) "#emacs@pgsql.tapoueh.org")))
+
 (defun dim:rcirc-layout-home ()
   "Organise screen layout for IRC setup"
-  (let ((buffers  (dim:wait-for-buffers '("#vieuxcons@tapoueh.org"
+  (delete-other-windows)
+  (let ((width    (window-width (selected-window)))
+	(buffers  (dim:wait-for-buffers '("#vieuxcons@tapoueh.org"
 					  "#emacs@pgsql.tapoueh.org"
 					  "#postgresql@pgsql.tapoueh.org"))))
     (if (not (eq 3 (length buffers)))
 	(dim:rcirc-layout-home-waiting)
-      (delete-other-windows)
-      (let ((upper-left-window (selected-window))
-	    (right-window (split-window-horizontally)))
-	(set-window-buffer (selected-window) "#vieuxcons@tapoueh.org")
-	(set-window-buffer right-window "#postgresql@pgsql.tapoueh.org")
-	(select-window (split-window-vertically))
-	(set-window-buffer (selected-window) "#emacs@pgsql.tapoueh.org")
-	(select-window upper-left-window)
-	(split-window-vertically-quarter-bottom)
-	(rcirc-groups:switch-to-groups-buffer)))))
-
+      (if (> width (* 2 80))
+	  (dim:rcirc-layout-home-large)
+	(dim:rcirc-layout-home-thin)))))
 
 (defun dim:rcirc-layout-work ()
   "Organise screen layout for IRC setup"
