@@ -24,6 +24,7 @@
 (emms-history-load)
 
 (global-set-key (kbd "<f9>") 'emms-smart-browse)
+(global-set-key (kbd "<f8>") 'emms-pause)
 (define-key emms-browser-mode-map (kbd "+") 'emms-volume-raise)
 (define-key emms-browser-mode-map (kbd "-") 'emms-volume-lower)
 
