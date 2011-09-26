@@ -23,6 +23,8 @@
 (require 'emms-history)
 (emms-history-load)
 
+;; easy access to "multimedia" features
+(require 'emms-volume)
 (global-set-key (kbd "<f5>") 'emms-volume-lower)
 (global-set-key (kbd "<f6>") 'emms-volume-raise)
 (global-set-key (kbd "<f7>") 'emms-next)
