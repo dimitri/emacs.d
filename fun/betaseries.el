@@ -35,14 +35,13 @@ them")
 			 (trueblood      . "True Blood")
 			 (breakingbad    . "Breaking Bad")))
 
-(setq betaseries-dirs '("/Volumes/Dobro Partage/Series"
-			"/Volumes/Dobro Partage/Vampire Diaries"))
+(setq betaseries-dirs '("/Volumes/Dobro Partage/Series"))
 
 (defun betaseries-date-in-past-p (jour mois)
   "Compute whether '(\"02\" \"mai\") is in the past"
   (let* ((fr-months
 	  ["janvier" "fevrier" "mars" "avril" "mai" "juin"
-	   "juil." "ao\303\273t" "sept." "octobre" "novembre" "decembre"])
+	   "juil." "ao\303\273t" "sept." "oct." "novembre" "decembre"])
 	 (j  (string-to-int jour))
 	 (m  (1+ (position mois fr-months :test 'string=))))
     (time-less-p (encode-time 0 0 0 j m (nth 5 (decode-time))) (current-time))))
@@ -54,13 +53,13 @@ them")
     (let* ((dummy   (goto-char (point-min)))
 	   (dummy   (re-search-forward "<h2>\\([^<]*\\)</h2>"))
 	   (name    (match-string 1))
-	   (dummy   (re-search-forward "date [^\"]+"))
-	   (dummy   (re-search-backward "nb.>\\([^<]*\\)"))
-	   (jour    (match-string 1))
-	   (dummy   (re-search-forward "mois.>\\([^<]*\\)"))
+	   (dummy   (re-search-forward "class=.date [a-z]+"))
+	   (dummy   (re-search-backward "/episode/[^/]*/\\([^\"]*\\)"))
+	   (episode (match-string 1))
+	   (dummy   (re-search-backward "mois.>\\([^<]*\\)"))
 	   (mois    (match-string 1))
-	   (dummy   (re-search-forward "/episode/[^/]*/\\([^\"]*\\)"))
-	   (episode (match-string 1)))
+	   (dummy   (re-search-backward "nb.>\\([^<]*\\)"))
+	   (jour    (match-string 1)))
       (list episode jour mois))))
 
 (defun betaseries-fetch-next-episode (name)
