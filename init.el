@@ -55,7 +55,8 @@
 (when (and (get-domain-name)
 	   (string-match "hi-media" (get-domain-name)))
   (require 'dim-check-prefix)
-  (require 'dim-hi-media-vpn))
+  (require 'dim-hi-media-vpn)
+  (require 'dim-hi-media-astreintes))
 
 ;; and the session
 (setq desktop-restore-eager 20

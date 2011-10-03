@@ -7,5 +7,7 @@
   (interactive)
   (let ((oncall
 	 (completing-read "On call: " '("slardiere" "dfontaine" "pkuili"))))
-    (call-process "/usr/bin/mail"
+    (call-process "/usr/bin/mail" nil nil nil
 		  "-s" (format "dba: %s" oncall) "nagios-global@hi-media.com")))
+
+(provide 'dim-hi-media-astreintes)
