@@ -57,6 +57,12 @@
 (setq indent-tabs-mode nil)
 (put 'narrow-to-page 'disabled nil)
 
+;; better completion in C-x 8 RET (unicode input)
+(when (boundp 'completion-category-overrides)
+  (add-to-list 'completion-category-overrides
+               '(unicode-name (styles basic substring))))
+
+
 ;; timestamp *Messages*
 ;; if you come tired of it
 ;; (ad-disable-advice 'message 'before 'when-was-that)
