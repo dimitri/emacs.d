@@ -25,11 +25,13 @@
 
 ;; easy access to "multimedia" features
 (require 'emms-volume)
-(global-set-key (kbd "<f5>") 'emms-volume-lower)
-(global-set-key (kbd "<f6>") 'emms-volume-raise)
-(global-set-key (kbd "<f7>") 'emms-next)
-(global-set-key (kbd "<f8>") 'emms-pause)
-(global-set-key (kbd "<f9>") 'emms-smart-browse)
+
+(when-running-debian-or-ubuntu
+ (global-set-key (kbd "<f5>") 'emms-volume-lower)
+ (global-set-key (kbd "<f6>") 'emms-volume-raise)
+ (global-set-key (kbd "<f7>") 'emms-next)
+ (global-set-key (kbd "<f8>") 'emms-pause)
+ (global-set-key (kbd "<f9>") 'emms-smart-browse))
 
 (define-key emms-browser-mode-map (kbd "+") 'emms-volume-raise)
 (define-key emms-browser-mode-map (kbd "-") 'emms-volume-lower)
