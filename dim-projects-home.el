@@ -27,6 +27,7 @@
    ("preprepare"	. "~/dev/preprepare")
    ("pgfincore"	. "~/dev/pgfincore")
    ("apt.pg"	. "~/dev/apt.postgresql.org")
+   ("getddl"	. "~/dev/getddl")
 
    ;; lost-oasis open source
    ("sinn"		. "~/dev/niftyname/git/sinn/")
