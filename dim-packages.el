@@ -36,7 +36,9 @@
 	(:name anything
 	       :features anything-config
 	       :before (lambda ()
-			 (global-set-key (kbd "M-s a") 'dim:anything-occur)))
+			 (global-set-key (kbd "M-s a") 'dim:anything-occur))
+	       :after (lambda ()
+			(setq w3m-command nil)))
 
 	(:name descbinds-anything
 	       :after (lambda ()
