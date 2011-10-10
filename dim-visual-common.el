@@ -24,6 +24,9 @@
 ;; show matching parens ([{}]) while moving in the buffers
 (show-paren-mode)
 
+;; period single space ends sentence
+(setq sentence-end-double-space nil)
+
 ;; we want global-hl-line-mode except in M-x term buffers.
 (global-hl-line-mode 1)
 
