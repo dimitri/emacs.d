@@ -51,4 +51,7 @@
 (setq dim:offlineimap-bin "/sw/bin/offlineimap"
       dim:offlineimap-options "")
 
+;; home only usage
+(load "fun/betaseries.el")
+
 (provide 'dim-init-macosx)
