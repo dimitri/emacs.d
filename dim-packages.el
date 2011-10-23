@@ -101,6 +101,10 @@
  (loop for p in '(htmlize emacs-w3m mailq)
        do (add-to-list 'dim-packages p)))
 
+(when-running-windows
+ (loop for p in '(naquadah-theme mailq)
+       do (add-to-list 'dim-packages p)))
+
 (el-get 'sync dim-packages)
 
 (provide 'dim-packages)

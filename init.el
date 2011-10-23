@@ -31,6 +31,7 @@
 (require 'dim-packages)
 
 (when-running-macosx (require 'dim-init-macosx))
+(when-running-windows (require 'dim-init-windows))
 (when-running-debian-or-ubuntu (require 'dim-init-debian))
 
 ;; that's tapoueh.org git depo

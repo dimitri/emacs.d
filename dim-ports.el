@@ -43,11 +43,11 @@ returns the value defined in /etc/resolv.conf."
 	kv))))
 
 ;; thanks to ams on #emacs on irc.freenode.net
-(defmacro with-window-system (&rest body) 
+(defmacro with-window-system (&rest body)
   "eval body only when running an windowed version of Emacs"
   `(when window-system ,@body))
 
-(defmacro without-window-system (&rest body) 
+(defmacro without-window-system (&rest body)
   "eval body only when running a console Emacs"
   `(unless window-system ,@body))
 
@@ -71,6 +71,14 @@ returns the value defined in /etc/resolv.conf."
 (defmacro when-running-macosx (&rest body)
   "eval body only when running under MacOSX"
    `(when (string-match "apple-darwin" system-configuration) ,@body))
+
+(defmacro when-running-windows (&rest body)
+  "eval body only when running under some Windows"
+   `(when (member system-type '(windows-nt cygwin)) ,@body))
+
+(defmacro unless-running-windows (&rest body)
+  "eval body only when running under some Windows"
+   `(unless (member system-type '(windows-nt cygwin)) ,@body))
 
 ;; Used from .gnus msmtp
 (defmacro when-using-msmtp (&rest body)

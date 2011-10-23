@@ -134,7 +134,8 @@
 ;; I still have a setup in 1024x768...
 (let ((srcsize (get-screen-dimensions))
       (frame-size (list (frame-pixel-width) (frame-pixel-height))))
-  (unless (or (equal '(1024 768) srcsize)
+  (unless (or (< (frame-pixel-width) 1024) ; netbook setups (1020 561) or such
+	      (equal '(1024 768) srcsize)
 	      (equal '(2560 1440) srcsize)
 	      (equal '(1050 1680) frame-size))
     (gnus-add-configuration
