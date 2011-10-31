@@ -44,6 +44,9 @@
 			(descbinds-anything-install)
 			(global-set-key (kbd "C-h b") 'descbinds-anything)))
 
+	(:name vkill
+	       :checksum fbaf37ba613a661eb46e3e380d72be8da0277cd0)
+
 	(:name goto-last-change
 	       :before (lambda ()
 			 (global-set-key (kbd "C-x C-/") 'goto-last-change)))))
