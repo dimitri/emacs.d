@@ -7,7 +7,7 @@
       '(member major-mode '(offlineimap-mode
 			    gnus-group-mode
 			    gnus-summary-mode)))
-(setq offlineimap-mode-line-symbol "♻")
+(setq offlineimap-mode-line-symbol "♺")	; ♻
 (setq offlineimap-timestamp "%k:%M:%S ")
 (loop with color = "DarkGoldenrod"
       for face in '(offlineimap-msg-syncingfolders-face
