@@ -30,6 +30,9 @@
 
 (global-set-key (kbd "C-M-z") 'dim:forward-to-char)
 
+;; rebind C-o and M-o to more useful variants of open-line
+(require 'dim-open-line)
+
 ;; C-c r pour revert-buffer
 (global-set-key (kbd "C-c r") 'revert-buffer)
 
