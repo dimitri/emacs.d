@@ -32,4 +32,5 @@
   (cons '("\\(postgres\\|pgsql\\).*\\.sgml\\'" . pgsql-sgml-mode)
         auto-mode-alist))
 
+(require 'pgsrc)
 (provide 'dim-pgsql)
