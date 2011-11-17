@@ -9,6 +9,7 @@
 	   (lambda nil
 	     (when (and buffer-file-name
 			(or (string-match "pgsql" buffer-file-name)
+			    (string-match "pgsrc" buffer-file-name)
 			    (string-match "pgext" buffer-file-name)
 			    (string-match "postgresql" buffer-file-name)))
 	       (c-set-style "bsd")
