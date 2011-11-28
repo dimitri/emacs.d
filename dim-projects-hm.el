@@ -21,6 +21,7 @@
 
    ;; PostgreSQL / pgfoundry
    ("pgsql"             . "~/PostgreSQL/postgresql")
+   ("pgsrc"             . "~/PostgreSQL/postgres")
    ("pgext"             . "~/PostgreSQL/postgresql-extension")
    ("pgconfs"           . "~/dev/pgconfs")
    ("pgloader"		. "~/PostgreSQL/pgfoundry/pgloader") 
@@ -49,6 +50,7 @@
    ("pgdeb"		. "~/PostgreSQL/debian")
    ("pgexamples"        . "~/PostgreSQL/examples")
    ("deadbolt"          . "~/PostgreSQL/pgfoundry/pg_deadbolt")
+   ("pgfincore"         . "~/PostgreSQL/pgfoundry/pgfincore")
    ("apt.pg"            . "~/PostgreSQL/pgfoundry/apt.postgresql.org")
 
    ;; emacs related projects
