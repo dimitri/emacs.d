@@ -28,6 +28,8 @@
    ("pgfincore"	. "~/dev/pgfincore")
    ("apt.pg"	. "~/dev/apt.postgresql.org")
    ("getddl"	. "~/dev/getddl")
+   ("pgextwlist"	. "~/dev/pg_ext_whitelist")
+   ("pgsql"	. "~/dev/PostgreSQL/postgres")
 
    ;; lost-oasis open source
    ("sinn"		. "~/dev/niftyname/git/sinn/")

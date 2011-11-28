@@ -75,14 +75,20 @@ project-add and ibuffer-saved-filter-groups."
 
 (defun dim:project-merge (project-alist)
   "merge the given list of projects with the current installed one"
-  ;; remove projects to merge from current project list, so that we use the
-  ;; new directory if it changed
-  (let ((duplicates
-	 (mapcar
-	  'car
-	  (intersection project-alist project-root-alist :key 'car :test 'equal))))
-    (message "dim:project-merge removing %S" duplicates)
-    (mapc 'project-remove duplicates))
+  ;; the merge could have changed the projects root directories, update
+  ;; buffer names when that happens
+  (loop for (name . root) in project-alist
+	for olddir = (cdr (assoc name project-root-alist))
+	when (and olddir (not (equal olddir root)))
+	do
+	(setcdr (assoc name project-root-alist) root)
+	(loop for b being the buffers
+		 when (and (buffer-file-name b)
+			   (eq 0 (string-match
+				  (file-truename (file-name-as-directory root))
+				  (file-truename (buffer-file-name b)))))
+		 do (with-current-buffer b
+		      (rename-buffer (project-buffer-name (buffer-file-name))))))
 
   ;; now install the new projects
   (dim:add-projects-and-setup-ibuffer-groups
