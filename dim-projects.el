@@ -9,7 +9,7 @@
 (require 'cl)
 
 (setq project-rename-all-buffers t
-      project-buffer-name-directory-prefix "»")
+      project-buffer-name-directory-prefix "…")
 
 (defcustom dim:my-projects-common '(("tmp"         . "/tmp")
 				    ("temp"        . "~/temp")

@@ -51,6 +51,7 @@
    ("pgexamples"        . "~/PostgreSQL/examples")
    ("deadbolt"          . "~/PostgreSQL/pgfoundry/pg_deadbolt")
    ("pgfincore"         . "~/PostgreSQL/pgfoundry/pgfincore")
+   ("repmgr"            . "~/PostgreSQL/pgfoundry/repmgr")
    ("apt.pg"            . "~/PostgreSQL/pgfoundry/apt.postgresql.org")
 
    ;; emacs related projects
