@@ -18,6 +18,8 @@
    ("DataManager"	. "~/Hi-Media/Partenaires")
    ("HPMP"		. "~/Hi-Media/hpmp")
    ("AdLink"            . "~/Hi-Media/AdLink")
+   ("Fotolog"           . "~/Hi-Media/Fotolog")
+   ("fotolog"           . "~/Hi-Media/admin/git/fotolog")
 
    ;; PostgreSQL / pgfoundry
    ("pgsql"             . "~/PostgreSQL/postgresql")
