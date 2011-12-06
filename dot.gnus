@@ -162,7 +162,12 @@
      ;; two panes side-by-side
      '(article (horizontal 1.0
 			   (article 1.0)
-			   (summary 0.5 point))))))
+			   (summary 0.5 point))))
+
+    ;; Vertical display when replying
+    (gnus-add-configuration '(reply (horizontal 1.0 (message .50 point) (article 1.0))))
+    (gnus-add-configuration '(reply-yank (horizontal 1.0 (message .50 point) (article 1.0))))
+    (gnus-add-configuration '(forward (horizontal 1.0 (message .50 point) (article 1.0))))))
 
 ;; flyspell
 (add-hook 'message-mode-hook 'flyspell-mode)
