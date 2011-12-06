@@ -74,7 +74,7 @@
 		emms emacs-goodies-el sicp auto-dictionnary keywiz
 		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
 		php-mode-improved rainbow-delimiters muse deft
-		color-theme-solarized)
+		color-theme-solarized protobuf-mode)
 
        ;; add to my packages all from `el-get-sources'
        ;; (loop for src in el-get-sources

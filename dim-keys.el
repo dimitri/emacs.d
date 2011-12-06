@@ -116,6 +116,7 @@
 (define-key global-map (kbd "C-x B") 'ibuffer)
 
 ;; user defined completing-read-function entered in emacs24
+;; restore with: (setq completing-read-function 'completing-read-default)
 (when (boundp 'completing-read-function)
   (defun ido-completing-read* (prompt choices &optional predicate require-match
 				      initial-input hist def inherit-input-method)
