@@ -5,10 +5,22 @@
 (require 'term)
 
 ;; M-x shell
+(defun dim:get-git-root ()
+  "return the top level directory where current git sources are held"
+  (let* ((git (executable-find "git"))
+	 (cdup
+	  (ignore-errors
+	    (car (process-lines git "rev-parse" "--show-cdup")))))
+    (message "%S" cdup)
+    (if (and cdup (not (string-match "^fatal" cdup)))
+	(file-name-as-directory (expand-file-name cdup))
+      default-directory)))
+
 (defun cw:shell:run ()
   "Run shell in `default-directory' and set buffer name."
   (interactive)
-  (shell (format "* Shell: %s *" default-directory)))
+  (let ((default-directory (or (dim:get-git-root) default-directory)))
+    (shell (format "* Shell: %s *" default-directory))))
 
 (global-set-key (kbd "C-M-'") 'cw:shell:run)
 
