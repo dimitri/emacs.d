@@ -51,19 +51,6 @@
 	       :before (lambda ()
 			 (global-set-key (kbd "C-x C-/") 'goto-last-change)))))
 
-(defun dim:setup-package-dictionary ()
-  "That's called from two places, give it a name"
-  (require 'dictionary)
-
-  ;; (make-local-hook HOOK)
-  ;; This function is obsolete since 21.1;
-  ;; not necessary any more.
-  (defun make-local-hook (name) "backward compat" nil)
-
-  (setq dictionary-coding-systems-for-dictionaries '(("robert" . iso-8859-15)))
-  (unless (string-match "apple-darwin" system-configuration)
-    (setq dictionary-server "localhost")))
-
 (when-running-debian-or-ubuntu
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
        '((:name mailq
@@ -73,7 +60,7 @@
 
 (when-running-macosx
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '((:name dictionary   :type elpa   :after 'dim:setup-package-dictionary)
+       '(;; (:name dictionary   :type elpa   :after 'dim:setup-package-dictionary)
 	 (:name aspell-fr    :type fink)
 	 (:name aspell-en    :type fink))))
 
