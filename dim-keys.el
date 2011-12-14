@@ -108,6 +108,7 @@
 (setq ido-enable-flex-matching t)
 (setq ido-use-filename-at-point 'guess)
 (setq ido-show-dot-for-dired t)
+(setq ido-default-buffer-method 'selected-window)
 
 ;; invert C-x b and C-x C-b, the all control one is easier to type
 (define-key global-map (kbd "C-x C-b") 'ido-switch-buffer)
