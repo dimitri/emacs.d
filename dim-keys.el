@@ -288,6 +288,18 @@ vi style of % jumping to matching brace."
 
 (global-set-key (kbd "C-M-S-H") 'dim:dns-lookup-host)
 
+;; M-x shell on a remote host
+(require 'cssh)
+(defun dim:remote-shell (hostname)
+  "Open a M-x shell buffer connected to a remote ssh account"
+  (interactive
+   (list (completing-read "Remote host: " (cssh-get-hosts-list))))
+  (let ((default-directory (format "/%s:%s" hostname (expand-file-name "~")))
+	(bufname           (format "*sshell %s*" hostname)))
+    (shell bufname)))
+
+(global-set-key (kbd "C-+") 'dim:remote-shell)
+
 (require 'dim-mailrc)
 (require 'dim-previous-message)
 (provide 'dim-keys)
