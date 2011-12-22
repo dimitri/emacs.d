@@ -10,4 +10,4 @@
 
 (setq dictionary-coding-systems-for-dictionaries '(("robert" . iso-8859-15)))
 (unless (string-match "apple-darwin" system-configuration)
-  (setq dictionary-server "localhost")))
+  (setq dictionary-server "localhost"))
