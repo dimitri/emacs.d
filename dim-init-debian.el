@@ -16,6 +16,10 @@
   ;; (color-theme-solarized 'dark)
   (color-theme-solarized 'light)
 
+  ;; this theme sets the hl-line and the transient-mark-mode background
+  ;; faces the same, which is not cool.
+  (set-face-attribute 'hl-line nil :background "grey90")
+
   ;; be easy on the eyes
   ;; (if (equal (get-screen-dimensions) '(1440 900))
   ;;     (set-face-font 'default "Monospace-10")
