@@ -55,6 +55,7 @@
    ("pgfincore"         . "~/PostgreSQL/pgfoundry/pgfincore")
    ("repmgr"            . "~/PostgreSQL/pgfoundry/repmgr")
    ("apt.pg"            . "~/PostgreSQL/pgfoundry/apt.postgresql.org")
+   ("myfdw"            . "~/PostgreSQL/pgfoundry/mysql_fdw")
 
    ;; emacs related projects
    ("cssh"		. "~/dev/emacs/cssh")
