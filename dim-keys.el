@@ -294,7 +294,7 @@ vi style of % jumping to matching brace."
   "Open a M-x shell buffer connected to a remote ssh account"
   (interactive
    (list (completing-read "Remote host: " (cssh-get-hosts-list))))
-  (let ((default-directory (format "/%s:%s" hostname (expand-file-name "~")))
+  (let ((default-directory (format "/%s:%s" hostname "~"))
 	(bufname           (format "*sshell %s*" hostname)))
     (shell bufname)))
 
