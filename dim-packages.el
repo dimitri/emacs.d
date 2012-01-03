@@ -49,7 +49,10 @@
 
 	(:name goto-last-change
 	       :before (lambda ()
-			 (global-set-key (kbd "C-x C-/") 'goto-last-change)))))
+			 (global-set-key (kbd "C-x C-/") 'goto-last-change)))
+
+	(:name cssh
+	       :after (lambda () (cssh-define-global-bindings)))))
 
 (when-running-debian-or-ubuntu
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
@@ -68,7 +71,7 @@
 (setq dim-packages
       (append
        ;; list of packages we use straight from official recipes
-       '(nognus bbdb cssh switch-window vkill google-maps
+       '(nognus bbdb switch-window vkill google-maps
 		offlineimap asciidoc smex geiser xcscope
 		anything descbinds-anything
 		emms emacs-goodies-el sicp auto-dictionnary keywiz

@@ -110,6 +110,7 @@
 (setq ido-enable-flex-matching t)
 (setq ido-use-filename-at-point 'guess)
 (setq ido-show-dot-for-dired t)
+(setq ido-default-buffer-method 'selected-window)
 
 ;; invert C-x b and C-x C-b, the all control one is easier to type
 (define-key global-map (kbd "C-x C-b") 'ido-switch-buffer)
@@ -288,6 +289,18 @@ vi style of % jumping to matching brace."
 	   (kill-new (nth 4 split))))))
 
 (global-set-key (kbd "C-M-S-H") 'dim:dns-lookup-host)
+
+;; M-x shell on a remote host
+(require 'cssh)
+(defun dim:remote-shell (hostname)
+  "Open a M-x shell buffer connected to a remote ssh account"
+  (interactive
+   (list (completing-read "Remote host: " (cssh-get-hosts-list))))
+  (let ((default-directory (format "/%s:%s" hostname "~"))
+	(bufname           (format "*sshell %s*" hostname)))
+    (shell bufname)))
+
+(global-set-key (kbd "C-+") 'dim:remote-shell)
 
 (require 'dim-mailrc)
 (require 'dim-previous-message)
