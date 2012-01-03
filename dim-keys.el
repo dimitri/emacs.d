@@ -52,6 +52,8 @@
 ;; déplacements d'une frame à l'autre
 (global-set-key (kbd "M-`") 'other-frame)
 (global-set-key (kbd "C-|") 'other-frame)
+(global-set-key (kbd "C-x \\") 'other-frame)
+(global-set-key (kbd "C-x C-\\") 'other-frame)
 
 ; winner-mode pour revenir sur le layout précédent
 (winner-mode 1)
