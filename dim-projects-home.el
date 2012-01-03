@@ -28,6 +28,7 @@
    ("pgfincore"	. "~/dev/pgfincore")
    ("apt.pg"	. "~/dev/apt.postgresql.org")
    ("getddl"	. "~/dev/getddl")
+   ("myfdw"	. "~/dev/mysql_fdw")
    ("pgextwlist"	. "~/dev/pg_ext_whitelist")
    ("pgsql"	. "~/dev/PostgreSQL/postgres")
 
