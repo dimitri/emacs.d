@@ -57,7 +57,9 @@
 (when-running-debian-or-ubuntu
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
        '((:name mailq
-		:after (lambda () (mailq-modeline-display)))
+		:after (lambda ()
+			 (mailq-modeline-display)
+			 (define-key mailq-mode-map (kbd "F") 'mailq-mode-flush)))
 	 (:name dictionary   :type elpa  :after 'dim:setup-package-dictionary)
 	 (:name apel         :type apt-get))))
 
