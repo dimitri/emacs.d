@@ -57,6 +57,8 @@
    ("apt.pg"            . "~/PostgreSQL/pgfoundry/apt.postgresql.org")
    ("myfdw"             . "~/PostgreSQL/pgfoundry/mysql_fdw")
    ("PartMgr"           . "~/PostgreSQL/pgfoundry/PartMgr")
+   ("getddl"            . "~/PostgreSQL/pgfoundry/getddl")
+   ("pghashlib"         . "~/PostgreSQL/pgfoundry/pghashlib")
 
    ;; emacs related projects
    ("cssh"		. "~/dev/emacs/cssh")
