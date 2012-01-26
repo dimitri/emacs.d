@@ -118,6 +118,15 @@
 (define-key global-map (kbd "C-x b") 'ido-switch-buffer)
 (define-key global-map (kbd "C-x B") 'ibuffer)
 
+(defun dim:kill-buffer-name (arg)
+  "Kill the current buffer's filename and show it in the echo area."
+  (interactive "P")
+  (let ((bfn (if arg (buffer-name) (buffer-file-name))))
+    (kill-new bfn)
+    (message "%s" bfn)))
+
+(global-set-key (kbd "C-c n") 'dim:kill-buffer-name)
+
 ;; user defined completing-read-function entered in emacs24
 ;; restore with: (setq completing-read-function 'completing-read-default)
 (when (boundp 'completing-read-function)
