@@ -26,6 +26,10 @@
 	       :before (lambda ()
 			 (global-set-key (kbd "C-x C-z") 'magit-status)))
 
+	(:name expand-region
+	       :before (lambda ()
+			 (global-set-key (kbd "C-@") 'er/expand-region)))
+
 	(:name deft
 	       :before (lambda ()
 			 (setq deft-extension "muse")
