@@ -18,8 +18,9 @@
 ;; Use the clipboard, pretty please, so that copy/paste "works"
 (setq x-select-enable-clipboard t)
 
-;; see what the current selection/region is
+;; see what the current selection/region is, allow replacing it
 (transient-mark-mode 1)
+(delete-selection-mode)
 
 ;; show matching parens ([{}]) while moving in the buffers
 (show-paren-mode)
