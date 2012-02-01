@@ -70,9 +70,17 @@
 ;; Et du coup on adapte C-c 2 sur le même modèle
 (global-set-key (kbd "C-c C-,") 'split-window-vertically-quarter-bottom)
 
+(defun dim:dired-default-directory ()
+  "open dired in the current default directory"
+  (interactive)
+  (dired default-directory))
+
 ;; dired-x pour C-x C-j
 (require 'dired-x)
 (define-key dired-mode-map (kbd "C-s") 'dired-isearch-filenames)
+(define-key dired-mode-map (kbd "<backspace>") 'dired-kill-subdir)
+(define-key dired-mode-map (kbd "TAB") 'dired-hide-subdir)
+(global-set-key (kbd "C-x C-d") 'dim:dired-default-directory)
 
 ;; dired-details pour passer à une vue courte
 (require 'dired-details)
