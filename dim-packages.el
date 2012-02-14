@@ -55,6 +55,10 @@
 	       :before (lambda ()
 			 (global-set-key (kbd "C-x C-/") 'goto-last-change)))
 
+	(:name popwin
+	       :before (lambda ()
+			 (setq display-buffer-function 'popwin:display-buffer)))
+
 	(:name cssh
 	       :after (lambda () (cssh-define-global-bindings)))))
 
