@@ -1,13 +1,9 @@
 ;;; dim-init-macosx.el --- Dimitri Fontaine
 ;;
-;; Sous mac plein de softs intéressants sont dans /sw/bin
-
-(setenv "PATH" (concat (getenv "PATH") ":" "/sw/bin" ":" "/usr/local/git/bin"))
-(add-to-list 'exec-path "/sw/bin")
-(add-to-list 'exec-path "/usr/local/git/bin")
 
 (require 'info)
-(add-to-list 'Info-directory-list (concat invocation-directory "../Resources/info"))
+(add-to-list 'Info-directory-list
+	     (concat invocation-directory "../Resources/info"))
 (add-to-list 'Info-directory-list "/sw/share/info/")
 
 ;; special visual tweaking

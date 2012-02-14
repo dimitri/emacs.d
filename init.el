@@ -27,9 +27,17 @@
 (require 'dim-ports)
 (require 'dim-visual-common)
 
+;; macosx specific path settings need to be set before el-get calls
+(when-running-macosx
+ (setenv "PATH"
+	 (concat (getenv "PATH") ":" "/sw/bin" ":" "/usr/local/git/bin"))
+ (add-to-list 'exec-path "/sw/bin")
+ (add-to-list 'exec-path "/usr/local/git/bin"))
+
 ;; now the external packages we depend upon
 (require 'dim-packages)
 
+;; those OS specific setup require the packages to be initialized
 (when-running-macosx (require 'dim-init-macosx))
 (when-running-windows (require 'dim-init-windows))
 (when-running-debian-or-ubuntu (require 'dim-init-debian))
