@@ -40,7 +40,7 @@ them")
 (defun betaseries-date-in-past-p (jour mois)
   "Compute whether '(\"02\" \"mai\") is in the past"
   (let* ((fr-months
-	  ["janv." "fevrier" "mars" "avril" "mai" "juin"
+	  ["janv." "f\303\251vr." "mars" "avril" "mai" "juin"
 	   "juil." "ao\303\273t" "sept." "oct." "nov." "d\303\251c."])
 	 (j  (string-to-int jour))
 	 (m  (1+ (position mois fr-months :test 'string=))))
