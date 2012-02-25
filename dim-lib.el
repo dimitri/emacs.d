@@ -38,7 +38,7 @@ on filter.
 	     (walk       (and is-subdir
 			      ;; skip . and .. to protect the recursion
 			      (not (string-match "/\\.\\.?$" filename))
-			      (if (functionp filter) 
+			      (if (functionp filter)
 				  (funcall filter filename attributes depth)
 				t))))
 	(message "walk-path: walk into %S: %S" filename walk)
@@ -75,7 +75,7 @@ on filter.
 (defun walk-path-build-regexp (string)
   "return a regexp for fuzzy matching filenames"
   (substring (mapconcat 'identity (split-string string "") ".*") 2))
-  
+
 (defun walk-path-complete (string predicate flags)
   "return a list of candidates"
   (let* ((string-filename  (file-name-nondirectory string))
@@ -86,11 +86,11 @@ on filter.
 					      (regexp ,dir-regexp))))
 	 (matches))
 
-    (message "walk-path-complete: %S %S %S %S" 
+    (message "walk-path-complete: %S %S %S %S"
 	     string file-regexp dir-regexp match-regexp)
 
-    (walk-path default-directory 
-	       (lambda (f a) (add-to-list 'matches f)) 
+    (walk-path default-directory
+	       (lambda (f a) (add-to-list 'matches f))
 	       match-regexp
 	       nil
 	       (lambda (f a d) (string-match dir-regexp f)))
@@ -100,11 +100,11 @@ on filter.
 	   (cond ((eq 1 (length matches)) t)
 		 ((endp matches) nil)
 		 (t (try-completion "" matches))))
-	  
+
 	  ((eq flags 'lambda)
 	   ;; test-completion
 	   (member string matches))
-	  
+
 	  (t
 	   ;; all-completions
 	   matches))))
