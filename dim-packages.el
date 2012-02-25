@@ -23,28 +23,24 @@
       '((:name el-get :branch "master")
 
 	(:name magit
-	       :before (lambda ()
-			 (global-set-key (kbd "C-x C-z") 'magit-status)))
+	       :before (global-set-key (kbd "C-x C-z") 'magit-status))
 
 	(:name expand-region
-	       :before (lambda ()
-			 (global-set-key (kbd "C-@") 'er/expand-region)))
+	       :before (global-set-key (kbd "C-@") 'er/expand-region))
 
 	(:name deft
-	       :before (lambda ()
+	       :before (progn
 			 (setq deft-extension "muse")
 			 (setq deft-directory "~/dev/emacs.d/notes")
 			 (setq deft-text-mode 'muse-mode)))
 
 	(:name anything
 	       :features anything-config
-	       :before (lambda ()
-			 (global-set-key (kbd "M-s a") 'dim:anything-occur))
-	       :after (lambda ()
-			(setq w3m-command nil)))
+	       :before (global-set-key (kbd "M-s a") 'dim:anything-occur)
+	       :after  (setq w3m-command nil))
 
 	(:name descbinds-anything
-	       :after (lambda ()
+	       :after (progn
 			(descbinds-anything-install)
 			(global-set-key (kbd "C-h b") 'descbinds-anything)))
 
@@ -52,20 +48,18 @@
 	       :checksum fbaf37ba613a661eb46e3e380d72be8da0277cd0)
 
 	(:name goto-last-change
-	       :before (lambda ()
-			 (global-set-key (kbd "C-x C-/") 'goto-last-change)))
+	       :before (global-set-key (kbd "C-x C-/") 'goto-last-change))
 
 	(:name popwin
-	       :before (lambda ()
-			 (setq display-buffer-function 'popwin:display-buffer)))
+	       :before (setq display-buffer-function 'popwin:display-buffer))
 
 	(:name cssh
-	       :after (lambda () (cssh-define-global-bindings)))))
+	       :after (cssh-define-global-bindings))))
 
 (when-running-debian-or-ubuntu
  (mapc (lambda (source) (add-to-list 'el-get-sources source))
        '((:name mailq
-		:after (lambda ()
+		:after (progn
 			 (mailq-modeline-display)
 			 (define-key mailq-mode-map (kbd "F") 'mailq-mode-flush)))
 	 (:name dictionary   :type elpa  :after 'dim:setup-package-dictionary)
@@ -82,7 +76,7 @@
       (append
        ;; list of packages we use straight from official recipes
        '(nognus bbdb switch-window vkill google-maps
-		offlineimap asciidoc smex geiser xcscope
+		offlineimap mbsync asciidoc smex geiser xcscope
 		anything descbinds-anything pcmpl-git
 		emms emacs-goodies-el sicp auto-dictionnary keywiz
 		pgsql-linum-format psvn rect-mark crontab-mode icomplete+

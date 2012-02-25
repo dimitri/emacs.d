@@ -186,12 +186,13 @@
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
 ;; start offlineimap automatically on platforms where it works ok
-(when-running-macosx
- (add-hook 'gnus-group-mode-hook 'offlineimap))
+;; (when-running-macosx
+;;  (add-hook 'gnus-group-mode-hook 'offlineimap))
 
-;; M-3 g will be faster served with f
-(define-key gnus-group-mode-map (kbd "f")
-  (lambda () (interactive) (gnus-group-get-new-news 3)))
+;; f runs the command mbsync
+(require 'mbsync)
+(add-hook 'mbsync-exit-hook 'gnus-group-get-new-news)
+(define-key gnus-group-mode-map (kbd "f") 'mbsync)
 
 (require 'mailq)
 (define-key gnus-group-mode-map (kbd "M-q") 'mailq)
