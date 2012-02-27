@@ -157,6 +157,7 @@
 
   (when (or (equal '(1680 1050) srcsize)
 	    (equal '(1680 1050) frame-size) ; beware of multiple screens
+	    (equal '(1440 867) frame-size) ; beware of multiple screens
 	    (equal '(1440 900) srcsize))
     (gnus-add-configuration
      ;; two panes side-by-side
