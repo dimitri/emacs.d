@@ -32,6 +32,7 @@
  (setenv "PATH"
 	 (concat (getenv "PATH") ":" "/sw/bin" ":" "/usr/local/git/bin"))
  (add-to-list 'exec-path "/sw/bin")
+ (add-to-list 'exec-path "/usr/local/bin")
  (add-to-list 'exec-path "/usr/local/git/bin"))
 
 ;; now the external packages we depend upon
