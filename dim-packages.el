@@ -62,7 +62,7 @@
 		:after (progn
 			 (mailq-modeline-display)
 			 (define-key mailq-mode-map (kbd "F") 'mailq-mode-flush)))
-	 (:name dictionary   :type elpa  :after 'dim:setup-package-dictionary)
+	 (:name dictionary   :type elpa)
 	 (:name apel         :type apt-get))))
 
 (when-running-macosx
