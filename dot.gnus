@@ -15,30 +15,30 @@
 (setq gnus-select-method '(nntp "news.gwene.org"))
 
 (setq gnus-secondary-select-methods
-      ;; Both servers are in fact localhost, trick /etc/hosts
-      '((nnimap "hm.local"
-		(nnimap-address "hm.local")
-		(nnimap-stream network))
+      '((nnimap "hm"
+		(nnimap-address "imap.hi-media-techno.com")
+		(nnimap-server-port "imaps")
+		(nnimap-stream ssl))
 
-	(nnimap "tapoueh.local"
-		(nnimap-address "tapoueh.local")
-		(nnimap-stream network))
+	(nnimap "tapoueh"
+		(nnimap-address "mail.tapoueh.org")
+		(nnimap-server-port "imaps"))
 
-	(nnimap "quadrant.local"
-		(nnimap-address "quadrant.local")
-		(nnimap-stream network))))
+	(nnimap "quadrant"
+		(nnimap-address "acidenitrix.villemain.org")
+		(nnimap-server-port "imaps"))))
 
 (defun dim:gnus-choose-sent-folder (current-group)
   "see gnus-message-archive-group documentation"
   (cond ((or (null current-group)
-	     (string-match "hm.local" current-group))
-	 "nnimap+hm.local:Sent Messages")
+	     (string-match "hm" current-group))
+	 "nnimap+hm:Sent Messages")
 
-	((string-match "tapoueh.local" current-group)
-	 "nnimap+tapoueh.local:INBOX.Sent Messages")
+	((string-match "tapoueh" current-group)
+	 "nnimap+tapoueh:INBOX.Sent Messages")
 
-	((string-match "quadrant.local" current-group)
-	 "nnimap+quadrant.local:Sent Messages")))
+	((string-match "quadrant" current-group)
+	 "nnimap+quadrant:Sent Messages")))
 
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
 (setq gnus-gcc-mark-as-read t)
@@ -58,7 +58,7 @@
 (when-running-macosx (setq sendmail-program "/sw/sbin/sendmail"))
 
 (setq gnus-posting-styles
-      '(("hm.local"
+      '(("hm"
 	 (address "dfontaine@hi-media.com")
 	 (organization "Hi-Media")
 	 (signature-file "~/.signature")
@@ -78,13 +78,13 @@
 	 (signature "dim"))
 
 	;; Tapoueh
-	("tapoueh.local"
+	("tapoueh"
 	 (address "dim@tapoueh.org")
 	 (signature "dim")
 	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "tapoueh")))
 	 (user-mail-address "dim@tapoueh.org"))
 
-	("quadrant.local"
+	("quadrant"
 	 (address "dimitri@2ndQuadrant.fr")
 	 (organization "2ndQuadrant")
 	 (signature-file "~/.signature.2nd")
@@ -191,9 +191,9 @@
 ;;  (add-hook 'gnus-group-mode-hook 'offlineimap))
 
 ;; f runs the command mbsync
-(require 'mbsync)
-(add-hook 'mbsync-exit-hook 'gnus-group-get-new-news)
-(define-key gnus-group-mode-map (kbd "f") 'mbsync)
+;; (require 'mbsync)
+;; (add-hook 'mbsync-exit-hook 'gnus-group-get-new-news)
+;; (define-key gnus-group-mode-map (kbd "f") 'mbsync)
 
 (require 'mailq)
 (define-key gnus-group-mode-map (kbd "M-q") 'mailq)
