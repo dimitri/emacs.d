@@ -5,7 +5,7 @@
 
 (require 'url)
 
-(defun wget (&optional url filename)
+(defun wget (&optional url)
   "Download URL into FILENAME"
   (interactive "MURL: ")
 
