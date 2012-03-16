@@ -50,4 +50,22 @@
 ;; home only usage
 (load "fun/betaseries.el")
 
+;; talk to iTunes
+(defun itunes-current-song (&optional insert)
+  "return, message or insert current track information from iTunes"
+  (interactive "p")
+  (let ((current-song
+	 (car (split-string
+	       (shell-command-to-string
+		(concat "osascript -e "
+			"'tell application \"iTunes\" to return "
+			"the artist of current track "
+			"& \" - \" "
+			"& the name of current track'")) "\n"))))
+    (if (called-interactively-p)
+	(if (eq insert 1)
+	    (message "%s" current-song)
+	  (insert (format "%s" current-song)))
+      current-song)))
+
 (provide 'dim-init-macosx)
