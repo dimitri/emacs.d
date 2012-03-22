@@ -53,6 +53,12 @@
 	(:name popwin
 	       :before (setq display-buffer-function 'popwin:display-buffer))
 
+	(:name slime
+	       :type cvs
+	       :module "slime"
+	       :url ":pserver:anonymous:anonymous@common-lisp.net:/project/slime/cvsroot"
+	       :load-path ("." "contrib"))
+
 	(:name cssh
 	       :after (cssh-define-global-bindings))))
 
