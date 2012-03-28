@@ -107,9 +107,14 @@
 	(rcirc-groups:switch-to-groups-buffer)))))
 
 ;; Central place to handle connecting
-(defun dim-rcirc-start ()
+(defun dim-rcirc-start (&optional kill-buffers)
   "Start biltbee and rcirc, and connects to default places"
-  (interactive)
+  (interactive "p")
+
+  (when (eq kill-buffers 4)
+    (loop for b being the buffers
+	  when (with-current-buffer b (eq major-mode 'rcirc-mode))
+	  do (kill-buffer b)))
 
   ;; under MacOSX, bitlbee has to be started here, under debian it's an
   ;; init.d daemon
