@@ -32,11 +32,11 @@ Based on TWB hack (http://paste.lisp.org/display/90780)."
   '(progn
      ;; Reload `tramp-compute-multi-hops' to make `cw:tramp-error' advice
      ;; work. WHY ????"
-     (find-library "tramp-sh")
-     (find-function 'tramp-compute-multi-hops)
-     (forward-sexp)
-     (eval-last-sexp nil)
-     (kill-buffer "tramp-sh.el.gz")
+     (let ((buffer (find-library "tramp-sh")))
+       (find-function 'tramp-compute-multi-hops)
+       (forward-sexp)
+       (eval-last-sexp nil)
+       (kill-buffer buffer))
 
      (defadvice tramp-open-connection-setup-interactive-shell
        (before cw:tramp-open-connection-setup-interactive-shell activate)
@@ -49,4 +49,3 @@ Based on TWB hack (http://paste.lisp.org/display/90780)."
 	    (kill-buffer (process-buffer proc))))))))
 
 (provide 'cw-tramp)
-
