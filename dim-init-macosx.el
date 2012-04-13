@@ -48,7 +48,7 @@
       dim:offlineimap-options "")
 
 ;; home only usage
-(load "fun/betaseries.el")
+(require 'betaseries)
 
 ;; talk to iTunes
 (defun itunes-current-song (&optional insert)

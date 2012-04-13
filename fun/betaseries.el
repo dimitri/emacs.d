@@ -105,3 +105,4 @@ last released episodes"
 	do (browse-url url)
 	collect (list n e j m url)))
 
+(provide 'betaseries)

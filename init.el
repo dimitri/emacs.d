@@ -8,6 +8,7 @@
 		     "~/dev/emacs.d"
 		     "~/dev/emacs.d/rcirc"
 		     "~/dev/emacs.d/lib"
+		     "~/dev/emacs.d/fun"
 		     "~/dev/emacs/rcirc-groups"
 		     )))
     (dolist (path (or paths dim:paths))
@@ -26,6 +27,7 @@
 (require 'dim-lib)
 (require 'dim-ports)
 (require 'dim-visual-common)
+(require 'wget)
 
 ;; macosx specific path settings need to be set before el-get calls
 (when-running-macosx

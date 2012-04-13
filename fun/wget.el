@@ -17,3 +17,5 @@
      (forward-char)
      (delete-region (point-min) (point))
      (buffer-string))))
+
+(provide 'wget)
