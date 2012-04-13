@@ -18,4 +18,5 @@
 ;; 	(sbcl ("sbcl"))))
 
 (require 'slime)
+;; (slime-setup '(inferior-slime slime-repl))
 (slime-setup '(inferior-slime slime-fancy slime-repl))
