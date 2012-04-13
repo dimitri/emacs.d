@@ -35,6 +35,9 @@
  (add-to-list 'exec-path "/usr/local/bin")
  (add-to-list 'exec-path "/usr/local/git/bin"))
 
+;; load slime early to avoid compat problems with some packages
+(require 'dim-lisp)
+
 ;; now the external packages we depend upon
 (require 'dim-packages)
 
