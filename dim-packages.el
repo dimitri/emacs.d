@@ -86,7 +86,7 @@
 		anything descbinds-anything pcmpl-git
 		emms emacs-goodies-el sicp auto-dictionnary keywiz
 		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
-		php-mode-improved rainbow-delimiters muse deft
+		php-mode-improved rainbow-delimiters muse deft markdown-mode
 		color-theme-solarized protobuf-mode)
 
        ;; add to my packages all from `el-get-sources'
