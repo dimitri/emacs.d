@@ -142,3 +142,25 @@ starting plus symbol (`+') and with `.', `-' or space in it."
     (when current-dir
       (insert (concat " cd " current-dir))
       (term-send-input))))
+
+;;
+;; Cyb wants to C-u F11 to recompile with the same command
+;;
+(defvar cyb-compile-last-command nil)
+(defvar cyb-compile-command-history nil)
+
+(defun cyb-compile (arg)
+  "Compile with given command, optionnaly recompile with last command"
+  (interactive "P")
+  (if arg
+      (progn
+	;; arg given: compile with last command
+	(unless cyb-compile-last-command
+	  (error "Can't recompile yet, no known last command"))
+	(compile cyb-compile-last-command))
+    ;; else branch, no arg given, ask for a command
+    (let ((command
+	   (read-string
+	    "Compile with command: " "make -k" 'cyb-compile-command-history "make -k")))
+      (setq cyb-compile-last-command command)
+      (compile command))))

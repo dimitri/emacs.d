@@ -19,4 +19,13 @@
 		 "~/dev/CL/asdf/doc")
       do (add-to-list 'Info-directory-list p))
 
+(defun slime-new-repl (&optional new-port)
+  "Create additional REPL for the current Lisp connection."
+  (interactive)
+  (if (slime-current-connection)
+      (let ((port (or new-port (slime-connection-port (slime-connection)))))
+        (slime-eval `(swank:create-server :port ,port))
+        (slime-connect slime-lisp-host port))
+    (error "Not connected")))
+
 (provide 'dim-lisp)
