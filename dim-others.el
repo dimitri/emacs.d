@@ -164,3 +164,8 @@ starting plus symbol (`+') and with `.', `-' or space in it."
 	    "Compile with command: " "make -k" 'cyb-compile-command-history "make -k")))
       (setq cyb-compile-last-command command)
       (compile command))))
+
+(defun cyb-recompile (arg)
+  (interactive "P")
+  (if arg (call-interactively #'recompile)
+    (call-interactively #'compile)))
