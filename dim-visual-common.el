@@ -53,6 +53,7 @@
 		    :weight 'bold)
 
 ;; activate minor whitespace mode when in some coding modes
+(add-hook 'lisp-mode-hook 'whitespace-mode)
 (add-hook 'emacs-lisp-mode-hook 'whitespace-mode)
 (add-hook 'python-mode-hook 'whitespace-mode)
 (add-hook 'c-mode-hook 'whitespace-mode)
