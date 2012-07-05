@@ -66,7 +66,8 @@
 	 (user-mail-address "dfontaine@hi-media.com"))
 
 	;; Hi-Media listes PostgreSQL
-	((header "List-ID" "postgresql.org")
+	("PostgreSQL"
+	 ;(header "List-ID" "postgresql.org")
 	 (address "dimitri@2ndQuadrant.fr")
 	 (organization "2ndQuadrant")
 	 (signature-file "~/.signature.2nd.lists")
@@ -234,13 +235,24 @@
 
 (setq gnus-article-update-date-headers 60)
 
-(setq gnus-sum-thread-tree-false-root " ♽ "
-      gnus-sum-thread-tree-single-indent "⚙ "
+;; pretify the summary buffer with some unicode fun
+;;
+;; http://www.utf8-chartable.de/unicode-utf8-table.pl
+;; http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9728
+;;
+;; ♣ ♦ ♮ ❢ ➨ ➯ ➱ ➳ ➸ ➼ ➽ ⚑
+;; ♼ ♺ ♻ ⚛ ⚡ ⚹ ⚚ ☀ ☣ ☯ ☫ ☲ ♈ ♣
+;; ♻ ♽ ◈ ■ ▪ ●
+;; ⊖ ⊱ ⋋ ⋲ ∝
+;; ◈ ■ ▪ ● ☪ ▸ ► ▶ ⟴ ⧔ ⬛ ⬣ ⬢ ⬟ ⭓
+(setq gnus-sum-thread-tree-single-indent "♣ " ; ⚙
       gnus-sum-thread-tree-indent " "
-      gnus-sum-thread-tree-root "⚈ "
-      gnus-sum-thread-tree-leaf-with-other "├─►"  ; "┣━► "  "▶"
-      gnus-sum-thread-tree-single-leaf     "└─►"  ; "┗━► "
+      gnus-sum-thread-tree-false-root "⭓ "
+      gnus-sum-thread-tree-root "➽ "
+      gnus-sum-thread-tree-leaf-with-other "├─≻"  ; "├─►" "┣━► "  "▶" ─⇸ ⇴ ⇥ ↠ →
+      gnus-sum-thread-tree-single-leaf     "└─≻"  ; "└─►" "┗━► "
       gnus-sum-thread-tree-vertical        "│"  ) ; "┆" "┋")  "│" "┆"
+
 
 ;; with Tango-2 Theme, adapt some colors
 (when-running-debian-or-ubuntu
