@@ -61,6 +61,8 @@
 			"'tell application \"iTunes\" to return "
 			"the artist of current track "
 			"& \" - \" "
+			"& the album of current track"
+			"& \" - \" "
 			"& the name of current track'")) "\n"))))
     (insert (format "%s" current-song))
     current-song))
