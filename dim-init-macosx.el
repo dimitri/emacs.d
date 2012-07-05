@@ -51,9 +51,9 @@
 (require 'betaseries)
 
 ;; talk to iTunes
-(defun itunes-current-song (&optional insert)
+(defun itunes-insert-current-song ()
   "return, message or insert current track information from iTunes"
-  (interactive "p")
+  (interactive "")
   (let ((current-song
 	 (car (split-string
 	       (shell-command-to-string
@@ -62,10 +62,11 @@
 			"the artist of current track "
 			"& \" - \" "
 			"& the name of current track'")) "\n"))))
-    (if (called-interactively-p)
-	(if (eq insert 1)
-	    (message "%s" current-song)
-	  (insert (format "%s" current-song)))
-      current-song)))
+    (insert (format "%s" current-song))
+    current-song))
+
+;; refrain from always binding it
+(unless t
+  (define-key rcirc-mode-map (kbd "C-c C-e") 'itunes-insert-current-song))
 
 (provide 'dim-init-macosx)
