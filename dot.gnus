@@ -2,7 +2,7 @@
 ;;
 (require 'dim-ports)
 
-(setq user-mail-address "dfontaine@hi-media.com")
+(setq user-mail-address "dimitri@2ndQuadrant.fr")
 (setq user-full-name "Dimitri Fontaine")
 
 ;; No primary select method
@@ -15,18 +15,18 @@
 (setq gnus-select-method '(nntp "news.gwene.org"))
 
 (setq gnus-secondary-select-methods
-      '((nnimap "hm"
-		(nnimap-address "imap.hi-media-techno.com")
-		(nnimap-server-port "imaps")
-		(nnimap-stream ssl))
+      '((nnimap "quadrant"
+		(nnimap-address "acidenitrix.villemain.org")
+		(nnimap-server-port "imaps"))
 
 	(nnimap "tapoueh"
 		(nnimap-address "mail.tapoueh.org")
 		(nnimap-server-port "imaps"))
 
-	(nnimap "quadrant"
-		(nnimap-address "acidenitrix.villemain.org")
-		(nnimap-server-port "imaps"))))
+	(nnimap "hm"
+		(nnimap-address "imap.hi-media-techno.com")
+		(nnimap-server-port "imaps")
+		(nnimap-stream ssl))))
 
 (defun dim:gnus-choose-sent-folder (current-group)
   "see gnus-message-archive-group documentation"
