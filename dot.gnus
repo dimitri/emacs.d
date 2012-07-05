@@ -31,14 +31,14 @@
 (defun dim:gnus-choose-sent-folder (current-group)
   "see gnus-message-archive-group documentation"
   (cond ((or (null current-group)
-	     (string-match "hm" current-group))
-	 "nnimap+hm:Sent Messages")
+	     (string-match "quadrant" current-group))
+	 "nnimap+quadrant:Sent Messages")
 
 	((string-match "tapoueh" current-group)
 	 "nnimap+tapoueh:INBOX.Sent Messages")
 
-	((string-match "quadrant" current-group)
-	 "nnimap+quadrant:Sent Messages")))
+	((string-match "hm" current-group)
+	 "nnimap+hm:Sent Messages")))
 
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
 (setq gnus-gcc-mark-as-read t)
