@@ -2,7 +2,7 @@
 ;;
 (require 'dim-ports)
 
-(setq user-mail-address "dfontaine@hi-media.com")
+(setq user-mail-address "dimitri@2ndQuadrant.fr")
 (setq user-full-name "Dimitri Fontaine")
 
 ;; No primary select method
@@ -15,30 +15,30 @@
 (setq gnus-select-method '(nntp "news.gwene.org"))
 
 (setq gnus-secondary-select-methods
-      '((nnimap "hm"
-		(nnimap-address "imap.hi-media-techno.com")
-		(nnimap-server-port "imaps")
-		(nnimap-stream ssl))
+      '((nnimap "quadrant"
+		(nnimap-address "acidenitrix.villemain.org")
+		(nnimap-server-port "imaps"))
 
 	(nnimap "tapoueh"
 		(nnimap-address "mail.tapoueh.org")
 		(nnimap-server-port "imaps"))
 
-	(nnimap "quadrant"
-		(nnimap-address "acidenitrix.villemain.org")
-		(nnimap-server-port "imaps"))))
+	(nnimap "hm"
+		(nnimap-address "imap.hi-media-techno.com")
+		(nnimap-server-port "imaps")
+		(nnimap-stream ssl))))
 
 (defun dim:gnus-choose-sent-folder (current-group)
   "see gnus-message-archive-group documentation"
   (cond ((or (null current-group)
-	     (string-match "hm" current-group))
-	 "nnimap+hm:Sent Messages")
+	     (string-match "quadrant" current-group))
+	 "nnimap+quadrant:Sent Messages")
 
 	((string-match "tapoueh" current-group)
 	 "nnimap+tapoueh:INBOX.Sent Messages")
 
-	((string-match "quadrant" current-group)
-	 "nnimap+quadrant:Sent Messages")))
+	((string-match "hm" current-group)
+	 "nnimap+hm:Sent Messages")))
 
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
 (setq gnus-gcc-mark-as-read t)
@@ -66,7 +66,8 @@
 	 (user-mail-address "dfontaine@hi-media.com"))
 
 	;; Hi-Media listes PostgreSQL
-	((header "List-ID" "postgresql.org")
+	("PostgreSQL"
+	 ;(header "List-ID" "postgresql.org")
 	 (address "dimitri@2ndQuadrant.fr")
 	 (organization "2ndQuadrant")
 	 (signature-file "~/.signature.2nd.lists")
@@ -234,13 +235,24 @@
 
 (setq gnus-article-update-date-headers 60)
 
-(setq gnus-sum-thread-tree-false-root " ♽ "
-      gnus-sum-thread-tree-single-indent "⚙ "
+;; pretify the summary buffer with some unicode fun
+;;
+;; http://www.utf8-chartable.de/unicode-utf8-table.pl
+;; http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9728
+;;
+;; ♣ ♦ ♮ ❢ ➨ ➯ ➱ ➳ ➸ ➼ ➽ ⚑
+;; ♼ ♺ ♻ ⚛ ⚡ ⚹ ⚚ ☀ ☣ ☯ ☫ ☲ ♈ ♣
+;; ♻ ♽ ◈ ■ ▪ ●
+;; ⊖ ⊱ ⋋ ⋲ ∝
+;; ◈ ■ ▪ ● ☪ ▸ ► ▶ ⟴ ⧔ ⬛ ⬣ ⬢ ⬟ ⭓
+(setq gnus-sum-thread-tree-single-indent "♣ " ; ⚙
       gnus-sum-thread-tree-indent " "
-      gnus-sum-thread-tree-root "⚈ "
-      gnus-sum-thread-tree-leaf-with-other "├─►"  ; "┣━► "  "▶"
-      gnus-sum-thread-tree-single-leaf     "└─►"  ; "┗━► "
+      gnus-sum-thread-tree-false-root "⭓ "
+      gnus-sum-thread-tree-root "➽ "
+      gnus-sum-thread-tree-leaf-with-other "├─≻"  ; "├─►" "┣━► "  "▶" ─⇸ ⇴ ⇥ ↠ →
+      gnus-sum-thread-tree-single-leaf     "└─≻"  ; "└─►" "┗━► "
       gnus-sum-thread-tree-vertical        "│"  ) ; "┆" "┋")  "│" "┆"
+
 
 ;; with Tango-2 Theme, adapt some colors
 (when-running-debian-or-ubuntu

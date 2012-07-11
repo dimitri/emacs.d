@@ -12,6 +12,16 @@
     (color-theme-tango)
     (set-face-attribute 'hl-line nil :background "chocolate4"))
 
+  ;; adapt shell colors to tango theme
+  (progn
+    (require 'ansi-color)
+    (setq ansi-color-names-vector
+	  (vector (frame-parameter nil 'background-color)
+		  "#f57900" "#8ae234" "#edd400" "#729fcf"
+		  "#ad7fa8" "cyan3" "#eeeeec")
+	  ansi-term-color-vector ansi-color-names-vector
+	  ansi-color-map (ansi-color-make-color-map)))
+
   ;; (require 'naquadah-theme)
 
   ;; (progn

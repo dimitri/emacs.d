@@ -87,3 +87,7 @@
 	   (float-time (time-subtract after-init-time before-init-time)))))
 
 (add-hook 'after-init-hook 'dim:notify-startup-done)
+
+;; and start a server in case we might need it
+(unless (or (daemonp) server-mode) (server-mode))
+
