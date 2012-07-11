@@ -51,6 +51,7 @@
 	       :before (global-set-key (kbd "C-x C-/") 'goto-last-change))
 
 	(:name popwin
+	       :load-path ("." "misc")
 	       :before (setq display-buffer-function 'popwin:display-buffer))
 
 	;; (:name slime
