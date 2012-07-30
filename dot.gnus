@@ -245,7 +245,8 @@
 ;; ♻ ♽ ◈ ■ ▪ ●
 ;; ⊖ ⊱ ⋋ ⋲ ∝
 ;; ◈ ■ ▪ ● ☪ ▸ ► ▶ ⟴ ⧔ ⬛ ⬣ ⬢ ⬟ ⭓
-(setq gnus-ticked-mark ?⚐
+(setq gnus-summary-to-prefix "→"
+      gnus-ticked-mark ?⚐
       gnus-read-mark ?✓
       gnus-del-mark ?✗
       gnus-sum-thread-tree-single-indent "♣ " ; ⚙
