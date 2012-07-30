@@ -267,6 +267,9 @@
 (setq rcirc-log-directory "~/.elisp/rcirc/logs")
 (setq rcirc-log-flag t)
 
+;; truncate large buffer
+(setq rcirc-buffer-maximum-lines 5000)
+
 ;; Keep input line at bottom.
 (add-hook 'rcirc-mode-hook
 	  (lambda ()
