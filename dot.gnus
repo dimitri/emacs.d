@@ -240,19 +240,21 @@
 ;; http://www.utf8-chartable.de/unicode-utf8-table.pl
 ;; http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9728
 ;;
-;; ♣ ♦ ♮ ❢ ➨ ➯ ➱ ➳ ➸ ➼ ➽ ⚑
+;; ♣ ♦ ♮ ❢ ➨ ➯ ➱ ➳ ➸ ➼ ➽ ⚑ ⚐
 ;; ♼ ♺ ♻ ⚛ ⚡ ⚹ ⚚ ☀ ☣ ☯ ☫ ☲ ♈ ♣
 ;; ♻ ♽ ◈ ■ ▪ ●
 ;; ⊖ ⊱ ⋋ ⋲ ∝
 ;; ◈ ■ ▪ ● ☪ ▸ ► ▶ ⟴ ⧔ ⬛ ⬣ ⬢ ⬟ ⭓
-(setq gnus-sum-thread-tree-single-indent "♣ " ; ⚙
+(setq gnus-ticked-mark ?⚐
+      gnus-read-mark ?✓
+      gnus-del-mark ?✗
+      gnus-sum-thread-tree-single-indent "♣ " ; ⚙
       gnus-sum-thread-tree-indent " "
       gnus-sum-thread-tree-false-root "⭓ "
       gnus-sum-thread-tree-root "➽ "
       gnus-sum-thread-tree-leaf-with-other "├─≻"  ; "├─►" "┣━► "  "▶" ─⇸ ⇴ ⇥ ↠ →
       gnus-sum-thread-tree-single-leaf     "└─≻"  ; "└─►" "┗━► "
       gnus-sum-thread-tree-vertical        "│"  ) ; "┆" "┋")  "│" "┆"
-
 
 ;; with Tango-2 Theme, adapt some colors
 (when-running-debian-or-ubuntu
