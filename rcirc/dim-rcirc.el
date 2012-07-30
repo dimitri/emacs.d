@@ -45,10 +45,13 @@
 
 (defun dim:rcirc-layout-home-large ()
   "Organize screen layout for a large frame (2 columns)"
-  (let ((upper-left-window (selected-window))
-	(right-window (split-window-horizontally)))
+  (let* ((upper-left-window (selected-window))
+	 (upper-right-window (split-window-horizontally))
+	 (lower-right-window (with-selected-window upper-right-window
+			       (split-window-below))))
     (set-window-buffer (selected-window) "#vieuxcons@tapoueh.org")
-    (set-window-buffer right-window "#postgresql@pgsql.tapoueh.org")
+    (set-window-buffer upper-right-window "#lisp@pgsql.tapoueh.org")
+    (set-window-buffer lower-right-window "#postgresql@pgsql.tapoueh.org")
     (select-window (split-window-vertically))
     (set-window-buffer (selected-window) "#emacs@pgsql.tapoueh.org")
     (select-window upper-left-window)
@@ -75,9 +78,10 @@
   (delete-other-windows)
   (let ((width    (window-width (selected-window)))
 	(buffers  (dim:wait-for-buffers '("#vieuxcons@tapoueh.org"
+					  "#lisp@pgsql.tapoueh.org"
 					  "#emacs@pgsql.tapoueh.org"
 					  "#postgresql@pgsql.tapoueh.org"))))
-    (if (not (eq 3 (length buffers)))
+    (if (not (eq 4 (length buffers)))
 	(dim:rcirc-layout-home-waiting)
       (if (> width (* 2 80))
 	  (dim:rcirc-layout-home-large)
