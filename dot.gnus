@@ -64,7 +64,8 @@
 (defvar dim:smtp-relays
   '((:tapoueh  "mail.tapoueh.org" starttls "submission")
     (:hi-media "smtp.hi-media-techno.com" starttls "smtp")
-    (:2ndQ     "acidenitrix.villemain.org" starttls 26))
+    (:2ndQ     "91.121.90.165" starttls 26) ; ipv6 fucks me
+    (:cedric   "acidenitrix.villemain.org" starttls 26))
   "Relays Hosts to use depending on From: when sending mail.")
 
 (defvar dim:default-smtp-relay
