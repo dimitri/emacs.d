@@ -240,15 +240,18 @@
 ;; http://www.utf8-chartable.de/unicode-utf8-table.pl
 ;; http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9728
 ;;
-;; ♣ ♦ ♮ ❢ ➨ ➯ ➱ ➳ ➸ ➼ ➽ ⚑ ⚐
+;; ♣ ♦ ♮ ❢ ➨ ➯ ➱ ➳ ➸ ➼ ➽ ⚑ ⚐ ⟲ ↻ ↺ ⇆ ⇷ ⇸
 ;; ♼ ♺ ♻ ⚛ ⚡ ⚹ ⚚ ☀ ☣ ☯ ☫ ☲ ♈ ♣
 ;; ♻ ♽ ◈ ■ ▪ ●
-;; ⊖ ⊱ ⋋ ⋲ ∝
+;; ⊖ ⊱ ⋋ ⋲ ∝ ∢ ∿ ≺ ⊀ ⊰ ⊱ ⊁ ≻ ⋎ ⋏ ∻ ≁ ≉ ≭ ⋇ ⋔ ⋕ ⋖ ⋗ ⋪ ⋫ ⋲ ⋺
 ;; ◈ ■ ▪ ● ☪ ▸ ► ▶ ⟴ ⧔ ⬛ ⬣ ⬢ ⬟ ⭓
 (setq gnus-summary-to-prefix "→"
       gnus-ticked-mark ?⚐
-      gnus-read-mark ?✓
-      gnus-del-mark ?✗
+      gnus-read-mark ?∢
+      gnus-del-mark ?≭
+      gnus-replied-mark ?⊱
+      gnus-forwarded-mark ?∝
+      gnus-unread-mark ? 
       gnus-sum-thread-tree-single-indent "♣ " ; ⚙
       gnus-sum-thread-tree-indent " "
       gnus-sum-thread-tree-false-root "⭓ "
