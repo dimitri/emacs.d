@@ -54,8 +54,42 @@
 ;;  (when-running-macosx (setq sendmail-program "/sw/bin/msmtp"))
 ;;  (setq message-sendmail-extra-arguments '("-a" "himedia")))
 
-(setq message-send-mail-function 'message-send-mail-with-sendmail)
-(when-running-macosx (setq sendmail-program "/sw/sbin/sendmail"))
+;; (setq message-send-mail-function 'message-send-mail-with-sendmail)
+;; (when-running-macosx (setq sendmail-program "/sw/sbin/sendmail"))
+
+(setq starttls-extra-arguments '("--insecure"))
+
+(setq message-send-mail-function 'dim:message-smtpmail-send-it)
+
+(defvar dim:smtp-relays
+  '((:tapoueh  "mail.tapoueh.org" starttls "submission")
+    (:hi-media "smtp.hi-media-techno.com" starttls "smtp")
+    (:2ndQ     "91.121.90.165" starttls 26) ; ipv6 fucks me
+    (:cedric   "acidenitrix.villemain.org" starttls 26))
+  "Relays Hosts to use depending on From: when sending mail.")
+
+(defvar dim:default-smtp-relay
+  '("acidenitrix.villemain.org" starttls 26)
+  "Default relay host.")
+
+(defvar dim:force-using-default-smtp nil
+  "When not nil, for using dim:default-smtp-relay")
+
+(defun dim:message-smtpmail-send-it ()
+  "Automatically adjust the SMTP parameters to match the From header."
+  (let* ((from    (message-field-value "From"))
+	 (network (cond
+		   ((string-match-p "tapoueh.org" from) :tapoueh)
+		   ((string-match-p "hi-media.com" from) :hi-media)
+		   ((string-match-p "2ndQuadrant.fr" from) :2ndQ))))
+    ;; get connection details from dim:smtp-relays
+    (destructuring-bind (smtpmail-smtp-server
+			 smtpmail-stream-type
+			 smtpmail-smtp-service)
+	(if dim:force-using-default-smtp
+	    dim:default-smtp-relay
+	  (or (cdr (assoc network dim:smtp-relays)) dim:default-smtp-relay))
+      (message-smtpmail-send-it))))
 
 (setq gnus-posting-styles
       '(("hm"
@@ -67,7 +101,7 @@
 
 	;; Hi-Media listes PostgreSQL
 	("PostgreSQL"
-	 ;(header "List-ID" "postgresql.org")
+					;(header "List-ID" "postgresql.org")
 	 (address "dimitri@2ndQuadrant.fr")
 	 (organization "2ndQuadrant")
 	 (signature-file "~/.signature.2nd.lists")
