@@ -19,7 +19,8 @@
 (defun cw:shell:run ()
   "Run shell in `default-directory' and set buffer name."
   (interactive)
-  (let ((default-directory (or (dim:get-git-root) default-directory)))
+  (let ((default-directory
+	  (expand-file-name (or (dim:get-git-root) default-directory))))
     (shell (format "* Shell: %s *" default-directory))))
 
 (global-set-key (kbd "C-M-'") 'cw:shell:run)
