@@ -33,7 +33,11 @@
 
 (defadvice global-hl-line-highlight
   (around dim:global-hl-line-highlight activate)
-  (unless (and (eq major-mode 'term-mode) (term-in-char-mode)) ad-do-it))
+  (unless (or (and (eq major-mode 'term-mode)
+		   (term-in-char-mode))
+	      (and (eq major-mode 'slime-repl-mode)
+		   (eq (point-max) (point))))
+    ad-do-it))
 
 ;; display only tails of lines longer than 80 columns, tabs and
 ;; trailing whitespaces
