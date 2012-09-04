@@ -84,7 +84,7 @@
        ;; list of packages we use straight from official recipes
        '(nognus bbdb switch-window vkill google-maps
 		mbsync asciidoc smex geiser xcscope
-		anything descbinds-anything pcmpl-git
+		anything descbinds-anything pcmpl-git magit-view-file
 		emms emacs-goodies-el sicp auto-dictionnary keywiz
 		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
 		php-mode-improved rainbow-delimiters muse deft markdown-mode
