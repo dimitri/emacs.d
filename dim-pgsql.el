@@ -34,5 +34,30 @@
   (cons '("\\(postgres\\|pgsql\\).*\\.sgml\\'" . pgsql-sgml-mode)
         auto-mode-alist))
 
+;;
+;; From Peter Eisentraut, see the following message
+;; http://archives.postgresql.org/message-id/1342042526.2712.21.camel@vanquo.pezone.net
+;;
+(defun pgsql-perl-style ()
+  "Perl style adjusted for PostgreSQL project"
+  (interactive)
+  (setq tab-width 4)
+  (setq perl-indent-level 4)
+  (setq perl-continued-statement-offset 4)
+  (setq perl-continued-brace-offset 4)
+  (setq perl-brace-offset 0)
+  (setq perl-brace-imaginary-offset 0)
+  (setq perl-label-offset -2))
+
+(add-hook 'perl-mode-hook
+           (lambda ()
+	     (when (and buffer-file-name
+			(or (string-match "pgsql" buffer-file-name)
+			    (string-match "pgsrc" buffer-file-name)
+			    (string-match "pgext" buffer-file-name)
+			    (string-match "fdw" buffer-file-name)
+			    (string-match "postgresql" buffer-file-name)))
+	       (pgsql-perl-style))))
+
 (require 'pgsrc)
 (provide 'dim-pgsql)
