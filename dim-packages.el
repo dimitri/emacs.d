@@ -60,6 +60,9 @@
 	;;        :url ":pserver:anonymous:anonymous@common-lisp.net:/project/slime/cvsroot"
 	;;        :load-path ("." "contrib"))
 
+	(:name adoc-mode
+	       :before (setq adoc-insert-replacement nil))
+
 	(:name cssh
 	       :after (cssh-define-global-bindings))))
 
