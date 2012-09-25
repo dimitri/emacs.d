@@ -86,7 +86,7 @@
       (append
        ;; list of packages we use straight from official recipes
        '(nognus bbdb switch-window vkill google-maps
-		mbsync asciidoc smex geiser xcscope
+		mbsync asciidoc smex geiser xcscope multiple-cursors
 		anything descbinds-anything pcmpl-git magit-view-file
 		emms emacs-goodies-el sicp auto-dictionnary keywiz
 		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
