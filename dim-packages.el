@@ -85,7 +85,7 @@
 (setq dim-packages
       (append
        ;; list of packages we use straight from official recipes
-       '(nognus bbdb switch-window vkill google-maps
+       '(nognus bbdb switch-window vkill google-maps pgdevenv-el
 		mbsync asciidoc smex geiser xcscope multiple-cursors
 		anything descbinds-anything pcmpl-git magit-view-file
 		emms emacs-goodies-el sicp auto-dictionnary keywiz

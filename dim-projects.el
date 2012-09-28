@@ -21,6 +21,8 @@
 				    ("el-get.d"    . "~/.emacs.d/el-get")
 				    ("rcirc-groups". "~/dev/emacs/rcirc-groups")
 				    ("mailq"       . "~/dev/emacs/mailq-el")
+				    ("pgsrc"       . "~/dev/emacs/pgsrc-el")
+				    ("pgdevenv"    . "~/dev/emacs/pgdevenv-el")
 				    ("confs"       . "~/dev/confs")
 				    ("tapoueh.org" .  "~/dev/tapoueh.org"))
   "List of the common custom projects, will get used with
