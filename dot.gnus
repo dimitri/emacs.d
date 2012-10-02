@@ -80,7 +80,9 @@
   (let* ((from    (message-field-value "From"))
 	 (network (cond
 		   ((string-match-p "tapoueh.org" from) :tapoueh)
-		   ((string-match-p "hi-media.com" from) :hi-media)
+		   ;; ((string-match-p "hi-media.com" from) :hi-media)
+		   ;; not possible anymore, VPN?
+		   ((string-match-p "hi-media.com" from) :2ndQ)
 		   ((string-match-p "2ndQuadrant.fr" from) :2ndQ))))
     ;; get connection details from dim:smtp-relays
     (destructuring-bind (smtpmail-smtp-server
