@@ -47,6 +47,7 @@
    ("pg8.4"	. "~/dev/PostgreSQL/pg8.4")
    ("pg9.0"	. "~/dev/PostgreSQL/pg9.0")
    ("pg9.2"	. "~/dev/PostgreSQL/pg9.2")
+   ("pgpatch"	. "~/dev/PostgreSQL/patches")
 
    ;; Some Common Lisp stuff
    ("sudoku"	. "~/dev/CL/sudoku")
