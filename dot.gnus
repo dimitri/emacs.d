@@ -94,6 +94,10 @@
       (message-smtpmail-send-it))))
 
 (setq gnus-posting-styles
+      ;; The entire alist will be iterated over, from the beginning towards
+      ;; the end, and each match will be applied, which means that
+      ;; attributes in later styles that match override the same attributes
+      ;; in earlier matching styles.
       '(("hm"
 	 (address "dfontaine@hi-media.com")
 	 (organization "Hi-Media")
@@ -101,14 +105,20 @@
 	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "himedia")))
 	 (user-mail-address "dfontaine@hi-media.com"))
 
-	;; Hi-Media listes PostgreSQL
-	("PostgreSQL"
-					;(header "List-ID" "postgresql.org")
+	("quadrant"
+	 (address "dimitri@2ndQuadrant.fr")
+	 (organization "2ndQuadrant")
+	 (signature-file "~/.signature.2nd")
+	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "quadrant")))
+	 (user-mail-address "dimitri@2ndQuadrant.fr"))
+
+	;; Listes PostgreSQL
+	("pgsql-"
+	 ;; (header "List-ID" "postgresql.org")
 	 (address "dimitri@2ndQuadrant.fr")
 	 (organization "2ndQuadrant")
 	 (signature-file "~/.signature.2nd.lists")
 	 (user-mail-address "dimitri@2ndQuadrant.fr"))
-
 
 	;; listes PostgreSQL sur pgfoundry
 	((header "List-Id" "pgfoundry.org")
@@ -119,14 +129,7 @@
 	 (address "dim@tapoueh.org")
 	 (signature "dim")
 	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "tapoueh")))
-	 (user-mail-address "dim@tapoueh.org"))
-
-	("quadrant"
-	 (address "dimitri@2ndQuadrant.fr")
-	 (organization "2ndQuadrant")
-	 (signature-file "~/.signature.2nd")
-	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "quadrant")))
-	 (user-mail-address "dimitri@2ndQuadrant.fr"))))
+	 (user-mail-address "dim@tapoueh.org"))))
 
 (setq gnus-parameters
       '(("PostgreSQL\\..*"
