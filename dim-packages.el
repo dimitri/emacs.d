@@ -12,8 +12,12 @@
 ;; some special for magit under MacOSX
 (when-running-macosx
  (setq magit-git-executable "/usr/local/git/bin/git")
- (setq el-get-svn   "/usr/bin/svn")
- (setq el-get-darcs "~/.cabal/bin/darcs"))
+
+ ;; new setup, mac + debian VM for the "heavy" work
+ (let ((svn "usr/bin/svn")
+       (darcs "~/.cabal/bin/darcs"))
+   (when (file-executable-p svn) (setq el-get-svn svn))
+   (when (file-executable-p darcs) (setq el-get-darcs darcs))))
 
 ;; where to find init-package.el files
 (setq el-get-user-package-directory "~/dev/emacs.d/packages.d")
@@ -54,32 +58,14 @@
 	       :load-path ("." "misc")
 	       :before (setq display-buffer-function 'popwin:display-buffer))
 
-	;; (:name slime
-	;;        :type cvs
-	;;        :module "slime"
-	;;        :url ":pserver:anonymous:anonymous@common-lisp.net:/project/slime/cvsroot"
-	;;        :load-path ("." "contrib"))
-
 	(:name adoc-mode
 	       :before (setq adoc-insert-replacement nil))
 
+	(:name pgdevenv-el
+	       :before (setq pgdev-ccache-path "/usr/local/bin/ccache"))
+
 	(:name cssh
 	       :after (cssh-define-global-bindings))))
-
-(when-running-debian-or-ubuntu
- (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '((:name mailq
-		:after (progn
-			 (mailq-modeline-display)
-			 (define-key mailq-mode-map (kbd "F") 'mailq-mode-flush)))
-	 (:name dictionary   :type elpa)
-	 (:name apel         :type apt-get))))
-
-(when-running-macosx
- (mapc (lambda (source) (add-to-list 'el-get-sources source))
-       '(;; (:name dictionary   :type elpa   :after 'dim:setup-package-dictionary)
-	 (:name aspell-fr    :type fink)
-	 (:name aspell-en    :type fink))))
 
 ;; my packages
 (setq dim-packages
@@ -88,28 +74,26 @@
        '(nognus bbdb switch-window vkill google-maps pgdevenv-el
 		mbsync asciidoc smex geiser xcscope multiple-cursors
 		anything descbinds-anything pcmpl-git magit-view-file
-		emms emacs-goodies-el sicp auto-dictionnary keywiz
+		emacs-goodies-el sicp auto-dictionnary keywiz
 		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
 		php-mode-improved rainbow-delimiters muse deft markdown-mode
 		color-theme-solarized protobuf-mode)
 
-       ;; add to my packages all from `el-get-sources'
-       ;; (loop for src in el-get-sources
-       ;; 	     for name = (el-get-as-symbol (el-get-source-name src))
-       ;; 	     unless (member name '(emms))
-       ;; 	     collect name)))
        (mapcar 'el-get-as-symbol (mapcar 'el-get-source-name el-get-sources))))
 
+;; for notify, apt-get install libnotify-bin
 (when-running-debian-or-ubuntu
- (loop for p in '(notify verbiste)
+ (loop for p in '(emms notify)		; verbiste?
        do (add-to-list 'dim-packages p)))
 
+;; we dont' use mailq not emacs-w3m anymore, do we?
 (when-running-macosx
- (loop for p in '(htmlize emacs-w3m mailq)
+ (loop for p in '(htmlize)		; emacs-w3m mailq
        do (add-to-list 'dim-packages p)))
 
+;; in windows either, no mailq anymore
 (when-running-windows
- (loop for p in '(naquadah-theme mailq)
+ (loop for p in '(naquadah-theme)	; mailq
        do (add-to-list 'dim-packages p)))
 
 (el-get 'sync dim-packages)

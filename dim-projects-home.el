@@ -49,6 +49,15 @@
    ("pg9.2"	. "~/dev/PostgreSQL/pg9.2")
    ("pgpatch"	. "~/dev/PostgreSQL/patches")
 
+   ;; 2ndQuadrant stuff
+   ("2ndQDev"    . "~/dev/2ndQ")
+   ("2ndQForm"   . "~/dev/2ndQ/courses")
+   ("2ndQDocs"   . "~/dev/2ndQ/2ndq-asciidoc")
+   ("2ndQTools"  . "~/dev/2ndQ/tools")
+   ("2ndQMgt"    . "~/2ndQuadrant")
+   ("2ndiMac"    . "~/Documents/Quadrant-iMac")
+   ("2ndMBP"     . "~/Documents/Quadrant-MBP")
+
    ;; Some Common Lisp stuff
    ("sudoku"	. "~/dev/CL/sudoku")
    ("dsl"	. "~/dev/CL/dsl-in-lisp")

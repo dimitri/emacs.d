@@ -23,7 +23,7 @@
 				    ("mailq"       . "~/dev/emacs/mailq-el")
 				    ("pgsrc"       . "~/dev/emacs/pgsrc-el")
 				    ("pgdevenv"    . "~/dev/emacs/pgdevenv-el")
-				    ("confs"       . "~/dev/confs")
+				    ("confs"       . "~/dev/pgconfs")
 				    ("tapoueh.org" .  "~/dev/tapoueh.org"))
   "List of the common custom projects, will get used with
 project-add and ibuffer-saved-filter-groups."

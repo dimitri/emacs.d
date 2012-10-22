@@ -62,10 +62,16 @@
 (add-hook 'python-mode-hook 'whitespace-mode)
 (add-hook 'c-mode-hook 'whitespace-mode)
 
+;; add eldoc-mode to emacs-lisp-mode too, alike SLIME
+(add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+
 ;; quite a stretch, but has its place here too
 (setq indent-tabs-mode nil)
 (put 'narrow-to-page 'disabled nil)
 (put 'downcase-region 'disabled nil)
+
+;; Use Free Font to display Unicode Symbols
+(set-fontset-font t 'symbol (font-spec :family "FreeSerif"))
 
 ;; better completion in C-x 8 RET (unicode input)
 (when (boundp 'completion-category-overrides)

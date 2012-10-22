@@ -124,14 +124,19 @@
   ;; init.d daemon
   (when (string-match "apple-darwin" system-configuration)
     (require 'bitlbee)
-    (setq bitlbee-executable "/sw/sbin/bitlbee")
+    ;; go find the local executable, as we switched from fink to homebrew
+    (setq bitlbee-executable (loop for exec in '("/usr/local/sbin/bitlbee"
+						 "/sw/sbin/bitlbee")
+				   until (file-exists-p exec)
+				   finally return exec))
     (bitlbee-start))
 
   ;; now start rcirc
   (rcirc nil)
 
   ;; and organize a nice layout
-  (if (string-match "apple-darwin" system-configuration)
+  (if (or (string-match "apple-darwin" system-configuration)
+	  (string-match "darkstar" system-name))
       (dim:rcirc-layout-home)
     (dim:rcirc-layout-work)))
 

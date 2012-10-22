@@ -39,8 +39,10 @@
 ;; rcirc global shortcut to connect to servers
 (global-set-key (kbd "C-c i") 'dim-rcirc-start)
 
-;; déplacements avec M-<flèche>
-(windmove-default-keybindings 'meta)
+;; déplacements avec M-<flèche>, sauf dans la VM VirtualBox
+(if (string-match "darkstar" system-name)
+    (windmove-default-keybindings 'super)
+  (windmove-default-keybindings 'meta))
 (setq windmove-wrap-around t)
 
 (require 'buffer-move)

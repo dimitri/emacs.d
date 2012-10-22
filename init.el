@@ -32,10 +32,15 @@
 ;; macosx specific path settings need to be set before el-get calls
 (when-running-macosx
  (setenv "PATH"
-	 (concat (getenv "PATH") ":" "/sw/bin" ":" "/usr/local/git/bin"))
+	 (mapconcat 'identity
+		    (list (getenv "PATH")
+			  "/usr/local/bin"
+			  "/usr/local/git/bin"
+			  "/usr/local/texlive/2012/bin/x86_64-darwin") ":"))
  (add-to-list 'exec-path "/sw/bin")
  (add-to-list 'exec-path "/usr/local/bin")
- (add-to-list 'exec-path "/usr/local/git/bin"))
+ (add-to-list 'exec-path "/usr/local/git/bin")
+ (add-to-list 'exec-path "/usr/local/texlive/2012/bin/x86_64-darwin"))
 
 ;; load slime early to avoid compat problems with some packages
 (require 'dim-lisp)

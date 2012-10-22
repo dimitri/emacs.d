@@ -198,7 +198,8 @@
   (when (or (equal '(1680 1050) srcsize)
 	    (equal '(1680 1050) frame-size) ; beware of multiple screens
 	    (equal '(1440 867) frame-size) ; beware of multiple screens
-	    (equal '(1440 900) srcsize))
+	    (equal '(1440 900) srcsize)
+	    (equal '(2496 1418) srcsize)) ; thanks to VirtualBox
     (gnus-add-configuration
      ;; two panes side-by-side
      '(article (horizontal 1.0
@@ -235,9 +236,10 @@
 ;; (add-hook 'mbsync-exit-hook 'gnus-group-get-new-news)
 ;; (define-key gnus-group-mode-map (kbd "f") 'mbsync)
 
-(require 'mailq)
-(define-key gnus-group-mode-map (kbd "M-q") 'mailq)
-(define-key gnus-summary-mode-map (kbd "M-q") 'mailq)
+;; we don't use mailq anymore, see dim:message-smtpmail-send-it
+;; (require 'mailq)
+;; (define-key gnus-group-mode-map (kbd "M-q") 'mailq)
+;; (define-key gnus-summary-mode-map (kbd "M-q") 'mailq)
 
 ;;
 ;; use iswitchb like UI everywhere sensible with
