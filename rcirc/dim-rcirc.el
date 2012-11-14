@@ -287,7 +287,7 @@
 (setq rcirc-default-user-full-name "Dimitri Fontaine")
 
 ;; Authentication
-(setq rcirc-authinfo '(("localhost" bitlbee "dim" "secret")))
+(setq rcirc-authinfo '(("localhost" bitlbee "dim" "dim")))
 (add-to-list 'auth-source-protocols '(irc "irc" "6667" "6700"))
 
 ;; build rcirc-authinfo from rcirc-server-alist and authinfo

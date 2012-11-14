@@ -64,6 +64,7 @@
 
 ;; add eldoc-mode to emacs-lisp-mode too, alike SLIME
 (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+(add-hook 'ielm-mode-hook 'eldoc-mode)
 
 ;; quite a stretch, but has its place here too
 (setq indent-tabs-mode nil)

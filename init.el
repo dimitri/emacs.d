@@ -35,6 +35,7 @@
 	 (mapconcat 'identity
 		    (list (getenv "PATH")
 			  "/usr/local/bin"
+			  "/usr/local/sbin"
 			  "/usr/local/git/bin"
 			  "/usr/local/texlive/2012/bin/x86_64-darwin") ":"))
  (add-to-list 'exec-path "/sw/bin")
