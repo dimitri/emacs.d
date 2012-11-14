@@ -215,9 +215,9 @@ vi style of % jumping to matching brace."
 (defun duplicate-current-line (&optional n)
   "duplicate current line, make more than 1 copy given a numeric argument"
   (interactive "p")
-  (save-excursion
-    (let ((nb (or n 1))
-	  (current-line (thing-at-point 'line)))
+  (let ((nb (or n 1))
+	(current-line (thing-at-point 'line)))
+    (save-excursion
       ;; when on last line, insert a newline first
       (when (or (= 1 (forward-line 1)) (eq (point) (point-max)))
 	(insert "\n"))
@@ -225,7 +225,9 @@ vi style of % jumping to matching brace."
       ;; now insert as many time as requested
       (while (> n 0)
 	(insert current-line)
-	(decf n)))))
+	(decf n)))
+    ;; now move down as many lines as we inserted
+    (next-line nb)))
 
 (global-set-key (kbd "C-S-d") 'duplicate-current-line)
 
@@ -320,6 +322,30 @@ vi style of % jumping to matching brace."
     (shell bufname)))
 
 (global-set-key (kbd "C-+") 'dim:remote-shell)
+
+;; Increment number at point
+(defun dim:increment-number-at-point (&optional prefix)
+  (interactive "p")
+  (let* ((beg    (skip-chars-backward "0-9a-fA-F"))
+	 (hexa   (save-excursion (forward-char -2) (looking-at-p "0x")))
+	 ;; force the prefix to hexa (4) we see "0x" before the number
+	 (prefix (if hexa 4 prefix))
+	 (end    (re-search-forward "[0-9a-fA-F]+" nil t))
+	 (nstr   (match-string 0))
+	 (l      (- (match-end 0) (match-beginning 0)))
+	 (fmt    (format "%%0%d" l)))
+    (message "PLOP: %d" prefix)
+    (destructuring-bind (base format)
+	(case prefix
+	  ((1)  '(10 "d"))		; no command prefix, decimal
+	  ((4)  '(16 "x"))		; C-u, hexadecimal
+	  ((16) '(8 "o")))		; C-u C-u, octal
+      (let* ((n   (string-to-number nstr base))
+	     (n+1 (+ n 1))
+	     (fmt (format "%s%s" fmt format)))
+	(replace-match (format fmt n+1))))))
+
+(global-set-key (kbd "C-c +") 'dim:increment-number-at-point)
 
 (require 'dim-mailrc)
 (require 'dim-previous-message)
