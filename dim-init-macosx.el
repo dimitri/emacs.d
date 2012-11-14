@@ -33,14 +33,53 @@
 (set-face-font 'default "Monaco-13")
 (set-frame-position (selected-frame) 60 30)
 
-(if (equal (get-screen-dimensions) '(2560 1440))
-    (progn
-      (set-frame-size (selected-frame) 174 81)
-      (let ((right-frame (make-frame '((top . 30)))))
-	(set-frame-parameter right-frame 'font "Monaco-13")
-	(set-frame-parameter right-frame 'left 1480)
-	(set-frame-size (selected-frame) 130 81)))
-  (set-frame-size (selected-frame) 168 49))
+(defvar dim:frame-parameters
+  '((left . ((60 30) (174 81)))
+    (right . ((1480 30) (130 81)))
+    (single . ((60 30) (168 49))))	; used in 1440x900
+  "Usual frame parameters")
+
+(defun dim:set-frame-parameters (frame name)
+  "Apply NAME parameters from dim:frame-parameters to FRAME"
+  (destructuring-bind ((top left) (cols rows))
+      (rest (assoc name dim:frame-parameters))
+    (set-frame-parameter frame 'font "Monaco-13")
+    (set-frame-position frame top left)
+    (set-frame-size frame cols rows)))
+
+(defun dim:frame-iconified-p (frame)
+  (eq (frame-visible-p frame) 'icon))
+
+(defun dim:adapt-frames-to-screen-dimensions ()
+  "Setup the screen frames"
+  (interactive)
+  (let* ((frames (remove-if #'dim:frame-iconified-p (frame-list)))
+	 (total  (length (frame-list)))
+	 (nbfrms (length frames)))
+    (cond ((and (eq 1 nbfrms) (eq 1 total))
+	   ;; start from single default frame
+	   (if (equal (get-screen-dimensions) '(2560 1440))
+	       (progn
+		 (dim:set-frame-parameters (selected-frame) 'left)
+		 (let ((right-frame (make-frame)))
+		   (dim:set-frame-parameters (right-frame) 'right)))
+	     (dim:set-frame-parameters (selected-frame) 'single)))
+
+	  ((and (eq 1 nbfrms) (< 1 total))
+	   ;; hidden frames means we want the 'single parameter
+	   (dim:set-frame-parameters (selected-frame) 'single))
+
+	  ((eq 2 nbfrms)
+	   ;; likely the 2 frames already do exists
+	   (loop for f in frames
+		 do (loop for (name . ((top left) (cols rows)))
+			  in dim:frame-parameters
+			  when (eq cols (frame-parameter f 'width))
+			  do (dim:set-frame-parameters f name))))
+
+	  (t (error "What the fuck?")))))
+
+(global-set-key (kbd "C-M-`") 'dim:adapt-frames-to-screen-dimensions)
 
 ;; some special for offlineimap
 (require 'dim-offlineimap)
