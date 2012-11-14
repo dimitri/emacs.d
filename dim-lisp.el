@@ -9,10 +9,12 @@
 (setq slime-net-coding-system 'utf-8-unix)
 
 (setq inferior-lisp-program
-      (loop for p in '("/Users/dim/dev/CL/ccl/dx86cl64"
-		       "/home/dfontaine/dev/CL/ccl/lx86cl64")
-	    until (file-exists-p p)
-	    finally return (concat p " -K utf-8")))
+      (loop for (path opts) in
+	    '(("/Users/dim/dev/CL/ccl/dx86cl64" " -K utf-8")
+	      ("/home/dfontaine/dev/CL/ccl/lx86cl64" " -K utf-8")
+	      ("/usr/bin/sbcl"))
+	    until (file-exists-p path)
+	    finally return (if opts (concat path opts) path)))
 
 (loop for p in '("~/dev/CL/dpans2texi-1.05"
 		 "~/dev/CL/cl-yacc"
