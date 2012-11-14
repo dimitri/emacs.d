@@ -11,7 +11,7 @@
    ;; public OpenSource stuff
    ("pgloader"	. "~/dev/pgloader")
    ("skytools-php" . "~/dev/skytools/pgq-php")
-   ("skytools"	. "~/dev/skytools/skytools")
+   ("skytools"	. "~/dev/skytools")
    ("preprepare"	. "~/dev/preprepare")
    ("prefix"	. "~/dev/prefix")
    ("ip4r"		. "~/dev/ip4r/ip4r")
