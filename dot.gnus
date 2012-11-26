@@ -26,7 +26,9 @@
 	(nnimap "hm"
 		(nnimap-address "imap.hi-media-techno.com")
 		(nnimap-server-port "imaps")
-		(nnimap-stream ssl))))
+		(nnimap-stream ssl))
+
+	(nntp "news.eternal-september.org")))
 
 (defun dim:gnus-choose-sent-folder (current-group)
   "see gnus-message-archive-group documentation"
