@@ -62,7 +62,7 @@
 	       (progn
 		 (dim:set-frame-parameters (selected-frame) 'left)
 		 (let ((right-frame (make-frame)))
-		   (dim:set-frame-parameters (right-frame) 'right)))
+		   (dim:set-frame-parameters right-frame 'right)))
 	     (dim:set-frame-parameters (selected-frame) 'single)))
 
 	  ((and (eq 1 nbfrms) (< 1 total))
