@@ -126,6 +126,12 @@
 	((header "List-Id" "pgfoundry.org")
 	 (signature "dim"))
 
+	;; comp.lang.lisp
+	("comp.lang.lisp"
+	 (address "dim@tapoueh.org")
+	 (signature "dim")
+	 (user-mail-address "dim@tapoueh.org"))
+
 	;; Tapoueh
 	("tapoueh"
 	 (address "dim@tapoueh.org")
