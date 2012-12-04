@@ -131,7 +131,7 @@
 (defun dim:kill-buffer-name (arg)
   "Kill the current buffer's filename and show it in the echo area."
   (interactive "P")
-  (let ((bfn (if arg (buffer-name) (buffer-file-name))))
+  (let ((bfn (if arg (buffer-name) (or buffer-file-name (buffer-name)))))
     (kill-new bfn)
     (message "%s" bfn)))
 
