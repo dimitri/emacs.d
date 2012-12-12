@@ -327,6 +327,24 @@
 (setq gnus-buttonized-mime-types '("multipart/signed" "multipart/alternative"))
 (setq mm-verify-option 'always)
 
+(defun dim:browse-postgresql-commit-sha1 (sha1)
+  "browse-url the given SHA1 as a PostgreSQL commit diff"
+  (browse-url
+   (format "http://git.postgresql.org/gitweb/?p=postgresql.git;a=commitdiff;h=%s"
+	   sha1)))
+
+;; add buttons to PostgreSQL sha1, as in
+;; Commit 729205571e81b4767efc42ad7beb53663e08d1ff added ...
+(add-to-list 'gnus-button-alist
+	     '("[0-9a-f]\\{40\\}"	; button regexp
+	       0			; button regexp group match
+	       (member			; button form (boolean filter)
+		gnus-newsgroup-name
+		'("nnimap+quadrant:list.pgsql-committers"
+		  "nnimap+quadrant:list.pgsql-hackers"))
+	       dim:browse-postgresql-commit-sha1
+	       0))			; button par (group match parameter)
+
 ;; BBDB
 (require 'bbdb)
 (bbdb-initialize 'gnus 'message)
