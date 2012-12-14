@@ -59,5 +59,10 @@
 			    (string-match "postgresql" buffer-file-name)))
 	       (pgsql-perl-style))))
 
+;; Set the SQL mode to PostgreSQL always
+(add-hook 'sql-mode-hook
+	  (defun jd:sql-mode-set-sql-product ()
+	    (sql-set-product 'postgres)))
+
 (require 'pgsrc)
 (provide 'dim-pgsql)
