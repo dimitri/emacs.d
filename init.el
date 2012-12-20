@@ -34,12 +34,13 @@
  (setenv "PATH"
 	 (mapconcat 'identity
 		    (list (getenv "PATH")
+			  "~/bin"
 			  "/usr/local/bin"
 			  "/usr/local/sbin"
 			  "/usr/local/git/bin"
 			  "/usr/local/texlive/2012/bin/x86_64-darwin"
 			  "/Users/dim/Library/Haskell/bin") ":"))
- (add-to-list 'exec-path "/sw/bin")
+ (add-to-list 'exec-path "~/bin")
  (add-to-list 'exec-path "/usr/local/bin")
  (add-to-list 'exec-path "/usr/local/git/bin")
  (add-to-list 'exec-path "/usr/local/texlive/2012/bin/x86_64-darwin")
@@ -99,3 +100,4 @@
 ;; and start a server in case we might need it
 (unless (or (daemonp) server-mode) (server-mode))
 
+(put 'dired-find-alternate-file 'disabled nil)
