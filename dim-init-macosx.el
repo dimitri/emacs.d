@@ -79,6 +79,14 @@
 
 	  (t (error "What the fuck?")))))
 
+(defun dim:set-frame-size (&optional name)
+  "Ask for for the frame size setup name to use then apply it"
+  (interactive
+   (list
+    (completing-read "Resize frame as: " '("left" "right" "single") nil t)))
+  (let ((name (if (symbolp name) name (intern name))))
+    (dim:set-frame-parameters (selected-frame) name)))
+
 (global-set-key (kbd "C-M-`") 'dim:adapt-frames-to-screen-dimensions)
 
 ;; some special for offlineimap
