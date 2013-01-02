@@ -21,6 +21,12 @@
 ;; Some utility functions to have automated layout upon startup
 (require 'cl)
 
+(defun dim:chan-buffer (channel)
+  "Return the buffer for given channel, whatever the name of the server"
+  (loop for b being the buffers
+	when (string-match-p (format "^%s@" channel) (buffer-name b))
+	return b))
+
 (defun dim:wait-for-buffers (buffer-list &optional n)
   "return only when all buffers in the list exist, or we tried n times"
   (let ((n (or n 2))
@@ -28,10 +34,11 @@
     (while (and (< (length buffers) (length buffer-list)) (not (eq n 0)))
       (dolist (buffer-name buffer-list)
 	(when (not (memq buffer-name buffers))
-	  (when (get-buffer buffer-name)
+	  (when buffer-name (get-buffer buffer-name)
 	    (setq buffers (cons buffer-name buffers)))))
       (message "%s, waiting for %d buffers still: %S"
-	       n (- (length buffer-list) (length buffers)) buffers)
+	       n (- (length buffer-list) (length buffers))
+	       (set-difference buffer-list buffers))
       (sleep-for 0.5)
       (decf n))
     ;; we return buffers
@@ -49,11 +56,11 @@
 	 (upper-right-window (split-window-horizontally))
 	 (lower-right-window (with-selected-window upper-right-window
 			       (split-window-below))))
-    (set-window-buffer (selected-window) "#vieuxcons@tapoueh.org")
-    (set-window-buffer upper-right-window "#lisp@pgsql.tapoueh.org")
-    (set-window-buffer lower-right-window "#postgresql@pgsql.tapoueh.org")
+    (set-window-buffer (selected-window) (dim:chan-buffer "#vieuxcons"))
+    (set-window-buffer upper-right-window (dim:chan-buffer "#lisp"))
+    (set-window-buffer lower-right-window (dim:chan-buffer "#postgresql"))
     (select-window (split-window-vertically))
-    (set-window-buffer (selected-window) "#emacs@pgsql.tapoueh.org")
+    (set-window-buffer (selected-window) (dim:chan-buffer "#emacs"))
     (select-window upper-left-window)
     (split-window-vertically-quarter-bottom)
     (rcirc-groups:switch-to-groups-buffer)))
@@ -62,25 +69,27 @@
   "Organize screen layout for a thin frame (1 useful column)"
   (let ((upper-left-window (selected-window))
 	(right-window (split-window-horizontally 86)))
-    (set-window-buffer (selected-window) "#postgresql@pgsql.tapoueh.org")
+    (set-window-buffer (selected-window) (dim:chan-buffer "#postgresql"))
     (split-window-vertically)
     (split-window-vertically)
     (windmove-down)
-    (set-window-buffer (selected-window) "#postgresql-apt@pgsql.tapoueh.org")
+    (set-window-buffer (selected-window) (dim:chan-buffer "#postgresql-apt"))
     (windmove-down)
     (split-window-vertically)
-    (set-window-buffer (selected-window) "#vieuxcons@tapoueh.org")
+    (set-window-buffer (selected-window) (dim:chan-buffer "#vieuxcons"))
     (windmove-down)
-    (set-window-buffer (selected-window) "#emacs@pgsql.tapoueh.org")))
+    (set-window-buffer (selected-window) (dim:chan-buffer "#emacs"))))
 
 (defun dim:rcirc-layout-home ()
   "Organise screen layout for IRC setup"
   (delete-other-windows)
   (let ((width    (window-width (selected-window)))
-	(buffers  (dim:wait-for-buffers '("#vieuxcons@tapoueh.org"
-					  "#lisp@pgsql.tapoueh.org"
-					  "#emacs@pgsql.tapoueh.org"
-					  "#postgresql@pgsql.tapoueh.org"))))
+	(buffers  (dim:wait-for-buffers
+		   (list
+		    (dim:chan-buffer "#vieuxcons")
+		    (dim:chan-buffer "#lisp")
+		    (dim:chan-buffer "#emacs")
+		    (dim:chan-buffer "#postgresql")))))
     (if (not (eq 4 (length buffers)))
 	(dim:rcirc-layout-home-waiting)
       (if (> width (* 2 80))
@@ -89,21 +98,23 @@
 
 (defun dim:rcirc-layout-work ()
   "Organise screen layout for IRC setup"
-  (let ((buffers (dim:wait-for-buffers '("#vieuxcons@tapoueh.org"
-					 "#dba@irc.hi-media-techno.com"
-					 "#postgresql@pgsql.tapoueh.org"
-					 "#emacs@pgsql.tapoueh.org"))))
+  (let ((buffers (dim:wait-for-buffers
+		  (list
+		   (dim:chan-buffer "#vieuxcons")
+		   (dim:chan-buffer "#dba")
+		   (dim:chan-buffer "#postgresql")
+		   (dim:chan-buffer "#emacs")))))
     (if (not (eq 4 (length buffers)))
 	;; yes, at work too, same servers
 	(dim:rcirc-layout-home-waiting)
       (delete-other-windows)
       (let* ((right-window (split-window-horizontally))
 	     (bottom-window (split-window-vertically)))
-	(set-window-buffer (selected-window) "#postgresql@pgsql.tapoueh.org")
-	(set-window-buffer bottom-window "#vieuxcons@tapoueh.org")
+	(set-window-buffer (selected-window) (dim:chan-buffer "#postgresql"))
+	(set-window-buffer bottom-window (dim:chan-buffer "#vieuxcons"))
 	(select-window bottom-window)
-	(set-window-buffer (split-window-vertically) "#emacs@pgsql.tapoueh.org")
-	(set-window-buffer right-window "#dba@irc.hi-media-techno.com")
+	(set-window-buffer (split-window-vertically) (dim:chan-buffer "#emacs"))
+	(set-window-buffer right-window (dim:chan-buffer "#dba"))
 	(balance-windows)
 	;; now cut the right part
 	(select-window right-window)
@@ -112,27 +123,18 @@
 
 ;; Central place to handle connecting
 (defun dim-rcirc-start (&optional kill-buffers)
-  "Start biltbee and rcirc, and connects to default places"
+  "Start rcirc and connects to default places"
   (interactive "p")
 
+  ;; when asked via C-u, kill any existing buffer
   (when (eq kill-buffers 4)
     (loop for b being the buffers
 	  when (with-current-buffer b (eq major-mode 'rcirc-mode))
 	  do (kill-buffer b)))
 
-  ;; under MacOSX, bitlbee has to be started here, under debian it's an
-  ;; init.d daemon
-  (when (string-match "apple-darwin" system-configuration)
-    (require 'bitlbee)
-    ;; go find the local executable, as we switched from fink to homebrew
-    (setq bitlbee-executable (loop for exec in '("/usr/local/sbin/bitlbee"
-						 "/sw/sbin/bitlbee")
-				   until (file-exists-p exec)
-				   finally return exec))
-    (bitlbee-start))
-
   ;; now start rcirc
-  (rcirc nil)
+  ;; (rcirc nil)
+  (dim:rcirc)
 
   ;; and organize a nice layout
   (if (or (string-match "apple-darwin" system-configuration)
@@ -290,33 +292,74 @@
 (setq rcirc-authinfo '(("localhost" bitlbee "dim" "dim")))
 (add-to-list 'auth-source-protocols '(irc "irc" "6667" "6700"))
 
-;; build rcirc-authinfo from rcirc-server-alist and authinfo
+;; allow using the same server more than once
 (require 'auth-source)
+
+(defun dim:auth-source-fetch-password (server)
+  "Given a server with at least :host :port :login, return the :password"
+  (destructuring-bind (&key host auth &allow-other-keys)
+      (cdr server)
+    (destructuring-bind (&key secret &allow-other-keys)
+	(car (auth-source-search :host host
+				 :port "irc"
+				 :user auth
+				 :require '(:user :secret)))
+      (if (functionp secret) (funcall secret) secret))))
+
+;; build rcirc-authinfo from rcirc-server-alist and authinfo
 (defun dim:rcirc-server-alist-get-authinfo (server-alist)
   "replace :auth in rcirc-server-alist with :password \"login:password\""
-  (dolist (server server-alist)
+  (dolist (server server-alist server-alist)
     (let* ((host  (car server))
 	   (plist (cdr server))
-	   (auth  (plist-get plist :auth)))
+	   (auth  (plist-get plist :auth))
+	   (pass  (dim:auth-source-fetch-password server)))
       (when auth
 	(plist-put plist
-		   :password
-		   (format "%s:%s"
-			   auth
-			   (auth-source-pick-first-password
-			    :host host :port "irc" :login auth))))))
-  server-alist)
+		   :password (format "%s:%s" auth pass))))))
+
+;; rcirc does not know how to connect to the same server more than once, so
+;; we build our own connection routine from our own rcirc-server-alist,
+;; using :host rather than the server name for connecting.
+(defun dim:rcirc ()
+  "Connect to rcirc-server-alist servers."
+  (loop
+   for s in rcirc-server-alist
+   collect
+   (destructuring-bind (&key host
+			     (port rcirc-default-port)
+			     (nick rcirc-default-nick)
+			     (user-name rcirc-default-user-name)
+			     (full-name rcirc-default-full-name)
+			     channels
+			     password
+			     encryption
+			     &allow-other-keys
+			     &aux contact (server (car s)))
+       (cdr s)
+     (let ((host (or host server))	; catter with server without :host
+	   (connected
+	    (loop for p in (rcirc-process-list)
+		  thereis (string= server (process-get p :rcirc-server)))))
+       (unless connected
+	 (let ((process
+		(rcirc-connect host port nick user-name
+			       full-name channels password encryption)))
+	   (process-put process :rcirc-server server)))))))
 
 (setq rcirc-server-alist
       ;; we use ZNC
       (dim:rcirc-server-alist-get-authinfo
-       '(("pgsql.tapoueh.org"
+       '(("freenode"
+	  :host "orion.naquadah.org"
 	  :port "6700"
 	  :auth "dim.freenode"
-	  :channels ("#postgresql" "#postgresqlfr" "#postgresql-apt"
-		     "#skytools" "#emacs" "#el-get" "#gli" "#cvf"))
+	  :channels ("#lisp" "#postgresql" "#postgresqlfr"
+		     "#postgresql-apt" "#skytools" "#emacs"
+		     "#el-get" "#gli" "#cvf"))
 
-	 ("tapoueh.org"
+	 ("lost-oasis"
+	  :host "orion.naquadah.org"
 	  :port "6700"
 	  :auth "dim.lo"
 	  :channels ("#vieuxcons"))
