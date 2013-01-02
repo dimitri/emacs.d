@@ -71,13 +71,13 @@
 (setq dim-packages
       (append
        ;; list of packages we use straight from official recipes
-       '(nognus bbdb switch-window vkill google-maps pgdevenv-el
-		mbsync asciidoc smex geiser xcscope multiple-cursors
-		anything descbinds-anything pcmpl-git magit-view-file
-		emacs-goodies-el sicp auto-dictionnary keywiz pandoc-mode
-		pgsql-linum-format psvn rect-mark crontab-mode icomplete+
-		php-mode-improved rainbow-delimiters muse deft markdown-mode
-		color-theme-solarized protobuf-mode)
+       '(gnus bbdb switch-window vkill google-maps pgdevenv-el
+	      mbsync asciidoc smex geiser xcscope multiple-cursors
+	      anything descbinds-anything pcmpl-git magit-view-file
+	      emacs-goodies-el sicp auto-dictionnary keywiz pandoc-mode
+	      pgsql-linum-format psvn rect-mark crontab-mode icomplete+
+	      php-mode-improved rainbow-delimiters muse deft dpans2texi
+	      markdown-mode color-theme-solarized protobuf-mode)
 
        (mapcar 'el-get-as-symbol (mapcar 'el-get-source-name el-get-sources))))
 
