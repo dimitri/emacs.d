@@ -8,13 +8,32 @@
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq slime-net-coding-system 'utf-8-unix)
 
-(setq inferior-lisp-program
-      (loop for (path opts) in
-	    '(("/Users/dim/dev/CL/ccl/dx86cl64" " -K utf-8")
-	      ("/home/dfontaine/dev/CL/ccl/lx86cl64" " -K utf-8")
-	      ("/usr/bin/sbcl"))
-	    until (file-exists-p path)
-	    finally return (if opts (concat path opts) path)))
+;; http://common-lisp.net/project/slime/doc/html/Multiple-Lisps.html
+;; (setq slime-lisp-implementations
+;;       '((cmucl ("cmucl" "-quiet"))
+;;         (sbcl ("/opt/sbcl/bin/sbcl") :coding-system utf-8-unix)))
+;; (NAME (PROGRAM PROGRAM-ARGS...) &key CODING-SYSTEM INIT INIT-FUNCTION ENV)
+
+(let* ((sbcl (loop for path in '("/usr/bin/sbcl"
+				 "/usr/local/bin/sbcl")
+		   until (file-exists-p path)
+		   finally return path))
+       (ccl  (loop for path in '("/usr/local/bin/ccl64"
+				 "/Users/dim/dev/CL/ccl/dx86cl64"
+				 "/home/dfontaine/dev/CL/ccl/lx86cl64")
+		   until (file-exists-p path)
+		   finally return path))
+       (clisp (loop for path in '("/usr/local/bin/clisp" "/usr/bin/clisp")
+		   until (file-exists-p path)
+		   finally return path)))
+
+  (setq slime-lisp-implementations
+	`((ccl  (,ccl "-K" "utf-8") :coding-system utf-8-unix)
+	  (sbcl (,sbcl) :coding-system utf-8-unix)
+	  (clisp (,clisp) :coding-system utf-8-unix)))
+
+  ;; the default M-x slime is CCL still
+  (setq inferior-lisp-program (concat ccl " -K utf-8")))
 
 (loop for p in '("~/dev/CL/dpans2texi-1.05"
 		 "~/dev/CL/cl-yacc"
