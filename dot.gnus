@@ -340,7 +340,8 @@
 	       0			; button regexp group match
 	       (member			; button form (boolean filter)
 		gnus-newsgroup-name
-		'("nnimap+quadrant:list.pgsql-committers"
+		'("nnimap+quadrant:list.pgsql-bugs"
+		  "nnimap+quadrant:list.pgsql-committers"
 		  "nnimap+quadrant:list.pgsql-hackers"))
 	       dim:browse-postgresql-commit-sha1
 	       0))			; button par (group match parameter)
