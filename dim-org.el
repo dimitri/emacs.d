@@ -16,6 +16,6 @@
       org-completion-use-ido t
       org-return-follows-link t)
 
-(global-set-key (kbd "C-c a") 'org-aagenda)
+(global-set-key (kbd "C-c a") 'org-agenda)
 
 (provide 'dim-org)
