@@ -346,11 +346,16 @@
 	       dim:browse-postgresql-commit-sha1
 	       0))			; button par (group match parameter)
 
-;; BBDB
-(require 'bbdb)
+;;; BBDB -- auto create new entries
 (bbdb-initialize 'gnus 'message)
-(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
-(setq bbdb/news-auto-create-p t)
+(setq bbdb-update-records-p 'create)
+(bbdb-mua-auto-update-init 'gnus 'message)
+
+;; back to a very small window here, if at all (still wondering
+(setq bbdb-mua-pop-up t
+      bbdb-mua-pop-up-window-size 2)
+
+;; to review someday
 (setq bbdb/gnus-summary-user-format-letter nil
       bbdb/gnus-summary-in-bbdb-format-letter nil)
 
