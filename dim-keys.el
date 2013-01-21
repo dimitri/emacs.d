@@ -347,6 +347,13 @@ vi style of % jumping to matching brace."
 
 (global-set-key (kbd "C-c +") 'dim:increment-number-at-point)
 
+;; Create a new buffer, not associated to a file, and switch to it
+(defun dim:make-buffer (&optional buffer-name)
+  (interactive "BSwitch (or create) to buffer: ")
+  (switch-to-buffer (get-buffer-create buffer-name)))
+
+(global-set-key (kbd "C-c C-f") 'dim:make-buffer)
+
 (require 'dim-mailrc)
 (require 'dim-previous-message)
 (provide 'dim-keys)
