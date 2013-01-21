@@ -235,6 +235,9 @@
 ;; topics
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
+;; in summary mode, . jumps to first unread article
+(define-key gnus-summary-mode-map (kbd ".") 'gnus-summary-first-unseen-subject)
+
 ;; start offlineimap automatically on platforms where it works ok
 ;; (when-running-macosx
 ;;  (add-hook 'gnus-group-mode-hook 'offlineimap))
@@ -353,7 +356,8 @@
 
 ;; back to a very small window here, if at all (still wondering
 (setq bbdb-mua-pop-up t
-      bbdb-mua-pop-up-window-size 2)
+      bbdb-mua-pop-up-window-size 2
+      bbdb-pop-up-window-size 2)
 
 ;; to review someday
 (setq bbdb/gnus-summary-user-format-letter nil
