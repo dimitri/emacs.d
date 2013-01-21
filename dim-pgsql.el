@@ -5,20 +5,21 @@
 ;; we used to have pgsql-linum-format here, see dim-packages.el instead
 
 (add-hook 'c-mode-hook
-	  (function
-	   (lambda nil
-	     (when (and buffer-file-name
-			(or (string-match "pgsql" buffer-file-name)
-			    (string-match "pgsrc" buffer-file-name)
-			    (string-match "pgext" buffer-file-name)
-			    (string-match "fdw" buffer-file-name)
-			    (string-match "postgresql" buffer-file-name)))
-	       (c-set-style "bsd")
-	       (setq c-basic-offset 4)
-	       (setq tab-width 4)
-	       (c-set-offset 'case-label '+)
-	       (setq fill-column 79)
-	       (setq indent-tabs-mode t)))))
+	  (defun dim:c-pgsql-mode-hook ()
+	    (when (and buffer-file-name
+		       (or (string-match "pgsql" buffer-file-name)
+			   (string-match "pgsrc" buffer-file-name)
+			   (string-match "pgext" buffer-file-name)
+			   (string-match "fdw" buffer-file-name)
+			   (string-match "pgtreeagg" buffer-file-name)
+			   (string-match "postgres" buffer-file-name)
+			   (string-match "postgresql" buffer-file-name)))
+	      (c-set-style "bsd")
+	      (setq c-basic-offset 4)
+	      (setq tab-width 4)
+	      (c-set-offset 'case-label '+)
+	      (setq fill-column 79)
+	      (setq indent-tabs-mode t))))
 
 ;;; To work on the documentation, the following (or a variant, as above)
 ;;; can be helpful.
