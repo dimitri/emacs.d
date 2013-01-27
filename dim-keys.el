@@ -195,7 +195,7 @@ vi style of % jumping to matching brace."
 (require 'dim-google)
 
 ;; dictionary lookups
-(global-set-key (kbd "M-?") 'dictionary-lookup-definition)
+;;(global-set-key (kbd "M-?") 'dictionary-lookup-definition)
 
 ;; déplacements sans changer la position du point dans le buffer
 (global-set-key (kbd "M-S-<up>")
@@ -210,6 +210,9 @@ vi style of % jumping to matching brace."
 ;; dict mode
 (global-set-key (kbd "C-c ?") (lambda () (interactive)
 				(dictionary-lookup-definition)))
+
+;; M-^ joins upward, let's join with the following line
+(global-set-key (kbd "C-M-j") (lambda () (interactive) (join-line -1)))
 
 ;; duplicate current line
 (defun duplicate-current-line (&optional n)
