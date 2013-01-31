@@ -363,6 +363,12 @@
 (setq bbdb/gnus-summary-user-format-letter nil
       bbdb/gnus-summary-in-bbdb-format-letter nil)
 
+;; blacklist gwene newgroups (RSS as news)
+(setq bbdb-ignore-message-alist '(("Newsgroups" . "gwene.org.")
+				  ("X-Facebook" . "facebook")
+				  ("Reply-To" . "@plus.google.com")
+				  ("From" . "noreply")))
+
 ;; display attached images and resize them
 (setq mm-inline-large-images 'resize
       mm-inline-large-images-proportion 0.2)
