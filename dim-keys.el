@@ -242,6 +242,17 @@ vi style of % jumping to matching brace."
 
 (global-set-key (kbd "C-S-y") 'copy-current-line)
 
+;; have C-S-M-SPC select the symbol-at-point
+(defun mha:select-current-word ()
+  "Select the current word."
+  (interactive)
+  (beginning-of-thing 'symbol)
+  (push-mark (point) nil t)
+  (end-of-thing 'symbol)
+  (exchange-point-and-mark))
+
+(global-set-key (kbd "C-S-M-SPC") 'mha:select-current-word)
+
 ;; as we use C-\ for escreen we find another key for toggle-input-method,
 ;; which is less frequently used
 (require 'dim-input-method)
