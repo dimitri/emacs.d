@@ -367,7 +367,10 @@
 (setq bbdb-ignore-message-alist '(("Newsgroups" . "gwene.org.")
 				  ("X-Facebook" . "facebook")
 				  ("Reply-To" . "@plus.google.com")
-				  ("From" . "noreply")))
+				  ("From" . "noreply")
+				  ("From" . "postmaster.twitter.com")
+				  ("From" . "viadeonews@viadeo.com")
+				  ("From" . "member@linkedin.com")))
 
 ;; display attached images and resize them
 (setq mm-inline-large-images 'resize
