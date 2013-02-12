@@ -90,9 +90,9 @@
 (global-set-key (kbd "C-M-`") 'dim:adapt-frames-to-screen-dimensions)
 
 ;; some special for offlineimap
-(require 'dim-offlineimap)
-(setq dim:offlineimap-bin "/sw/bin/offlineimap"
-      dim:offlineimap-options "")
+;; (require 'dim-offlineimap)
+;; (setq dim:offlineimap-bin "/sw/bin/offlineimap"
+;;       dim:offlineimap-options "")
 
 ;; home only usage
 (require 'betaseries)
