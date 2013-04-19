@@ -11,6 +11,7 @@
 			   (string-match "pgsrc" buffer-file-name)
 			   (string-match "pgext" buffer-file-name)
 			   (string-match "fdw" buffer-file-name)
+			   (string-match "apcode" buffer-file-name)
 			   (string-match "pgtreeagg" buffer-file-name)
 			   (string-match "postgres" buffer-file-name)
 			   (string-match "postgresql" buffer-file-name)))
