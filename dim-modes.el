@@ -74,7 +74,7 @@
 (require 'dim-org)
 
 ;; offlineimap
-(require 'dim-offlineimap)
+;; (require 'dim-offlineimap)
 
 ;; C-c C-l in php buffers to lint the current buffer
 (require 'dim-php)
