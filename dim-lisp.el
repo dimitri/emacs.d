@@ -14,8 +14,7 @@
 ;;         (sbcl ("/opt/sbcl/bin/sbcl") :coding-system utf-8-unix)))
 ;; (NAME (PROGRAM PROGRAM-ARGS...) &key CODING-SYSTEM INIT INIT-FUNCTION ENV)
 
-(let* ((sbcl (loop for path in '("/usr/bin/sbcl"
-				 "/usr/local/bin/sbcl")
+(let* ((sbcl (loop for path in '("/usr/local/bin/sbcl" "/usr/bin/sbcl")
 		   until (file-exists-p path)
 		   finally return path))
        (ccl  (loop for path in '("/usr/local/bin/ccl64"
