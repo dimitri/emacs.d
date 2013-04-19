@@ -10,8 +10,15 @@
 (setq color-theme-libraries nil)
 (load "~/.emacs.d/el-get/color-theme/color-theme.el")
 (require 'color-theme)
-(require 'color-theme-emacs23-default)
-(color-theme-emacs23-default)
+
+;(require 'color-theme-emacs23-default)
+;(color-theme-emacs23-default)
+
+(require 'color-theme-tango-2)
+(color-theme-tango-2)
+;; (set-face-attribute 'hl-line nil :background "steelblue4")
+;; (set-face-attribute 'hl-line nil :background "skyblue4")
+(set-face-attribute 'hl-line nil :background "grey20")
 
 ;; here hiding the menu bar makes no sense
 (menu-bar-mode 1)
@@ -27,10 +34,12 @@
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'none)
 ;(ns-set-background-alpha 0.9)
-(add-to-list 'default-frame-alist '(alpha . 90))
+(add-to-list 'default-frame-alist '(alpha . 94))
 
 ;; font, taille et position
-(set-face-font 'default "Monaco-13")
+;(set-face-font 'default "Monaco-13")
+;(set-face-font 'default "DejaVu Sans Mono-14")
+(set-face-font 'default "Andale Mono-14")
 (set-frame-position (selected-frame) 60 30)
 
 (defvar dim:frame-parameters
@@ -43,7 +52,7 @@
   "Apply NAME parameters from dim:frame-parameters to FRAME"
   (destructuring-bind ((top left) (cols rows))
       (rest (assoc name dim:frame-parameters))
-    (set-frame-parameter frame 'font "Monaco-13")
+    (set-frame-parameter frame 'font "Andale Mono-14")
     (set-frame-position frame top left)
     (set-frame-size frame cols rows)))
 
