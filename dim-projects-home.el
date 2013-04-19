@@ -58,6 +58,9 @@
    ("2ndiMac"    . "~/Documents/Quadrant-iMac")
    ("2ndMBP"     . "~/Documents/Quadrant-MBP")
 
+   ;; 2ndQuadrant per customer stuff
+   ("parch"      . "~/2ndQuadrant/Local/Clients/Le-Bon-Coin/archive_DBA/parch")
+
    ;; Some Common Lisp stuff
    ("sudoku"	. "~/dev/CL/sudoku")
    ("dsl"	. "~/dev/CL/dsl-in-lisp")
