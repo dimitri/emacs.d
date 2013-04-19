@@ -64,6 +64,9 @@
 	(:name pgdevenv-el
 	       :before (setq pgdev-ccache-path "/usr/local/bin/ccache"))
 
+	;; (:name main-line
+	;;        :before (setq main-line-separator-style 'arrow))
+
 	(:name cssh
 	       :after (cssh-define-global-bindings))))
 
@@ -78,7 +81,8 @@
 	      pgsql-linum-format psvn rect-mark crontab-mode icomplete+
 	      php-mode-improved rainbow-delimiters muse deft dpans2texi
 	      markdown-mode color-theme-solarized protobuf-mode paredit
-	      git-gutter haskell-mode eshell-manual browse-kill-ring)
+	      git-gutter haskell-mode eshell-manual browse-kill-ring
+	      elisp-slime-nav redshank color-theme-tango-2 powerline)
 
        (mapcar 'el-get-as-symbol (mapcar 'el-get-source-name el-get-sources))))
 
