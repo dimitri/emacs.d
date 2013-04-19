@@ -23,12 +23,16 @@
 		(nnimap-address "mail.tapoueh.org")
 		(nnimap-server-port "imaps"))
 
-	(nnimap "hm"
-		(nnimap-address "imap.hi-media-techno.com")
-		(nnimap-server-port "imaps")
-		(nnimap-stream ssl))
+	;; (nnimap "hm"
+	;; 	(nnimap-address "imap.hi-media-techno.com")
+	;; 	(nnimap-server-port "imaps")
+	;; 	(nnimap-stream ssl))
 
 	(nntp "news.eternal-september.org")))
+
+;; to avoid being disconnected too often
+;; (require 'gnus-demon)
+;; (gnus-demon-add-handler 'gnus-group-get-new-news 5 t)
 
 (defun dim:gnus-choose-sent-folder (current-group)
   "see gnus-message-archive-group documentation"
@@ -66,7 +70,7 @@
 (defvar dim:smtp-relays
   '((:tapoueh  "mail.tapoueh.org" starttls "submission")
     (:hi-media "smtp.hi-media-techno.com" starttls "smtp")
-    (:2ndQ     "91.121.90.165" starttls 26) ; ipv6 fucks me
+    (:2ndQ     "91.121.90.165" starttls "submission") ; ipv6 fucks me
     (:cedric   "acidenitrix.villemain.org" starttls 26))
   "Relays Hosts to use depending on From: when sending mail.")
 
@@ -298,7 +302,7 @@
 ;; ⊖ ⊱ ⋋ ⋲ ∝ ∢ ∿ ≺ ⊀ ⊰ ⊱ ⊁ ≻ ⋎ ⋏ ∻ ≁ ≉ ≭ ⋇ ⋔ ⋕ ⋖ ⋗ ⋪ ⋫ ⋲ ⋺
 ;; ◈ ■ ▪ ● ☪ ▸ ► ▶ ⟴ ⧔ ⬛ ⬣ ⬢ ⬟ ⭓
 (setq gnus-summary-to-prefix "→"
-      gnus-ticked-mark ?⚐
+      gnus-ticked-mark ?⚑
       gnus-read-mark ?∢
       gnus-del-mark ?≭
       gnus-replied-mark ?⊱
@@ -365,12 +369,18 @@
 
 ;; blacklist gwene newgroups (RSS as news)
 (setq bbdb-ignore-message-alist '(("Newsgroups" . "gwene.org.")
+				  ("Newsgroups" . "gwene.fr.")
 				  ("X-Facebook" . "facebook")
 				  ("Reply-To" . "@plus.google.com")
 				  ("From" . "noreply")
 				  ("From" . "postmaster.twitter.com")
 				  ("From" . "viadeonews@viadeo.com")
-				  ("From" . "member@linkedin.com")))
+				  ("From" . "member@linkedin.com")
+				  ("From" . "group-digests@linkedin.com")
+				  ("Reply-To" . "support-rt@2ndquadrant.com")
+				  ("Reply-To" . "support-rt-comment@2ndquadrant.com")
+				  ("From" . "notifications@github.com")
+				  ("From" . "support@2ndquadrant.com")))
 
 ;; display attached images and resize them
 (setq mm-inline-large-images 'resize
