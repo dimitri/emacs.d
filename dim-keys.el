@@ -128,6 +128,11 @@
 (define-key global-map (kbd "C-x b") 'ido-switch-buffer)
 (define-key global-map (kbd "C-x B") 'ibuffer)
 
+;; have vertical ido completion lists
+(setq ido-decorations
+      '("\n-> " "" "\n   " "\n   ..." "[" "]"
+	" [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]"))
+
 (defun dim:kill-buffer-name (arg)
   "Kill the current buffer's filename and show it in the echo area."
   (interactive "P")
