@@ -224,7 +224,7 @@
     (gnus-add-configuration '(forward (horizontal 1.0 (message .50 point) (article 1.0))))))
 
 ;; flyspell
-(add-hook 'message-mode-hook 'flyspell-mode)
+;(add-hook 'message-mode-hook 'flyspell-mode)
 
 ;; choose default dictionary
 (defun dim:pick-dictionary-from-newsgroup-name ()
@@ -376,6 +376,7 @@
 				  ("From" . "postmaster.twitter.com")
 				  ("From" . "viadeonews@viadeo.com")
 				  ("From" . "member@linkedin.com")
+				  ("From" . "hit-reply@linkedin.com")
 				  ("From" . "group-digests@linkedin.com")
 				  ("Reply-To" . "support-rt@2ndquadrant.com")
 				  ("Reply-To" . "support-rt-comment@2ndquadrant.com")
