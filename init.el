@@ -10,6 +10,7 @@
 		     "~/dev/emacs.d/lib"
 		     "~/dev/emacs.d/fun"
 		     "~/dev/emacs/rcirc-groups"
+		     "~/dev/emacs/pgdevenv-el"
 		     )))
     (dolist (path (or paths dim:paths))
       (setq load-path (cons path load-path)))))
