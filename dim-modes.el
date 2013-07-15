@@ -79,4 +79,8 @@
 ;; C-c C-l in php buffers to lint the current buffer
 (require 'dim-php)
 
+;; some nice PostgreSQL and .sql related things
+;; (require 'pgdevenv)
+;; (add-hook 'sql-mode-hook 'pgdev-sql-mode)
+
 (provide 'dim-modes)

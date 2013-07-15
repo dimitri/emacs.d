@@ -61,8 +61,8 @@
 	(:name adoc-mode
 	       :before (setq adoc-insert-replacement nil))
 
-	(:name pgdevenv-el
-	       :before (setq pgdev-ccache-path "/usr/local/bin/ccache"))
+	;; (:name pgdevenv-el
+	;;        :before (setq pgdev-ccache-path "/usr/local/bin/ccache"))
 
 	;; (:name main-line
 	;;        :before (setq main-line-separator-style 'arrow))
