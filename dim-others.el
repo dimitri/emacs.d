@@ -169,3 +169,29 @@ starting plus symbol (`+') and with `.', `-' or space in it."
   (interactive "P")
   (if arg (call-interactively #'recompile)
     (call-interactively #'compile)))
+
+;;
+;; Magnus wants to kill all the other buffers
+;;
+(defun mha:kill-other-buffers ()
+  "Kill all opened buffers except for the current one"
+  (interactive)
+  (loop for b being the buffers
+	unless (eq b (current-buffer))
+	do (kill-buffer b)))
+
+;;
+;; Magnus wants to kill some region and skip the empty lines
+;;
+(defun mha:kill-ring-save-without-empty-lines (beg end)
+  "Save the region as in `kill-ring-save', without the empty lines."
+  (interactive "r")
+  (kill-new
+   (let ((substring (buffer-substring-no-properties beg end)))
+     (with-temp-buffer
+       (insert substring)
+       (goto-char (point-min))
+       (flush-lines "^$")
+       (buffer-string))))
+  (setq deactivate-mark t)
+  (indicate-copied-region))
