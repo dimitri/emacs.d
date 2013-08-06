@@ -381,7 +381,8 @@
 				  ("Reply-To" . "support-rt@2ndquadrant.com")
 				  ("Reply-To" . "support-rt-comment@2ndquadrant.com")
 				  ("From" . "notifications@github.com")
-				  ("From" . "support@2ndquadrant.com")))
+				  ("From" . "support@2ndquadrant.com")
+				  ("From" . "express@airbnb.com")))
 
 ;; display attached images and resize them
 (setq mm-inline-large-images 'resize
