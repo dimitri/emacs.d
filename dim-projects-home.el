@@ -32,6 +32,9 @@
    ("plproxy"	. "~/dev/plproxy")
    ("pgextwlist"	. "~/dev/pgextwlist")
    ("PartMgr"	. "~/dev/PartMgr")
+   ("tcc"	. "~/dev/tcc")
+   ("qemu"	. "~/dev/qemu")
+   ("vacietis"	. "~/dev/Vacietis")
 
    ;; PostgreSQL branches and local test installations
    ("pgsql"	. "~/dev/PostgreSQL")
