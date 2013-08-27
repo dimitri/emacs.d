@@ -50,6 +50,20 @@
 (setq gnus-gcc-mark-as-read t)
 (setq gnus-message-replyencrypt t)
 
+;; Always send the email to me in BCC so that I have it in the same folder
+;; as the mail I'm answering to.
+;;
+;; From the *Group* buffer M-K runs the command gnus-group-edit-global-kill
+;; has been used in order to add the following couple of lines so that any
+;; mail received that I sent is already marked as read.
+;;
+;; (gnus-kill "From" "Dimitri Fontaine" "d")
+;;
+;; The following line would allow for the email never to be visible in the
+;; Summary buffer, but I prefer being able to see it. (gnus-expunge "X")
+;;
+(setq mail-self-blind 'self-bcc)
+
 ;; The RSS groups are set level 4 (S l), the normal groups are level 3
 ;; M-3 g allows to skip getting RSS updates
 ;; this setting makes it so that subsequent g will continue skipping
