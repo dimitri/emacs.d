@@ -374,6 +374,7 @@
 				  ("Reply-To" . "@plus.google.com")
 				  ("From" . "noreply")
 				  ("From" . "postmaster.twitter.com")
+				  ("From" . "notify@twitter.com")
 				  ("From" . "viadeonews@viadeo.com")
 				  ("From" . "member@linkedin.com")
 				  ("From" . "hit-reply@linkedin.com")
