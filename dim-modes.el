@@ -80,7 +80,9 @@
 (require 'dim-php)
 
 ;; some nice PostgreSQL and .sql related things
-;; (require 'pgdevenv)
+(require 'pgdevenv)
+(setq pgdev-ccache-path "/usr/local/bin/ccache")
+
 ;; (add-hook 'sql-mode-hook 'pgdev-sql-mode)
 
 (provide 'dim-modes)
