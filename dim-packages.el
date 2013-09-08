@@ -67,6 +67,11 @@
 	;; (:name main-line
 	;;        :before (setq main-line-separator-style 'arrow))
 
+	(:name switch-window
+	       :before (progn
+			 (global-set-key (kbd "C-x o") 'switch-window)
+			 (global-set-key (kbd "C-x 9") 'delete-other-window)))
+
 	(:name cssh
 	       :after (cssh-define-global-bindings))))
 
