@@ -35,6 +35,7 @@
    ("tcc"	. "~/dev/tcc")
    ("qemu"	. "~/dev/qemu")
    ("vacietis"	. "~/dev/Vacietis")
+   ("xlogdump"	. "~/dev/xlogdump")
 
    ;; PostgreSQL branches and local test installations
    ("pgsql"	. "~/dev/PostgreSQL")
