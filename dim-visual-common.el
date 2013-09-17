@@ -10,6 +10,10 @@
 ;; avoid changing existing window configuration for popups
 (setq even-window-heights nil)
 
+;; when possible prefer horizontal split (side-by-side)
+(setq split-height-threshold nil
+      split-width-threshold 160)
+
 (line-number-mode 1)
 (column-number-mode 1)
 (setq-default fill-column 76)
