@@ -71,6 +71,7 @@
    ("fl-com"	. "~/dev/CL/fotolog-comments")
    ("jiaroo"	. "~/dev/CL/jiaroo")
    ("pgcloader"	. "~/dev/CL/pgloader")
+   ("QL"        . "~/quicklisp/local-projects")
 
    ;; lost-oasis open source
    ("sinn"		. "~/dev/niftyname/git/sinn/")
