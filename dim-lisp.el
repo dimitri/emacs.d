@@ -27,8 +27,8 @@
 		   finally return path)))
 
   (setq slime-lisp-implementations
-	`((ccl  (,ccl "-K" "utf-8") :coding-system utf-8-unix)
-	  (sbcl (,sbcl) :coding-system utf-8-unix)
+	`((sbcl (,sbcl) :coding-system utf-8-unix)
+	  (ccl  (,ccl "-K" "utf-8") :coding-system utf-8-unix)
 	  (clisp (,clisp) :coding-system utf-8-unix)))
 
   ;; the default M-x slime is CCL still
