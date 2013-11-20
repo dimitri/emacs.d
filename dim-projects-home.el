@@ -14,6 +14,7 @@
    ("skytools"	. "~/dev/skytools")
    ("preprepare"	. "~/dev/preprepare")
    ("prefix"	. "~/dev/prefix")
+   ("base36"	. "~/dev/base36")
    ("ip4r"		. "~/dev/ip4r/ip4r")
    ("pg-head"	. "~/pgsql/head/")
    ("plproxy"	. "~/dev/plproxy")

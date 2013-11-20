@@ -13,6 +13,8 @@
 			   (string-match "xlogdump" buffer-file-name)
 			   (string-match "fdw" buffer-file-name)
 			   (string-match "apcode" buffer-file-name)
+			   (string-match "base36" buffer-file-name)
+			   (string-match "prefix" buffer-file-name)
 			   (string-match "pgtreeagg" buffer-file-name)
 			   (string-match "postgres" buffer-file-name)
 			   (string-match "postgresql" buffer-file-name)))
