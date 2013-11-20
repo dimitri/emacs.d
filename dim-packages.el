@@ -61,6 +61,13 @@
 	(:name adoc-mode
 	       :before (setq adoc-insert-replacement nil))
 
+	(:name hide-region
+	       :features hide-region
+	       :before (progn
+			 (global-set-key (kbd "C-c h h") 'hide-region-hide)
+			 (global-set-key (kbd "C-c h r") 'hide-region-hide)
+			 (global-set-key (kbd "C-c h u") 'hide-region-unhide)))
+
 	;; (:name pgdevenv-el
 	;;        :before (setq pgdev-ccache-path "/usr/local/bin/ccache"))
 
