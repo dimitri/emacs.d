@@ -22,12 +22,12 @@
 ;; where to find init-package.el files
 (setq el-get-user-package-directory "~/dev/emacs.d/packages.d")
 
+;; github seems not to work anymore in http, require https
+(setq el-get-github-default-url-type 'https)
+
 ;; personal recipes
 (setq el-get-sources
       '((:name el-get :branch "master")
-
-	(:name magit
-	       :before (global-set-key (kbd "C-x C-z") 'magit-status))
 
 	(:name expand-region
 	       :before (global-set-key (kbd "C-@") 'er/expand-region))
