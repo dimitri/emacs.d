@@ -71,7 +71,7 @@
 (add-hook 'ielm-mode-hook 'eldoc-mode)
 
 ;; quite a stretch, but has its place here too
-(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 (put 'narrow-to-page 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
