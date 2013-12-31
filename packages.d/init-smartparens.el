@@ -2,7 +2,7 @@
 
 (require 'smartparens-config)
 (smartparens-global-strict-mode 1)
-(smartparens-global-mode 1)
+;; (smartparens-global-mode 1)
 
 ;; manually remove that major annoyance.
 (define-key smartparens-mode-map (kbd "M-<up>") 'windmove-up)
