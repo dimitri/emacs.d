@@ -92,7 +92,8 @@
 	      emacs-goodies-el sicp auto-dictionary keywiz pandoc-mode
 	      pgsql-linum-format psvn rect-mark crontab-mode icomplete+
 	      php-mode-improved rainbow-delimiters muse deft dpans2texi
-	      markdown-mode color-theme-solarized protobuf-mode smartparens
+	      markdown-mode color-theme-solarized protobuf-mode
+              paredit smartparens
 	      git-gutter eshell-manual browse-kill-ring
 	      elisp-slime-nav redshank color-theme-tango-2 powerline
 	      wcheck-mode)
