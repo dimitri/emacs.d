@@ -48,4 +48,9 @@
         (slime-connect slime-lisp-host port))
     (error "Not connected")))
 
+;;
+;; Fix some SLIME indentation shortcomings.
+;;
+(put 'register-groups-bind 'common-lisp-indent-function 2)
+
 (provide 'dim-lisp)
