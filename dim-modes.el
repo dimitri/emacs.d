@@ -81,6 +81,7 @@
 
 ;; some nice PostgreSQL and .sql related things
 (require 'pgdevenv)
+(setq pgdev-cc-path "/usr/local/Cellar/gcc47/4.7.3/bin/gcc-4.7")
 (setq pgdev-ccache-path "/usr/local/bin/ccache")
 
 ;; (add-hook 'sql-mode-hook 'pgdev-sql-mode)
