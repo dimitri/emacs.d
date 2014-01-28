@@ -98,6 +98,21 @@
 
 (define-key dired-mode-map (kbd "C-o") 'dired-do-shell-mac-open)
 
+;; open a PDF with the open-pdf-presenter application
+(defun dired-open-pdf-presenter (&optional mins)
+  (interactive "nDuration (in minutes): ")
+  (let* ((app
+          "/usr/local/bin/open-pdf-presenter.app/Contents/MacOS/open-pdf-presenter")
+         (duration (* 60 mins))
+         (filename (dired-get-filename))
+         (command (format "%s -s -d %d \"%s\"" app duration filename)))
+    (async-shell-command command)
+    (sit-for 3)
+    (shell-command
+     "osascript -e 'tell application \"open-pdf-presenter\" to activate'")))
+
+(define-key dired-mode-map (kbd "C-S-o") 'dired-open-pdf-presenter)
+
 (require 'ibuffer)
 (global-set-key "\C-x\C-b" 'ibuffer)
 
