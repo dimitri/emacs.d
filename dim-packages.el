@@ -74,6 +74,10 @@
 	;; (:name main-line
 	;;        :before (setq main-line-separator-style 'arrow))
 
+        (:name json-mode
+               :features json-mode
+               :after (define-key json-mode-map (kbd "M-q") 'json-mode-beautify))
+
 	(:name switch-window
 	       :before (progn
 			 (global-set-key (kbd "C-x o") 'switch-window)
@@ -88,8 +92,9 @@
        ;; list of packages we use straight from official recipes
        '(gnus bbdb switch-window vkill google-maps
 	      mbsync asciidoc smex geiser xcscope multiple-cursors
-	      anything descbinds-anything pcmpl-git magit-view-file
-	      emacs-goodies-el sicp auto-dictionary keywiz pandoc-mode
+	      anything descbinds-anything pcmpl-git magit magit-view-file
+              ;; auto-dictionary
+	      emacs-goodies-el sicp keywiz pandoc-mode
 	      pgsql-linum-format psvn rect-mark crontab-mode icomplete+
 	      php-mode-improved rainbow-delimiters muse deft dpans2texi
 	      markdown-mode color-theme-solarized protobuf-mode
