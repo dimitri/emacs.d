@@ -60,7 +60,7 @@
     (set-window-buffer upper-right-window (dim:chan-buffer "#lisp"))
     (set-window-buffer lower-right-window (dim:chan-buffer "#postgresql"))
     (select-window (split-window-vertically))
-    (set-window-buffer (selected-window) (dim:chan-buffer "#emacs"))
+    (set-window-buffer (selected-window) (dim:chan-buffer "#postgresqlfr"))
     (select-window upper-left-window)
     (split-window-vertically-quarter-bottom)
     (rcirc-groups:switch-to-groups-buffer)))
@@ -78,7 +78,7 @@
     (split-window-vertically)
     (set-window-buffer (selected-window) (dim:chan-buffer "#vieuxcons"))
     (windmove-down)
-    (set-window-buffer (selected-window) (dim:chan-buffer "#emacs"))))
+    (set-window-buffer (selected-window) (dim:chan-buffer "#postgresqlfr"))))
 
 (defun dim:rcirc-layout-home ()
   "Organise screen layout for IRC setup"
@@ -88,7 +88,7 @@
 		   (list
 		    (dim:chan-buffer "#vieuxcons")
 		    (dim:chan-buffer "#lisp")
-		    (dim:chan-buffer "#emacs")
+		    (dim:chan-buffer "#postgresqlfr")
 		    (dim:chan-buffer "#postgresql")))))
     (if (not (eq 4 (length buffers)))
 	(dim:rcirc-layout-home-waiting)
@@ -103,7 +103,7 @@
 		   (dim:chan-buffer "#vieuxcons")
 		   (dim:chan-buffer "#dba")
 		   (dim:chan-buffer "#postgresql")
-		   (dim:chan-buffer "#emacs")))))
+		   (dim:chan-buffer "#postgresqlfr")))))
     (if (not (eq 4 (length buffers)))
 	;; yes, at work too, same servers
 	(dim:rcirc-layout-home-waiting)
@@ -113,7 +113,7 @@
 	(set-window-buffer (selected-window) (dim:chan-buffer "#postgresql"))
 	(set-window-buffer bottom-window (dim:chan-buffer "#vieuxcons"))
 	(select-window bottom-window)
-	(set-window-buffer (split-window-vertically) (dim:chan-buffer "#emacs"))
+	(set-window-buffer (split-window-vertically) (dim:chan-buffer "#postgresqlfr"))
 	(set-window-buffer right-window (dim:chan-buffer "#dba"))
 	(balance-windows)
 	;; now cut the right part
