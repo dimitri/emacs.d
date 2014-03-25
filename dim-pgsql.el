@@ -10,6 +10,7 @@
 		       (or (string-match "pgsql" buffer-file-name)
 			   (string-match "pgsrc" buffer-file-name)
 			   (string-match "pgext" buffer-file-name)
+			   (string-match "pginstall" buffer-file-name)
 			   (string-match "xlogdump" buffer-file-name)
 			   (string-match "fdw" buffer-file-name)
 			   (string-match "apcode" buffer-file-name)

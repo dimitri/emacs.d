@@ -37,6 +37,7 @@
    ("qemu"	. "~/dev/qemu")
    ("vacietis"	. "~/dev/Vacietis")
    ("xlogdump"	. "~/dev/xlogdump")
+   ("pginstall" . "~/dev/pginstall")
 
    ;; PostgreSQL branches and local test installations
    ("pgsql"	. "~/dev/PostgreSQL")
