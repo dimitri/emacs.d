@@ -1,6 +1,9 @@
 ;;; init-magit.el --- el-get init file for package magit
 ;;
 
+;; we don't use emacsclient to edit commit messages...
+(setq magit-emacsclient-executable nil)
+
 ;; we use C-x C-z as the magit access key
 (global-set-key (kbd "C-x C-z") 'magit-status)
 
