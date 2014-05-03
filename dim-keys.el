@@ -84,9 +84,8 @@
 (define-key dired-mode-map (kbd "TAB") 'dired-hide-subdir)
 (global-set-key (kbd "C-x C-d") 'dim:dired-default-directory)
 
-;; dired-details pour passer à une vue courte
-(require 'dired-details)
-(define-key dired-mode-map "/" 'dired-details-toggle)
+;; dired-hide details!
+(define-key dired-mode-map "/" 'dired-hide-details-mode)
 
 ;; open files with the MacOSX default application
 (defun dired-do-shell-mac-open ()
