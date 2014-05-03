@@ -186,6 +186,7 @@
 
 ; Hippie Expand pour un meilleur M-/ (noms de fichiers)
 (require 'hippie-exp)
+(require 'dim-hippie-expand)
 (global-set-key (kbd "M-/") 'hippie-expand)
 
 ;; broken in current snapshot
