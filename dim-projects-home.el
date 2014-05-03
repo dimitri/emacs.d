@@ -38,6 +38,8 @@
    ("vacietis"	. "~/dev/Vacietis")
    ("xlogdump"	. "~/dev/xlogdump")
    ("pginstall" . "~/dev/pginstall")
+   ("pgcharts"  . "~/dev/pgcharts")
+   ("ql-to-deb" . "~/dev/ql-to-deb")
 
    ;; PostgreSQL branches and local test installations
    ("pgsql"	. "~/dev/PostgreSQL")
