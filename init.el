@@ -78,7 +78,12 @@
 
 ;; and the session
 (setq desktop-restore-eager 20
-      desktop-lazy-verbose nil)
+      desktop-lazy-verbose nil
+      desktop-restore-frames nil
+      ;; mostly default values, but at least controled
+      desktop-restore-in-current-display nil
+      desktop-restore-reuses-frames t
+      desktop-restore-forces-onscreen t)
 (desktop-save-mode 1)
 (savehist-mode 1)
 
