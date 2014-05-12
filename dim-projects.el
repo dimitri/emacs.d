@@ -1,5 +1,11 @@
 ;;; dim-projects.el --- Dimitri Fontaine
 ;;
+
+;;
+;; First get rid of uniquify default advice.
+;;
+(advice-remove 'create-file-buffer #'uniquify--create-file-buffer-advice)
+
 ;; load the right projects definition file, provide project-merge and
 ;; ibuffer integration
 (require 'ibuffer)
