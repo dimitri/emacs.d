@@ -16,7 +16,7 @@
 
 (setq gnus-secondary-select-methods
       '((nnimap "quadrant"
-		(nnimap-address "acidenitrix.villemain.org")
+		(nnimap-address "mail.2ndQuadrant.fr")
 		(nnimap-server-port "imaps"))
 
 	(nnimap "tapoueh"
@@ -84,7 +84,8 @@
 (defvar dim:smtp-relays
   '((:tapoueh  "mail.tapoueh.org" starttls "submission")
     (:hi-media "smtp.hi-media-techno.com" starttls "smtp")
-    (:2ndQ     "91.121.90.165" starttls "submission") ; ipv6 fucks me
+    ;(:2ndQ     "91.121.90.165" starttls "submission") ; ipv6 fucks me
+    (:2ndQ     "smtp.2ndQuadrant.fr" starttls "submission") ; ipv6 fucks me
     (:cedric   "acidenitrix.villemain.org" starttls 26))
   "Relays Hosts to use depending on From: when sending mail.")
 
