@@ -6,6 +6,7 @@
 ;(require 'rcirc-notify-mode)
 
 (add-hook 'rcirc-mode-hook (lambda () (use-hard-newlines 1)))
+(add-hook 'rcirc-mode-hook 'rcirc-omit-mode)
 
 ;; add a key for EMMS integration
 (defun dim:insert-current-emms-track ()
