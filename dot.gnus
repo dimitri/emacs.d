@@ -397,6 +397,9 @@
 				  ("Reply-To" . "support-rt-comment@2ndquadrant.com")
 				  ("From" . "notifications@github.com")
 				  ("From" . "support@2ndquadrant.com")
+				  ("From" . "support-comment@2ndquadrant.com")
+                                  ("From" . "development@2ndquadrant.com")
+				  ("From" . "on-demand-consulting@2ndquadrant.com")
 				  ("From" . "express@airbnb.com")))
 
 ;; display attached images and resize them
