@@ -198,29 +198,43 @@
 
 (setq gnus-agent nil)
 
+;; arrange to be able to get back to Gnus defaults here
+(defvar default-gnus-buffer-configuration nil)
+
+(unless default-gnus-buffer-configuration
+  (setq default-gnus-buffer-configuration gnus-buffer-configuration))
+
+;; and now force the default systematically, before doing anything smart
+;; about it.
+(setq gnus-buffer-configuration default-gnus-buffer-configuration)
+
 ;; I still have a setup in 1024x768...
 (let ((srcsize (get-screen-dimensions))
       (frame-size (list (frame-pixel-width) (frame-pixel-height))))
-  (unless (or (< (frame-pixel-width) 1024) ; netbook setups (1020 561) or such
+  (if (or (< (frame-pixel-width) 1024) ; netbook setups (1020 561) or such
 	      (equal '(1024 768) srcsize)
 	      (equal '(2560 1440) srcsize)
 	      (equal '(1050 1680) frame-size))
-    (gnus-add-configuration
-     '(article
-       (vertical 1.0
-		 (horizontal 8
-			     (group 50)
-			     (summary 1.0 point) )
-		 (horizontal 1.0
-			     (article 1.0)))))
-    (gnus-add-configuration
-     '(summary
-       (vertical 1.0
-		 (horizontal 1.0
-			     (group 50)
-			     (summary 1.0 point)
-			     (if gnus-carpal
-				 '(summary-carpal 4)))))))
+      (setq gnus-buffer-configuration default-gnus-buffer-configuration)
+
+    ;; tweak the visual configuration
+    (progn
+     (gnus-add-configuration
+      '(article
+        (vertical 1.0
+                  (horizontal 8
+                              (group 50)
+                              (summary 1.0 point) )
+                  (horizontal 1.0
+                              (article 1.0)))))
+     (gnus-add-configuration
+      '(summary
+        (vertical 1.0
+                  (horizontal 1.0
+                              (group 50)
+                              (summary 1.0 point)
+                              (if gnus-carpal
+                                  '(summary-carpal 4))))))))
 
   (when (or (equal '(1680 1050) srcsize)
 	    (equal '(1680 1050) frame-size) ; beware of multiple screens
