@@ -40,6 +40,8 @@
    ("pginstall" . "~/dev/pginstall")
    ("pgcharts"  . "~/dev/pgcharts")
    ("ql-to-deb" . "~/dev/ql-to-deb")
+   ("kids"      . "~/dev/kids")
+   ("cl-ixf"    . "~/dev/CL/cl-ixf")
 
    ;; PostgreSQL branches and local test installations
    ("pgsql"	. "~/dev/PostgreSQL")
