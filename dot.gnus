@@ -396,12 +396,14 @@
 				  ("From" . "group-digests@linkedin.com")
 				  ("Reply-To" . "support-rt@2ndquadrant.com")
 				  ("Reply-To" . "support-rt-comment@2ndquadrant.com")
+				  ("Reply-To" . "rt-comment@support.2ndquadrant.com")
 				  ("From" . "notifications@github.com")
 				  ("From" . "support@2ndquadrant.com")
 				  ("From" . "support-comment@2ndquadrant.com")
                                   ("From" . "development@2ndquadrant.com")
 				  ("From" . "on-demand-consulting@2ndquadrant.com")
-				  ("From" . "express@airbnb.com")))
+				  ("From" . "express@airbnb.com")
+				  ("From" . "auto-message@eventbrite.com")))
 
 ;; display attached images and resize them
 (setq mm-inline-large-images 'resize
