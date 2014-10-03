@@ -43,9 +43,9 @@
 (set-frame-position (selected-frame) 60 30)
 
 (defvar dim:frame-parameters
-  '((left . ((60 30) (174 81)))
-    (right . ((1480 30) (130 81)))
-    (single . ((60 30) (168 49))))	; used in 1440x900
+  '((left   . ((  10 30) (174 84)))
+    (right  . ((1430 30) (130 84)))
+    (single . ((  10 30) (168 52))))	; used in 1440x900
   "Usual frame parameters")
 
 (defun dim:set-frame-parameters (frame name)
