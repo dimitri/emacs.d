@@ -51,6 +51,9 @@
 ;;
 ;; Fix some SLIME indentation shortcomings.
 ;;
+(put 'bind 'common-lisp-indent-function (get 'let 'common-lisp-indent-function))
 (put 'register-groups-bind 'common-lisp-indent-function 2)
+(put 'with-prefixed-accessors 'common-lisp-indent-function 2)
+(put 'with-pgsql-connection 'common-lisp-indent-function 1)
 
 (provide 'dim-lisp)
