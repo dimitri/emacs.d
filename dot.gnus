@@ -417,7 +417,11 @@
                                   ("From" . "development@2ndquadrant.com")
 				  ("From" . "on-demand-consulting@2ndquadrant.com")
 				  ("From" . "express@airbnb.com")
-				  ("From" . "auto-message@eventbrite.com")))
+				  ("From" . "auto-message@eventbrite.com")
+                                  ("From" . "ne_pas_repondre@sfr.fr")
+                                  ("From" . "do-not-reply@tripit.com")
+                                  ("From" . "ftpmaster@ftp-master.debian.org")
+                                  ("From" . "info@meetup.com")))
 
 ;; display attached images and resize them
 (setq mm-inline-large-images 'resize
