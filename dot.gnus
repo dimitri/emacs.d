@@ -304,9 +304,13 @@
             ((gnus-seconds-year) . "%B %d")
             (t . "%B %d '%y"))) ;;this one is used when no other does match
 
+;; (setq gnus-summary-line-format
+;;       (concat "%U%R %~(max-right 17)~(pad-right 17)&user-date;  "
+;; 	      "%~(max-right 20)~(pad-right 20)n %B%s\n"))
+
 (setq gnus-summary-line-format
       (concat "%U%R %~(max-right 17)~(pad-right 17)&user-date;  "
-	      "%~(max-right 20)~(pad-right 20)n %B%s\n"))
+	      "%~(max-right 20)~(pad-right 20)f %B%s\n"))
 
 ;; gnus-group-line-format, cf dim-gnus-imap-count
 ;; "%M%S%p%P%5y:%B%(%g%)%O\n"
