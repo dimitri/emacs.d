@@ -14,7 +14,21 @@
     ("a5f6d6d1b36441c0249e042a715bd3a286ca92df3a31844beaa5bdceac72ce6d" default)))
  '(safe-local-variable-values
    (quote
-    ((whitespace-style face tabs trailing lines-tail)
+    ((Package . bind)
+     (external-format . utf-8)
+     (Package . metabang\.graph)
+     (Package RT :use "COMMON-LISP" :colon-mode :external)
+     (syntax . COMMON-LISP)
+     (Package . CL-FAD)
+     (Package . CL-WHO)
+     (Syntax . Common-lisp)
+     (package . cl-user)
+     (Package . COMMON-LISP-USER)
+     (Package . HUNCHENTOOT)
+     (Encoding . utf-8)
+     (readtable . runes)
+     (Package . SAX)
+     (whitespace-style face tabs trailing lines-tail)
      (eval ignore-errors "Write-contents-functions is a buffer-local alternative to before-save-hook"
            (add-hook
             (quote write-contents-functions)
