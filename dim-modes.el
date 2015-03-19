@@ -20,6 +20,16 @@
 ;; global-auto-revert-mode for automated git checkout following!
 (global-auto-revert-mode 1)
 
+;; diminish minor mode names in the modeline
+(require 'diminish)
+(setq diminished-minor-modes '((magit-auto-revert-mode . "")
+                               (elisp-slime-nav-mode . "")
+                               (paredit-mode . "p")
+                               (eldoc-mode . "")
+                               (redshank-mode . "")
+                               (whitespace-mode . "")
+                               (paredit-mode . "")))
+
 (require 'w3m-load nil t)
 (setq mm-inline-text-html-with-images t)
 (setq mm-inline-large-images t)
