@@ -415,17 +415,21 @@
 				  ("Reply-To" . "support-rt@2ndquadrant.com")
 				  ("Reply-To" . "support-rt-comment@2ndquadrant.com")
 				  ("Reply-To" . "rt-comment@support.2ndquadrant.com")
+                                  ("From" . "sysadmin@2ndquadrant.com")
 				  ("From" . "notifications@github.com")
 				  ("From" . "support@2ndquadrant.com")
 				  ("From" . "support-comment@2ndquadrant.com")
                                   ("From" . "development@2ndquadrant.com")
 				  ("From" . "on-demand-consulting@2ndquadrant.com")
+				  ("From" . "on-demand-consulting-comment@2ndquadrant.com")
 				  ("From" . "express@airbnb.com")
 				  ("From" . "auto-message@eventbrite.com")
                                   ("From" . "ne_pas_repondre@sfr.fr")
                                   ("From" . "do-not-reply@tripit.com")
                                   ("From" . "ftpmaster@ftp-master.debian.org")
-                                  ("From" . "info@meetup.com")))
+                                  ("From" . "info@meetup.com")
+                                  ("From" . "invitation@capitainetrain.com")
+                                  ("From" . "stay-in-touch@brewster.com")))
 
 ;; display attached images and resize them
 (setq mm-inline-large-images 'resize
