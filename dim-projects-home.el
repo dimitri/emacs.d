@@ -39,9 +39,13 @@
    ("xlogdump"	. "~/dev/xlogdump")
    ("pginstall" . "~/dev/pginstall")
    ("pgcharts"  . "~/dev/pgcharts")
+   ("pgdashboard" . "~/dev/pgdashboard")
+   ("plconvert" . "~/dev/plconvert")
    ("ql-to-deb" . "~/dev/ql-to-deb")
    ("kids"      . "~/dev/kids")
    ("cl-ixf"    . "~/dev/CL/cl-ixf")
+   ("artisan"   . "~/dev/CL/artisan-mysql/")
+   ("decimal"   . "/Users/dim/dev/decimal/")
 
    ;; PostgreSQL branches and local test installations
    ("pgsql"	. "~/dev/PostgreSQL")
