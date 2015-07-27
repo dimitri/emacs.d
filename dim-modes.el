@@ -20,6 +20,18 @@
 ;; global-auto-revert-mode for automated git checkout following!
 (global-auto-revert-mode 1)
 
+(setenv "DICPATH" "/Users/dim/Library/Spelling/")
+(require 'ispell)
+(setq-default ispell-program-name (executable-find "hunspell"))
+(setq ispell-really-hunspell t)
+
+;; tell ispell that apostrophes are part of words
+;; and select Bristish dictionary
+(setq ispell-local-dictionary-alist
+      '(("en" "[[:alpha:]]" "[^[:alpha:]]" "[']" t ("-d" "en_GB") nil utf-8)
+        ("fr" "[[:alpha:]]" "[^[:alpha:]]" "[']" t ("-d" "fr-moderne") nil utf-8)))
+
+
 ;; diminish minor mode names in the modeline
 (require 'diminish)
 ;; (setq diminished-minor-modes '((magit-auto-revert-mode . "")
