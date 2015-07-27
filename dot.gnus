@@ -23,6 +23,10 @@
 		(nnimap-address "mail.tapoueh.org")
 		(nnimap-server-port "imaps"))
 
+        (nnimap "lbc"
+		(nnimap-address "mail.scmfrance.fr")
+		(nnimap-server-port "imaps"))
+
 	;; (nnimap "hm"
 	;; 	(nnimap-address "imap.hi-media-techno.com")
 	;; 	(nnimap-server-port "imaps")
@@ -43,7 +47,10 @@
 	((string-match "tapoueh" current-group)
 	 "nnimap+tapoueh:INBOX.Sent Messages")
 
-	((string-match "hm" current-group)
+	((string-match "lbc" current-group)
+	 "nnimap+lbc:Sent Messages")
+
+        ((string-match "hm" current-group)
 	 "nnimap+hm:Sent Messages")))
 
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
@@ -86,6 +93,7 @@
     (:hi-media "smtp.hi-media-techno.com" starttls "smtp")
     ;(:2ndQ     "91.121.90.165" starttls "submission") ; ipv6 fucks me
     (:2ndQ     "smtp.2ndQuadrant.fr" starttls "submission") ; ipv6 fucks me
+    (:lbc      "smtp.scmfrance.fr" starttls "submission")
     (:cedric   "acidenitrix.villemain.org" starttls 26))
   "Relays Hosts to use depending on From: when sending mail.")
 
@@ -103,6 +111,7 @@
 		   ((string-match-p "tapoueh.org" from) :tapoueh)
 		   ;; ((string-match-p "hi-media.com" from) :hi-media)
 		   ;; not possible anymore, VPN?
+		   ((string-match-p "scmfrance.fr" from) :lbc)
 		   ((string-match-p "hi-media.com" from) :2ndQ)
 		   ((string-match-p "2ndQuadrant.fr" from) :2ndQ))))
     ;; get connection details from dim:smtp-relays
@@ -151,6 +160,13 @@
 	 (signature "dim")
 	 (user-mail-address "dim@tapoueh.org"))
 
+        ;; Le Bon Coin
+        ("lbc"
+         (address "dimitri.fontaine@scmfrance.fr")
+         (organisation "Le Bon Coin")
+         (signature-file "~/.signature.lbc")
+         (user-mail-address "dimitri.fontaine@scmfrance.fr"))
+
 	;; Tapoueh
 	("tapoueh"
 	 (address "dim@tapoueh.org")
@@ -183,11 +199,11 @@
 			      (setq message-sendmail-extra-arguments
 				    '("-a" "tapoueh"))))))
 
-		((and (stringp (car x))
-		      (string= (car x) "quadrant.local"))
-		 (append x '((eval
-			      (setq message-sendmail-extra-arguments
-				    '("-a" "quadrant"))))))
+                ((and (stringp (car x))
+                      (string= (car x) "quadrant.local"))
+                 (append x '((eval
+                              (setq message-sendmail-extra-arguments
+                                    '("-a" "quadrant"))))))
 
 		(t x)))
 	gnus-posting-styles)))

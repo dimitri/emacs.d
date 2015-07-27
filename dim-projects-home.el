@@ -8,6 +8,9 @@
    ("hdi"		. "~/dev/hdi")
    ("Quadrant"	. "~/Quadrant")
 
+   ;; lbc stuff
+   ("lbc" . "~/LeBonCoin/gitlab/leboncoin-fr/")
+
    ;; public OpenSource stuff
    ("pgloader"	. "~/dev/pgloader")
    ("skytools-php" . "~/dev/skytools/pgq-php")
@@ -71,6 +74,8 @@
    ("2ndQMgt"    . "~/2ndQuadrant")
    ("2ndiMac"    . "~/Documents/Quadrant-iMac")
    ("2ndMBP"     . "~/Documents/Quadrant-MBP")
+   ("2ndQLBC"    . "~/2ndQuadrant/customer_code/lbc/")
+   ("2ndQMJ"     . "~/2ndQuadrant/customer_code/mailjet/")
 
    ;; 2ndQuadrant per customer stuff
    ("parch"      . "~/2ndQuadrant/Local/Clients/Le-Bon-Coin/archive_DBA/parch")
