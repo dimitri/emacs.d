@@ -11,7 +11,7 @@
 
 ;; some special for magit under MacOSX
 (when-running-macosx
- (setq magit-git-executable "/usr/local/git/bin/git")
+ ;; (setq magit-git-executable "/usr/local/git/bin/git")
 
  ;; new setup, mac + debian VM for the "heavy" work
  (let ((svn "usr/bin/svn")
@@ -92,7 +92,8 @@
        ;; list of packages we use straight from official recipes
        '(gnus bbdb switch-window vkill google-maps
 	      mbsync asciidoc smex geiser xcscope multiple-cursors
-	      anything descbinds-anything pcmpl-git magit magit-view-file
+	      anything descbinds-anything pcmpl-git magit
+              ;; magit-view-file
               ;; auto-dictionary
 	      emacs-goodies-el sicp keywiz pandoc-mode
 	      pgsql-linum-format psvn rect-mark crontab-mode icomplete+
@@ -100,7 +101,8 @@
 	      markdown-mode color-theme-solarized protobuf-mode
               paredit smartparens
 	      git-gutter eshell-manual browse-kill-ring
-	      elisp-slime-nav redshank color-theme-tango-2 powerline
+	      ;; elisp-slime-nav
+              redshank color-theme-tango-2 powerline
 	      wcheck-mode)
 
        (mapcar 'el-get-as-symbol (mapcar 'el-get-source-name el-get-sources))))

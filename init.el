@@ -38,12 +38,12 @@
 			  "~/bin"
 			  "/usr/local/bin"
 			  "/usr/local/sbin"
-			  "/usr/local/git/bin"
+			  ;; "/usr/local/git/bin"
 			  "/usr/local/texlive/2012/bin/x86_64-darwin"
 			  "/Users/dim/Library/Haskell/bin") ":"))
  (add-to-list 'exec-path "~/bin")
  (add-to-list 'exec-path "/usr/local/bin")
- (add-to-list 'exec-path "/usr/local/git/bin")
+ ;; (add-to-list 'exec-path "/usr/local/git/bin")
  (add-to-list 'exec-path "/usr/local/texlive/2012/bin/x86_64-darwin")
  (add-to-list 'exec-path "/Users/dim/Library/Haskell/bin"))
 
