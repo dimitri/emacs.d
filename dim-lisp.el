@@ -51,9 +51,20 @@
 ;;
 ;; Fix some SLIME indentation shortcomings.
 ;;
-(put 'bind 'common-lisp-indent-function (get 'let 'common-lisp-indent-function))
+(put 'handling-pgsql-notices 'common-lisp-indent-function
+     (get 'unwind-protect 'common-lisp-indent-function))
+(put 'task-handler-bind 'common-lisp-indent-function
+     (get 'let 'common-lisp-indent-function))
+(put 'bind 'common-lisp-indent-function
+     (get 'let 'common-lisp-indent-function))
 (put 'register-groups-bind 'common-lisp-indent-function 2)
 (put 'with-prefixed-accessors 'common-lisp-indent-function 2)
 (put 'with-pgsql-connection 'common-lisp-indent-function 1)
+(put 'with-stats-collection 'common-lisp-indent-function 2)
+
+;;
+;; Fix some weird bug
+;;
+(eldoc-add-command 'slime-space)
 
 (provide 'dim-lisp)
