@@ -445,7 +445,14 @@
                                   ("From" . "ftpmaster@ftp-master.debian.org")
                                   ("From" . "info@meetup.com")
                                   ("From" . "invitation@capitainetrain.com")
-                                  ("From" . "stay-in-touch@brewster.com")))
+                                  ("From" . "stay-in-touch@brewster.com")
+                                  ("From" . "jira_admins@scmfrance.fr")
+                                  ("From" . "admins@scmfrance.fr")
+                                  ("From" . "viadeonews@viadeo.com")
+                                  ("From" . "welcome-notification@viadeo.com")
+                                  ("From" . "avaaz@avaaz.org")
+                                  ("From" . "invitations@linkedin.com")
+                                  ("From" . "contact@pgconf.eu")))
 
 ;; display attached images and resize them
 (setq mm-inline-large-images 'resize
