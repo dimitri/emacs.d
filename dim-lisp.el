@@ -24,12 +24,16 @@
 		   finally return path))
        (clisp (loop for path in '("/usr/local/bin/clisp" "/usr/bin/clisp")
 		   until (file-exists-p path)
-		   finally return path)))
+		   finally return path))
+       (ecl   (loop for path in '("/usr/local/bin/ecl" "/usr/bin/ecl")
+                    until (file-exists-p path)
+                    finally return path)))
 
   (setq slime-lisp-implementations
 	`((sbcl (,sbcl) :coding-system utf-8-unix)
 	  (ccl  (,ccl "-K" "utf-8") :coding-system utf-8-unix)
-	  (clisp (,clisp) :coding-system utf-8-unix)))
+	  (clisp (,clisp) :coding-system utf-8-unix)
+          (ecl (,ecl) :coding-system utf-8-unix)))
 
   ;; the default M-x slime is CCL still
   (setq inferior-lisp-program (concat ccl " -K utf-8")))

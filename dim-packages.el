@@ -101,6 +101,7 @@
 	      markdown-mode color-theme-solarized protobuf-mode
               paredit smartparens
 	      git-gutter eshell-manual browse-kill-ring
+              dockerfile-mode
 	      ;; elisp-slime-nav
               redshank color-theme-tango-2 powerline
 	      wcheck-mode)

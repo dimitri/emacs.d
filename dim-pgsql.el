@@ -72,5 +72,9 @@
 	  (defun jd:sql-mode-set-sql-product ()
 	    (sql-set-product 'postgres)))
 
+(setq auto-mode-alist
+      (append '(("\\.pgsql$" . sql-mode)
+		("\\.sql.tmpl$" . sql-mode)) auto-mode-alist))
+
 (require 'pgsrc)
 (provide 'dim-pgsql)
