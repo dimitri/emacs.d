@@ -452,11 +452,16 @@
                                   ("From" . "stay-in-touch@brewster.com")
                                   ("From" . "jira_admins@scmfrance.fr")
                                   ("From" . "admins@scmfrance.fr")
+                                  ("From" . "review@bon-coin.net")
                                   ("From" . "viadeonews@viadeo.com")
                                   ("From" . "welcome-notification@viadeo.com")
                                   ("From" . "avaaz@avaaz.org")
                                   ("From" . "invitations@linkedin.com")
-                                  ("From" . "contact@pgconf.eu")))
+                                  ("From" . "contact@pgconf.eu")
+                                  ("From" . "@bugs.launchpad.net")
+                                  ("From" . "no_reply@edenred.com")
+                                  ("From" . "support@uber.com")
+                                  ("From" . "nepasrepondre@relation-client.3suisses.fr")))
 
 ;; display attached images and resize them
 (setq mm-inline-large-images 'resize
