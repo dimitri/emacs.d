@@ -64,6 +64,10 @@ about what flexible matching means in this context."
   (concat "\\b" (mapconcat (lambda (x) (concat "\\w*-*" (list x))) str "")
           "\\w*-*" "\\b"))
 
-(add-to-list 'hippie-expand-try-functions-list 'try-expand-flexible-abbrev)
+(add-to-list 'hippie-expand-try-functions-list
+             (defun selective-try-expand-flexible-abbrev (old)
+               ;; don't do that in rcirc modes
+               (unless (eq major-mode 'rcirc-mode)
+                 (try-expand-flexible-abbrev old))))
 
 (provide 'dim-hippie-expand)
