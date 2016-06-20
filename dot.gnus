@@ -76,6 +76,10 @@
 ;; this setting makes it so that subsequent g will continue skipping
 (setq gnus-group-use-permanent-levels 't)
 
+;; Disable workaround targeting old zimbra servers
+;; since newer versions have been fixed
+(setq nnimap-quirks nil)
+
 ;; (when-using-msmtp
 ;;  (setq message-send-mail-function 'message-send-mail-with-sendmail)
 ;;  (when-running-macosx (setq sendmail-program "/sw/bin/msmtp"))
