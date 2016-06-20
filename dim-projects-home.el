@@ -85,7 +85,8 @@
    ("dsl"	. "~/dev/CL/dsl-in-lisp")
    ("fl-com"	. "~/dev/CL/fotolog-comments")
    ("jiaroo"	. "~/dev/CL/jiaroo")
-   ("pgcloader"	. "~/dev/CL/pgloader")
+   ("qmynd"	. "~/dev/CL/qmynd/")
+   ;; ("pgcloader"	. "~/dev/CL/pgloader")
    ("QL"        . "~/quicklisp/local-projects")
 
    ;; lost-oasis open source
