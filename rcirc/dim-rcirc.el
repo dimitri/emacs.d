@@ -35,7 +35,8 @@
     (while (and (< (length buffers) (length buffer-list)) (not (eq n 0)))
       (dolist (buffer-name buffer-list)
 	(when (not (memq buffer-name buffers))
-	  (when buffer-name (get-buffer buffer-name)
+	  (when buffer-name
+            (get-buffer buffer-name)
 	    (setq buffers (cons buffer-name buffers)))))
       (message "%s, waiting for %d buffers still: %S"
 	       n (- (length buffer-list) (length buffers))
