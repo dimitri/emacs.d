@@ -64,7 +64,7 @@
 (put 'register-groups-bind 'common-lisp-indent-function 2)
 (put 'with-prefixed-accessors 'common-lisp-indent-function 2)
 (put 'with-pgsql-connection 'common-lisp-indent-function 1)
-(put 'with-stats-collection 'common-lisp-indent-function 2)
+(put 'with-stats-collection 'common-lisp-indent-function 1)
 
 ;;
 ;; Fix some weird bug
