@@ -259,6 +259,7 @@
   (when (or (equal '(1680 1050) srcsize)
 	    (equal '(1680 1050) frame-size) ; beware of multiple screens
 	    (equal '(1440 867) frame-size) ; beware of multiple screens
+            (equal '(1364 836) frame-size) ; normal size of a single frame
 	    (equal '(1440 900) srcsize)
 	    (equal '(2496 1418) srcsize)) ; thanks to VirtualBox
     (gnus-add-configuration
