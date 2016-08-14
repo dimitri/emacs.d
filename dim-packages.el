@@ -90,7 +90,7 @@
 (setq dim-packages
       (append
        ;; list of packages we use straight from official recipes
-       '(gnus bbdb switch-window vkill google-maps
+       '(magnus bbdb switch-window vkill google-maps
 	      mbsync asciidoc smex geiser xcscope multiple-cursors
 	      anything descbinds-anything pcmpl-git magit
               ;; magit-view-file
