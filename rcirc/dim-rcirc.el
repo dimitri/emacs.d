@@ -353,7 +353,7 @@
       ;; we use ZNC
       (dim:rcirc-server-alist-get-authinfo
        '(("freenode"
-	  :host "tapoueh.org"
+	  :host "orion.naquadah.org"
 	  :port "6700"
 	  :auth "dim.freenode"
 	  :channels ("#lisp" "#postgresql" "#postgresqlfr"
@@ -361,7 +361,7 @@
 		     "#el-get" "#gli" "#cvf"))
 
 	 ("lost-oasis"
-	  :host "tapoueh.org"
+	  :host "orion.naquadah.org"
 	  :port "6700"
 	  :auth "dim.lo"
 	  :channels ("#vieuxcons"))

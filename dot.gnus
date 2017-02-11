@@ -2,7 +2,8 @@
 ;;
 (require 'dim-ports)
 
-(setq user-mail-address "dimitri@2ndQuadrant.fr")
+;; (setq user-mail-address "dimitri@2ndQuadrant.fr")
+(setq user-mail-address "dimitri.fontaine@schibsted.com")
 (setq user-full-name "Dimitri Fontaine")
 
 ;; No primary select method
@@ -20,12 +21,17 @@
 		(nnimap-server-port "imaps"))
 
 	(nnimap "tapoueh"
-		(nnimap-address "mail.tapoueh.org")
+		(nnimap-address "imap.fastmail.com")
 		(nnimap-server-port "imaps"))
 
-        (nnimap "lbc"
-		(nnimap-address "mail.scmfrance.fr")
-		(nnimap-server-port "imaps"))
+        (nnimap "scm"
+		(nnimap-address "imap.gmail.com")
+		(nnimap-server-port "imaps")
+                (nnimap-stream ssl))
+
+        ;; (nnimap "lbc"
+	;; 	(nnimap-address "mail.scmfrance.fr")
+	;; 	(nnimap-server-port "imaps"))
 
 	;; (nnimap "hm"
 	;; 	(nnimap-address "imap.hi-media-techno.com")
@@ -93,11 +99,13 @@
 (setq message-send-mail-function 'dim:message-smtpmail-send-it)
 
 (defvar dim:smtp-relays
-  '((:tapoueh  "mail.tapoueh.org" starttls "submission")
+  '((:naquadah "mail.tapoueh.org" starttls "submission")
+    (:tapoueh  "smtp.fastmail.com" starttls "submission")
     (:hi-media "smtp.hi-media-techno.com" starttls "smtp")
     ;(:2ndQ     "91.121.90.165" starttls "submission") ; ipv6 fucks me
     (:2ndQ     "smtp.2ndQuadrant.fr" starttls "submission") ; ipv6 fucks me
     (:lbc      "smtp.scmfrance.fr" starttls "submission")
+    (:scm      "smtp.gmail.com" starttls "submission")
     (:cedric   "acidenitrix.villemain.org" starttls 26))
   "Relays Hosts to use depending on From: when sending mail.")
 
@@ -116,6 +124,7 @@
 		   ;; ((string-match-p "hi-media.com" from) :hi-media)
 		   ;; not possible anymore, VPN?
 		   ((string-match-p "scmfrance.fr" from) :lbc)
+		   ((string-match-p "schibsted.com" from) :scm)
 		   ((string-match-p "hi-media.com" from) :2ndQ)
 		   ((string-match-p "2ndQuadrant.fr" from) :2ndQ))))
     ;; get connection details from dim:smtp-relays
@@ -163,6 +172,13 @@
 	 (address "dim@tapoueh.org")
 	 (signature "dim")
 	 (user-mail-address "dim@tapoueh.org"))
+
+        ;; Schibsted
+        ("scm"
+         (address "dimitri.fontaine@schibsted.com")
+         (organisation "Le Bon Coin")
+         (signature-file "~/.signature.lbc")
+         (user-mail-address "dimitri.fontaine@schibsted.com"))
 
         ;; Le Bon Coin
         ("lbc"
@@ -219,10 +235,8 @@
 (setq gnus-agent nil)
 
 ;; arrange to be able to get back to Gnus defaults here
-(defvar default-gnus-buffer-configuration nil)
-
-(unless default-gnus-buffer-configuration
-  (setq default-gnus-buffer-configuration gnus-buffer-configuration))
+(unless (boundp 'default-gnus-buffer-configuration)
+  (defvar default-gnus-buffer-configuration gnus-buffer-configuration))
 
 ;; and now force the default systematically, before doing anything smart
 ;; about it.
@@ -277,14 +291,14 @@
 ;(add-hook 'message-mode-hook 'flyspell-mode)
 
 ;; choose default dictionary
-(defun dim:pick-dictionary-from-newsgroup-name ()
-  "Choose the default dictionary depending on the group name, if any"
-  (when gnus-newsgroup-name
-    (if (string-match "PostgreSQL" gnus-newsgroup-name)
-	(ispell-change-dictionary "english"))
-    (ispell-change-dictionary "francais")))
-
-(add-hook 'message-mode-hook 'dim:pick-dictionary-from-newsgroup-name)
+;; (defun dim:pick-dictionary-from-newsgroup-name ()
+;;   "Choose the default dictionary depending on the group name, if any"
+;;   (when gnus-newsgroup-name
+;;     (if (string-match "PostgreSQL" gnus-newsgroup-name)
+;; 	(ispell-change-dictionary "english"))
+;;     (ispell-change-dictionary "francais")))
+;;
+;; (add-hook 'message-mode-hook 'dim:pick-dictionary-from-newsgroup-name)
 
 ;; topics
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
@@ -462,7 +476,14 @@
                                   ("From" . "@bugs.launchpad.net")
                                   ("From" . "no_reply@edenred.com")
                                   ("From" . "support@uber.com")
-                                  ("From" . "nepasrepondre@relation-client.3suisses.fr")))
+                                  ("From" . "commandes@amazon.fr")
+                                  ("From" . "mailer@doodle.com")
+                                  ("From" . "nepasrepondre@relation-client.3suisses.fr")
+                                  ("From" . "serviceclient@email.leetchi.com")
+                                  ("From" . "serviceclient@communication.o2.fr")
+                                  ("From" . "helpdesk@scmfrance.fr")
+                                  ("From" . "no-reply@hire.lever.co")
+                                  ("From" . "nepasrepondre@agencenavigo.fr")))
 
 ;; display attached images and resize them
 (setq mm-inline-large-images 'resize
