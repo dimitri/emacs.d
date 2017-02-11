@@ -30,8 +30,8 @@
                     finally return path)))
 
   (setq slime-lisp-implementations
-	`((sbcl (,sbcl) :coding-system utf-8-unix)
-	  (ccl  (,ccl "-K" "utf-8") :coding-system utf-8-unix)
+	`((ccl  (,ccl "-K" "utf-8") :coding-system utf-8-unix)
+	  (sbcl (,sbcl) :coding-system utf-8-unix)
 	  (clisp (,clisp) :coding-system utf-8-unix)
           (ecl (,ecl) :coding-system utf-8-unix)))
 
@@ -70,5 +70,11 @@
 ;; Fix some weird bug
 ;;
 (eldoc-add-command 'slime-space)
+
+;;
+;; https://www.common-lisp.net/project/slime/doc/html/slime_002dselector.html#slime_002dselector
+;;
+(global-set-key (kbd "C-c s") 'slime-selector)
+
 
 (provide 'dim-lisp)
