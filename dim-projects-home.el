@@ -7,6 +7,7 @@
    ("gpl"		. "~/dev/gpl")
    ("hdi"		. "~/dev/hdi")
    ("Quadrant"	. "~/Quadrant")
+   ("yesql"     . "~/dev/yesql/")
 
    ;; lbc stuff
    ("lbc" . "~/LeBonCoin/gitlab/leboncoin-fr/")
@@ -49,6 +50,8 @@
    ("cl-ixf"    . "~/dev/CL/cl-ixf")
    ("artisan"   . "~/dev/CL/artisan-mysql/")
    ("decimal"   . "/Users/dim/dev/decimal/")
+   ("mastering" . "~/dev/masteringpostgresql.com/")
+   ("regresql"  . "~/dev/go/src/github.com/dimitri/regresql/main.go")
 
    ;; PostgreSQL branches and local test installations
    ("pgsql"	. "~/dev/PostgreSQL")

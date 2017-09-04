@@ -3,7 +3,8 @@
 (require 'dim-ports)
 
 ;; (setq user-mail-address "dimitri@2ndQuadrant.fr")
-(setq user-mail-address "dimitri.fontaine@schibsted.com")
+;; (setq user-mail-address "dimitri.fontaine@schibsted.com")
+(setq user-mail-address "dim@tapoueh.org")
 (setq user-full-name "Dimitri Fontaine")
 
 ;; No primary select method
@@ -16,18 +17,18 @@
 (setq gnus-select-method '(nntp "news.gwene.org"))
 
 (setq gnus-secondary-select-methods
-      '((nnimap "quadrant"
-		(nnimap-address "mail.2ndQuadrant.fr")
-		(nnimap-server-port "imaps"))
-
-	(nnimap "tapoueh"
+      '((nnimap "tapoueh"
 		(nnimap-address "imap.fastmail.com")
 		(nnimap-server-port "imaps"))
 
-        (nnimap "scm"
-		(nnimap-address "imap.gmail.com")
-		(nnimap-server-port "imaps")
-                (nnimap-stream ssl))
+        ;; (nnimap "scm"
+	;; 	(nnimap-address "imap.gmail.com")
+	;; 	(nnimap-server-port "imaps")
+        ;;         (nnimap-stream ssl))
+
+        ;; (nnimap "quadrant"
+	;; 	(nnimap-address "mail.2ndQuadrant.fr")
+	;; 	(nnimap-server-port "imaps"))
 
         ;; (nnimap "lbc"
 	;; 	(nnimap-address "mail.scmfrance.fr")
@@ -423,6 +424,9 @@
 
 ;;; BBDB -- auto create new entries
 (bbdb-initialize 'gnus 'message)
+(setq bbdb-message-headers
+      '((sender     "From" "Resent-From" "Reply-To" "Sender")
+        (recipients "Resent-To" "Resent-CC" "To" "CC" "BCC" "Cc")))
 (setq bbdb-update-records-p 'create)
 (bbdb-mua-auto-update-init 'gnus 'message)
 
@@ -477,13 +481,18 @@
                                   ("From" . "no_reply@edenred.com")
                                   ("From" . "support@uber.com")
                                   ("From" . "commandes@amazon.fr")
+                                  ("From" . "confirmation-commande@amazon.fr")
                                   ("From" . "mailer@doodle.com")
                                   ("From" . "nepasrepondre@relation-client.3suisses.fr")
                                   ("From" . "serviceclient@email.leetchi.com")
                                   ("From" . "serviceclient@communication.o2.fr")
                                   ("From" . "helpdesk@scmfrance.fr")
                                   ("From" . "no-reply@hire.lever.co")
-                                  ("From" . "nepasrepondre@agencenavigo.fr")))
+                                  ("From" . "support@github.com")
+                                  ("From" . "nepasrepondre@agencenavigo.fr")
+                                  ("From" . "@docs.google.com")
+                                  ("From" . "ce@scmfrance.fr")
+                                  ("From" . "postgresql-3-announce@meetup.com")))
 
 ;; display attached images and resize them
 (setq mm-inline-large-images 'resize

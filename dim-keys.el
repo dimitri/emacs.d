@@ -177,9 +177,11 @@
   "Insert a time-stamp according to locale's date and time format."
   (insert (format-time-string (or format "%Y%m%d-%R") (current-time))))
 
+(defun insert-date-hugo-format() (interactive) (insert-date "%Y-%m-%dT%T%z"))
 (defun insert-date-blog-format() (interactive) (insert-date "%Y%m%d-%R"))
 (defun insert-date-year-s-week() (interactive) (insert-date "%YS%V"))
 
+(global-set-key (kbd "C-c d h") 'insert-date-hugo-format)
 (global-set-key (kbd "C-c d b") 'insert-date-blog-format)
 (global-set-key (kbd "C-c d s") 'insert-date-year-s-week)
 

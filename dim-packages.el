@@ -95,10 +95,13 @@
 	      anything descbinds-anything pcmpl-git magit
               ;; magit-view-file
               ;; auto-dictionary
-	      emacs-goodies-el sicp keywiz pandoc-mode
+              ;; keywiz
+              ;; dpans2texi
+	      emacs-goodies-el sicp pandoc-mode
 	      pgsql-linum-format psvn rect-mark crontab-mode icomplete+
-	      php-mode-improved rainbow-delimiters muse deft dpans2texi
-	      markdown-mode color-theme-solarized protobuf-mode
+	      php-mode-improved rainbow-delimiters muse deft
+	      go-mode go-eldoc
+              markdown-mode color-theme-solarized protobuf-mode
               paredit smartparens
 	      git-gutter eshell-manual browse-kill-ring
               dockerfile-mode

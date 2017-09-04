@@ -273,7 +273,7 @@
 (setq rcirc-log-time-format "%Y-%m-%d %H:%M ")
 
 ;; log to file please, sanely defaults to "~/.emacs.d/rcirc-log"
-(setq rcirc-log-directory "~/.elisp/rcirc/logs")
+(setq rcirc-log-directory "~/.emacs.d/rcirc-log")
 (setq rcirc-log-flag t)
 
 ;; truncate large buffer
@@ -366,7 +366,8 @@
 	  :auth "dim.lo"
 	  :channels ("#vieuxcons"))
 
-	 ("localhost" :channels ("&bitlbee")))))
+	 ;; ("localhost" :channels ("&bitlbee"))
+         )))
 
 (when (string-match "hi-media" (get-domain-name))
   (add-to-list 'rcirc-server-alist

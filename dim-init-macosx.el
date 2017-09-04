@@ -1,5 +1,6 @@
 ;;; dim-init-macosx.el --- Dimitri Fontaine
 ;;
+(setenv "LANG" "en_US.UTF-8")
 
 (require 'info)
 (add-to-list 'Info-directory-list
@@ -123,7 +124,6 @@
     (insert (format "%s" current-song))
     current-song))
 
-;; refrain from always binding it
 (unless t
   (define-key rcirc-mode-map (kbd "C-c C-e") 'itunes-insert-current-song))
 

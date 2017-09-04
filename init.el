@@ -2,6 +2,13 @@
 ;;
 ;; load-path has to be explicitly setup first
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (defun dim:add-my-extra-load-paths (&optional paths)
   "define a list of paths to add to load-path and add each of them"
   (let ((dim:paths '("~/dev/emacs/el-get"
@@ -59,7 +66,7 @@
 (when-running-debian-or-ubuntu (require 'dim-init-debian))
 
 ;; that's tapoueh.org git depo
-(load "~/dev/tapoueh.org/tapoueh.el")
+;; (load "~/dev/tapoueh.org/tapoueh.el")
 
 ;; that's local projects, and some other local muse sites
 (require 'dim-projects)
