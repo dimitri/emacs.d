@@ -69,6 +69,9 @@
    ("pg9.2"	. "~/dev/PostgreSQL/pg9.2")
    ("pgpatch"	. "~/dev/PostgreSQL/patches")
 
+   ;; Books
+   ("yesql"      . "~/dev/yesql")
+
    ;; 2ndQuadrant stuff
    ("2ndQDev"    . "~/dev/2ndQ")
    ("2ndQForm"   . "~/dev/2ndQ/courses")

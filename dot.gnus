@@ -48,17 +48,19 @@
 (defun dim:gnus-choose-sent-folder (current-group)
   "see gnus-message-archive-group documentation"
   (cond ((or (null current-group)
-	     (string-match "quadrant" current-group))
-	 "nnimap+quadrant:Sent Messages")
-
-	((string-match "tapoueh" current-group)
+             (string-match "tapoueh" current-group))
 	 "nnimap+tapoueh:INBOX.Sent Messages")
 
-	((string-match "lbc" current-group)
-	 "nnimap+lbc:Sent Messages")
+        ;; ((or (null current-group)
+	;;      (string-match "quadrant" current-group))
+	;;  "nnimap+quadrant:Sent Messages")
 
-        ((string-match "hm" current-group)
-	 "nnimap+hm:Sent Messages")))
+	;; ((string-match "lbc" current-group)
+	;;  "nnimap+lbc:Sent Messages")
+
+        ;; ((string-match "hm" current-group)
+	;;  "nnimap+hm:Sent Messages")
+        ))
 
 (setq gnus-message-archive-group 'dim:gnus-choose-sent-folder)
 (setq gnus-gcc-mark-as-read t)
@@ -111,7 +113,7 @@
   "Relays Hosts to use depending on From: when sending mail.")
 
 (defvar dim:default-smtp-relay
-  '("acidenitrix.villemain.org" starttls 26)
+  '("smtp.fastmail.com" starttls "submission")
   "Default relay host.")
 
 (defvar dim:force-using-default-smtp nil

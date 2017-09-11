@@ -101,7 +101,8 @@
 	      pgsql-linum-format psvn rect-mark crontab-mode icomplete+
 	      php-mode-improved rainbow-delimiters muse deft
 	      go-mode go-eldoc
-              markdown-mode color-theme-solarized protobuf-mode
+	      markdown-mode color-theme-solarized
+              ;; protobuf-mode
               paredit smartparens
 	      git-gutter eshell-manual browse-kill-ring
               dockerfile-mode

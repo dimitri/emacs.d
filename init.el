@@ -54,6 +54,8 @@
  (add-to-list 'exec-path "/usr/local/texlive/2012/bin/x86_64-darwin")
  (add-to-list 'exec-path "/Users/dim/Library/Haskell/bin"))
 
+(setenv "PKG_CONFIG_PATH" ":/usr/local/opt/libffi/lib/pkgconfig")
+
 ;; load slime early to avoid compat problems with some packages
 (require 'dim-lisp)
 

@@ -12,6 +12,7 @@
  '(custom-safe-themes
    (quote
     ("a5f6d6d1b36441c0249e042a715bd3a286ca92df3a31844beaa5bdceac72ce6d" default)))
+ '(ldap-host-parameters-alist nil)
  '(safe-local-variable-values
    (quote
     ((Package . bind)
