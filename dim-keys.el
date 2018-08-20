@@ -318,8 +318,20 @@ vi style of % jumping to matching brace."
 ;; ELPA
 (global-set-key (kbd "C-c p") 'package-list-packages)
 
-;; IELM
-(global-set-key (kbd "C-M-;") 'ielm)
+;; IELM, or Common Lisp files, instead of running ielm, go to the current active
+;; REPL
+(defun ielm-or-slime-repl ()
+  (interactive)
+  (if (equal major-mode 'lisp-mode)
+      (let ((slime-dispatching-connection (slime-current-connection)))
+        (other-window 1)
+        (switch-to-buffer (slime-output-buffer)))
+    ;; not in lisp-mode? M-x ielm
+    (progn
+      (other-window 1)
+      (ielm))))
+
+(global-set-key (kbd "C-M-;") 'ielm-or-slime-repl)
 
 ;; resolve name/ip at point and place the result in the kill ring
 (require 'net-utils)
