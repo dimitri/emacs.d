@@ -72,6 +72,12 @@ returns the value defined in /etc/resolv.conf."
   "eval body only when running under MacOSX"
    `(when (string-match "apple-darwin" system-configuration) ,@body))
 
+(defmacro if-running-macosx (then else)
+  "eval body only when running under MacOSX"
+  `(if (string-match "apple-darwin" system-configuration)
+       ,then
+     ,else))
+
 (defmacro when-running-windows (&rest body)
   "eval body only when running under some Windows"
    `(when (member system-type '(windows-nt cygwin)) ,@body))

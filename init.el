@@ -56,6 +56,8 @@
 
 (setenv "PKG_CONFIG_PATH" ":/usr/local/opt/libffi/lib/pkgconfig")
 
+(setenv "EMACS" (concat invocation-directory invocation-name))
+
 ;; load slime early to avoid compat problems with some packages
 (require 'dim-lisp)
 

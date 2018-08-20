@@ -34,9 +34,8 @@
 
 	(:name deft
 	       :before (progn
-			 (setq deft-extension "muse")
-			 (setq deft-directory "~/dev/emacs.d/notes")
-			 (setq deft-text-mode 'muse-mode)))
+                         (setq deft-default-extension "md")
+                         (setq deft-directory "~/dev/emacs.d/notes")))
 
 	(:name anything
 	       :features anything-config
@@ -61,12 +60,12 @@
 	(:name adoc-mode
 	       :before (setq adoc-insert-replacement nil))
 
-	(:name hide-region
-	       :features hide-region
-	       :before (progn
-			 (global-set-key (kbd "C-c h h") 'hide-region-hide)
-			 (global-set-key (kbd "C-c h r") 'hide-region-hide)
-			 (global-set-key (kbd "C-c h u") 'hide-region-unhide)))
+	;; (:name hide-region
+	;;        :features hide-region
+	;;        :before (progn
+	;; 		 (global-set-key (kbd "C-c h h") 'hide-region-hide)
+	;; 		 (global-set-key (kbd "C-c h r") 'hide-region-hide)
+	;; 		 (global-set-key (kbd "C-c h u") 'hide-region-unhide)))
 
 	;; (:name pgdevenv-el
 	;;        :before (setq pgdev-ccache-path "/usr/local/bin/ccache"))

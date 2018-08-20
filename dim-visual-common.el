@@ -77,6 +77,7 @@
 
 ;; Use Free Font to display Unicode Symbols
 (set-fontset-font t 'symbol (font-spec :family "FreeSerif"))
+(set-fontset-font t 'unicode "Symbola" nil 'prepend)
 
 ;; better completion in C-x 8 RET (unicode input)
 (when (boundp 'completion-category-overrides)
