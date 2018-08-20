@@ -21,6 +21,11 @@
 		(nnimap-address "imap.fastmail.com")
 		(nnimap-server-port "imaps"))
 
+        (nnimap "citus"
+                (nnimap-address "imap.gmail.com")
+                (nnimap-server-port "imaps")
+                (nnimap-stream ssl))
+
         ;; (nnimap "scm"
 	;; 	(nnimap-address "imap.gmail.com")
 	;; 	(nnimap-server-port "imaps")
@@ -109,6 +114,7 @@
     (:2ndQ     "smtp.2ndQuadrant.fr" starttls "submission") ; ipv6 fucks me
     (:lbc      "smtp.scmfrance.fr" starttls "submission")
     (:scm      "smtp.gmail.com" starttls "submission")
+    (:citus    "smtp.gmail.com" starttls "submission")
     (:cedric   "acidenitrix.villemain.org" starttls 26))
   "Relays Hosts to use depending on From: when sending mail.")
 
@@ -128,6 +134,7 @@
 		   ;; not possible anymore, VPN?
 		   ((string-match-p "scmfrance.fr" from) :lbc)
 		   ((string-match-p "schibsted.com" from) :scm)
+		   ((string-match-p "citusdata.com" from) :citus)
 		   ((string-match-p "hi-media.com" from) :2ndQ)
 		   ((string-match-p "2ndQuadrant.fr" from) :2ndQ))))
     ;; get connection details from dim:smtp-relays
@@ -158,13 +165,19 @@
 	 ;;(eval (setq message-sendmail-extra-arguments '("-a" "quadrant")))
 	 (user-mail-address "dimitri@2ndQuadrant.fr"))
 
+        ("citus"
+	 (address "dimitri@citusdata.com")
+	 (organization "Citus Data")
+	 (signature-file "~/.signature.lists")
+	 (user-mail-address "dimitri@citusdata.com"))
+
 	;; Listes PostgreSQL
 	("pgsql-"
 	 ;; (header "List-ID" "postgresql.org")
-	 (address "dimitri@2ndQuadrant.fr")
-	 (organization "2ndQuadrant")
-	 (signature-file "~/.signature.2nd.lists")
-	 (user-mail-address "dimitri@2ndQuadrant.fr"))
+	 (address "dimitri@citusdata.com")
+	 (organization "Citus Data")
+	 (signature-file "~/.signature.lists")
+	 (user-mail-address "dimitri@citusdata.com"))
 
 	;; listes PostgreSQL sur pgfoundry
 	((header "List-Id" "pgfoundry.org")
@@ -200,10 +213,10 @@
 (setq gnus-parameters
       '(("PostgreSQL\\..*"
 	 (posting-style
-	  (address "dimitri@2ndQuadrant.fr")
-	  (organization "2ndQuadrant")
-	  (signature-file "~/.signature.2nd.lists")
-	  (user-mail-address "dimitri@2ndQuadrant.fr")))))
+	  (address "dimitri@citusdata.com")
+	  (organization "Citus Data")
+	  (signature-file "~/.signature.lists")
+	  (user-mail-address "dimitri@citusdata.com")))))
 
 ;; fix gnus-posting-styles when we're using msmtp to add the -a account option
 (when-using-msmtp

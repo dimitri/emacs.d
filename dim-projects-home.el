@@ -55,6 +55,10 @@
 
    ;; PostgreSQL branches and local test installations
    ("pgsql"	. "~/dev/PostgreSQL")
+   ("citus"     . "~/dev/CitusData/citus")
+   ("cqueue"    . "~/dev/CitusData/cqueue/")
+   ("tpch"      . "~/dev/CitusData/tpch/")
+   ("citus-ha"  . "~/dev/CitusData/citus-ha/")
    ("pgd8.1"	. "~/pgsql/8.1/pgsql")
    ("pgd8.3"	. "~/pgsql/8.3/pgsql")
    ("pgd8.4"	. "~/pgsql/8.4/pgsql")
@@ -91,7 +95,7 @@
    ("dsl"	. "~/dev/CL/dsl-in-lisp")
    ("fl-com"	. "~/dev/CL/fotolog-comments")
    ("jiaroo"	. "~/dev/CL/jiaroo")
-   ("qmynd"	. "~/dev/CL/qmynd/")
+   ("qmynd"	. "~/dev/Common-Lisp/qmynd/")
    ;; ("pgcloader"	. "~/dev/CL/pgloader")
    ("QL"        . "~/quicklisp/local-projects")
 
