@@ -33,7 +33,11 @@
 	`((ccl  (,ccl "-K" "utf-8") :coding-system utf-8-unix)
 	  (sbcl (,sbcl) :coding-system utf-8-unix)
 	  (clisp (,clisp) :coding-system utf-8-unix)
-          (ecl (,ecl) :coding-system utf-8-unix)))
+          (ecl (,ecl) :coding-system utf-8-unix)
+          (abcl ("/usr/bin/java"
+                 "-cp"
+                 "/usr/local/Cellar/abcl/1.5.0/libexec/abcl.jar:$CLASSPATH"
+                 "org.armedbear.lisp.Main") :coding-system utf-8-unix)))
 
   ;; the default M-x slime is CCL still
   (setq inferior-lisp-program (concat ccl " -K utf-8")))
