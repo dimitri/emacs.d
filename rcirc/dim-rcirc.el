@@ -13,7 +13,9 @@
   (interactive)
   (insert (emms-track-description (emms-playlist-current-selected-track))))
 
-(define-key rcirc-mode-map (kbd "C-c C-e") 'dim:insert-current-emms-track)
+(define-key rcirc-mode-map (kbd "C-c C-e")
+  (if-running-macosx 'itunes-insert-current-song
+                     'dim:insert-current-emms-track))
 
 ;; Exclude rcirc properties when yanking, in order to be able to send mails
 ;; for example.

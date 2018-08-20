@@ -124,7 +124,4 @@
     (insert (format "%s" current-song))
     current-song))
 
-(unless t
-  (define-key rcirc-mode-map (kbd "C-c C-e") 'itunes-insert-current-song))
-
 (provide 'dim-init-macosx)
