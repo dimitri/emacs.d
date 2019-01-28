@@ -15,7 +15,9 @@
  '(ldap-host-parameters-alist nil)
  '(safe-local-variable-values
    (quote
-    ((Package . bind)
+    ((Lowercase . T)
+     (Package ANSI-LOOP "COMMON-LISP")
+     (Package . bind)
      (external-format . utf-8)
      (Package . metabang\.graph)
      (Package RT :use "COMMON-LISP" :colon-mode :external)
