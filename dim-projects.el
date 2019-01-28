@@ -1,4 +1,4 @@
-;;; dim-projects.el --- Dimitri Fontaine
+;; dim-projects.el --- Dimitri Fontaine
 ;;
 
 ;;
@@ -44,10 +44,8 @@ project-add and ibuffer-saved-filter-groups."
 
 (defun dim:build-ibuffer-groups (group &optional names &optional modes)
   "Return a new ibuffer-saved-filter-groups list with parameters added"
-  (let ((name-clauses '())
-	(mode-clauses '()))
-    (when names (setq name-clauses (mapcar (lambda (name) `(name . ,name)) names)))
-    (when modes (setq mode-clauses (mapcar (lambda (mode) `(mode . ,mode)) modes)))
+  (let ((name-clauses (mapcar (lambda (name) `(name . ,name)) names))
+	(mode-clauses (mapcar (lambda (mode) `(mode . ,mode)) modes)))
 
     (list
      group
