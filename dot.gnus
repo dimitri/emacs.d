@@ -6,6 +6,7 @@
 ;; (setq user-mail-address "dimitri.fontaine@schibsted.com")
 (setq user-mail-address "dim@tapoueh.org")
 (setq user-full-name "Dimitri Fontaine")
+(setq message-user-fqdn "laptop.tapoueh.org")
 
 ;; No primary select method
 ;(setq gnus-select-method '(nnnil ""))
