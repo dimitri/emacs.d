@@ -11,13 +11,15 @@
 
 (defun dim:add-my-extra-load-paths (&optional paths)
   "define a list of paths to add to load-path and add each of them"
-  (let ((dim:paths '("~/dev/emacs/el-get"
+  (let ((dim:paths '(
+                     "~/dev/emacs/el-get"
 		     "~/dev/emacs.d"
 		     "~/dev/emacs.d/rcirc"
 		     "~/dev/emacs.d/lib"
 		     "~/dev/emacs.d/fun"
-		     "~/dev/emacs/rcirc-groups"
-		     "~/dev/emacs/pgdevenv-el"
+		     "~/dev/emacs.d/packages.d"
+		     ;; "~/dev/emacs/rcirc-groups"
+		     ;; "~/dev/emacs/pgdevenv-el"
 		     )))
     (dolist (path (or paths dim:paths))
       (setq load-path (cons path load-path)))))
@@ -73,10 +75,10 @@
 ;; (load "~/dev/tapoueh.org/tapoueh.el")
 
 ;; that's local projects, and some other local muse sites
-(require 'dim-projects)
+;; (require 'dim-projects)
 
 ;; configuration rcirc, and global shortcut to connect to servers
-(require 'dim-rcirc)
+;; (require 'dim-rcirc)
 
 ;; bindings --- depends on rcirc being loaded
 (require 'dim-escreen)

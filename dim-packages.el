@@ -37,15 +37,15 @@
                          (setq deft-default-extension "md")
                          (setq deft-directory "~/dev/emacs.d/notes")))
 
-	(:name anything
-	       :features anything-config
-	       :before (global-set-key (kbd "M-s a") 'dim:anything-occur)
-	       :after  (setq w3m-command nil))
+	;; (:name anything
+	;;        :features anything-config
+	;;        :before (global-set-key (kbd "M-s a") 'dim:anything-occur)
+	;;        :after  (setq w3m-command nil))
 
-	(:name descbinds-anything
-	       :after (progn
-			(descbinds-anything-install)
-			(global-set-key (kbd "C-h b") 'descbinds-anything)))
+	;; (:name descbinds-anything
+	;;        :after (progn
+	;; 		(descbinds-anything-install)
+	;; 		(global-set-key (kbd "C-h b") 'descbinds-anything)))
 
 	(:name vkill
 	       :checksum fbaf37ba613a661eb46e3e380d72be8da0277cd0)
@@ -89,25 +89,55 @@
 (setq dim-packages
       (append
        ;; list of packages we use straight from official recipes
-       '(magnus bbdb switch-window vkill google-maps
-	      mbsync asciidoc smex geiser xcscope multiple-cursors
-	      anything descbinds-anything pcmpl-git magit
-              ;; magit-view-file
-              ;; auto-dictionary
-              ;; keywiz
-              ;; dpans2texi
-	      emacs-goodies-el sicp pandoc-mode
-	      pgsql-linum-format psvn rect-mark crontab-mode icomplete+
-	      php-mode-improved rainbow-delimiters muse deft
-	      go-mode go-eldoc
-	      markdown-mode color-theme-solarized
-              ;; protobuf-mode
-              paredit smartparens
-	      git-gutter eshell-manual browse-kill-ring
-              dockerfile-mode
-	      ;; elisp-slime-nav
-              redshank color-theme-tango-2 powerline
-	      wcheck-mode)
+       '(
+	 ;; anything
+	 ;; elisp-slime-nav
+	 ;; emacs-goodies-el
+	 ;; php-mode-improved
+	 git-gutter
+	 go-mode
+	 markdown-mode
+	 pgsql-linum-format
+         ;; auto-dictionary
+         ;; bbdb
+         ;; crontab-mode
+         ;; deft
+         ;; descbinds-anything
+         ;; dpans2texi
+         ;; geiser
+         ;; google-maps
+         ;; keywiz
+         ;; magit ;;; installed via M-x package-list-packages
+         ;; magit-view-file
+         ;; magnus
+         ;; mbsync
+         ;; multiple-cursors
+         ;; muse
+         ;; protobuf-mode
+         ;; psvn
+         ;; redshank
+         asciidoc
+         browse-kill-ring
+         color-theme-solarized
+         color-theme-tango-2
+         diminish
+         dockerfile-mode
+         eshell-manual
+         go-eldoc
+         icomplete+
+         pandoc-mode
+         paredit
+         pcmpl-git
+         powerline
+         rainbow-delimiters
+         rect-mark
+         sicp
+         smartparens
+         smex
+         switch-window
+         vkill
+         xcscope
+	 wcheck-mode)
 
        (mapcar 'el-get-as-symbol (mapcar 'el-get-source-name el-get-sources))))
 
@@ -127,5 +157,10 @@
        do (add-to-list 'dim-packages p)))
 
 (el-get 'sync dim-packages)
+
+;;;
+;;; magit is now installed with M-x package
+;;;
+(require 'init-magit)
 
 (provide 'dim-packages)

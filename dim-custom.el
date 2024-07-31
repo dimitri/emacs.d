@@ -10,16 +10,15 @@
  ;; If there is more than one, they won't work right.
  '(canlock-password "e5596ad72909f3a0549745439482366daef4ec33")
  '(custom-safe-themes
-   (quote
-    ("a5f6d6d1b36441c0249e042a715bd3a286ca92df3a31844beaa5bdceac72ce6d" default)))
+   '("a5f6d6d1b36441c0249e042a715bd3a286ca92df3a31844beaa5bdceac72ce6d" default))
  '(ldap-host-parameters-alist nil)
+ '(package-selected-packages '(magit))
  '(safe-local-variable-values
-   (quote
-    ((Lowercase . T)
+   '((Lowercase . T)
      (Package ANSI-LOOP "COMMON-LISP")
      (Package . bind)
      (external-format . utf-8)
-     (Package . metabang\.graph)
+     (Package . metabang.graph)
      (Package RT :use "COMMON-LISP" :colon-mode :external)
      (syntax . COMMON-LISP)
      (Package . CL-FAD)
@@ -33,13 +32,11 @@
      (Package . SAX)
      (whitespace-style face tabs trailing lines-tail)
      (eval ignore-errors "Write-contents-functions is a buffer-local alternative to before-save-hook"
-           (add-hook
-            (quote write-contents-functions)
-            (lambda nil
-              (delete-trailing-whitespace)
-              nil))
-           (require
-            (quote whitespace))
+           (add-hook 'write-contents-functions
+                     (lambda nil
+                       (delete-trailing-whitespace)
+                       nil))
+           (require 'whitespace)
            "Sometimes the mode needs to be toggled off and on."
            (whitespace-mode 0)
            (whitespace-mode 1))
@@ -54,66 +51,39 @@
      (Package . CL-PPCRE)
      (Syntax . COMMON-LISP)
      (eval ignore-errors "Write-contents-functions is a buffer-local alternative to before-save-hook"
-           (add-hook
-            (quote write-contents-functions)
-            (lambda nil
-              (delete-trailing-whitespace
-               (point-min)
-               (point-max))
-              nil))
-           (require
-            (quote whitespace))
+           (add-hook 'write-contents-functions
+                     (lambda nil
+                       (delete-trailing-whitespace
+                        (point-min)
+                        (point-max))
+                       nil))
+           (require 'whitespace)
            "Sometimes the mode needs to be toggled off and on."
            (whitespace-mode 0)
            (whitespace-mode 1))
      (eval ignore-errors
-           (add-hook
-            (quote before-save-hook)
-            (quote delete-trailing-whitespace))
-           (require
-            (quote whitespace))
-           (set-face-attribute
-            (quote whitespace-line)
-            nil :background "red1" :foreground "yellow" :weight
-            (quote bold))
-           (set-face-attribute
-            (quote whitespace-tab)
-            nil :background "red1" :foreground "yellow" :weight
-            (quote bold))
+           (add-hook 'before-save-hook 'delete-trailing-whitespace)
+           (require 'whitespace)
+           (set-face-attribute 'whitespace-line nil :background "red1" :foreground "yellow" :weight 'bold)
+           (set-face-attribute 'whitespace-tab nil :background "red1" :foreground "yellow" :weight 'bold)
            "Need to ensure that whitespace mode is turned off and on again. This guaranteees that the new values of the whitespace-related variables will take effect."
            (whitespace-mode 0)
            (whitespace-mode 1))
      (eval progn
-           (add-hook
-            (quote before-save-hook)
-            (quote delete-trailing-whitespace))
-           (set-face-attribute
-            (quote whitespace-line)
-            nil :background "red1" :foreground "yellow" :weight
-            (quote bold))
-           (set-face-attribute
-            (quote whitespace-tab)
-            nil :background "red1" :foreground "yellow" :weight
-            (quote bold))
-           (require
-            (quote whitespace))
+           (add-hook 'before-save-hook 'delete-trailing-whitespace)
+           (set-face-attribute 'whitespace-line nil :background "red1" :foreground "yellow" :weight 'bold)
+           (set-face-attribute 'whitespace-tab nil :background "red1" :foreground "yellow" :weight 'bold)
+           (require 'whitespace)
            "Need to ensure that whitespace mode is turned off and on again. This guaranteees that the new values of the whitespace-related variables will take effect."
            (whitespace-mode 0)
            (whitespace-mode 1))
      (require-final-newline . t)
-     (eval set-face-attribute
-           (quote whitespace-line)
-           nil :background "red1" :foreground "yellow" :weight
-           (quote bold))
-     (eval set-face-attribute
-           (quote whitespace-tab)
-           nil :background "red1" :foreground "yellow" :weight
-           (quote bold))
+     (eval set-face-attribute 'whitespace-line nil :background "red1" :foreground "yellow" :weight 'bold)
+     (eval set-face-attribute 'whitespace-tab nil :background "red1" :foreground "yellow" :weight 'bold)
      (whitespace-style face trailing lines-tail)
      (whitespace-line-column . 80)
-     (eval require
-           (quote whitespace))
-     (show-trailing-whitespace . t)))))
+     (eval require 'whitespace)
+     (show-trailing-whitespace . t))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
